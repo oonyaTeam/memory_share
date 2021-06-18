@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:memory_share/screens/my_home_page.dart';
+import 'package:memory_share/pages/home_page.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: HomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
