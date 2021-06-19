@@ -1,0 +1,1 @@
+-keep class net.takumma.memory_share.BuildConfig { *; }
