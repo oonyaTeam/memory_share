@@ -1,4 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
+import 'package:memory_share/pages/post_page.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
@@ -10,12 +15,34 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _counter = 0;
+  Completer<GoogleMapController> _controller = Completer();
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
+  Location _locationService = Location();
+  LocationData _currentLocation;
+  StreamSubscription _locationChangedListen;
+
+  void _getLocation() async {
+    _currentLocation = await _locationService.getLocation();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _getLocation();
+
+    _locationChangedListen =
+        _locationService.onLocationChanged.listen((LocationData result) async {
+      setState(() {
+        _currentLocation = result;
+      });
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _locationChangedListen?.cancel();
   }
 
   @override
@@ -24,22 +51,29 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
+      body: _currentLocation == null
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : GoogleMap(
+              mapType: MapType.normal,
+              initialCameraPosition: CameraPosition(
+                target: LatLng(_currentLocation.latitude, _currentLocation.longitude),
+                zoom: 17.0,
+              ),
+              onMapCreated: (GoogleMapController controller) {
+                _controller.complete(controller);
+              },
+              myLocationEnabled: true,
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: () => {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => PostPage(),
+            ),
+          )
+        },
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),

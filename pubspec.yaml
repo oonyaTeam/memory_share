@@ -23,6 +23,7 @@ dependencies:
   freezed_annotation: ^0.14.2
 
   google_maps_flutter: ^2.0.6
+  location: ^4.3.0
 
   flutter_config: ^2.0.0
 
