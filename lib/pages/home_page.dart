@@ -21,8 +21,34 @@ class _HomePageState extends State<HomePage> {
   LocationData _currentLocation;
   StreamSubscription _locationChangedListen;
 
+  Set<Marker> _markers = <Marker>{};
+
   void _getLocation() async {
     _currentLocation = await _locationService.getLocation();
+  }
+
+  void _onTapMarker(String markerId) {}
+
+  void _setMarkers() {
+    List<Marker> markers = [
+      Marker(
+        markerId: MarkerId('marker1'),
+        position: LatLng(34.8532, 136.5822),
+        onTap: () => _onTapMarker('marker1'),
+        infoWindow: InfoWindow(
+          title: 'marker1',
+          snippet: 'text',
+        ),
+      ),
+      Marker(
+        markerId: MarkerId('marker2'),
+        position: LatLng(34.8480, 136.5756),
+        onTap: () => {},
+      ),
+    ];
+    setState(() {
+      _markers.addAll(markers.toSet());
+    });
   }
 
   @override
@@ -31,12 +57,14 @@ class _HomePageState extends State<HomePage> {
 
     _getLocation();
 
+    _setMarkers();
+
     _locationChangedListen =
-        _locationService.onLocationChanged.listen((LocationData result) async {
-      setState(() {
-        _currentLocation = result;
+      _locationService.onLocationChanged.listen((LocationData result) async {
+        setState(() {
+          _currentLocation = result;
+        });
       });
-    });
   }
 
   @override
@@ -52,22 +80,24 @@ class _HomePageState extends State<HomePage> {
         title: Text(widget.title),
       ),
       body: _currentLocation == null
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : GoogleMap(
-              mapType: MapType.normal,
-              initialCameraPosition: CameraPosition(
-                target: LatLng(_currentLocation.latitude, _currentLocation.longitude),
-                zoom: 17.0,
-              ),
-              onMapCreated: (GoogleMapController controller) {
-                _controller.complete(controller);
-              },
-              myLocationEnabled: true,
-            ),
+        ? Center(
+        child: CircularProgressIndicator(),
+      )
+        : GoogleMap(
+        mapType: MapType.normal,
+        initialCameraPosition: CameraPosition(
+          target: LatLng(_currentLocation.latitude, _currentLocation.longitude),
+          zoom: 15.0,
+        ),
+        onMapCreated: (GoogleMapController controller) {
+          _controller.complete(controller);
+        },
+        markers: _markers,
+        myLocationEnabled: true,
+      ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => {
+        onPressed: () =>
+        {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => PostPage(),
