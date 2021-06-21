@@ -15,19 +15,40 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  BuildContext _context;
+
   Completer<GoogleMapController> _controller = Completer();
 
   Location _locationService = Location();
   LocationData _currentLocation;
   StreamSubscription _locationChangedListen;
 
+  void _onTapMarker(String markerId) {
+    showModalBottomSheet(
+      backgroundColor: Colors.transparent,
+      context: _context,
+      builder: (BuildContext context) {
+        return Container(
+          height: 100.0,
+          padding: EdgeInsets.all(30.0),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+          ),
+          child: Text(markerId),
+        );
+      },
+    );
+  }
+
   Set<Marker> _markers = <Marker>{};
 
   void _getLocation() async {
     _currentLocation = await _locationService.getLocation();
   }
-
-  void _onTapMarker(String markerId) {}
 
   void _setMarkers() {
     List<Marker> markers = [
@@ -43,7 +64,11 @@ class _HomePageState extends State<HomePage> {
       Marker(
         markerId: MarkerId('marker2'),
         position: LatLng(34.8480, 136.5756),
-        onTap: () => {},
+        onTap: () => _onTapMarker('marker2'),
+        infoWindow: InfoWindow(
+          title: 'marker2',
+          snippet: 'text',
+        ),
       ),
     ];
     setState(() {
@@ -60,11 +85,11 @@ class _HomePageState extends State<HomePage> {
     _setMarkers();
 
     _locationChangedListen =
-        _locationService.onLocationChanged.listen((LocationData result) async {
-      setState(() {
-        _currentLocation = result;
+      _locationService.onLocationChanged.listen((LocationData result) async {
+        setState(() {
+          _currentLocation = result;
+        });
       });
-    });
   }
 
   @override
@@ -75,57 +100,31 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    _context = context;
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
       body: _currentLocation == null
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : Stack(
-              children: [
-                GoogleMap(
-                  mapType: MapType.normal,
-                  initialCameraPosition: CameraPosition(
-                    target: LatLng(
-                        _currentLocation.latitude, _currentLocation.longitude),
-                    zoom: 15.0,
-                  ),
-                  onMapCreated: (GoogleMapController controller) {
-                    _controller.complete(controller);
-                  },
-                  markers: _markers,
-                  myLocationEnabled: true,
-                ),
-                AnimatedPositioned(
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Container(
-                      margin: EdgeInsets.all(20.0),
-                      height: 70.0,
-                      width: 200.0,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(50)),
-                        boxShadow: <BoxShadow>[
-                          BoxShadow(
-                            blurRadius: 20,
-                            offset: Offset.zero,
-                            color: Colors.grey.withOpacity(0.5)
-                          )]
-                      ),
-                      child: Text('test'),
-                    ),
-                  ),
-                  duration: Duration(
-                    milliseconds: 200,
-                  ),
-                ),
-              ],
-            ),
+        ? Center(
+        child: CircularProgressIndicator(),
+      )
+        : GoogleMap(
+        mapType: MapType.normal,
+        initialCameraPosition: CameraPosition(
+          target: LatLng(
+            _currentLocation.latitude, _currentLocation.longitude),
+          zoom: 15.0,
+        ),
+        onMapCreated: (GoogleMapController controller) {
+          _controller.complete(controller);
+        },
+        markers: _markers,
+        myLocationEnabled: true,
+      ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => {
+        onPressed: () =>
+        {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => PostPage(),
