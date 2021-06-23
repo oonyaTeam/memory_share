@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:memory_share/pages/post_page.dart';
-import 'package:memory_share/widgets/spot_marker.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
@@ -33,8 +32,7 @@ class _HomePageState extends State<HomePage> {
       context: _context,
       builder: (BuildContext context) {
         return Container(
-          height: 100.0,
-          padding: EdgeInsets.all(30.0),
+          padding: EdgeInsets.only(top: 30.0),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.only(
@@ -43,16 +41,12 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Align(
-                alignment: Alignment.topCenter,
-                child: Text("あと○○m"),
-              ),
+              Text("あと○○m"),
               Container(
-                width: 200.0,
                 child: Image.asset(
                   'assets/sample_image.jpg',
-                  fit: BoxFit.contain,
                 ),
               ),
             ],
@@ -93,13 +87,39 @@ class _HomePageState extends State<HomePage> {
     _currentLocation = await _locationService.getLocation();
   }
 
+  Marker spotMarker(String markerId, LatLng position, Function onTap) {
+    return Marker(
+      markerId: MarkerId(markerId),
+      position: position,
+      onTap: () => onTap,
+      infoWindow: InfoWindow(
+        title: markerId,
+        snippet: 'text',
+      ),
+    );
+  }
+
   void _setMarkers() {
     // Sample Markers
     List<Marker> markers = [
-      spotMarker(
-          'marker1', LatLng(34.8532, 136.5822), () => _onTapMarker('marker1')),
-      spotMarker(
-          'marker2', LatLng(34.8480, 136.5756), () => _onTapMarker('marker2')),
+      Marker(
+        markerId: MarkerId('marker1'),
+        position: LatLng(34.8532, 136.5822),
+        onTap: () => _onTapMarker('marker1'),
+        infoWindow: InfoWindow(
+          title: 'marker1',
+          snippet: 'text',
+        ),
+      ),
+      Marker(
+        markerId: MarkerId('marker2'),
+        position: LatLng(34.8480, 136.5756),
+        onTap: () => _onTapMarker('marker2'),
+        infoWindow: InfoWindow(
+          title: 'marker2',
+          snippet: 'text',
+        ),
+      ),
     ];
     setState(() {
       _markers.addAll(markers.toSet());
