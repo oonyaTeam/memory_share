@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:memory_share/pages/post_page.dart';
+import 'package:memory_share/widgets/spot_marker.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
@@ -18,13 +19,16 @@ class _HomePageState extends State<HomePage> {
   BuildContext _context;
 
   Completer<GoogleMapController> _controller = Completer();
-
   Location _locationService = Location();
-  LocationData _currentLocation;
   StreamSubscription _locationChangedListen;
 
-  void _onTapMarker(String markerId) {
+  LocationData _currentLocation;
+  Set<Marker> _markers = <Marker>{};
+
+  void _showBottomModal(String markerId) {
     showModalBottomSheet(
+      barrierColor: Colors.black.withOpacity(0.0),
+      isDismissible: false,
       backgroundColor: Colors.transparent,
       context: _context,
       builder: (BuildContext context) {
@@ -44,32 +48,39 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Set<Marker> _markers = <Marker>{};
+  void _showDetermineDestinationDialog(String markerId) {
+    showDialog(
+      context: _context,
+      builder: (BuildContext context) => AlertDialog(
+        title: Text("この場所を目的地に設定しますか？"),
+        content: Text("目的地までの距離は、○○mです。"),
+        actions: [
+          ElevatedButton(
+            onPressed: () => Navigator.pop(_context),
+            child: Text("Cancel"),
+          ),
+          ElevatedButton(
+            onPressed: () {},
+            child: Text("OK"),
+          )
+        ],
+      ),
+    );
+  }
+
+  void _onTapMarker(String markerId) {
+    _showDetermineDestinationDialog(markerId);
+  }
 
   void _getLocation() async {
     _currentLocation = await _locationService.getLocation();
   }
 
   void _setMarkers() {
+    // Sample Markers
     List<Marker> markers = [
-      Marker(
-        markerId: MarkerId('marker1'),
-        position: LatLng(34.8532, 136.5822),
-        onTap: () => _onTapMarker('marker1'),
-        infoWindow: InfoWindow(
-          title: 'marker1',
-          snippet: 'text',
-        ),
-      ),
-      Marker(
-        markerId: MarkerId('marker2'),
-        position: LatLng(34.8480, 136.5756),
-        onTap: () => _onTapMarker('marker2'),
-        infoWindow: InfoWindow(
-          title: 'marker2',
-          snippet: 'text',
-        ),
-      ),
+      spotMarker('marker1', LatLng(34.8532, 136.5822), () => _onTapMarker('marker1')),
+      spotMarker('marker2', LatLng(34.8480, 136.5756), () => _onTapMarker('marker2')),
     ];
     setState(() {
       _markers.addAll(markers.toSet());
@@ -80,21 +91,25 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
 
+    // 現在地を取得
     _getLocation();
 
+    // マーカーを取得
     _setMarkers();
 
+    // 現在地の更新を設定
     _locationChangedListen =
-      _locationService.onLocationChanged.listen((LocationData result) async {
-        setState(() {
-          _currentLocation = result;
-        });
+        _locationService.onLocationChanged.listen((LocationData result) async {
+      setState(() {
+        _currentLocation = result;
       });
+    });
   }
 
   @override
   void dispose() {
     super.dispose();
+    // 現在地の取得を終了
     _locationChangedListen?.cancel();
   }
 
@@ -106,25 +121,24 @@ class _HomePageState extends State<HomePage> {
         title: Text(widget.title),
       ),
       body: _currentLocation == null
-        ? Center(
-        child: CircularProgressIndicator(),
-      )
-        : GoogleMap(
-        mapType: MapType.normal,
-        initialCameraPosition: CameraPosition(
-          target: LatLng(
-            _currentLocation.latitude, _currentLocation.longitude),
-          zoom: 15.0,
-        ),
-        onMapCreated: (GoogleMapController controller) {
-          _controller.complete(controller);
-        },
-        markers: _markers,
-        myLocationEnabled: true,
-      ),
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : GoogleMap(
+              mapType: MapType.normal,
+              initialCameraPosition: CameraPosition(
+                target: LatLng(
+                    _currentLocation.latitude, _currentLocation.longitude),
+                zoom: 15.0,
+              ),
+              onMapCreated: (GoogleMapController controller) {
+                _controller.complete(controller);
+              },
+              markers: _markers,
+              myLocationEnabled: true,
+            ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () =>
-        {
+        onPressed: () => {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => PostPage(),
