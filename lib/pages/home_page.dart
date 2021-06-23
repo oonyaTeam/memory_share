@@ -42,7 +42,21 @@ class _HomePageState extends State<HomePage> {
               topRight: Radius.circular(20),
             ),
           ),
-          child: Text(markerId),
+          child: Column(
+            children: [
+              Align(
+                alignment: Alignment.topCenter,
+                child: Text("あと○○m"),
+              ),
+              Container(
+                width: 200.0,
+                child: Image.asset(
+                  'assets/sample_image.jpg',
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ],
+          ),
         );
       },
     );
@@ -60,7 +74,10 @@ class _HomePageState extends State<HomePage> {
             child: Text("Cancel"),
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pop(_context);
+              _showBottomModal(markerId);
+            },
             child: Text("OK"),
           )
         ],
@@ -79,8 +96,10 @@ class _HomePageState extends State<HomePage> {
   void _setMarkers() {
     // Sample Markers
     List<Marker> markers = [
-      spotMarker('marker1', LatLng(34.8532, 136.5822), () => _onTapMarker('marker1')),
-      spotMarker('marker2', LatLng(34.8480, 136.5756), () => _onTapMarker('marker2')),
+      spotMarker(
+          'marker1', LatLng(34.8532, 136.5822), () => _onTapMarker('marker1')),
+      spotMarker(
+          'marker2', LatLng(34.8480, 136.5756), () => _onTapMarker('marker2')),
     ];
     setState(() {
       _markers.addAll(markers.toSet());
