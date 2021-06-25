@@ -3,7 +3,7 @@
     package="net.takumma.memory_share">
 
     <uses-sdk android:minSdkVersion="24"
-        android:targetSdkVersion="30"/>
+        android:targetSdkVersion="29"/>
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-feature android:name="android.hardware.camera.ar" android:required="true"/>
 
