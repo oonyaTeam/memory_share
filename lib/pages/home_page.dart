@@ -87,18 +87,6 @@ class _HomePageState extends State<HomePage> {
     _currentLocation = await _locationService.getLocation();
   }
 
-  Marker spotMarker(String markerId, LatLng position, Function onTap) {
-    return Marker(
-      markerId: MarkerId(markerId),
-      position: position,
-      onTap: () => onTap,
-      infoWindow: InfoWindow(
-        title: markerId,
-        snippet: 'text',
-      ),
-    );
-  }
-
   void _setMarkers() {
     // Sample Markers
     List<Marker> markers = [
