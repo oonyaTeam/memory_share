@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
-import 'package:memory_share/pages/post_page.dart';
+import 'package:memory_share/pages/sub_episode_page.dart';
 import 'package:memory_share/widgets/longButton.dart';
 
 class HomePage extends StatefulWidget {
@@ -178,7 +178,7 @@ class _HomePageState extends State<HomePage> {
                       () => {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => PostPage(),
+                            builder: (context) => SubEpisodePage(),
                           ),
                         )
                       },

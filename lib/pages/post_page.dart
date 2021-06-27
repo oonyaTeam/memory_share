@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'dart:developer';
-import '../widgets/longButton.dart';
 
 class PostPage extends StatefulWidget {
   @override
   _PostPageState createState() => _PostPageState();
 }
-
 
 class _PostPageState extends State<PostPage> {
 
@@ -24,16 +21,7 @@ class _PostPageState extends State<PostPage> {
         ),
       ),
       body: Center(
-        child: Column(
-          children: [
-            SizedBox(height: 11,),
-            longButton("エピソードを追加する",() => {}),
-            SizedBox(height: 11,),
-            longButton("目的地に到着",() => {})
-          ],
-        ),
       ),
     );
   }
 }
-
