@@ -1,6 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class PostPage extends StatefulWidget {
+  PostPage({Key key, this.photo}) : super(key: key);
+
+  final File photo;
+
   @override
   _PostPageState createState() => _PostPageState();
 }
@@ -21,6 +28,7 @@ class _PostPageState extends State<PostPage> {
         ),
       ),
       body: Center(
+        child: Image.file(widget.photo),
       ),
     );
   }

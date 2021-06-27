@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:memory_share/pages/post_page.dart';
@@ -16,9 +18,10 @@ class _SubEpisodePageState extends State<SubEpisodePage> {
     final takenPhoto = await picker.getImage(source: ImageSource.camera);
 
     if (takenPhoto != null) {
+      File photoFile = File(takenPhoto.path);
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => PostPage(),
+          builder: (context) => PostPage(photo: photoFile),
         ),
       );
     }
