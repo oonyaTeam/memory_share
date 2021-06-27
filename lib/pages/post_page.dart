@@ -1,12 +1,16 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'dart:developer';
-import '../widgets/longButton.dart';
+import 'package:image_picker/image_picker.dart';
 
 class PostPage extends StatefulWidget {
+  PostPage({Key key, this.photo}) : super(key: key);
+
+  final File photo;
+
   @override
   _PostPageState createState() => _PostPageState();
 }
-
 
 class _PostPageState extends State<PostPage> {
 
@@ -24,16 +28,8 @@ class _PostPageState extends State<PostPage> {
         ),
       ),
       body: Center(
-        child: Column(
-          children: [
-            SizedBox(height: 11,),
-            longButton("エピソードを追加する",() => {}),
-            SizedBox(height: 11,),
-            longButton("目的地に到着",() => {})
-          ],
-        ),
+        child: Image.file(widget.photo),
       ),
     );
   }
 }
-

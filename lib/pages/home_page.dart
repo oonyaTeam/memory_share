@@ -3,7 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
-import 'package:memory_share/pages/post_page.dart';
+import 'package:memory_share/pages/sub_episode_page.dart';
+import 'package:memory_share/widgets/longButton.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
@@ -151,30 +152,41 @@ class _HomePageState extends State<HomePage> {
           ? Center(
               child: CircularProgressIndicator(),
             )
-          : GoogleMap(
-              mapType: MapType.normal,
-              initialCameraPosition: CameraPosition(
-                target: LatLng(
-                    _currentLocation.latitude, _currentLocation.longitude),
-                zoom: 15.0,
-              ),
-              onMapCreated: (GoogleMapController controller) {
-                _controller.complete(controller);
-              },
-              markers: _markers,
-              myLocationEnabled: true,
+          : Stack(
+              children: [
+                GoogleMap(
+                  mapType: MapType.normal,
+                  initialCameraPosition: CameraPosition(
+                    target: LatLng(
+                      _currentLocation.latitude,
+                      _currentLocation.longitude,
+                    ),
+                    zoom: 15.0,
+                  ),
+                  onMapCreated: (GoogleMapController controller) {
+                    _controller.complete(controller);
+                  },
+                  markers: _markers,
+                  myLocationEnabled: true,
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    margin: EdgeInsets.only(bottom: 15),
+                    child: longButton(
+                      '思い出を投稿する',
+                      () => {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => SubEpisodePage(),
+                          ),
+                        )
+                      },
+                    ),
+                  ),
+                ),
+              ],
             ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => PostPage(),
-            ),
-          )
-        },
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ),
     );
   }
 }
