@@ -26,7 +26,9 @@ class _PostPageState extends State<PostPage> {
       body: Center(
         child: Column(
           children: [
+            SizedBox(height: 11,),
             longButton("エピソードを追加する",() => {}),
+            SizedBox(height: 11,),
             longButton("目的地に到着",() => {})
           ],
         ),
