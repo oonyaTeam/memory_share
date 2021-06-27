@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'dart:developer';
+import '../widgets/longButton.dart';
 
 class PostPage extends StatefulWidget {
   @override
   _PostPageState createState() => _PostPageState();
 }
 
+
 class _PostPageState extends State<PostPage> {
-  Color emoColor = Color.fromARGB(255, 233, 103, 75);
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +28,7 @@ class _PostPageState extends State<PostPage> {
           // mainAxisAlignment: MainAxisAlignment.center,
 
           children: [
+            longButton("aiueo",() => log("aaaaaaaaaaaaaaaa")),
             ButtonTheme(
               minWidth: 346.0,
               height: 56.0,
@@ -34,7 +37,6 @@ class _PostPageState extends State<PostPage> {
                 child: RaisedButton(
                   shape: const StadiumBorder(),
                   textColor: Colors.white,
-                  color: emoColor,
                   child: Text(
                     "エピソードを追加する",
                     style: TextStyle(
@@ -54,7 +56,6 @@ class _PostPageState extends State<PostPage> {
                 child: RaisedButton(
                   shape: const StadiumBorder(),
                   textColor: Colors.white,
-                  color: emoColor,
                   child: Text(
                     "目的地に到着",
                     style: TextStyle(
@@ -72,3 +73,4 @@ class _PostPageState extends State<PostPage> {
     );
   }
 }
+
