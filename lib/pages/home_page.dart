@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart';
 import 'package:memory_share/pages/sub_episode_page.dart';
 import 'package:memory_share/widgets/longButton.dart';
 
@@ -20,9 +19,6 @@ class _HomePageState extends State<HomePage> {
   BuildContext _context;
 
   Completer<GoogleMapController> _controller = Completer();
-  Location _locationService = Location();
-  StreamSubscription _locationChangedListen;
-  LocationData _currentLocation;
 
   Position _currentPosition;
   StreamSubscription<Position> _positionStream;
@@ -88,13 +84,6 @@ class _HomePageState extends State<HomePage> {
     _showDetermineDestinationDialog(markerId);
   }
 
-  void _getLocation() async {
-    LocationData currentLocation = await _locationService.getLocation();
-    setState(() {
-      _currentLocation = currentLocation;
-    });
-  }
-
   void _getPosition() async {
     Position currentPosition = await Geolocator.getCurrentPosition();
     setState(() {
@@ -134,23 +123,15 @@ class _HomePageState extends State<HomePage> {
     super.initState();
 
     // 現在地を取得
-    _getLocation();
     _getPosition();
 
     // マーカーを取得
     _setMarkers();
 
+    // 現在地の更新を設定
     _positionStream = Geolocator.getPositionStream().listen((Position position) {
       setState(() {
         _currentPosition = position;
-      });
-    });
-
-    // 現在地の更新を設定
-    _locationChangedListen =
-        _locationService.onLocationChanged.listen((LocationData result) async {
-          setState(() {
-        _currentLocation = result;
       });
     });
   }
@@ -159,7 +140,6 @@ class _HomePageState extends State<HomePage> {
   void dispose() {
     super.dispose();
     // 現在地の取得を終了
-    _locationChangedListen?.cancel();
     _positionStream?.cancel();
   }
 
@@ -170,7 +150,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: _currentLocation == null
+      body: _currentPosition == null
           ? Center(
               child: CircularProgressIndicator(),
             )
