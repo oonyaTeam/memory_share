@@ -24,6 +24,8 @@ class _HomePageState extends State<HomePage> {
   StreamSubscription<Position> _positionStream;
 
   Set<Marker> _markers = <Marker>{};
+  Marker _currentMarker;
+  double _distance = 0.0;
 
   void _showBottomModal(String markerId) {
     showModalBottomSheet(
@@ -44,7 +46,7 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text("あと○○m"),
+              Text("あと${_distance}m"),
               Container(
                 child: Image.asset(
                   'assets/sample_image.jpg',
@@ -62,7 +64,7 @@ class _HomePageState extends State<HomePage> {
       context: _context,
       builder: (BuildContext context) => AlertDialog(
         title: Text("この場所を目的地に設定しますか？"),
-        content: Text("目的地までの距離は、○○mです。"),
+        content: Text('目的地までの距離は、${_distance}mです。'),
         actions: [
           ElevatedButton(
             onPressed: () => Navigator.pop(_context),
@@ -81,6 +83,15 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _onTapMarker(String markerId) {
+    setState(() {
+      _currentMarker = _markers.singleWhere((marker) => marker.markerId.value == markerId);
+      _distance = Geolocator.distanceBetween(
+        _currentPosition.latitude,
+        _currentPosition.longitude,
+        _currentMarker.position.latitude,
+        _currentMarker.position.longitude,
+      );
+    });
     _showDetermineDestinationDialog(markerId);
   }
 
@@ -129,9 +140,18 @@ class _HomePageState extends State<HomePage> {
     _setMarkers();
 
     // 現在地の更新を設定
-    _positionStream = Geolocator.getPositionStream().listen((Position position) {
+    _positionStream =
+        Geolocator.getPositionStream().listen((Position position) {
       setState(() {
         _currentPosition = position;
+        if (_currentMarker != null) {
+          _distance = Geolocator.distanceBetween(
+            _currentPosition.latitude,
+            _currentPosition.longitude,
+            _currentMarker.position.latitude,
+            _currentMarker.position.longitude,
+          );
+        }
       });
     });
   }
