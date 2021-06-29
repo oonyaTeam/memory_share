@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:memory_share/pages/sub_episode_page.dart';
@@ -21,8 +22,11 @@ class _HomePageState extends State<HomePage> {
   Completer<GoogleMapController> _controller = Completer();
   Location _locationService = Location();
   StreamSubscription _locationChangedListen;
-
   LocationData _currentLocation;
+
+  Position _currentPosition;
+  StreamSubscription<Position> _positionStream;
+
   Set<Marker> _markers = <Marker>{};
 
   void _showBottomModal(String markerId) {
@@ -91,6 +95,13 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  void _getPosition() async {
+    Position currentPosition = await Geolocator.getCurrentPosition();
+    setState(() {
+      _currentPosition = currentPosition;
+    });
+  }
+
   void _setMarkers() {
     // Sample Markers
     List<Marker> markers = [
@@ -124,9 +135,16 @@ class _HomePageState extends State<HomePage> {
 
     // 現在地を取得
     _getLocation();
+    _getPosition();
 
     // マーカーを取得
     _setMarkers();
+
+    _positionStream = Geolocator.getPositionStream().listen((Position position) {
+      setState(() {
+        _currentPosition = position;
+      });
+    });
 
     // 現在地の更新を設定
     _locationChangedListen =
@@ -142,6 +160,7 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
     // 現在地の取得を終了
     _locationChangedListen?.cancel();
+    _positionStream?.cancel();
   }
 
   @override
@@ -161,8 +180,8 @@ class _HomePageState extends State<HomePage> {
                   mapType: MapType.normal,
                   initialCameraPosition: CameraPosition(
                     target: LatLng(
-                      _currentLocation.latitude,
-                      _currentLocation.longitude,
+                      _currentPosition?.latitude,
+                      _currentPosition?.longitude,
                     ),
                     zoom: 15.0,
                   ),
