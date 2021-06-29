@@ -85,7 +85,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _getLocation() async {
-    _currentLocation = await _locationService.getLocation();
+    LocationData currentLocation = await _locationService.getLocation();
+    setState(() {
+      _currentLocation = currentLocation;
+    });
   }
 
   void _setMarkers() {
@@ -128,7 +131,7 @@ class _HomePageState extends State<HomePage> {
     // 現在地の更新を設定
     _locationChangedListen =
         _locationService.onLocationChanged.listen((LocationData result) async {
-      setState(() {
+          setState(() {
         _currentLocation = result;
       });
     });
@@ -168,6 +171,7 @@ class _HomePageState extends State<HomePage> {
                   },
                   markers: _markers,
                   myLocationEnabled: true,
+                  zoomControlsEnabled: false,
                 ),
                 Align(
                   alignment: Alignment.bottomCenter,
