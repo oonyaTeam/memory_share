@@ -5,6 +5,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:memory_share/pages/re_experience_page.dart';
 import 'package:memory_share/pages/sub_episode_page.dart';
+import 'package:memory_share/widgets/DetermineDestinationDialogBuilder.dart';
 import 'package:memory_share/widgets/longButton.dart';
 
 class HomePage extends StatefulWidget {
@@ -32,23 +33,7 @@ class _HomePageState extends State<HomePage> {
   void _showDetermineDestinationDialog(String markerId) {
     showDialog(
       context: _context,
-      builder: (BuildContext context) => AlertDialog(
-        title: Text("この場所を目的地に設定しますか？"),
-        content: Text('目的地までの距離は、${_distance}mです。'),
-        actions: [
-          ElevatedButton(
-            onPressed: () => Navigator.pop(_context),
-            child: Text("Cancel"),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pop(_context);
-              Navigator.push(_context, MaterialPageRoute(builder: (context) => ReExperiencePage()));
-            },
-            child: Text("OK"),
-          )
-        ],
-      ),
+      builder: (BuildContext context) => DetermineDestinationDialogBuilder(context, _distance)
     );
   }
 
