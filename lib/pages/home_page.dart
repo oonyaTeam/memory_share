@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:memory_share/pages/re_experience_page.dart';
 import 'package:memory_share/pages/sub_episode_page.dart';
 import 'package:memory_share/widgets/longButton.dart';
 
@@ -27,37 +28,6 @@ class _HomePageState extends State<HomePage> {
   Marker _currentMarker;
   double _distance = 0.0;
 
-  void _showBottomModal(String markerId) {
-    showModalBottomSheet(
-      barrierColor: Colors.black.withOpacity(0.0),
-      isDismissible: false,
-      backgroundColor: Colors.transparent,
-      context: _context,
-      builder: (BuildContext context) {
-        return Container(
-          padding: EdgeInsets.only(top: 30.0),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
-            ),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text("あと${_distance}m"),
-              Container(
-                child: Image.asset(
-                  'assets/sample_image.jpg',
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
 
   void _showDetermineDestinationDialog(String markerId) {
     showDialog(
@@ -73,7 +43,7 @@ class _HomePageState extends State<HomePage> {
           ElevatedButton(
             onPressed: () {
               Navigator.pop(_context);
-              _showBottomModal(markerId);
+              Navigator.push(_context, MaterialPageRoute(builder: (context) => ReExperiencePage()));
             },
             child: Text("OK"),
           )
@@ -85,12 +55,6 @@ class _HomePageState extends State<HomePage> {
   void _onTapMarker(String markerId) {
     setState(() {
       _currentMarker = _markers.singleWhere((marker) => marker.markerId.value == markerId);
-      _distance = Geolocator.distanceBetween(
-        _currentPosition.latitude,
-        _currentPosition.longitude,
-        _currentMarker.position.latitude,
-        _currentMarker.position.longitude,
-      );
     });
     _showDetermineDestinationDialog(markerId);
   }
