@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart';
 import 'package:memory_share/pages/sub_episode_page.dart';
 import 'package:memory_share/widgets/longButton.dart';
 
@@ -19,11 +19,13 @@ class _HomePageState extends State<HomePage> {
   BuildContext _context;
 
   Completer<GoogleMapController> _controller = Completer();
-  Location _locationService = Location();
-  StreamSubscription _locationChangedListen;
 
-  LocationData _currentLocation;
+  Position _currentPosition;
+  StreamSubscription<Position> _positionStream;
+
   Set<Marker> _markers = <Marker>{};
+  Marker _currentMarker;
+  double _distance = 0.0;
 
   void _showBottomModal(String markerId) {
     showModalBottomSheet(
@@ -44,7 +46,7 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text("あと○○m"),
+              Text("あと${_distance}m"),
               Container(
                 child: Image.asset(
                   'assets/sample_image.jpg',
@@ -62,7 +64,7 @@ class _HomePageState extends State<HomePage> {
       context: _context,
       builder: (BuildContext context) => AlertDialog(
         title: Text("この場所を目的地に設定しますか？"),
-        content: Text("目的地までの距離は、○○mです。"),
+        content: Text('目的地までの距離は、${_distance}mです。'),
         actions: [
           ElevatedButton(
             onPressed: () => Navigator.pop(_context),
@@ -81,11 +83,23 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _onTapMarker(String markerId) {
+    setState(() {
+      _currentMarker = _markers.singleWhere((marker) => marker.markerId.value == markerId);
+      _distance = Geolocator.distanceBetween(
+        _currentPosition.latitude,
+        _currentPosition.longitude,
+        _currentMarker.position.latitude,
+        _currentMarker.position.longitude,
+      );
+    });
     _showDetermineDestinationDialog(markerId);
   }
 
-  void _getLocation() async {
-    _currentLocation = await _locationService.getLocation();
+  void _getPosition() async {
+    Position currentPosition = await Geolocator.getCurrentPosition();
+    setState(() {
+      _currentPosition = currentPosition;
+    });
   }
 
   void _setMarkers() {
@@ -120,16 +134,24 @@ class _HomePageState extends State<HomePage> {
     super.initState();
 
     // 現在地を取得
-    _getLocation();
+    _getPosition();
 
     // マーカーを取得
     _setMarkers();
 
     // 現在地の更新を設定
-    _locationChangedListen =
-        _locationService.onLocationChanged.listen((LocationData result) async {
+    _positionStream =
+        Geolocator.getPositionStream().listen((Position position) {
       setState(() {
-        _currentLocation = result;
+        _currentPosition = position;
+        if (_currentMarker != null) {
+          _distance = Geolocator.distanceBetween(
+            _currentPosition.latitude,
+            _currentPosition.longitude,
+            _currentMarker.position.latitude,
+            _currentMarker.position.longitude,
+          );
+        }
       });
     });
   }
@@ -138,7 +160,7 @@ class _HomePageState extends State<HomePage> {
   void dispose() {
     super.dispose();
     // 現在地の取得を終了
-    _locationChangedListen?.cancel();
+    _positionStream?.cancel();
   }
 
   @override
@@ -148,7 +170,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: _currentLocation == null
+      body: _currentPosition == null
           ? Center(
               child: CircularProgressIndicator(),
             )
@@ -158,8 +180,8 @@ class _HomePageState extends State<HomePage> {
                   mapType: MapType.normal,
                   initialCameraPosition: CameraPosition(
                     target: LatLng(
-                      _currentLocation.latitude,
-                      _currentLocation.longitude,
+                      _currentPosition?.latitude,
+                      _currentPosition?.longitude,
                     ),
                     zoom: 15.0,
                   ),
@@ -168,6 +190,7 @@ class _HomePageState extends State<HomePage> {
                   },
                   markers: _markers,
                   myLocationEnabled: true,
+                  zoomControlsEnabled: false,
                 ),
                 Align(
                   alignment: Alignment.bottomCenter,
