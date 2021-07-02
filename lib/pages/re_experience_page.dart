@@ -35,15 +35,17 @@ class _ReExperiencePageState extends State<ReExperiencePage> {
   }
 
   void _setMarker() {
-    _currentMarker = widget.marker;
+    setState(() {
+      _currentMarker = widget.marker;
+    });
   }
 
-  void _showBottomModal() {
+  void _showBottomModal(BuildContext context) {
     showModalBottomSheet(
       barrierColor: Colors.black.withOpacity(0.0),
       isDismissible: false,
       backgroundColor: Colors.transparent,
-      context: _context,
+      context: context,
       builder: (BuildContext context) {
         return Container(
           padding: EdgeInsets.only(top: 30.0),
@@ -62,11 +64,6 @@ class _ReExperiencePageState extends State<ReExperiencePage> {
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => EpisodeViewPage()));
                 },
-                child: Image.asset(
-                  'assets/sample_image.jpg',
-                ),
-              ),
-              Container(
                 child: Image.asset(
                   'assets/sample_image.jpg',
                 ),
@@ -104,8 +101,16 @@ class _ReExperiencePageState extends State<ReExperiencePage> {
       });
     });
 
+  }
+
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    WidgetsBinding.instance.addPostFrameCallback((_){
+      _showBottomModal(context);
+    });
     // Bottom Modalの表示
-    _showBottomModal();
   }
 
   @override
@@ -128,22 +133,23 @@ class _ReExperiencePageState extends State<ReExperiencePage> {
             )
           : Stack(
               children: [
-                GoogleMap(
-                  mapType: MapType.normal,
-                  initialCameraPosition: CameraPosition(
-                    target: LatLng(
-                      _currentPosition?.latitude,
-                      _currentPosition?.longitude,
-                    ),
-                    zoom: 15.0,
-                  ),
-                  onMapCreated: (GoogleMapController controller) {
-                    _controller.complete(controller);
-                  },
-                  markers: {_currentMarker},
-                  myLocationEnabled: true,
-                  zoomControlsEnabled: false,
-                ),
+                // // Error: mapsId was called on null.
+                // GoogleMap(
+                //   mapType: MapType.normal,
+                //   initialCameraPosition: CameraPosition(
+                //     target: LatLng(
+                //       _currentPosition?.latitude,
+                //       _currentPosition?.longitude,
+                //     ),
+                //     zoom: 15.0,
+                //   ),
+                //   onMapCreated: (GoogleMapController controller) {
+                //     _controller.complete(controller);
+                //   },
+                //   markers: {_currentMarker}.toSet(),
+                //   myLocationEnabled: true,
+                //   zoomControlsEnabled: false,
+                // ),
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(

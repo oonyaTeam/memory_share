@@ -28,17 +28,18 @@ class _HomePageState extends State<HomePage> {
   Marker _currentMarker;
   double _distance = 0.0;
 
-
   void _showDetermineDestinationDialog(String markerId) {
     showDialog(
-      context: _context,
-      builder: (BuildContext context) => DetermineDestinationDialogBuilder(context, _distance)
-    );
+        context: _context,
+        builder: (BuildContext context) =>
+            DetermineDestinationDialogBuilder(context, _distance));
   }
 
   void _onTapMarker(String markerId) {
     setState(() {
-      _currentMarker = _markers.singleWhere((marker) => marker.markerId.value == markerId);
+      _currentMarker =
+          _markers.singleWhere((marker) => marker.markerId.value == markerId);
+      _setDistance();
     });
     _showDetermineDestinationDialog(markerId);
   }
@@ -48,6 +49,15 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _currentPosition = currentPosition;
     });
+  }
+
+  void _setDistance() {
+    _distance = Geolocator.distanceBetween(
+      _currentPosition.latitude,
+      _currentPosition.longitude,
+      _currentMarker.position.latitude,
+      _currentMarker.position.longitude,
+    );
   }
 
   void _setMarkers() {
@@ -93,12 +103,7 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         _currentPosition = position;
         if (_currentMarker != null) {
-          _distance = Geolocator.distanceBetween(
-            _currentPosition.latitude,
-            _currentPosition.longitude,
-            _currentMarker.position.latitude,
-            _currentMarker.position.longitude,
-          );
+          _setDistance();
         }
       });
     });
