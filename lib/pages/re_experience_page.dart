@@ -104,6 +104,7 @@ class _ReExperiencePageState extends State<ReExperiencePage> {
       });
     });
 
+    // Bottom Modalの表示
     _showBottomModal();
   }
 

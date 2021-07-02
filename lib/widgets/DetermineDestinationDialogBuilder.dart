@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:memory_share/pages/re_experience_page.dart';
 
 
-// DetermineDestinationDialog (マーカーを設定するか確認するダイアログを表示
+// DetermineDestinationDialog (マーカーを設定するか確認するダイアログ)
 
 Widget DetermineDestinationDialogBuilder(BuildContext context, double distance) {
   return AlertDialog(

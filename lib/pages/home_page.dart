@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:memory_share/pages/re_experience_page.dart';
 import 'package:memory_share/pages/sub_episode_page.dart';
 import 'package:memory_share/widgets/DetermineDestinationDialogBuilder.dart';
 import 'package:memory_share/widgets/longButton.dart';
