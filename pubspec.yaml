@@ -16,10 +16,6 @@ dependencies:
 
   arcore_flutter_plugin: ^0.0.10
 
-  flutter_riverpod: ^0.14.0+3
-  state_notifier: ^0.7.0
-  freezed_annotation: ^0.14.2
-
   google_maps_flutter: ^2.0.6
   geolocator: ^7.2.0+1
 
@@ -27,12 +23,13 @@ dependencies:
 
   image_picker: ^0.8.1+1
 
+  provider: ^5.0.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   build_runner: ^2.0.4
-  freezed: ^0.14.2
 
 flutter:
 
