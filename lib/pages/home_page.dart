@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:memory_share/pages/sub_episode_page.dart';
+import 'package:memory_share/widgets/DetermineDestinationDialogBuilder.dart';
 import 'package:memory_share/widgets/longButton.dart';
 
 class HomePage extends StatefulWidget {
@@ -27,70 +28,18 @@ class _HomePageState extends State<HomePage> {
   Marker _currentMarker;
   double _distance = 0.0;
 
-  void _showBottomModal(String markerId) {
-    showModalBottomSheet(
-      barrierColor: Colors.black.withOpacity(0.0),
-      isDismissible: false,
-      backgroundColor: Colors.transparent,
-      context: _context,
-      builder: (BuildContext context) {
-        return Container(
-          padding: EdgeInsets.only(top: 30.0),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
-            ),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text("あと${_distance}m"),
-              Container(
-                child: Image.asset(
-                  'assets/sample_image.jpg',
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
   void _showDetermineDestinationDialog(String markerId) {
     showDialog(
-      context: _context,
-      builder: (BuildContext context) => AlertDialog(
-        title: Text("この場所を目的地に設定しますか？"),
-        content: Text('目的地までの距離は、${_distance}mです。'),
-        actions: [
-          ElevatedButton(
-            onPressed: () => Navigator.pop(_context),
-            child: Text("Cancel"),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pop(_context);
-              _showBottomModal(markerId);
-            },
-            child: Text("OK"),
-          )
-        ],
-      ),
-    );
+        context: _context,
+        builder: (BuildContext context) =>
+            DetermineDestinationDialogBuilder(context, _distance, () => _disposeController(), _currentMarker));
   }
 
   void _onTapMarker(String markerId) {
     setState(() {
-      _currentMarker = _markers.singleWhere((marker) => marker.markerId.value == markerId);
-      _distance = Geolocator.distanceBetween(
-        _currentPosition.latitude,
-        _currentPosition.longitude,
-        _currentMarker.position.latitude,
-        _currentMarker.position.longitude,
-      );
+      _currentMarker =
+          _markers.singleWhere((marker) => marker.markerId.value == markerId);
+      _setDistance();
     });
     _showDetermineDestinationDialog(markerId);
   }
@@ -100,6 +49,15 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _currentPosition = currentPosition;
     });
+  }
+
+  void _setDistance() {
+    _distance = Geolocator.distanceBetween(
+      _currentPosition.latitude,
+      _currentPosition.longitude,
+      _currentMarker.position.latitude,
+      _currentMarker.position.longitude,
+    );
   }
 
   void _setMarkers() {
@@ -129,6 +87,11 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  void _disposeController() async {
+    var controller = await _controller.future;
+    controller.dispose();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -145,12 +108,7 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         _currentPosition = position;
         if (_currentMarker != null) {
-          _distance = Geolocator.distanceBetween(
-            _currentPosition.latitude,
-            _currentPosition.longitude,
-            _currentMarker.position.latitude,
-            _currentMarker.position.longitude,
-          );
+          _setDistance();
         }
       });
     });
@@ -161,6 +119,7 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
     // 現在地の取得を終了
     _positionStream?.cancel();
+    _disposeController();
   }
 
   @override
