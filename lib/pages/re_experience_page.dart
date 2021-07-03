@@ -17,7 +17,6 @@ class ReExperiencePage extends StatefulWidget {
 }
 
 class _ReExperiencePageState extends State<ReExperiencePage> {
-  BuildContext _context;
 
   Completer<GoogleMapController> _controller = Completer();
 
@@ -100,9 +99,7 @@ class _ReExperiencePageState extends State<ReExperiencePage> {
         }
       });
     });
-
   }
-
 
   @override
   void didChangeDependencies() {
@@ -122,7 +119,6 @@ class _ReExperiencePageState extends State<ReExperiencePage> {
 
   @override
   Widget build(BuildContext context) {
-    _context = context;
     return Scaffold(
       appBar: AppBar(
         title: Text("ReExperience"),
@@ -133,23 +129,23 @@ class _ReExperiencePageState extends State<ReExperiencePage> {
             )
           : Stack(
               children: [
-                // // Error: mapsId was called on null.
-                // GoogleMap(
-                //   mapType: MapType.normal,
-                //   initialCameraPosition: CameraPosition(
-                //     target: LatLng(
-                //       _currentPosition?.latitude,
-                //       _currentPosition?.longitude,
-                //     ),
-                //     zoom: 15.0,
-                //   ),
-                //   onMapCreated: (GoogleMapController controller) {
-                //     _controller.complete(controller);
-                //   },
-                //   markers: {_currentMarker}.toSet(),
-                //   myLocationEnabled: true,
-                //   zoomControlsEnabled: false,
-                // ),
+                // Error: mapsId was called on null.
+                GoogleMap(
+                  mapType: MapType.normal,
+                  initialCameraPosition: CameraPosition(
+                    target: LatLng(
+                      _currentPosition?.latitude,
+                      _currentPosition?.longitude,
+                    ),
+                    zoom: 15.0,
+                  ),
+                  onMapCreated: (GoogleMapController controller) {
+                    _controller.complete(controller);
+                  },
+                  markers: {_currentMarker}.toSet(),
+                  myLocationEnabled: true,
+                  zoomControlsEnabled: false,
+                ),
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(

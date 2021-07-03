@@ -4,7 +4,7 @@ import 'package:memory_share/pages/re_experience_page.dart';
 
 // DetermineDestinationDialog (マーカーを設定するか確認するダイアログ)
 
-Widget DetermineDestinationDialogBuilder(BuildContext context, double distance) {
+Widget DetermineDestinationDialogBuilder(BuildContext context, double distance, Function onSubmit) {
   return AlertDialog(
     title: Text("この場所を目的地に設定しますか？"),
     content: Text('目的地までの距離は、${distance}mです。'),
@@ -16,6 +16,7 @@ Widget DetermineDestinationDialogBuilder(BuildContext context, double distance) 
       ElevatedButton(
         onPressed: () {
           Navigator.pop(context);
+          onSubmit();
           Navigator.push(context, MaterialPageRoute(builder: (context) => ReExperiencePage()));
         },
         child: Text("OK"),

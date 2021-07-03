@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
     showDialog(
         context: _context,
         builder: (BuildContext context) =>
-            DetermineDestinationDialogBuilder(context, _distance));
+            DetermineDestinationDialogBuilder(context, _distance, () => _disposeController()));
   }
 
   void _onTapMarker(String markerId) {
@@ -87,6 +87,11 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  void _disposeController() async {
+    var controller = await _controller.future;
+    controller.dispose();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -114,6 +119,7 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
     // 現在地の取得を終了
     _positionStream?.cancel();
+    _disposeController();
   }
 
   @override
