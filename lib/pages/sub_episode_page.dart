@@ -40,16 +40,24 @@ class _SubEpisodePageState extends State<SubEpisodePage> {
           ),
         ),
       ),
-      body: Center(
-        child: Column(
-          children: [
-            SizedBox(height: 11,),
-            longButton("エピソードを追加する",() => {}),
-            SizedBox(height: 11,),
-            longButton("目的地に到着",() => onTapArriveButton(context))
-          ],
+      body:Stack(children:[
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Container(
+            margin: EdgeInsets.only(bottom: 89),
+            child:
+              longButton("エピソードを追加する",() => {})
+          ),
         ),
-      ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Container(
+            margin: EdgeInsets.only(bottom: 22),
+            child:
+            longButton("目的地に到着",() => onTapArriveButton(context))
+          ),
+        ),
+      ]),
     );
   }
 }
