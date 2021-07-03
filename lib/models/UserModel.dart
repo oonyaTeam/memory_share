@@ -10,5 +10,7 @@ class UserModel with ChangeNotifier {
 
   void setCurrentMarker(Marker marker) {
     _currentMarker = marker;
+
+    notifyListeners();
   }
 }
