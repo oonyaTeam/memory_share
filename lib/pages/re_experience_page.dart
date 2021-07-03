@@ -105,9 +105,9 @@ class _ReExperiencePageState extends State<ReExperiencePage> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     WidgetsBinding.instance.addPostFrameCallback((_){
+      // Bottom Modalの表示
       _showBottomModal(context);
     });
-    // Bottom Modalの表示
   }
 
   @override
@@ -129,7 +129,6 @@ class _ReExperiencePageState extends State<ReExperiencePage> {
             )
           : Stack(
               children: [
-                // Error: mapsId was called on null.
                 GoogleMap(
                   mapType: MapType.normal,
                   initialCameraPosition: CameraPosition(
@@ -145,22 +144,6 @@ class _ReExperiencePageState extends State<ReExperiencePage> {
                   markers: {_currentMarker}.toSet(),
                   myLocationEnabled: true,
                   zoomControlsEnabled: false,
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    margin: EdgeInsets.only(bottom: 15),
-                    child: longButton(
-                      '思い出を投稿する',
-                      () => {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => SubEpisodePage(),
-                          ),
-                        )
-                      },
-                    ),
-                  ),
                 ),
               ],
             ),

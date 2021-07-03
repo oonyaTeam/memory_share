@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
     showDialog(
         context: _context,
         builder: (BuildContext context) =>
-            DetermineDestinationDialogBuilder(context, _distance, () => _disposeController()));
+            DetermineDestinationDialogBuilder(context, _distance, () => _disposeController(), _currentMarker));
   }
 
   void _onTapMarker(String markerId) {
