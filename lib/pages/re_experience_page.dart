@@ -1,11 +1,11 @@
 import 'dart:async';
+import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:memory_share/pages/episode_view_page.dart';
-import 'package:memory_share/pages/sub_episode_page.dart';
-import 'package:memory_share/widgets/longButton.dart';
 
 class ReExperiencePage extends StatefulWidget {
   ReExperiencePage({Key key, this.marker}) : super(key: key);
@@ -17,7 +17,6 @@ class ReExperiencePage extends StatefulWidget {
 }
 
 class _ReExperiencePageState extends State<ReExperiencePage> {
-
   Completer<GoogleMapController> _controller = Completer();
 
   Position _currentPosition;
@@ -25,6 +24,7 @@ class _ReExperiencePageState extends State<ReExperiencePage> {
 
   Marker _currentMarker;
   double _distance = 0.0;
+  double _sigma = 5;
 
   void _getPosition() async {
     Position currentPosition = await Geolocator.getCurrentPosition();
@@ -61,10 +61,20 @@ class _ReExperiencePageState extends State<ReExperiencePage> {
               Text("あと${_distance}m"),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => EpisodeViewPage()));
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => EpisodeViewPage()),
+                  );
                 },
-                child: Image.asset(
-                  'assets/sample_image.jpg',
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: ImageFiltered(
+                    child: Image.asset("assets/sample_image.jpg"),
+                    imageFilter: ImageFilter.blur(
+                      sigmaX: _sigma,
+                      sigmaY: _sigma,
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -104,7 +114,7 @@ class _ReExperiencePageState extends State<ReExperiencePage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    WidgetsBinding.instance.addPostFrameCallback((_){
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       // Bottom Modalの表示
       _showBottomModal(context);
     });
