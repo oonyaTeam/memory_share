@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:memory_share/pages/post_page.dart';
@@ -27,14 +28,7 @@ class _SubEpisodePageState extends State<SubEpisodePage> {
     }
   }
 
-  // List<Color> colorList = [Colors.cyan, Colors.deepOrange, Colors.indigo];
-
-  List<Text> _list = [
-    Text(
-      "初期値",
-      style: TextStyle(fontSize: 20),
-    ),
-  ];
+  var _list = [];
 
   @override
   Widget build(BuildContext context) {
@@ -57,48 +51,20 @@ class _SubEpisodePageState extends State<SubEpisodePage> {
               child: ListView.builder(
                 itemCount: _list.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return _list[index];
+
+                  return Card(
+                    child: Padding(
+                      child: Text('$index', style: TextStyle(fontSize: 22.0),textAlign: TextAlign.center,),
+                      padding: EdgeInsets.all(100.0)
+                    ),
+                  );
+
+                  // return _list[index];
                 },
               ),
             ),
-
-
-
-            // IconButton(
-            //   icon: Icon(Icons.add),
-            //   onPressed: () {
-            //     setState(() {
-            //       _list.add(
-            //         Text(
-            //           "テキスト" + _list.length.toString(),
-            //           style: TextStyle(fontSize: 20),
-            //         ),
-            //       );
-            //     });
-            //   },
-            // ),
-
           ],
         ),
-
-        // ListView.builder(
-        //   itemCount: 12,
-        //   itemBuilder: (BuildContext context, int index) {
-        //     return Container(
-        //       height: 80,
-        //       color: colorList[index % colorList.length],
-        //       child: Text('こんにちわ'),
-        //     );
-        //   },
-        // ),
-        // Align(
-        //   alignment: Alignment.bottomCenter,
-        //   child: Container(
-        //     margin: EdgeInsets.only(bottom: 89),
-        //     child:
-        //       longButton("エピソードを追加する",() => {})
-        //   ),
-        // ),
         Align(
           alignment: Alignment.bottomCenter,
           child: Container(
@@ -107,10 +73,7 @@ class _SubEpisodePageState extends State<SubEpisodePage> {
               longButton("エピソードを追加する",() => {
                 setState(() {
                   _list.add(
-                    Text(
-                      "テキスト" + _list.length.toString(),
-                      style: TextStyle(fontSize: 20),
-                    ),
+                      Text(" ")
                   );
                 })
               })
@@ -132,8 +95,8 @@ class _SubEpisodePageState extends State<SubEpisodePage> {
               IconButton(
                 icon: Icon(Icons.remove),
                 onPressed: () {
-                  if (_list.length == 1) {
-                    ;
+                  if (_list.length == 0) {
+
                   } else {
                     setState(() {
                       _list.removeAt(_list.length - 1);
@@ -141,6 +104,13 @@ class _SubEpisodePageState extends State<SubEpisodePage> {
                   }
                 },
               )
+          ),
+        ),
+        Align(
+          alignment: Alignment.topCenter,
+          child: Container(
+              margin: EdgeInsets.only(top: 22),
+              child:(_list.length == 0) ? Image.asset('assets/hukura.jpg') : Text(" "),
           ),
         ),
       ]),
