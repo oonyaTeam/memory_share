@@ -1,11 +1,9 @@
 import 'dart:async';
-import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:memory_share/pages/episode_view_page.dart';
 import 'package:memory_share/widgets/BottomModalBuilder.dart';
 
 class ReExperiencePage extends StatefulWidget {

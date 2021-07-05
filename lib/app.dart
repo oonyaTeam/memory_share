@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:memory_share/models/MapModel.dart';
 import 'package:memory_share/models/UserModel.dart';
 import 'package:memory_share/pages/home_page.dart';
 import 'package:provider/provider.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         Provider<UserModel>(create: (_) => UserModel()),
+        Provider<MapModel>(create: (_) => MapModel()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
