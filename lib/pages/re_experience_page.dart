@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:memory_share/pages/episode_view_page.dart';
+import 'package:memory_share/widgets/BottomModalBuilder.dart';
 
 class ReExperiencePage extends StatefulWidget {
   ReExperiencePage({Key key, this.marker}) : super(key: key);
@@ -39,48 +40,26 @@ class _ReExperiencePageState extends State<ReExperiencePage> {
     });
   }
 
+  void _setDistance() {
+    _distance = Geolocator.distanceBetween(
+      _currentPosition.latitude,
+      _currentPosition.longitude,
+      _currentMarker.position.latitude,
+      _currentMarker.position.longitude,
+    );
+  }
+
   void _showBottomModal(BuildContext context) {
     showModalBottomSheet(
       barrierColor: Colors.black.withOpacity(0.0),
       isDismissible: false,
       backgroundColor: Colors.transparent,
       context: context,
-      builder: (BuildContext context) {
-        return Container(
-          padding: EdgeInsets.only(top: 30.0),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
-            ),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text("あと${_distance}m"),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => EpisodeViewPage()),
-                  );
-                },
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: ImageFiltered(
-                    child: Image.asset("assets/sample_image.jpg"),
-                    imageFilter: ImageFilter.blur(
-                      sigmaX: _sigma,
-                      sigmaY: _sigma,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        );
-      },
+      builder: (BuildContext context) => BottomModalBuilder(
+        context: context,
+        distance: _distance,
+        sigma: _sigma,
+      ),
     );
   }
 
@@ -100,12 +79,7 @@ class _ReExperiencePageState extends State<ReExperiencePage> {
       setState(() {
         _currentPosition = position;
         if (_currentMarker != null) {
-          _distance = Geolocator.distanceBetween(
-            _currentPosition.latitude,
-            _currentPosition.longitude,
-            _currentMarker.position.latitude,
-            _currentMarker.position.longitude,
-          );
+          _setDistance();
         }
       });
     });
