@@ -28,7 +28,10 @@ class _SubEpisodePageState extends State<SubEpisodePage> {
     }
   }
 
-  var _list = [];
+  // ignore: deprecated_member_use
+  final _list = List<String>();
+  int a=0;
+
 
   @override
   Widget build(BuildContext context) {
@@ -44,27 +47,48 @@ class _SubEpisodePageState extends State<SubEpisodePage> {
         ),
       ),
       body:Stack(children:[
+        ListView.builder(
+        itemCount: _list.length,
+        itemBuilder: (context, index) {
+          final item = _list[index];
+          return Dismissible(
+            key: Key(item),
 
-        Column(
-          children: [
-            Expanded(
-              child: ListView.builder(
-                itemCount: _list.length,
-                itemBuilder: (BuildContext context, int index) {
+            onDismissed: (direction) {
+              setState(() {
+                _list.removeAt(index);
+              });
 
-                  return Card(
-                    child: Padding(
-                      child: Text('$index', style: TextStyle(fontSize: 22.0),textAlign: TextAlign.center,),
-                      padding: EdgeInsets.all(100.0)
-                    ),
-                  );
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text('$item dismissed')));
+            },
 
-                  // return _list[index];
-                },
-              ),
-            ),
-          ],
+            background: Container(color: Colors.red),
+
+            child: ListTile(title: Text('$item')),
+
+          );}
         ),
+
+        // Column(
+        //   children: [
+        //     Expanded(
+        //       child: ListView.builder(
+        //         itemCount: _list.length,
+        //         itemBuilder: (BuildContext context, int index) {
+        //           return Card(
+        //             child: Padding(
+        //               child: Text('$index', style: TextStyle(fontSize: 22.0),textAlign: TextAlign.center,),
+        //               padding: EdgeInsets.all(100.0)
+        //             ),
+        //           );
+        //
+        //           // return _list[index];
+        //         },
+        //       ),
+        //     ),
+        //   ],
+        // ),
         Align(
           alignment: Alignment.bottomCenter,
           child: Container(
@@ -73,8 +97,9 @@ class _SubEpisodePageState extends State<SubEpisodePage> {
               longButton("エピソードを追加する",() => {
                 setState(() {
                   _list.add(
-                      Text(" ")
+                      'Item ${a}'
                   );
+                  a++;
                 })
               })
           ),
