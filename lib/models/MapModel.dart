@@ -50,10 +50,12 @@ class MapModel with ChangeNotifier {
 
   void setMarker(MarkerData marker) {
     _markers.add(marker);
+    notifyListeners();
   }
 
   void setMarkers(List<MarkerData> markers) {
     _markers.addAll(markers.toSet());
+    notifyListeners();
   }
 
   void getPosition() async {
@@ -63,16 +65,21 @@ class MapModel with ChangeNotifier {
   }
 
   void setDistance() {
+    if(_currentPosition == null || _currentMarker == null ) return;
+
     _distance = Geolocator.distanceBetween(
       _currentPosition.latitude,
       _currentPosition.longitude,
       _currentMarker.position.latitude,
       _currentMarker.position.longitude,
     );
+    notifyListeners();
   }
 
   void setMapController(GoogleMapController controller) {
     _controller.complete(controller);
+
+    notifyListeners();
   }
 
   void disposeController() async {
