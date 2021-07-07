@@ -5,10 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+class MarkerData {
+  String markerId;
+  LatLng position;
+
+  MarkerData(this.markerId, this.position);
+}
+
 class MapModel with ChangeNotifier {
 
-  Marker _currentMarker;
-  List<Marker> _markers = [];
+  MarkerData _currentMarker;
+  List<MarkerData> _markers = [];
   Position _currentPosition;
   double _distance = 0.0;
   double _sigma = 10.0;
@@ -16,16 +23,18 @@ class MapModel with ChangeNotifier {
 
   StreamSubscription<Position> _positionStream;
 
-  Marker get currentMarker => _currentMarker;
-  List<Marker> get markers => _markers;
+  MarkerData get currentMarker => _currentMarker;
+  List<MarkerData> get markers => _markers;
   Position get currentPosition => _currentPosition;
   double get distance => _distance;
   double get sigma => _sigma;
   Completer<GoogleMapController> get controller => _controller;
 
   MapModel() {
+    getPosition();
+
     _positionStream =
-      Geolocator.getPositionStream().listen((Position position) {
+      Geolocator.getPositionStream(intervalDuration: Duration(seconds: 5)).listen((Position position) {
           _currentPosition = position;
           if (_currentMarker != null) {
             setDistance();
@@ -34,16 +43,16 @@ class MapModel with ChangeNotifier {
       });
   }
 
-  void setCurrentMarker(Marker marker) {
+  void setCurrentMarker(MarkerData marker) {
     _currentMarker = marker;
     notifyListeners();
   }
 
-  void setMarker(Marker marker) {
+  void setMarker(MarkerData marker) {
     _markers.add(marker);
   }
 
-  void setMarkers(List<Marker> markers) {
+  void setMarkers(List<MarkerData> markers) {
     _markers.addAll(markers.toSet());
   }
 
@@ -66,10 +75,16 @@ class MapModel with ChangeNotifier {
     _controller.complete(controller);
   }
 
+  void disposeController() async {
+    var controller = await _controller.future;
+    controller.dispose();
+  }
+
   @override
   void dispose() {
     super.dispose();
     _positionStream.cancel();
+    disposeController();
   }
 
 }
