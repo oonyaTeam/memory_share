@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:memory_share/models/MapModel.dart';
 import 'package:memory_share/pages/re_experience_page.dart';
 import 'package:provider/provider.dart';
@@ -25,16 +24,7 @@ Widget DetermineDestinationDialogBuilder({
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ReExperiencePage(
-                marker: Marker(
-                  markerId: MarkerId(mapModel.currentMarker.markerId),
-                  position: mapModel.currentMarker.position,
-                  infoWindow: InfoWindow(
-                    title: mapModel.currentMarker.markerId,
-                    snippet: 'text',
-                  ),
-                ),
-              ),
+              builder: (context) => ReExperiencePage(),
             ),
           );
         },
