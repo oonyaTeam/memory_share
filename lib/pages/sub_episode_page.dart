@@ -32,19 +32,57 @@ class _SubEpisodePageState extends State<SubEpisodePage> {
   final _list = List<String>();
   int a=0;
 
+  Future _showAlertDialog(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('サブエピソードが残っています'),
+          content: Text('ホームに戻るとサブエピソードは全て消えます'),
+          actions: <Widget>[
+            ElevatedButton(
+              child: Text('いいえ'),
+              onPressed: () => Navigator.pop(context),
+            ),
+            ElevatedButton(
+              child: Text('はい'),
+              onPressed: () => {Navigator.pop(context),Navigator.pop(context)}
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      // ignore: missing_return
-      onWillPop:(){
-        if(_list.length>0){
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text('エピソードが残っています')));
-        }else{
-        Navigator.of(context).pop();
-        }
-        },
+
+    // return AlertDialog(
+    //     title: Text("タイトル"),
+    //     content: Text("メッセージメッセージメッセージメッセージメッセージメッセージ"),
+    //     actions: <Widget>[
+          // ボタン領域
+          // FlatButton(
+          //   child: Text("Cancel"),
+          //   onPressed: () => Navigator.pop(context),
+          // ),
+          // FlatButton(
+          //   child: Text("OK"),
+          //   onPressed: () => Navigator.pop(context),
+          // ),
+        // ],
+
+     return WillPopScope(
+    //   ignore: missing_return
+       onWillPop:(){
+         if(_list.length>0){
+           _showAlertDialog(context);
+         }else{
+         Navigator.of(context).pop();
+         }
+         },
     child:Scaffold(
       appBar: AppBar(
         centerTitle: true,
