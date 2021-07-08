@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:memory_share/pages/post_page.dart';
-import 'package:memory_share/widgets/longButton.dart';
+import 'package:memory_share/widgets/widgets.dart';
 
 class SubEpisodePage extends StatefulWidget {
   @override

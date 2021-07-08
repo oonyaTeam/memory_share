@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:memory_share/models/MapModel.dart';
-import 'package:memory_share/pages/re_experience_page.dart';
+import 'package:memory_share/models/models.dart';
+import 'package:memory_share/pages/pages.dart';
 import 'package:provider/provider.dart';
 
 // DetermineDestinationDialog (マーカーを設定するか確認するダイアログ)

@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:memory_share/pages/episode_view_page.dart';
+import 'package:memory_share/pages/pages.dart';
 
 // BottomModal（ReExperiencePage で下に画像等を表示するモーダル）
 

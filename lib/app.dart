@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:memory_share/models/MapModel.dart';
-import 'package:memory_share/models/UserModel.dart';
-import 'package:memory_share/pages/home_page.dart';
+import 'package:memory_share/models/models.dart';
+import 'package:memory_share/pages/pages.dart';
 import 'package:provider/provider.dart';
 
 class MyApp extends StatelessWidget {
