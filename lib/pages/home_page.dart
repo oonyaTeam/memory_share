@@ -6,7 +6,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:memory_share/pages/sub_episode_page.dart';
 import 'package:memory_share/widgets/DetermineDestinationDialogBuilder.dart';
 import 'package:memory_share/widgets/longButton.dart';
-import 'package:memory_share/widgets/AppBar.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
@@ -33,7 +32,7 @@ class _HomePageState extends State<HomePage> {
     showDialog(
         context: _context,
         builder: (BuildContext context) =>
-            DetermineDestinationDialogBuilder(context, _distance, () => _disposeController(), _currentMarker));
+            DetermineDestinationDialogBuilder(_context, _distance, () => _disposeController(), _currentMarker));
   }
 
   void _onTapMarker(String markerId) {
@@ -127,7 +126,9 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     _context = context;
     return Scaffold(
-      appBar: AppBarComponent(widget.title),
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
       body: _currentPosition == null
           ? Center(
               child: CircularProgressIndicator(),
