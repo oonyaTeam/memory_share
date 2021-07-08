@@ -35,7 +35,17 @@ class _SubEpisodePageState extends State<SubEpisodePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(
+      // ignore: missing_return
+      onWillPop:(){
+        if(_list.length>0){
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text('エピソードが残っています')));
+        }else{
+        Navigator.of(context).pop();
+        }
+        },
+    child:Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: Text(
@@ -59,8 +69,8 @@ class _SubEpisodePageState extends State<SubEpisodePage> {
                 _list.removeAt(index);
               });
 
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(SnackBar(content: Text('$item dismissed')));
+              // ScaffoldMessenger.of(context)
+              //     .showSnackBar(SnackBar(content: Text('$item dismissed')));
             },
 
             background: Container(color: Colors.red),
@@ -112,25 +122,25 @@ class _SubEpisodePageState extends State<SubEpisodePage> {
               longButton("目的地に到着",() => onTapArriveButton(context))
           ),
         ),
-        Align(
-          alignment: Alignment.topRight,
-          child: Container(
-              margin: EdgeInsets.only(right: 22),
-              child:
-              IconButton(
-                icon: Icon(Icons.remove),
-                onPressed: () {
-                  if (_list.length == 0) {
-
-                  } else {
-                    setState(() {
-                      _list.removeAt(_list.length - 1);
-                    });
-                  }
-                },
-              )
-          ),
-        ),
+        // Align(
+        //   alignment: Alignment.topRight,
+        //   child: Container(
+              // margin: EdgeInsets.only(right: 22),
+              // child:
+              // IconButton(
+              //   icon: Icon(Icons.remove),
+              //   onPressed: () {
+              //     if (_list.length == 0) {
+              //
+              //     } else {
+              //       setState(() {
+              //         _list.removeAt(_list.length - 1);
+              //       });
+              //     }
+              //   },
+              // )
+          // ),
+        // ),
         Align(
           alignment: Alignment.topCenter,
           child: Container(
@@ -139,6 +149,7 @@ class _SubEpisodePageState extends State<SubEpisodePage> {
           ),
         ),
       ]),
+      )
     );
   }
 }
