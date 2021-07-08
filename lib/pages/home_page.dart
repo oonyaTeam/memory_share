@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:memory_share/models/MapModel.dart';
-import 'package:memory_share/pages/sub_episode_page.dart';
-import 'package:memory_share/widgets/DetermineDestinationDialogBuilder.dart';
-import 'package:memory_share/widgets/longButton.dart';
-import 'package:memory_share/widgets/AppBar.dart';
+import 'package:memory_share/models/models.dart';
+import 'package:memory_share/pages/pages.dart';
+import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
