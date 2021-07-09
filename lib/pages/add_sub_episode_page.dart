@@ -7,8 +7,21 @@ class AddSubEpisodePage extends StatelessWidget {
       appBar: AppBar(
         title: Text("AddSubEpisodePage"),
       ),
-      body: Container(
-      ),
+      body: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              TextField(
+                decoration: InputDecoration(hintText: "Insert your message",),
+                scrollPadding: EdgeInsets.all(20.0),
+                keyboardType: TextInputType.multiline,
+                maxLines: 99999,
+                autofocus: true,)
+            ],
+          ),
+        ),
+      )
     );
   }
 }

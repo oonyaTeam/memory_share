@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:memory_share/pages/add_sub_episode_page.dart';
 import 'package:memory_share/pages/post_page.dart';
 import 'package:memory_share/widgets/widgets.dart';
 
@@ -26,6 +27,14 @@ class _SubEpisodePageState extends State<SubEpisodePage> {
         ),
       );
     }
+  }
+
+  Future onTapAddButton(BuildContext context) async {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => AddSubEpisodePage()
+      )
+    );
   }
 
   // ignore: deprecated_member_use
@@ -154,27 +163,17 @@ class _SubEpisodePageState extends State<SubEpisodePage> {
         Align(
           alignment: Alignment.bottomCenter,
           child: Container(
-              margin: EdgeInsets.only(bottom: 89),
-              child:
-              longButton("エピソードを追加する",() => {
-                 setState(() {
-                   _list.add(
-                       'サブエピソード${a} :'
-                   );
-                   a++;
-                })
-
-                // _TextDialog(context)
-
-              })
+            margin: EdgeInsets.only(bottom: 89),
+            child:
+              longButton("エピソードを追加する",() => onTapAddButton(context))
           ),
         ),
         Align(
           alignment: Alignment.bottomCenter,
           child: Container(
-              margin: EdgeInsets.only(bottom: 22),
-              child:
-              longButton("目的地に到着",() => onTapArriveButton(context))
+            margin: EdgeInsets.only(bottom: 22),
+            child:
+            longButton("目的地に到着",() => onTapArriveButton(context))
           ),
         ),
         // Align(
@@ -204,7 +203,7 @@ class _SubEpisodePageState extends State<SubEpisodePage> {
           ),
         ),
       ]),
-      )
-    );
+    )
+     );
   }
 }
