@@ -13,20 +13,19 @@ class PostPage extends StatefulWidget {
 }
 
 class _PostPageState extends State<PostPage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
         centerTitle: true,
-        title: Stack(children: [
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Container(
+        title: Stack(
+          children: [
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Container(
                 margin: EdgeInsets.only(left: 0),
-                child:
-                TextButton(
+                child: TextButton(
                   onPressed: () {},
                   child: Text('キャンセル'),
                   style: TextButton.styleFrom(
@@ -35,28 +34,27 @@ class _PostPageState extends State<PostPage> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                )
+                ),
+              ),
             ),
-          ),
-          Align(
-            alignment: Alignment.centerRight,
-            child: Container(
-              //margin: EdgeInsets.all(0.0),
-              child:
-              VariableButton("投稿する", () => {}, 114.0, 44.0),
+            Align(
+              alignment: Alignment.centerRight,
+              child: Container(
+                //margin: EdgeInsets.all(0.0),
+                child: VariableButton("投稿する", () => {}, 114.0, 44.0),
+              ),
             ),
-          ),
-        ],),
+          ],
+        ),
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
       ),
-      body:Stack(children:[
+      body: Stack(children: [
         Align(
           alignment: Alignment.topCenter,
           child: Container(
             margin: EdgeInsets.only(bottom: 5),
-            child:
-            Container(
+            child: Container(
               width: 375,
               height: 188,
               decoration: BoxDecoration(
@@ -73,8 +71,7 @@ class _PostPageState extends State<PostPage> {
           alignment: Alignment.topCenter,
           child: Container(
             margin: EdgeInsets.only(top: 200),
-            child:
-            TextField(
+            child: TextField(
               keyboardType: TextInputType.multiline,
               maxLines: null,
               decoration: InputDecoration(
