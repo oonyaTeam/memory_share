@@ -47,7 +47,7 @@ class _SubEpisodePageState extends State<SubEpisodePage> {
             ),
             ElevatedButton(
               child: Text('はい'),
-              onPressed: () => {Navigator.pop(context),Navigator.pop(context)}
+              onPressed: () => {Navigator.pop(context),Navigator.pop(context)} //TODO　なんか動いた
             ),
           ],
         );
@@ -55,25 +55,32 @@ class _SubEpisodePageState extends State<SubEpisodePage> {
     );
   }
 
+  // Future _TextDialog(BuildContext context) async {
+  //   return showDialog<void>(
+  //     context: context,
+  //     barrierDismissible: false,
+  //     builder: (BuildContext context) {
+  //       return AlertDialog(
+  //         title: Text('サブエピソードを入力してください'),
+  //         content: TextField(),
+  //         actions: <Widget>[
+  //           ElevatedButton(
+  //             child: Text('破棄'),
+  //             onPressed: () => Navigator.pop(context),
+  //           ),
+  //           ElevatedButton(
+  //               child: Text('完了'),
+  //               onPressed: () => Navigator.pop(context),
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
+
 
   @override
   Widget build(BuildContext context) {
-
-    // return AlertDialog(
-    //     title: Text("タイトル"),
-    //     content: Text("メッセージメッセージメッセージメッセージメッセージメッセージ"),
-    //     actions: <Widget>[
-          // ボタン領域
-          // FlatButton(
-          //   child: Text("Cancel"),
-          //   onPressed: () => Navigator.pop(context),
-          // ),
-          // FlatButton(
-          //   child: Text("OK"),
-          //   onPressed: () => Navigator.pop(context),
-          // ),
-        // ],
-
      return WillPopScope(
     //   ignore: missing_return
        onWillPop:(){
@@ -99,6 +106,7 @@ class _SubEpisodePageState extends State<SubEpisodePage> {
         itemCount: _list.length,
         itemBuilder: (context, index) {
           final item = _list[index];
+
           return Dismissible(
             key: Key(item),
 
@@ -110,10 +118,16 @@ class _SubEpisodePageState extends State<SubEpisodePage> {
               // ScaffoldMessenger.of(context)
               //     .showSnackBar(SnackBar(content: Text('$item dismissed')));
             },
-
             background: Container(color: Colors.red),
-
-            child: ListTile(title: Text('$item')),
+            // child: ListTile(title: Text('$item')),
+            child: Card(
+              child: Padding(
+                padding: EdgeInsets.all(20.0),
+                child: ListTile(
+                  title: Text('$item',style: TextStyle(fontSize: 22.0),textAlign: TextAlign.center,),
+                ),
+              ),
+            ),
 
           );}
         ),
@@ -143,12 +157,15 @@ class _SubEpisodePageState extends State<SubEpisodePage> {
               margin: EdgeInsets.only(bottom: 89),
               child:
               longButton("エピソードを追加する",() => {
-                setState(() {
-                  _list.add(
-                      'Item ${a}'
-                  );
-                  a++;
+                 setState(() {
+                   _list.add(
+                       'サブエピソード${a} :'
+                   );
+                   a++;
                 })
+
+                // _TextDialog(context)
+
               })
           ),
         ),
