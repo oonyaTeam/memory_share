@@ -75,13 +75,11 @@ class _PostPageState extends State<PostPage> {
             margin: EdgeInsets.only(top: 200),
             child:
             TextField(
+              decoration: InputDecoration(hintText: "Insert your message",),
+              scrollPadding: EdgeInsets.all(20.0),
               keyboardType: TextInputType.multiline,
-              maxLines: null,
-              decoration: InputDecoration(
-                labelText: 'Episode',
-                hintText: 'Episode',
-              ),
-            ),
+              maxLines: 99999,
+              autofocus: true)
           ),
         ),
       ]),
