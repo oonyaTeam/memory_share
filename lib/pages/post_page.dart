@@ -22,6 +22,29 @@ class _PostPageState extends State<PostPage> {
     );
   }
 
+  Future _showAlertDialog(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('このページを離れますか？'),
+          content: Text('「はい」を押すと、文章と写真は削除されます。'),
+          actions: <Widget>[
+            ElevatedButton(
+              child: Text('いいえ'),
+              onPressed: () => Navigator.pop(context),
+            ),
+            ElevatedButton(
+                child: Text('はい'),
+                onPressed: () => {Navigator.pop(context),Navigator.pop(context)} //TODO　なんか動いた
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +58,9 @@ class _PostPageState extends State<PostPage> {
                 margin: EdgeInsets.only(left: 0),
                 child:
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    _showAlertDialog(context);
+                  },
                   child: Text('キャンセル'),
                   style: TextButton.styleFrom(
                     textStyle: TextStyle(
