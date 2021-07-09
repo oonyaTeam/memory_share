@@ -20,7 +20,6 @@ Widget DetermineDestinationDialogBuilder({
       ElevatedButton(
         onPressed: () {
           Navigator.pop(context);
-          mapModel.disposeController();
           Navigator.push(
             context,
             MaterialPageRoute(

@@ -30,7 +30,7 @@ class ReExperiencePage extends StatelessWidget {
                     zoom: 15.0,
                   ),
                   onMapCreated: (GoogleMapController controller) {
-                    mapModel.controller.complete(controller);
+                    mapModel.setReExperienceMapController(controller);
                   },
                   markers: {
                     Marker(
