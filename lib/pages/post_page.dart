@@ -14,6 +14,14 @@ class PostPage extends StatefulWidget {
 
 class _PostPageState extends State<PostPage> {
 
+  Future post(BuildContext context) async {
+    // API処理を書く
+    // とりあえず、home_pageへの画面遷移だけ書いておく
+    Navigator.of(context).popUntil(
+        (route) => route.isFirst
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +51,7 @@ class _PostPageState extends State<PostPage> {
             child: Container(
               //margin: EdgeInsets.all(0.0),
               child:
-              VariableButton("投稿する", () => {}, 114.0, 44.0),
+              VariableButton("投稿する", () => { post(context) }, 114.0, 44.0),
             ),
           ),
         ],),
