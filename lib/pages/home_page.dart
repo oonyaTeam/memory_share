@@ -19,14 +19,6 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  List<MarkerData> getMarkers() {
-    List<MarkerData> markers = [
-      MarkerData('marker1', LatLng(34.8532, 136.5822)),
-      MarkerData('marker2', LatLng(34.8480, 136.5756)),
-    ];
-    return markers;
-  }
-
   @override
   Widget build(BuildContext context) {
     final mapModel = context.watch<MapModel>();
@@ -48,9 +40,9 @@ class HomePage extends StatelessWidget {
               zoom: 15.0,
             ),
             onMapCreated: (GoogleMapController controller) {
-              mapModel.setMapController(controller);
+              mapModel.setHomeMapController(controller);
             },
-            markers: getMarkers()
+            markers: mapModel.markers
               .map(
                 (data) => Marker(
                 markerId: MarkerId(data.markerId),

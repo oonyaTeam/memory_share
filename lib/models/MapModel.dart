@@ -5,6 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+class Episode {
+  String episode;
+  List<String> subEpisodes;
+}
+
 class MarkerData {
   String markerId;
   LatLng position;
@@ -19,7 +24,8 @@ class MapModel with ChangeNotifier {
   Position _currentPosition;
   double _distance = 0.0;
   double _sigma = 10.0;
-  Completer<GoogleMapController> _controller = Completer();
+  Completer<GoogleMapController> _homeMapController = Completer();
+  Completer<GoogleMapController> _reExperienceMapController = Completer();
 
   StreamSubscription<Position> _positionStream;
 
@@ -28,9 +34,17 @@ class MapModel with ChangeNotifier {
   Position get currentPosition => _currentPosition;
   double get distance => _distance;
   double get sigma => _sigma;
-  Completer<GoogleMapController> get controller => _controller;
+  Completer<GoogleMapController> get homeMapController => _homeMapController;
+  Completer<GoogleMapController> get reExperienceMapController => _reExperienceMapController;
 
   MapModel() {
+
+    List<MarkerData> markers = [
+      MarkerData('marker1', LatLng(34.8532, 136.5822)),
+      MarkerData('marker2', LatLng(34.8480, 136.5756)),
+    ];
+    setMarkers(markers);
+
     getPosition();
 
     _positionStream =
@@ -76,22 +90,21 @@ class MapModel with ChangeNotifier {
     notifyListeners();
   }
 
-  void setMapController(GoogleMapController controller) {
-    _controller.complete(controller);
-
+  void setHomeMapController(GoogleMapController controller) {
+    _homeMapController.complete(controller);
     notifyListeners();
   }
 
-  void disposeController() async {
-    var controller = await _controller.future;
-    controller.dispose();
+  void setReExperienceMapController(GoogleMapController controller) {
+    _reExperienceMapController.complete(controller);
+    notifyListeners();
   }
+
 
   @override
   void dispose() {
     super.dispose();
     _positionStream.cancel();
-    disposeController();
   }
 
 }
