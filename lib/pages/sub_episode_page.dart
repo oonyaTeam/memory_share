@@ -64,28 +64,6 @@ class _SubEpisodePageState extends State<SubEpisodePage> {
     );
   }
 
-  // Future _TextDialog(BuildContext context) async {
-  //   return showDialog<void>(
-  //     context: context,
-  //     barrierDismissible: false,
-  //     builder: (BuildContext context) {
-  //       return AlertDialog(
-  //         title: Text('サブエピソードを入力してください'),
-  //         content: TextField(),
-  //         actions: <Widget>[
-  //           ElevatedButton(
-  //             child: Text('破棄'),
-  //             onPressed: () => Navigator.pop(context),
-  //           ),
-  //           ElevatedButton(
-  //               child: Text('完了'),
-  //               onPressed: () => Navigator.pop(context),
-  //           ),
-  //         ],
-  //       );
-  //     },
-  //   );
-  // }
 
 
   @override
@@ -176,32 +154,33 @@ class _SubEpisodePageState extends State<SubEpisodePage> {
             longButton("目的地に到着",() => onTapArriveButton(context))
           ),
         ),
-        // Align(
-        //   alignment: Alignment.topRight,
-        //   child: Container(
-              // margin: EdgeInsets.only(right: 22),
-              // child:
-              // IconButton(
-              //   icon: Icon(Icons.remove),
-              //   onPressed: () {
-              //     if (_list.length == 0) {
-              //
-              //     } else {
-              //       setState(() {
-              //         _list.removeAt(_list.length - 1);
-              //       });
-              //     }
-              //   },
-              // )
-          // ),
-        // ),
-        Align(
-          alignment: Alignment.topCenter,
-          child: Container(
-              margin: EdgeInsets.only(top: 22),
-              child:(_list.length == 0) ? Image.asset('assets/hukura.jpg') : Text(" "),
-          ),
-        ),
+         Align(
+           alignment: Alignment.topRight,
+           child: Container(
+               margin: EdgeInsets.only(right: 22),
+               child:
+               IconButton(
+                 icon: Icon(Icons.remove),
+                 onPressed: () {
+                   if (_list.length == 0) {
+
+                   } else {
+                     setState(() {
+                       _list.removeAt(_list.length - 1);
+                     });
+                   }
+                 },
+               )
+           ),
+         ),
+         Align(
+           alignment: Alignment.topCenter,
+           child: Container(
+               margin: EdgeInsets.only(top: 22),
+               child:(_list.length == 0) ? Image.asset('assets/hukura.jpg') : Text(" "),
+           ),
+         ),
+
       ]),
     )
      );
