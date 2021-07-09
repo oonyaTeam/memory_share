@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:memory_share/pages/add_sub_episode_page.dart';
 import 'package:memory_share/pages/post_page.dart';
 import 'package:memory_share/widgets/widgets.dart';
 
@@ -27,6 +28,14 @@ class _SubEpisodePageState extends State<SubEpisodePage> {
     }
   }
 
+  Future onTapAddButton(BuildContext context) async {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => AddSubEpisodePage()
+      )
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +55,7 @@ class _SubEpisodePageState extends State<SubEpisodePage> {
           child: Container(
             margin: EdgeInsets.only(bottom: 89),
             child:
-              longButton("エピソードを追加する",() => {})
+              longButton("エピソードを追加する",() => onTapAddButton(context))
           ),
         ),
         Align(
