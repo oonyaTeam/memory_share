@@ -1,20 +1,19 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:memory_share/models/models.dart';
 import 'package:memory_share/widgets/widgets.dart';
+import 'package:provider/provider.dart';
 
-class PostPage extends StatefulWidget {
-  PostPage({Key key, this.photo}) : super(key: key);
+class PostPage extends StatelessWidget {
 
   final File photo;
 
-  @override
-  _PostPageState createState() => _PostPageState();
-}
+  PostPage({this.photo});
 
-class _PostPageState extends State<PostPage> {
   @override
   Widget build(BuildContext context) {
+    final userModel = context.watch<UserModel>();
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
@@ -49,39 +48,41 @@ class _PostPageState extends State<PostPage> {
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
       ),
-      body: Stack(children: [
-        Align(
-          alignment: Alignment.topCenter,
-          child: Container(
-            margin: EdgeInsets.only(bottom: 5),
+      body: Stack(
+        children: [
+          Align(
+            alignment: Alignment.topCenter,
             child: Container(
-              width: 375,
-              height: 188,
-              decoration: BoxDecoration(
-                shape: BoxShape.rectangle,
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: FileImage(widget.photo),
+              margin: EdgeInsets.only(bottom: 5),
+              child: Container(
+                width: 375,
+                height: 188,
+                decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: FileImage(photo),
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-        Align(
-          alignment: Alignment.topCenter,
-          child: Container(
-            margin: EdgeInsets.only(top: 200),
-            child: TextField(
-              keyboardType: TextInputType.multiline,
-              maxLines: null,
-              decoration: InputDecoration(
-                labelText: 'Episode',
-                hintText: 'Episode',
+          Align(
+            alignment: Alignment.topCenter,
+            child: Container(
+              margin: EdgeInsets.only(top: 200),
+              child: TextField(
+                keyboardType: TextInputType.multiline,
+                maxLines: null,
+                decoration: InputDecoration(
+                  labelText: 'Episode',
+                  hintText: 'Episode',
+                ),
               ),
             ),
           ),
-        ),
-      ]),
+        ],
+      ),
     );
   }
 }
