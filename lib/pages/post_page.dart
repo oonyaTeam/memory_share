@@ -1,8 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:memory_share/widgets/VariableButton.dart';
+import 'package:memory_share/widgets/widgets.dart';
 
 class PostPage extends StatefulWidget {
   PostPage({Key key, this.photo}) : super(key: key);
