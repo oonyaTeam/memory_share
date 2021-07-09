@@ -33,8 +33,7 @@ class _SubEpisodePageState extends State<SubEpisodePage> {
         .push(MaterialPageRoute(builder: (context) => AddSubEpisodePage()));
   }
 
-  // ignore: deprecated_member_use
-  final _list = List<String>();
+  List<String> _list = ['hoge'];
   int a = 0;
 
   Future _showAlertDialog(BuildContext context) async {
@@ -66,12 +65,12 @@ class _SubEpisodePageState extends State<SubEpisodePage> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      //   ignore: missing_return
-      onWillPop: () {
+      onWillPop: () async {
         if (_list.length > 0) {
           _showAlertDialog(context);
+          return false;
         } else {
-          Navigator.of(context).pop();
+          return true;
         }
       },
       child: Scaffold(
