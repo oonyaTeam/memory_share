@@ -80,29 +80,30 @@ class SubEpisodePage extends StatelessWidget {
         body: Stack(
           children: [
             ListView.builder(
-                itemCount: userModel.subEpisodeList.length,
-                itemBuilder: (context, index) {
-                  final item = userModel.subEpisodeList[index];
-                  return Dismissible(
-                    key: Key(item),
-                    onDismissed: (direction) {
-                      userModel.removeSubEpisode(index);
-                    },
-                    background: Container(color: Colors.red),
-                    child: Card(
-                      child: Padding(
-                        padding: EdgeInsets.all(20.0),
-                        child: ListTile(
-                          title: Text(
-                            '$item',
-                            style: TextStyle(fontSize: 22.0),
-                            textAlign: TextAlign.center,
-                          ),
+              itemCount: userModel.subEpisodeList.length,
+              itemBuilder: (context, index) {
+                final item = userModel.subEpisodeList[index];
+                return Dismissible(
+                  key: Key(item),
+                  onDismissed: (direction) {
+                    userModel.removeSubEpisode(index);
+                  },
+                  background: Container(color: Colors.red),
+                  child: Card(
+                    child: Padding(
+                      padding: EdgeInsets.all(20.0),
+                      child: ListTile(
+                        title: Text(
+                          '$item',
+                          style: TextStyle(fontSize: 22.0),
+                          textAlign: TextAlign.center,
                         ),
                       ),
                     ),
-                  );
-                }),
+                  ),
+                );
+              },
+            ),
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
@@ -113,13 +114,52 @@ class SubEpisodePage extends StatelessWidget {
                 ),
               ),
             ),
+            // Column(
+            //   children: [
+            //     Expanded(
+            //       child: ListView.builder(
+            //         itemCount: _list.length,
+            //         itemBuilder: (BuildContext context, int index) {
+            //           return Card(
+            //             child: Padding(
+            //               child: Text('$index', style: TextStyle(fontSize: 22.0),textAlign: TextAlign.center,),
+            //               padding: EdgeInsets.all(100.0)
+            //             ),
+            //           );
+            //
+            //           // return _list[index];
+            //         },
+            //       ),
+            //     ),
+            //   ],
+            // ),
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
-                margin: EdgeInsets.only(bottom: 22),
-                child: longButton(
-                  "目的地に到着",
-                  () => onTapArriveButton(context),
+                  margin: EdgeInsets.only(bottom: 89),
+                  child:
+                      longButton("エピソードを追加する", () => onTapAddButton(context))),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                  margin: EdgeInsets.only(bottom: 22),
+                  child:
+                      longButton("目的地に到着", () => onTapArriveButton(context))),
+            ),
+            Align(
+              alignment: Alignment.topRight,
+              child: Container(
+                margin: EdgeInsets.only(right: 22),
+                child: IconButton(
+                  icon: Icon(Icons.remove),
+                  onPressed: () {
+                    if (userModel.subEpisodeList.length == 0) {
+                    } else {
+                      userModel.removeSubEpisode(
+                          userModel.subEpisodeList.length - 1);
+                    }
+                  },
                 ),
               ),
             ),

@@ -6,10 +6,41 @@ import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 class PostPage extends StatelessWidget {
-
   final File photo;
 
   PostPage({this.photo});
+
+  Future post(BuildContext context) async {
+    // API処理を書く
+    // とりあえず、home_pageへの画面遷移だけ書いておく
+    Navigator.of(context).popUntil((route) => route.isFirst);
+  }
+
+  Future _showAlertDialog(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('このページを離れますか？'),
+          content: Text('「はい」を押すと、文章と写真は削除されます。'),
+          actions: <Widget>[
+            ElevatedButton(
+              child: Text('いいえ'),
+              onPressed: () => Navigator.pop(context),
+            ),
+            ElevatedButton(
+              child: Text('はい'),
+              onPressed: () => {
+                Navigator.pop(context),
+                Navigator.pop(context)
+              }, //TODO　なんか動いた
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +56,9 @@ class PostPage extends StatelessWidget {
               child: Container(
                 margin: EdgeInsets.only(left: 0),
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    _showAlertDialog(context);
+                  },
                   child: Text('キャンセル'),
                   style: TextButton.styleFrom(
                     textStyle: TextStyle(
@@ -40,7 +73,8 @@ class PostPage extends StatelessWidget {
               alignment: Alignment.centerRight,
               child: Container(
                 //margin: EdgeInsets.all(0.0),
-                child: VariableButton("投稿する", () => {}, 114.0, 44.0),
+                child:
+                    VariableButton("投稿する", () => {post(context)}, 114.0, 44.0),
               ),
             ),
           ],
@@ -72,12 +106,13 @@ class PostPage extends StatelessWidget {
             child: Container(
               margin: EdgeInsets.only(top: 200),
               child: TextField(
-                keyboardType: TextInputType.multiline,
-                maxLines: null,
                 decoration: InputDecoration(
-                  labelText: 'Episode',
-                  hintText: 'Episode',
+                  hintText: "Insert your message",
                 ),
+                scrollPadding: EdgeInsets.all(20.0),
+                keyboardType: TextInputType.multiline,
+                maxLines: 99999,
+                autofocus: true,
               ),
             ),
           ),
