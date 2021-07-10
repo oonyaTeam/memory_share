@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:memory_share/widgets/widgets.dart';
 
 class AddSubEpisodePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("AddSubEpisodePage"),
+      appBar: EditorAppBar(
+        postLabel: "追加する",
+        onPost: () => {},
+        onCancel: () => {},
       ),
       body: Center(
         child: SingleChildScrollView(

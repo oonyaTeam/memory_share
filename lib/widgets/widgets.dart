@@ -3,3 +3,4 @@ export 'BottomModalBuilder.dart';
 export 'DetermineDestinationDialogBuilder.dart';
 export 'longButton.dart';
 export 'VariableButton.dart';
+export 'EditorAppBar.dart';

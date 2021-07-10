@@ -47,40 +47,10 @@ class PostPage extends StatelessWidget {
     final userModel = context.watch<UserModel>();
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      appBar: AppBar(
-        centerTitle: true,
-        title: Stack(
-          children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Container(
-                margin: EdgeInsets.only(left: 0),
-                child: TextButton(
-                  onPressed: () {
-                    _showAlertDialog(context);
-                  },
-                  child: Text('キャンセル'),
-                  style: TextButton.styleFrom(
-                    textStyle: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: Container(
-                //margin: EdgeInsets.all(0.0),
-                child:
-                    VariableButton("投稿する", () => {post(context)}, 114.0, 44.0),
-              ),
-            ),
-          ],
-        ),
-        backgroundColor: Colors.white,
-        automaticallyImplyLeading: false,
+      appBar: EditorAppBar(
+        postLabel: "投稿する",
+        onPost: () => post(context),
+        onCancel: () => _showAlertDialog(context),
       ),
       body: Stack(
         children: [
