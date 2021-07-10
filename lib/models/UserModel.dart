@@ -13,6 +13,7 @@ class UserModel with ChangeNotifier {
 
   void setPhoto(File photo) {
     _photo = photo;
+    notifyListeners();
   }
 
   void addSubEpisode(String subEpisode) {
@@ -22,6 +23,11 @@ class UserModel with ChangeNotifier {
 
   void removeSubEpisode(int index) {
     _subEpisodeList.removeAt(index);
+    notifyListeners();
+  }
+
+  void clearSubEpisode() {
+    _subEpisodeList.clear();
     notifyListeners();
   }
 

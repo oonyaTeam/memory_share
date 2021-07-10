@@ -15,6 +15,7 @@ class SubEpisodePage extends StatelessWidget {
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
+        final userModel = context.read<UserModel>();
         return AlertDialog(
           title: Text('サブエピソードが残っています'),
           content: Text('ホームに戻るとサブエピソードは全て消えます'),
@@ -27,7 +28,8 @@ class SubEpisodePage extends StatelessWidget {
               child: Text('はい'),
               onPressed: () => {
                 Navigator.pop(context),
-                Navigator.pop(context)
+                Navigator.pop(context),
+                userModel.clearSubEpisode(),
               }, //TODO　なんか動いた
             ),
           ],

@@ -25,6 +25,12 @@ class _AddSubEpisodePageState extends State<AddSubEpisodePage> {
     _textEditingController = TextEditingController();
     super.initState();
   }
+  
+  @override
+  void dispose() {
+    _textEditingController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
