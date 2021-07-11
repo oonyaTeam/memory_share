@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 class PostPage extends StatelessWidget {
   final File photo;
 
-  PostPage({this.photo});
+  const PostPage({Key key, this.photo}) : super(key: key);
 
   Future post(BuildContext context) async {
     // API処理を書く
@@ -22,15 +22,15 @@ class PostPage extends StatelessWidget {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('このページを離れますか？'),
-          content: Text('「はい」を押すと、文章と写真は削除されます。'),
+          title: const Text('このページを離れますか？'),
+          content: const Text('「はい」を押すと、文章と写真は削除されます。'),
           actions: <Widget>[
             ElevatedButton(
-              child: Text('いいえ'),
+              child: const Text('いいえ'),
               onPressed: () => Navigator.pop(context),
             ),
             ElevatedButton(
-              child: Text('はい'),
+              child: const Text('はい'),
               onPressed: () => {
                 Navigator.pop(context),
                 Navigator.pop(context)
@@ -54,14 +54,14 @@ class PostPage extends StatelessWidget {
             Align(
               alignment: Alignment.centerLeft,
               child: Container(
-                margin: EdgeInsets.only(left: 0),
+                margin: const EdgeInsets.only(left: 0),
                 child: TextButton(
                   onPressed: () {
                     _showAlertDialog(context);
                   },
-                  child: Text('キャンセル'),
+                  child: const Text('キャンセル'),
                   style: TextButton.styleFrom(
-                    textStyle: TextStyle(
+                    textStyle: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
@@ -74,7 +74,7 @@ class PostPage extends StatelessWidget {
               child: Container(
                 //margin: EdgeInsets.all(0.0),
                 child:
-                    VariableButton("投稿する", () => {post(context)}, 114.0, 44.0),
+                    variableButton("投稿する", () => {post(context)}, 114.0, 44.0),
               ),
             ),
           ],
@@ -87,7 +87,7 @@ class PostPage extends StatelessWidget {
           Align(
             alignment: Alignment.topCenter,
             child: Container(
-              margin: EdgeInsets.only(bottom: 5),
+              margin: const EdgeInsets.only(bottom: 5),
               child: Container(
                 width: 375,
                 height: 188,
@@ -104,8 +104,8 @@ class PostPage extends StatelessWidget {
           Align(
             alignment: Alignment.topCenter,
             child: Container(
-              margin: EdgeInsets.only(top: 200),
-              child: TextField(
+              margin: const EdgeInsets.only(top: 200),
+              child: const TextField(
                 decoration: InputDecoration(
                   hintText: "Insert your message",
                 ),

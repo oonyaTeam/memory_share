@@ -1,43 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:memory_share/pages/setting_page.dart';
 
-
 class UserPage extends StatelessWidget {
+
+  const UserPage({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("マイページ"),
+        title: const Text("マイページ"),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.build_circle),
+            icon: const Icon(Icons.build_circle),
             iconSize: 36,
-            onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => SettingPage()));}
-            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SettingPage()),
+              );
+            },
+          ),
         ],
       ),
       body: Column(
         children: [
           Align(
-              alignment: Alignment.topCenter,
+            alignment: Alignment.topCenter,
             child: Column(
               children: [
                 Container(
-                  margin: EdgeInsets.only(top: 10),
+                  margin: const EdgeInsets.only(top: 10),
                   alignment: Alignment.center,
                   height: 60,
                   width: 400,
                   color: Colors.orangeAccent,
-                  child:
-                  Text(
+                  child: const Text(
                     "  今  ま  で  の  投  稿  ",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                    ) ,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ],

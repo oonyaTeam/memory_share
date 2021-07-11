@@ -4,15 +4,23 @@ import 'package:flutter/material.dart';
 import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
-class EpisodeViewPage extends StatelessWidget {
+class EpisodeViewPage extends StatefulWidget {
+
+  const EpisodeViewPage({Key key}) : super(key: key);
+
+  @override
+  _EpisodeViewPageState createState() => _EpisodeViewPageState();
+}
+
+class _EpisodeViewPageState extends State<EpisodeViewPage> {
   ArCoreController arCoreController;
-  Map<int, ArCoreAugmentedImage> augmentedImagesMap = Map();
+  Map<int, ArCoreAugmentedImage> augmentedImagesMap = {};
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("EpisodeViewPage"),
+        title: const Text("EpisodeViewPage"),
       ),
       body: ArCoreView(
         onArCoreViewCreated: _onArCoreViewCreated,
@@ -30,7 +38,7 @@ class EpisodeViewPage extends StatelessWidget {
   loadImagesDatabase() async {
     final ByteData bytes = await rootBundle.load('INSERT IMAGE DATABASE URL');
     arCoreController.loadAugmentedImagesDatabase(
-        bytes: bytes.buffer.asUint8List());
+      bytes: bytes.buffer.asUint8List());
   }
 
   _handleOnTrackingImage(ArCoreAugmentedImage augmentedImage) {
