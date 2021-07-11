@@ -1,7 +1,9 @@
 import 'dart:typed_data';
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
+import 'package:flutter_compass/flutter_compass.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 class EpisodeViewPage extends StatefulWidget {

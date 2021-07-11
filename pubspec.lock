@@ -99,6 +99,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "8.0.6"
+  camera:
+    dependency: "direct main"
+    description:
+      name: camera
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.8.1+4"
+  camera_platform_interface:
+    dependency: transitive
+    description:
+      name: camera_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.1"
   characters:
     dependency: transitive
     description:
@@ -155,6 +169,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.0"
+  cross_file:
+    dependency: transitive
+    description:
+      name: cross_file
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.1+3"
   crypto:
     dependency: transitive
     description:
@@ -464,6 +485,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  quiver:
+    dependency: transitive
+    description:
+      name: quiver
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.1"
   shelf:
     dependency: transitive
     description:
