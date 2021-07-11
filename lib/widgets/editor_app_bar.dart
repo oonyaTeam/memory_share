@@ -22,12 +22,12 @@ class EditorAppBar extends StatelessWidget with PreferredSizeWidget {
           Align(
             alignment: Alignment.centerLeft,
             child: Container(
-              margin: EdgeInsets.only(left: 0),
+              margin: const EdgeInsets.only(left: 0),
               child: TextButton(
                 onPressed: () => onCancel(),
-                child: Text('キャンセル'),
+                child: const Text('キャンセル'),
                 style: TextButton.styleFrom(
-                  textStyle: TextStyle(
+                  textStyle: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
@@ -39,7 +39,7 @@ class EditorAppBar extends StatelessWidget with PreferredSizeWidget {
             alignment: Alignment.centerRight,
             child: Container(
               //margin: EdgeInsets.all(0.0),
-              child: VariableButton("${postLabel}", () => onPost(), 114.0, 44.0),
+              child: variableButton(postLabel, () => onPost(), 114.0, 44.0),
             ),
           ),
         ],
@@ -50,5 +50,5 @@ class EditorAppBar extends StatelessWidget with PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

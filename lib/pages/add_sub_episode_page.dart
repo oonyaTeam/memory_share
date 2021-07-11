@@ -4,6 +4,9 @@ import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 class AddSubEpisodePage extends StatefulWidget {
+
+  const AddSubEpisodePage({Key key}) : super(key: key);
+
   @override
   _AddSubEpisodePageState createState() => _AddSubEpisodePageState();
 }
@@ -50,10 +53,10 @@ class _AddSubEpisodePageState extends State<AddSubEpisodePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               TextField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: "Insert your message",
                 ),
-                scrollPadding: EdgeInsets.all(20.0),
+                scrollPadding: const EdgeInsets.all(20.0),
                 keyboardType: TextInputType.multiline,
                 maxLines: 99999,
                 autofocus: true,

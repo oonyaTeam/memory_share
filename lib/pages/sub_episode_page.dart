@@ -8,6 +8,9 @@ import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 class SubEpisodePage extends StatelessWidget {
+
+  SubEpisodePage({Key key}) : super(key: key);
+
   final picker = ImagePicker();
 
   Future _showAlertDialog(BuildContext context) async {
@@ -17,15 +20,15 @@ class SubEpisodePage extends StatelessWidget {
       builder: (BuildContext context) {
         final userModel = context.read<UserModel>();
         return AlertDialog(
-          title: Text('サブエピソードが残っています'),
-          content: Text('ホームに戻るとサブエピソードは全て消えます'),
+          title: const Text('サブエピソードが残っています'),
+          content: const Text('ホームに戻るとサブエピソードは全て消えます'),
           actions: <Widget>[
             ElevatedButton(
-              child: Text('いいえ'),
+              child: const Text('いいえ'),
               onPressed: () => Navigator.pop(context),
             ),
             ElevatedButton(
-              child: Text('はい'),
+              child: const Text('はい'),
               onPressed: () => {
                 Navigator.pop(context),
                 Navigator.pop(context),
@@ -61,7 +64,7 @@ class SubEpisodePage extends StatelessWidget {
     final userModel = context.watch<UserModel>();
     return WillPopScope(
       onWillPop: () async {
-        if (userModel.subEpisodeList.length > 0) {
+        if (userModel.subEpisodeList.isNotEmpty) {
           _showAlertDialog(context);
           return false;
         } else {
@@ -71,7 +74,7 @@ class SubEpisodePage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text(
+          title: const Text(
             '思い出投稿',
             style: TextStyle(
               fontSize: 20,
@@ -93,11 +96,11 @@ class SubEpisodePage extends StatelessWidget {
                   background: Container(color: Colors.red),
                   child: Card(
                     child: Padding(
-                      padding: EdgeInsets.all(20.0),
+                      padding: const EdgeInsets.all(20.0),
                       child: ListTile(
                         title: Text(
-                          '$item',
-                          style: TextStyle(fontSize: 22.0),
+                          item,
+                          style: const TextStyle(fontSize: 22.0),
                           textAlign: TextAlign.center,
                         ),
                       ),
@@ -109,7 +112,7 @@ class SubEpisodePage extends StatelessWidget {
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
-                margin: EdgeInsets.only(bottom: 89),
+                margin: const EdgeInsets.only(bottom: 89),
                 child: longButton(
                   "エピソードを追加する",
                   () => onTapAddButton(context),
@@ -138,25 +141,25 @@ class SubEpisodePage extends StatelessWidget {
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
-                  margin: EdgeInsets.only(bottom: 89),
+                  margin: const EdgeInsets.only(bottom: 89),
                   child:
                       longButton("エピソードを追加する", () => onTapAddButton(context))),
             ),
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
-                  margin: EdgeInsets.only(bottom: 22),
+                  margin: const EdgeInsets.only(bottom: 22),
                   child:
                       longButton("目的地に到着", () => onTapArriveButton(context))),
             ),
             Align(
               alignment: Alignment.topRight,
               child: Container(
-                margin: EdgeInsets.only(right: 22),
+                margin: const EdgeInsets.only(right: 22),
                 child: IconButton(
-                  icon: Icon(Icons.remove),
+                  icon: const Icon(Icons.remove),
                   onPressed: () {
-                    if (userModel.subEpisodeList.length == 0) {
+                    if (userModel.subEpisodeList.isEmpty) {
                     } else {
                       userModel.removeSubEpisode(
                           userModel.subEpisodeList.length - 1);
@@ -168,10 +171,10 @@ class SubEpisodePage extends StatelessWidget {
             Align(
               alignment: Alignment.topCenter,
               child: Container(
-                margin: EdgeInsets.only(top: 22),
-                child: (userModel.subEpisodeList.length == 0)
+                margin: const EdgeInsets.only(top: 22),
+                child: (userModel.subEpisodeList.isEmpty)
                     ? Image.asset('assets/hukura.jpg')
-                    : Text(" "),
+                    : const Text(" "),
               ),
             ),
           ],

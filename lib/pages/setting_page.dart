@@ -3,53 +3,55 @@ import 'package:memory_share/pages/address_page.dart';
 import 'package:memory_share/pages/password_page.dart';
 
 class SettingPage extends StatelessWidget {
-  @override
 
+  const SettingPage({Key key}) : super(key: key);
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("SettingPage"),
+        title: const Text("SettingPage"),
       ),
       body: Column(
         children: [
           Container(
-              decoration: new BoxDecoration(
-                border: new Border(
-                  bottom: new BorderSide(color: Colors.black),
+              decoration: const BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(color: Colors.black),
                 ),
               ),
               child: ListTile(
-                title: Text('メールアドレスの変更'),
-                  trailing: Icon(Icons.arrow_forward_ios),
+                title: const Text('メールアドレスの変更'),
+                  trailing: const Icon(Icons.arrow_forward_ios),
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => AddressPage()));
                   }
               )
           ),
           Container(
-              decoration: new BoxDecoration(
-                border: new Border(
-                  bottom: new BorderSide(color: Colors.black),
+              decoration: const BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(color: Colors.black),
                 ),
               ),
               child: ListTile(
-                  title: Text('パスワードの変更'),
-                  trailing: Icon(Icons.arrow_forward_ios),
+                  title: const Text('パスワードの変更'),
+                  trailing: const Icon(Icons.arrow_forward_ios),
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => PasswordPage()));
                   }
               )
           ),
           Container(
-              decoration: new BoxDecoration(
-                border: new Border(
-                  bottom: new BorderSide(color: Colors.black),
+              decoration: const BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(color: Colors.black),
                 ),
               ),
               child: ListTile(
-                  title: Text('ログアウト'),
-                  trailing: Icon(Icons.arrow_forward_ios),
+                  title: const Text('ログアウト'),
+                  trailing: const Icon(Icons.arrow_forward_ios),
                   onTap:(){}
               )
           ),

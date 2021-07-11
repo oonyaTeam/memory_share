@@ -5,17 +5,17 @@ import 'package:provider/provider.dart';
 
 // DetermineDestinationDialog (マーカーを設定するか確認するダイアログ)
 
-Widget DetermineDestinationDialogBuilder({
+Widget determineDestinationDialogBuilder({
   BuildContext context,
 }) {
   final mapModel = context.watch<MapModel>();
   return AlertDialog(
-    title: Text("この場所を目的地に設定しますか？"),
+    title: const Text("この場所を目的地に設定しますか？"),
     content: Text('目的地までの距離は、${mapModel.distance}mです。'),
     actions: [
       ElevatedButton(
         onPressed: () => Navigator.pop(context),
-        child: Text("Cancel"),
+        child: const Text("Cancel"),
       ),
       ElevatedButton(
         onPressed: () {
@@ -23,11 +23,11 @@ Widget DetermineDestinationDialogBuilder({
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ReExperiencePage(),
+              builder: (context) => const ReExperiencePage(),
             ),
           );
         },
-        child: Text("OK"),
+        child: const Text("OK"),
       )
     ],
   );
