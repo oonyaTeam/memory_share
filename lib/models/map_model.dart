@@ -5,11 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class Episode {
-  String episode;
-  List<String> subEpisodes;
-}
-
 class MarkerData {
   String markerId;
   LatLng position;

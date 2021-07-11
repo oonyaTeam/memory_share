@@ -21,4 +21,7 @@ memory_share mobile app.
 
 ```
 GOOGLE_MAPS_API_KEY=YOUR_GOOGLE_MAPS_API_KEY
+API_ENDPOINT=YOUR_API_ENDPOINT
 ```
+
+※API_ENDPOINTには、`https://xxxxxx.xxx.com/` ←最後の`/`を忘れずに。
