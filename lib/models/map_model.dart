@@ -20,12 +20,12 @@ class MarkerData {
 class MapModel with ChangeNotifier {
 
   MarkerData _currentMarker;
-  List<MarkerData> _markers = [];
+  final List<MarkerData> _markers = [];
   Position _currentPosition;
   double _distance = 0.0;
-  double _sigma = 10.0;
-  Completer<GoogleMapController> _homeMapController = Completer();
-  Completer<GoogleMapController> _reExperienceMapController = Completer();
+  final double _sigma = 10.0;
+  Completer<GoogleMapController> _homeMapController;
+  Completer<GoogleMapController> _reExperienceMapController;
 
   StreamSubscription<Position> _positionStream;
 
@@ -39,16 +39,19 @@ class MapModel with ChangeNotifier {
 
   MapModel() {
 
+    _homeMapController = Completer();
+    _reExperienceMapController = Completer();
+
     List<MarkerData> markers = [
-      MarkerData('marker1', LatLng(34.8532, 136.5822)),
-      MarkerData('marker2', LatLng(34.8480, 136.5756)),
+      MarkerData('marker1', const LatLng(34.8532, 136.5822)),
+      MarkerData('marker2', const LatLng(34.8480, 136.5756)),
     ];
     setMarkers(markers);
 
     getPosition();
 
     _positionStream =
-      Geolocator.getPositionStream(intervalDuration: Duration(seconds: 5)).listen((Position position) {
+      Geolocator.getPositionStream(intervalDuration: const Duration(seconds: 5)).listen((Position position) {
           _currentPosition = position;
           if (_currentMarker != null) {
             setDistance();

@@ -74,7 +74,7 @@ class PostPage extends StatelessWidget {
               child: Container(
                 //margin: EdgeInsets.all(0.0),
                 child:
-                    VariableButton("投稿する", () => {post(context)}, 114.0, 44.0),
+                    variableButton("投稿する", () => {post(context)}, 114.0, 44.0),
               ),
             ),
           ],

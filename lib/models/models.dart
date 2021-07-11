@@ -1,2 +1,2 @@
-export 'MapModel.dart';
-export 'UserModel.dart';
+export 'map_model.dart';
+export 'user_model.dart';

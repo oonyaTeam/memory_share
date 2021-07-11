@@ -9,6 +9,6 @@ void main() async {
   await FlutterConfig.loadEnvVariables();
 
   runApp(
-    MyApp(),
+    const MyApp(),
   );
 }

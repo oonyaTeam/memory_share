@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class AddSubEpisodePage extends StatelessWidget {
+
+  const AddSubEpisodePage({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

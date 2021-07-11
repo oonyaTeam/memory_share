@@ -14,7 +14,7 @@ class HomePage extends StatelessWidget {
   void _showDetermineDestinationDialog(BuildContext context) {
     showDialog(
       context: context,
-      builder: (BuildContext context) => DetermineDestinationDialogBuilder(
+      builder: (BuildContext context) => determineDestinationDialogBuilder(
         context: context,
       ),
     );
@@ -24,7 +24,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final mapModel = context.watch<MapModel>();
     return Scaffold(
-      appBar: AppBarComponent(title),
+      appBar: appBarComponent(title),
       body: mapModel.currentPosition == null
         ? const Center(
         child: CircularProgressIndicator(),
