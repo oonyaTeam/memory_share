@@ -47,4 +47,13 @@ class Memory {
       author: json['author'],
     );
   }
+
+  Map<String, dynamic> toJson() => {
+    'memory': memory,
+    'geography': geography,
+    'seen_author': seenAuthor,
+    'episodes': episodes,
+    'image': image,
+    'author': author,
+  }
 }
