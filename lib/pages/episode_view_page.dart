@@ -1,11 +1,10 @@
-import 'dart:typed_data';
+import 'dart:async';
 
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
-import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter_compass/flutter_compass.dart';
 
 class EpisodeViewPage extends StatefulWidget {
-
   const EpisodeViewPage({Key key}) : super(key: key);
 
   @override
@@ -13,39 +12,40 @@ class EpisodeViewPage extends StatefulWidget {
 }
 
 class _EpisodeViewPageState extends State<EpisodeViewPage> {
-  ArCoreController arCoreController;
-  Map<int, ArCoreAugmentedImage> augmentedImagesMap = {};
+  CameraController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    availableCameras().then((cameras) {
+      controller = CameraController(cameras[0], ResolutionPreset.max);
+      controller.initialize().then((_) {
+        if (!mounted) {
+          return;
+        }
+        setState(() {
+
+        });
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    controller?.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    if (!controller.value.isInitialized) {
+      return Container();
+    }
     return Scaffold(
       appBar: AppBar(
         title: const Text("EpisodeViewPage"),
       ),
-      body: ArCoreView(
-        onArCoreViewCreated: _onArCoreViewCreated,
-        type: ArCoreViewType.AUGMENTEDIMAGES,
-      ),
+      body: CameraPreview(controller),
     );
-  }
-
-  void _onArCoreViewCreated(ArCoreController controller) async{
-    arCoreController = controller;
-    //arCoreController.onTrackingImage = _handleOnTrackingImage;
-    //loadImagesDatabase();
-  }
-
-  loadImagesDatabase() async {
-    final ByteData bytes = await rootBundle.load('INSERT IMAGE DATABASE URL');
-    arCoreController.loadAugmentedImagesDatabase(
-      bytes: bytes.buffer.asUint8List());
-  }
-
-  _handleOnTrackingImage(ArCoreAugmentedImage augmentedImage) {
-    if (!augmentedImagesMap.containsKey(augmentedImage.index)) {
-      augmentedImagesMap[augmentedImage.index] = augmentedImage;
-
-      //Navigator.of(context).push(MaterialPageRoute(builder: (context) => EpisodePage()));
-    }
   }
 }
