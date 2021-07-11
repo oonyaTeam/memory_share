@@ -12,7 +12,7 @@ class EpisodeViewPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("EpisodeViewPage"),
+        title: const Text("EpisodeViewPage"),
       ),
       body: ArCoreView(
         onArCoreViewCreated: _onArCoreViewCreated,

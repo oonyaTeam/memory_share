@@ -5,13 +5,13 @@ class AddSubEpisodePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("AddSubEpisodePage"),
+        title: const Text("AddSubEpisodePage"),
       ),
       body: Center(
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
+            children: const <Widget>[
               TextField(
                 decoration: InputDecoration(
                   hintText: "Insert your message",

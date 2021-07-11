@@ -9,7 +9,7 @@ import 'package:memory_share/pages/user_page.dart';
 class HomePage extends StatelessWidget {
   final String title;
 
-  HomePage({this.title});
+  const HomePage({Key key, this.title}) : super(key: key);
 
   void _showDetermineDestinationDialog(BuildContext context) {
     showDialog(
@@ -26,7 +26,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBarComponent(title),
       body: mapModel.currentPosition == null
-        ? Center(
+        ? const Center(
         child: CircularProgressIndicator(),
       )
         : Stack(
@@ -85,8 +85,8 @@ class HomePage extends StatelessWidget {
                 onPressed: (){
                   Navigator.push(context, MaterialPageRoute(builder: (context) => UserPage()));
                   },
-                color: Color.fromARGB(255, 233, 103, 75),
-                icon: Icon(Icons.assignment_ind_rounded),
+                color: const Color.fromARGB(255, 233, 103, 75),
+                icon: const Icon(Icons.assignment_ind_rounded),
               )
           ),
         ],

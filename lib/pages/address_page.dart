@@ -8,7 +8,7 @@ class AddressPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Change_mail"),
+        title: const Text("Change_mail"),
       ),
       body: Container()
     );
