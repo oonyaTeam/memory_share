@@ -48,7 +48,7 @@ class ReExperiencePage extends StatelessWidget {
                           isDismissible: false,
                           backgroundColor: Colors.transparent,
                           context: context,
-                          builder: (BuildContext context) => BottomModalBuilder(
+                          builder: (BuildContext context) => bottomModalBuilder(
                             context: context,
                             distance: mapModel.distance,
                             sigma: mapModel.sigma,
