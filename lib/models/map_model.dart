@@ -5,11 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class Episode {
-  String episode;
-  List<String> subEpisodes;
-}
-
 class MarkerData {
   String markerId;
   LatLng position;
@@ -19,26 +14,7 @@ class MarkerData {
 
 class MapModel with ChangeNotifier {
 
-  MarkerData _currentMarker;
-  final List<MarkerData> _markers = [];
-  Position _currentPosition;
-  double _distance = 0.0;
-  final double _sigma = 10.0;
-  Completer<GoogleMapController> _homeMapController;
-  Completer<GoogleMapController> _reExperienceMapController;
-
-  StreamSubscription<Position> _positionStream;
-
-  MarkerData get currentMarker => _currentMarker;
-  List<MarkerData> get markers => _markers;
-  Position get currentPosition => _currentPosition;
-  double get distance => _distance;
-  double get sigma => _sigma;
-  Completer<GoogleMapController> get homeMapController => _homeMapController;
-  Completer<GoogleMapController> get reExperienceMapController => _reExperienceMapController;
-
   MapModel() {
-
     _homeMapController = Completer();
     _reExperienceMapController = Completer();
 
@@ -52,13 +28,30 @@ class MapModel with ChangeNotifier {
 
     _positionStream =
       Geolocator.getPositionStream(intervalDuration: const Duration(seconds: 5)).listen((Position position) {
-          _currentPosition = position;
-          if (_currentMarker != null) {
-            setDistance();
-          }
-          notifyListeners();
+        _currentPosition = position;
+        if (_currentMarker != null) {
+          setDistance();
+        }
+        notifyListeners();
       });
   }
+
+  MarkerData _currentMarker;
+  final List<MarkerData> _markers = [];
+  Position _currentPosition;
+  double _distance = 0.0;
+  Completer<GoogleMapController> _homeMapController;
+  Completer<GoogleMapController> _reExperienceMapController;
+
+  StreamSubscription<Position> _positionStream;
+
+  MarkerData get currentMarker => _currentMarker;
+  List<MarkerData> get markers => _markers;
+  Position get currentPosition => _currentPosition;
+  double get distance => _distance;
+  Completer<GoogleMapController> get homeMapController => _homeMapController;
+  Completer<GoogleMapController> get reExperienceMapController => _reExperienceMapController;
+
 
   void setCurrentMarker(MarkerData marker) {
     _currentMarker = marker;

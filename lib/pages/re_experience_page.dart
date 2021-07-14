@@ -51,7 +51,7 @@ class ReExperiencePage extends StatelessWidget {
                           builder: (BuildContext context) => bottomModalBuilder(
                             context: context,
                             distance: mapModel.distance,
-                            sigma: mapModel.sigma,
+                            sigma: mapModel.distance / 100,
                           ),
                         )
                       },

@@ -1,14 +1,11 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:memory_share/models/models.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 class PostPage extends StatelessWidget {
-  final File photo;
 
-  const PostPage({Key key, this.photo}) : super(key: key);
+  const PostPage({Key key}) : super(key: key);
 
   Future post(BuildContext context) async {
     // API処理を書く
@@ -44,12 +41,15 @@ class PostPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userModel = context.watch<UserModel>();
+    final userModel = context.read<UserModel>();
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: EditorAppBar(
         postLabel: "投稿する",
-        onPost: () => post(context),
+        onPost: () async => {
+
+          Navigator.of(context).popUntil((route) => route.isFirst)
+        },
         onCancel: () => _showAlertDialog(context),
       ),
       body: Stack(
@@ -65,7 +65,7 @@ class PostPage extends StatelessWidget {
                   shape: BoxShape.rectangle,
                   image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: FileImage(photo),
+                    image: FileImage(userModel.photo),
                   ),
                 ),
               ),
