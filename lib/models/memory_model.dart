@@ -55,5 +55,5 @@ class Memory {
     'episodes': episodes,
     'image': image,
     'author': author,
-  }
+  };
 }
