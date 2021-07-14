@@ -51,21 +51,19 @@ class UserPage extends StatelessWidget {
               ],
             ),
           ),
-          // Expanded(
-          //   child: GridView.builder(
-          //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          //       crossAxisCount: 3,
-          //     ),
-          //     itemCount: userModel.myMemories.length,
-          //     itemBuilder: (BuildContext context, int index) {
-          //       return Card(
-          //         child: Image.network(userModel.myMemories[index].image),
-          //       );
-          //     },
-          //   ),
-          // ),
-          Text(userModel.myMemories.toString()),
-          ElevatedButton(onPressed: () => userModel.getMyMemories(), child: const Text('tap'))
+          Expanded(
+            child: GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+              ),
+              itemCount: userModel.myMemories.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Card(
+                  child: Image.network(userModel.myMemories[index].image),
+                );
+              },
+            ),
+          ),
         ],
       ),
     );

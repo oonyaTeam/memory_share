@@ -10,10 +10,10 @@ Future<List<Memory>> fetchMyMemories(String uuid) async {
   final resp = await http.get(Uri.parse(url));
 
   if (resp.statusCode == 200) {
-    return json
-        .decode(resp.body)['memories']
-        .map((value) => Memory.fromJson(value))
-        .toList();
+    return List<Memory>.from(json
+      .decode(resp.body)['memories']
+      .map((value) => Memory.fromJson(value))
+      .toList());
   } else {
     throw Exception('An error has occurred!');
   }
