@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:memory_share/pages/setting_page.dart';
+import 'package:memory_share/models/models.dart';
+import 'package:memory_share/pages/pages.dart';
+import 'package:provider/provider.dart';
 
 class UserPage extends StatelessWidget {
-
   const UserPage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final userModel = context.watch<UserModel>();
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -49,35 +51,21 @@ class UserPage extends StatelessWidget {
               ],
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: 100,
-                width: 100,
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: Image.asset('assets/hukura.jpg'),
-                ),
-              ),
-              SizedBox(
-                height: 100,
-                width: 100,
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: Image.asset('assets/hukura.jpg'),
-                ),
-              ),
-              SizedBox(
-                height: 100,
-                width: 100,
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: Image.asset('assets/muscle.jpg'),
-                ),
-              ),
-            ],
-          ),
+          // Expanded(
+          //   child: GridView.builder(
+          //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          //       crossAxisCount: 3,
+          //     ),
+          //     itemCount: userModel.myMemories.length,
+          //     itemBuilder: (BuildContext context, int index) {
+          //       return Card(
+          //         child: Image.network(userModel.myMemories[index].image),
+          //       );
+          //     },
+          //   ),
+          // ),
+          Text(userModel.myMemories.toString()),
+          ElevatedButton(onPressed: () => userModel.getMyMemories(), child: const Text('tap'))
         ],
       ),
     );

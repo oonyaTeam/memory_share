@@ -14,6 +14,28 @@ class MarkerData {
 
 class MapModel with ChangeNotifier {
 
+  MapModel() {
+    _homeMapController = Completer();
+    _reExperienceMapController = Completer();
+
+    List<MarkerData> markers = [
+      MarkerData('marker1', const LatLng(34.8532, 136.5822)),
+      MarkerData('marker2', const LatLng(34.8480, 136.5756)),
+    ];
+    setMarkers(markers);
+
+    getPosition();
+
+    _positionStream =
+      Geolocator.getPositionStream(intervalDuration: const Duration(seconds: 5)).listen((Position position) {
+        _currentPosition = position;
+        if (_currentMarker != null) {
+          setDistance();
+        }
+        notifyListeners();
+      });
+  }
+
   MarkerData _currentMarker;
   final List<MarkerData> _markers = [];
   Position _currentPosition;
@@ -30,28 +52,6 @@ class MapModel with ChangeNotifier {
   Completer<GoogleMapController> get homeMapController => _homeMapController;
   Completer<GoogleMapController> get reExperienceMapController => _reExperienceMapController;
 
-  MapModel() {
-
-    _homeMapController = Completer();
-    _reExperienceMapController = Completer();
-
-    List<MarkerData> markers = [
-      MarkerData('marker1', const LatLng(34.8532, 136.5822)),
-      MarkerData('marker2', const LatLng(34.8480, 136.5756)),
-    ];
-    setMarkers(markers);
-
-    getPosition();
-
-    _positionStream =
-      Geolocator.getPositionStream(intervalDuration: const Duration(seconds: 5)).listen((Position position) {
-          _currentPosition = position;
-          if (_currentMarker != null) {
-            setDistance();
-          }
-          notifyListeners();
-      });
-  }
 
   void setCurrentMarker(MarkerData marker) {
     _currentMarker = marker;

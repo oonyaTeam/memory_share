@@ -47,8 +47,8 @@ class Memory {
     return Memory(
       memory: json['memory'],
       latLng: LatLng(json['latitude'], json['longitude']),
-      seenAuthor: json['seen_author'],
-      episodes: json['episodes'].map((value) => Episode.fromJson(value)).toList(),
+      seenAuthor: json['seen_author'].cast<String>() as List<String>,
+      episodes: List<Episode>.from(json['episodes'].map((value) => Episode.fromJson(value))),
       image: json['image'],
       author: json['author'],
     );
