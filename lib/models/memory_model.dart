@@ -18,11 +18,17 @@ class Episode {
       distance: json['distance'],
     );
   }
+
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'episode': episode,
+    'distance': distance,
+  };
 }
 
 class Memory {
   final String memory;
-  final LatLng geography;
+  final LatLng latLng;
   final List<String> seenAuthor;
   final List<Episode> episodes;
   final String image;
@@ -30,7 +36,7 @@ class Memory {
 
   Memory({
     this.memory,
-    this.geography,
+    this.latLng,
     this.seenAuthor,
     this.episodes,
     this.image,
@@ -40,7 +46,7 @@ class Memory {
   factory Memory.fromJson(Map<String, dynamic> json) {
     return Memory(
       memory: json['memory'],
-      geography: LatLng(json['geography'][0], json['geography'][1]),
+      latLng: LatLng(json['latitude'], json['longitude']),
       seenAuthor: json['seen_author'],
       episodes: json['episodes'].map((value) => Episode.fromJson(value)).toList(),
       image: json['image'],
@@ -50,9 +56,10 @@ class Memory {
 
   Map<String, dynamic> toJson() => {
     'memory': memory,
-    'geography': geography,
+    'latitude': latLng.latitude,
+    'longitude': latLng.longitude,
     'seen_author': seenAuthor,
-    'episodes': episodes,
+    'episodes': episodes.map((episode) => episode.toJson()),
     'image': image,
     'author': author,
   };

@@ -6,7 +6,8 @@ import 'package:memory_share/models/models.dart';
 
 Future<List<Memory>> getMyMemories(String uuid) async {
   final endpoint = FlutterConfig.get("API_ENDPOINT");
-  final resp = await http.get(Uri.parse(endpoint + 'mymemories?uuid=' + uuid));
+  final url = endpoint + 'mymemories?uuid=' + uuid;
+  final resp = await http.get(Uri.parse(url));
 
   if (resp.statusCode == 200) {
     return json

@@ -18,7 +18,6 @@ class MapModel with ChangeNotifier {
   final List<MarkerData> _markers = [];
   Position _currentPosition;
   double _distance = 0.0;
-  final double _sigma = 10.0;
   Completer<GoogleMapController> _homeMapController;
   Completer<GoogleMapController> _reExperienceMapController;
 
@@ -28,7 +27,6 @@ class MapModel with ChangeNotifier {
   List<MarkerData> get markers => _markers;
   Position get currentPosition => _currentPosition;
   double get distance => _distance;
-  double get sigma => _sigma;
   Completer<GoogleMapController> get homeMapController => _homeMapController;
   Completer<GoogleMapController> get reExperienceMapController => _reExperienceMapController;
 
