@@ -14,7 +14,6 @@ class EpisodeViewPage extends StatefulWidget {
 class _EpisodeViewPageState extends State<EpisodeViewPage> {
   CameraController controller;
   String _compass = "no data";
-  int a = 0;
 
   Future<void> getCompass() async {
     final CompassEvent compass = await FlutterCompass.events.first;
