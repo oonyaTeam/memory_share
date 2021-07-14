@@ -27,12 +27,12 @@ class Episode {
 }
 
 class Memory {
-  final String memory;
-  final LatLng latLng;
-  final List<String> seenAuthor;
-  final List<Episode> episodes;
-  final String image;
-  final String author;
+  String memory;
+  LatLng latLng;
+  List<String> seenAuthor;
+  List<Episode> episodes;
+  String image;
+  String author;
 
   Memory({
     this.memory,
