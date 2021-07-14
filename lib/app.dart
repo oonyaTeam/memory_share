@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: customSwatch,
         ),
-        home: const EpisodeViewPage()//HomePage(title: 'Flutter Demo Home Page'),
+        home: const HomePage(title: 'Flutter Demo Home Page'),
       ),
     );
   }
