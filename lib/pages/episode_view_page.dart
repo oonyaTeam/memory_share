@@ -13,10 +13,26 @@ class EpisodeViewPage extends StatefulWidget {
 
 class _EpisodeViewPageState extends State<EpisodeViewPage> {
   CameraController controller;
+  String _compass = "no data";
+
+  Future<void> getCompass() async {
+    final CompassEvent compass = await FlutterCompass.events.first;
+    setState(() {
+      _compass = compass.toString();
+    });
+  }
+
+  void _onTimer(Timer timer) {
+    getCompass();
+  }
 
   @override
   void initState() {
     super.initState();
+    Timer.periodic(
+        const Duration(milliseconds: 10),
+        _onTimer
+    );
     availableCameras().then((cameras) {
       controller = CameraController(cameras[0], ResolutionPreset.max);
       controller.initialize().then((_) {
@@ -42,10 +58,17 @@ class _EpisodeViewPageState extends State<EpisodeViewPage> {
       return Container();
     }
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("EpisodeViewPage"),
-      ),
-      body: CameraPreview(controller),
+        appBar: AppBar(
+          title: const Text("EpisodeViewPage"),
+        ),
+        body: Center(
+          child: Column(
+            children: <Widget>[
+              Text(_compass),
+              CameraPreview(controller)
+            ],
+          ),
+        )
     );
   }
 }
