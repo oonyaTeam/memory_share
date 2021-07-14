@@ -14,16 +14,48 @@ class EpisodeViewPage extends StatefulWidget {
 class _EpisodeViewPageState extends State<EpisodeViewPage> {
   CameraController controller;
   String _compass = "no data";
+  List<String> _compassData;
+  bool dialogFlag = true;
 
-  Future<void> getCompass() async {
+  Future<void> _getCompass() async {
     final CompassEvent compass = await FlutterCompass.events.first;
+    double heading = 0.0;
     setState(() {
-      _compass = compass.toString();
+      _compassData = compass.toString().split("\n");
+      _compass = _compassData[0].substring(8);
     });
+
+    heading = double.parse(_compass);
+    if (heading >= 100.0 && heading <= 110.0 && dialogFlag) {
+      _showAlertDialog(context);
+      dialogFlag = false;
+    }
+  }
+
+  Future _showAlertDialog(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Episode'),
+          content: const Text('エモいねえ'),
+          actions: <Widget>[
+            ElevatedButton(
+              child: const Text('back'),
+              onPressed: () {
+                Navigator.pop(context);
+                dialogFlag = true;
+              }
+            ),
+          ],
+        );
+      },
+    );
   }
 
   void _onTimer(Timer timer) {
-    getCompass();
+    _getCompass();
   }
 
   @override
