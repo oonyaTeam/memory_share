@@ -5,26 +5,29 @@ import 'package:provider/provider.dart';
 
 class MyApp extends StatelessWidget {
 
-  static const MaterialColor customSwatch = const MaterialColor(
+  const MyApp({Key key}) : super(key: key);
+
+  static const MaterialColor customSwatch = MaterialColor(
     0xFFE9674B,
-    const <int, Color>{
-      50: const Color(0xFFFCEDE9),
-      100: const Color(0xFFF8D1C9),
-      200: const Color(0xFFF4B3A5),
-      300: const Color(0xFFF09581),
-      400: const Color(0xFFEC7E66),
-      500: const Color(0xFFE9674B),
-      600: const Color(0xFFE65F44),
-      700: const Color(0xFFE3543B),
-      800: const Color(0xFFDF4A33),
-      900: const Color(0xFFD93923),
+    <int, Color>{
+      50: Color(0xFFFCEDE9),
+      100: Color(0xFFF8D1C9),
+      200: Color(0xFFF4B3A5),
+      300: Color(0xFFF09581),
+      400: Color(0xFFEC7E66),
+      500: Color(0xFFE9674B),
+      600: Color(0xFFE65F44),
+      700: Color(0xFFE3543B),
+      800: Color(0xFFDF4A33),
+      900: Color(0xFFD93923),
     },
   );
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider<UserModel>(create: (_) => UserModel()),
+        ChangeNotifierProvider<UserModel>(create: (_) => UserModel()),
         ChangeNotifierProvider<MapModel>(create: (_) => MapModel()),
       ],
       child: MaterialApp(
@@ -32,7 +35,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: customSwatch,
         ),
-        home: HomePage(title: 'Flutter Demo Home Page'),
+        home: const HomePage(title: 'Flutter Demo Home Page'),
       ),
     );
   }

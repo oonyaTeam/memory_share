@@ -7,15 +7,17 @@ import 'package:provider/provider.dart';
 
 class ReExperiencePage extends StatelessWidget {
 
+  const ReExperiencePage({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final mapModel = context.watch<MapModel>();
     return Scaffold(
       appBar: AppBar(
-        title: Text("ReExperience"),
+        title: const Text("ReExperience"),
       ),
       body: mapModel.currentPosition == null
-          ? Center(
+          ? const Center(
               child: CircularProgressIndicator(),
             )
           : Stack(
@@ -46,7 +48,7 @@ class ReExperiencePage extends StatelessWidget {
                           isDismissible: false,
                           backgroundColor: Colors.transparent,
                           context: context,
-                          builder: (BuildContext context) => BottomModalBuilder(
+                          builder: (BuildContext context) => bottomModalBuilder(
                             context: context,
                             distance: mapModel.distance,
                             sigma: mapModel.sigma,

@@ -5,11 +5,11 @@ import 'package:memory_share/pages/pages.dart';
 
 // BottomModal（ReExperiencePage で下に画像等を表示するモーダル）
 
-Widget BottomModalBuilder(
+Widget bottomModalBuilder(
     {BuildContext context, double distance, double sigma}) {
   return Container(
-    padding: EdgeInsets.only(top: 30.0),
-    decoration: BoxDecoration(
+    padding: const EdgeInsets.only(top: 30.0),
+    decoration: const BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.only(
         topLeft: Radius.circular(20),
@@ -24,7 +24,7 @@ Widget BottomModalBuilder(
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => EpisodeViewPage()),
+              MaterialPageRoute(builder: (context) => const EpisodeViewPage()),
             );
           },
           child: Padding(

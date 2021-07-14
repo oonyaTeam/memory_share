@@ -11,7 +11,7 @@ Widget longButton(String buttonText, Function() tappedEvent){
       ),
       child: Text(
         buttonText,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.bold,
         ),
@@ -19,7 +19,6 @@ Widget longButton(String buttonText, Function() tappedEvent){
       onPressed: () => {
         tappedEvent(),
       },
-
     ),
   );
 }

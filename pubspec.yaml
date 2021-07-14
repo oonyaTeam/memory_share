@@ -16,8 +16,13 @@ dependencies:
 
   arcore_flutter_plugin: ^0.0.10
 
-  google_maps_flutter: ^2.0.6
+  camera: ^0.8.1+4
+
   geolocator: ^7.2.0+1
+
+  google_maps_flutter: ^2.0.6
+
+  flutter_compass: ^0.6.0
 
   flutter_config: ^2.0.0
 
@@ -33,6 +38,7 @@ dev_dependencies:
   awesome_dialog: ^2.1.0
 
   build_runner: ^2.0.4
+  flutter_lints: ^1.0.4
 
 flutter:
 

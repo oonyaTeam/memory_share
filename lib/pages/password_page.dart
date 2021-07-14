@@ -8,7 +8,7 @@ class PasswordPage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text("change_password"),
+          title: const Text("change_password"),
         ),
         body:
         Center(
