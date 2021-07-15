@@ -12,9 +12,9 @@ Future<void> createMemory(Memory memory) async {
     headers: {'Content-Type': 'application/json'},
   );
 
-  if (resp.statusCode == 200) {
+  if (resp.statusCode == 201) {
     return;
   } else {
-    throw Exception('An error has occurred!');
+    throw Exception(resp.body.toString());
   }
 }
