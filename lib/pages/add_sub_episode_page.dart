@@ -4,7 +4,6 @@ import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 class AddSubEpisodePage extends StatefulWidget {
-
   const AddSubEpisodePage({Key key}) : super(key: key);
 
   @override
@@ -12,7 +11,6 @@ class AddSubEpisodePage extends StatefulWidget {
 }
 
 class _AddSubEpisodePageState extends State<AddSubEpisodePage> {
-
   TextEditingController _textEditingController;
 
   String _subEpisode = '';
@@ -28,7 +26,7 @@ class _AddSubEpisodePageState extends State<AddSubEpisodePage> {
     _textEditingController = TextEditingController();
     super.initState();
   }
-  
+
   @override
   void dispose() {
     _textEditingController.dispose();
@@ -43,7 +41,7 @@ class _AddSubEpisodePageState extends State<AddSubEpisodePage> {
         postLabel: "追加する",
         onPost: () => {
           userModel.addSubEpisode(_subEpisode),
-          Navigator.of(context).pop()
+          Navigator.of(context).pop(),
         },
         onCancel: () => Navigator.of(context).pop(),
       ),

@@ -24,7 +24,8 @@ class MapModel with ChangeNotifier {
         latLng: const LatLng(34.8532, 136.5822),
         seenAuthor: ["author1"],
         episodes: [],
-        image: "https://pbs.twimg.com/media/E6CYtu1VcAIjMvY?format=jpg&name=large",
+        image:
+            "https://pbs.twimg.com/media/E6CYtu1VcAIjMvY?format=jpg&name=large",
         author: "author1",
       ),
       Memory(
@@ -32,7 +33,8 @@ class MapModel with ChangeNotifier {
         latLng: const LatLng(34.8480, 136.5756),
         seenAuthor: ["author2"],
         episodes: [],
-        image: "https://pbs.twimg.com/media/E6CYtu1VcAIjMvY?format=jpg&name=large",
+        image:
+            "https://pbs.twimg.com/media/E6CYtu1VcAIjMvY?format=jpg&name=large",
         author: "author2",
       ),
     ];
@@ -43,8 +45,8 @@ class MapModel with ChangeNotifier {
     getMemory();
 
     _positionStream = Geolocator.getPositionStream(
-            intervalDuration: const Duration(seconds: 5))
-        .listen((Position position) {
+      intervalDuration: const Duration(seconds: 5),
+    ).listen((Position position) {
       _currentPosition = position;
       if (_currentMemory != null) {
         setDistance();
@@ -53,8 +55,6 @@ class MapModel with ChangeNotifier {
     });
   }
 
-  // MarkerData _currentMarker;
-  // final List<MarkerData> _markers = [];
   Position _currentPosition;
   double _distance = 0.0;
   Completer<GoogleMapController> _homeMapController;
@@ -63,10 +63,6 @@ class MapModel with ChangeNotifier {
   Memory _currentMemory;
 
   StreamSubscription<Position> _positionStream;
-
-  // MarkerData get currentMarker => _currentMarker;
-  //
-  // List<MarkerData> get markers => _markers;
 
   Position get currentPosition => _currentPosition;
 
@@ -80,21 +76,6 @@ class MapModel with ChangeNotifier {
   List<Memory> get memories => _memories;
 
   Memory get currentMemory => _currentMemory;
-
-  // void setCurrentMarker(MarkerData marker) {
-  //   _currentMarker = marker;
-  //   notifyListeners();
-  // }
-
-  // void setMarker(MarkerData marker) {
-  //   _markers.add(marker);
-  //   notifyListeners();
-  // }
-  //
-  // void setMarkers(List<MarkerData> markers) {
-  //   _markers.addAll(markers.toSet());
-  //   notifyListeners();
-  // }
 
   void setCurrentMemory(Memory memory) {
     _currentMemory = memory;

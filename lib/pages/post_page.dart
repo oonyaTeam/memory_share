@@ -4,7 +4,6 @@ import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 class PostPage extends StatefulWidget {
-
   const PostPage({Key key}) : super(key: key);
 
   @override
@@ -12,7 +11,6 @@ class PostPage extends StatefulWidget {
 }
 
 class _PostPageState extends State<PostPage> {
-
   String _memory = "";
 
   Future post(BuildContext context) async {
@@ -91,7 +89,9 @@ class _PostPageState extends State<PostPage> {
                 keyboardType: TextInputType.multiline,
                 maxLines: 99999,
                 autofocus: true,
-                onChanged: (String memory) => setState(() {_memory = memory;}),
+                onChanged: (String memory) => setState(() {
+                  _memory = memory;
+                }),
               ),
             ),
           ),

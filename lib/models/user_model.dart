@@ -52,13 +52,11 @@ class UserModel with ChangeNotifier {
       latLng: LatLng(position.latitude, position.longitude),
       episode: subEpisode,
     ));
-    // _newMemory.episodes.add(Episode(episode: subEpisode, id: 'sample', distance: 30));
     notifyListeners();
   }
 
   void removeSubEpisode(int index) {
     _subEpisodeList.removeAt(index);
-    // _newMemory.episodes.removeAt(index);
     notifyListeners();
   }
 
@@ -75,7 +73,6 @@ class UserModel with ChangeNotifier {
   }
 
   Future<void> postMemory(String memory) async {
-
     final currentPosition = await Geolocator.getCurrentPosition();
 
     // TODO: 自分をauthorとseenAuthorに登録してる。sampleなので（以下略
@@ -85,18 +82,20 @@ class UserModel with ChangeNotifier {
       memory: memory,
       author: "author1",
       seenAuthor: ["author1"],
-      image: "https://pbs.twimg.com/media/E6CYtu1VcAIjMvY?format=jpg&name=large",
+      image:
+          "https://pbs.twimg.com/media/E6CYtu1VcAIjMvY?format=jpg&name=large",
       latLng: LatLng(currentPosition.latitude, currentPosition.longitude),
-      episodes: List<Episode>.from(_subEpisodeList.asMap().entries.map((subEpisode) => Episode(
-        id: subEpisode.key.toString(),
-        episode: subEpisode.value.episode,
-        distance: Geolocator.distanceBetween(
-          currentPosition.latitude,
-          currentPosition.longitude,
-          subEpisode.value.latLng.latitude,
-          subEpisode.value.latLng.longitude,
-        ).toInt(),
-      ))),
+      episodes: List<Episode>.from(
+          _subEpisodeList.asMap().entries.map((subEpisode) => Episode(
+                id: subEpisode.key.toString(),
+                episode: subEpisode.value.episode,
+                distance: Geolocator.distanceBetween(
+                  currentPosition.latitude,
+                  currentPosition.longitude,
+                  subEpisode.value.latLng.latitude,
+                  subEpisode.value.latLng.longitude,
+                ).toInt(),
+              ))),
     );
     await createMemory(_newMemory);
   }

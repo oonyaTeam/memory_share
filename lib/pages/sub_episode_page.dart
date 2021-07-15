@@ -122,9 +122,9 @@ class SubEpisodePage extends StatelessWidget {
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
-                  margin: const EdgeInsets.only(bottom: 89),
-                  child:
-                      longButton("エピソードを追加する", () => onTapAddButton(context))),
+                margin: const EdgeInsets.only(bottom: 89),
+                child: longButton("エピソードを追加する", () => onTapAddButton(context)),
+              ),
             ),
             Align(
               alignment: Alignment.bottomCenter,
