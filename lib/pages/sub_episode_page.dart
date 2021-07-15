@@ -89,7 +89,7 @@ class SubEpisodePage extends StatelessWidget {
               itemBuilder: (context, index) {
                 final item = userModel.subEpisodeList[index];
                 return Dismissible(
-                  key: Key(item),
+                  key: Key(item.episode),
                   onDismissed: (direction) {
                     userModel.removeSubEpisode(index);
                   },
@@ -99,7 +99,7 @@ class SubEpisodePage extends StatelessWidget {
                       padding: const EdgeInsets.all(20.0),
                       child: ListTile(
                         title: Text(
-                          item,
+                          item.episode,
                           style: const TextStyle(fontSize: 22.0),
                           textAlign: TextAlign.center,
                         ),

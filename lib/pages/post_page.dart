@@ -3,9 +3,17 @@ import 'package:memory_share/models/models.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
-class PostPage extends StatelessWidget {
+class PostPage extends StatefulWidget {
 
   const PostPage({Key key}) : super(key: key);
+
+  @override
+  _PostPageState createState() => _PostPageState();
+}
+
+class _PostPageState extends State<PostPage> {
+
+  String _memory = "";
 
   Future post(BuildContext context) async {
     // API処理を書く
@@ -47,8 +55,8 @@ class PostPage extends StatelessWidget {
       appBar: EditorAppBar(
         postLabel: "投稿する",
         onPost: () async => {
-
-          Navigator.of(context).popUntil((route) => route.isFirst)
+          await userModel.postMemory(_memory),
+          Navigator.of(context).popUntil((route) => route.isFirst),
         },
         onCancel: () => _showAlertDialog(context),
       ),
@@ -75,14 +83,15 @@ class PostPage extends StatelessWidget {
             alignment: Alignment.topCenter,
             child: Container(
               margin: const EdgeInsets.only(top: 200),
-              child: const TextField(
-                decoration: InputDecoration(
+              child: TextField(
+                decoration: const InputDecoration(
                   hintText: "Insert your message",
                 ),
-                scrollPadding: EdgeInsets.all(20.0),
+                scrollPadding: const EdgeInsets.all(20.0),
                 keyboardType: TextInputType.multiline,
                 maxLines: 99999,
                 autofocus: true,
+                onChanged: (String memory) => setState(() {_memory = memory;}),
               ),
             ),
           ),
