@@ -76,7 +76,6 @@ class UserModel with ChangeNotifier {
 
   Future<void> postMemory(String memory) async {
 
-
     final currentPosition = await Geolocator.getCurrentPosition();
 
     // TODO: 自分をauthorとseenAuthorに登録してる。sampleなので（以下略

@@ -43,18 +43,18 @@ class HomePage extends StatelessWidget {
             onMapCreated: (GoogleMapController controller) {
               mapModel.setHomeMapController(controller);
             },
-            markers: mapModel.markers
+            markers: mapModel.memories
               .map(
-                (data) => Marker(
-                markerId: MarkerId(data.markerId),
-                position: data.position,
+                (memory) => Marker(
+                markerId: MarkerId(memory.latLng.toString()),
+                position: memory.latLng,
                 onTap: () => {
-                  mapModel.setCurrentMarker(data),
+                  mapModel.setCurrentMemory(memory),
                   mapModel.setDistance(),
                   _showDetermineDestinationDialog(context),
                 },
                 infoWindow: InfoWindow(
-                  title: data.markerId,
+                  title: memory.latLng.toString(),
                   snippet: 'text',
                 ),
               ),
@@ -65,7 +65,7 @@ class HomePage extends StatelessWidget {
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              margin: EdgeInsets.only(bottom: 15),
+              margin: const EdgeInsets.only(bottom: 15),
               child: longButton(
                 '思い出を投稿する',
                   () => {
@@ -83,7 +83,7 @@ class HomePage extends StatelessWidget {
               child:IconButton(
                 iconSize: 64,
                 onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => UserPage()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const UserPage()));
                   },
                 color: const Color.fromARGB(255, 233, 103, 75),
                 icon: const Icon(Icons.assignment_ind_rounded),
