@@ -6,7 +6,6 @@ import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 class ReExperiencePage extends StatelessWidget {
-
   const ReExperiencePage({Key key}) : super(key: key);
 
   @override
@@ -36,10 +35,11 @@ class ReExperiencePage extends StatelessWidget {
                   },
                   markers: {
                     Marker(
-                      markerId: MarkerId(mapModel.currentMarker.markerId),
-                      position: mapModel.currentMarker.position,
-                      infoWindow: InfoWindow(
-                        title: mapModel.currentMarker.markerId,
+                      markerId:
+                          MarkerId(mapModel.currentMemory.latLng.toString()),
+                      position: mapModel.currentMemory.latLng,
+                      infoWindow: const InfoWindow(
+                        title: "目的地",
                         snippet: 'text',
                       ),
                       onTap: () => {

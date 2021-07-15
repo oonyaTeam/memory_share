@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class Episode {
@@ -35,12 +36,12 @@ class Memory {
   String author;
 
   Memory({
-    this.memory,
-    this.latLng,
-    this.seenAuthor,
-    this.episodes,
-    this.image,
-    this.author,
+    @required this.memory,
+    @required this.latLng,
+    @required this.seenAuthor,
+    @required this.episodes,
+    @required this.image,
+    @required this.author,
   });
 
   factory Memory.fromJson(Map<String, dynamic> json) {
@@ -59,7 +60,7 @@ class Memory {
     'latitude': latLng.latitude,
     'longitude': latLng.longitude,
     'seen_author': seenAuthor,
-    'episodes': episodes.map((episode) => episode.toJson()),
+    'episodes': episodes.map((episode) => episode.toJson()).toList(),
     'image': image,
     'author': author,
   };
