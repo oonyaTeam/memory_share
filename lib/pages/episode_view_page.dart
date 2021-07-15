@@ -20,6 +20,9 @@ class _EpisodeViewPageState extends State<EpisodeViewPage> {
   Future<void> _getCompass() async {
     final CompassEvent compass = await FlutterCompass.events.first;
     double heading = 0.0;
+
+    if (!mounted) return;
+
     setState(() {
       _compassData = compass.toString().split("\n");
       _compass = _compassData[0].substring(8);
