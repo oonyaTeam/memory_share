@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:memory_share/models/models.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
+
 
 class PostPage extends StatelessWidget {
   final File photo;
@@ -50,7 +52,24 @@ class PostPage extends StatelessWidget {
       appBar: EditorAppBar(
         postLabel: "投稿する",
         onPost: () => post(context),
-        onCancel: () => _showAlertDialog(context),
+        onCancel: () => AwesomeDialog(
+          context: context,
+          dialogType: DialogType.INFO_REVERSED,
+          borderSide: const BorderSide(color: Colors.green, width: 2),
+          width: 480,
+          buttonsBorderRadius: const BorderRadius.all(Radius.circular(2)),
+          headerAnimationLoop: false,
+          animType: AnimType.BOTTOMSLIDE,
+          title: 'このページを離れますか？',
+          desc: '「はい」を押すと、文章と写真は削除されます。',
+          showCloseIcon: true,
+          btnOkText: "はい",
+          btnCancelText: "いいえ",
+          btnCancelOnPress: () => {},
+          btnOkOnPress: () => {
+            Navigator.pop(context),
+          },
+        ).show(),
       ),
       body: Stack(
         children: [

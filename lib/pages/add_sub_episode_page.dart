@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:memory_share/models/models.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 
 class AddSubEpisodePage extends StatefulWidget {
 
@@ -45,7 +46,27 @@ class _AddSubEpisodePageState extends State<AddSubEpisodePage> {
           userModel.addSubEpisode(_subEpisode),
           Navigator.of(context).pop()
         },
-        onCancel: () => Navigator.of(context).pop(),
+        onCancel: () => {
+          AwesomeDialog(
+        context: context,
+        dialogType: DialogType.INFO_REVERSED,
+        borderSide: const BorderSide(color: Colors.green, width: 2),
+        width: 480,
+        buttonsBorderRadius: const BorderRadius.all(Radius.circular(2)),
+        headerAnimationLoop: false,
+        animType: AnimType.BOTTOMSLIDE,
+        title: '入力中の文章は全て消えます',
+        desc: '本当に戻りますか',
+        showCloseIcon: true,
+        btnOkText: "はい",
+        btnCancelText: "いいえ",
+        btnCancelOnPress: () => {},
+        btnOkOnPress: () => {
+        Navigator.pop(context),
+        userModel.clearSubEpisode(),
+        },
+        ).show()
+        },
       ),
       body: Center(
         child: SingleChildScrollView(

@@ -6,6 +6,7 @@ import 'package:memory_share/models/models.dart';
 import 'package:memory_share/pages/pages.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 
 class SubEpisodePage extends StatelessWidget {
 
@@ -65,7 +66,26 @@ class SubEpisodePage extends StatelessWidget {
     return WillPopScope(
       onWillPop: () async {
         if (userModel.subEpisodeList.isNotEmpty) {
-          _showAlertDialog(context);
+          //_showAlertDialog(context);
+          AwesomeDialog(
+            context: context,
+            dialogType: DialogType.INFO_REVERSED,
+            borderSide: const BorderSide(color: Colors.green, width: 2),
+            width: 480,
+            buttonsBorderRadius: const BorderRadius.all(Radius.circular(2)),
+            headerAnimationLoop: false,
+            animType: AnimType.BOTTOMSLIDE,
+            title: 'サブエピソードが残っています',
+            desc: 'ホームに戻るとサブエピソードは全て消えます',
+            showCloseIcon: true,
+            btnOkText: "はい",
+            btnCancelText: "いいえ",
+            btnCancelOnPress: () => {},
+            btnOkOnPress: () => {
+              Navigator.pop(context),
+              userModel.clearSubEpisode(),
+            },
+          ).show();
           return false;
         } else {
           return true;
