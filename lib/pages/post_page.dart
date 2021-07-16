@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:memory_share/models/models.dart';
 import 'package:memory_share/widgets/widgets.dart';
@@ -7,16 +5,16 @@ import 'package:provider/provider.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 
 
-class PostPage extends StatelessWidget {
-  final File photo;
+class PostPage extends StatefulWidget {
+  const PostPage({Key key}) : super(key: key);
 
-  const PostPage({Key key, this.photo}) : super(key: key);
+  @override
+  _PostPageState createState() => _PostPageState();
+}
 
-  Future post(BuildContext context) async {
-    // API処理を書く
-    // とりあえず、home_pageへの画面遷移だけ書いておく
-    Navigator.of(context).popUntil((route) => route.isFirst);
-  }
+class _PostPageState extends State<PostPage> {
+  String _memory = "";
+
 
   Future _showAlertDialog(BuildContext context) async {
     return showDialog<void>(
@@ -46,12 +44,15 @@ class PostPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userModel = context.watch<UserModel>();
+    final userModel = context.read<UserModel>();
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: EditorAppBar(
         postLabel: "投稿する",
-        onPost: () => post(context),
+        onPost: () async => {
+          await userModel.postMemory(_memory),
+          Navigator.of(context).popUntil((route) => route.isFirst),
+        },
         onCancel: () => AwesomeDialog(
           context: context,
           dialogType: DialogType.INFO_REVERSED,
@@ -84,7 +85,7 @@ class PostPage extends StatelessWidget {
                   shape: BoxShape.rectangle,
                   image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: FileImage(photo),
+                    image: FileImage(userModel.photo),
                   ),
                 ),
               ),
@@ -94,14 +95,17 @@ class PostPage extends StatelessWidget {
             alignment: Alignment.topCenter,
             child: Container(
               margin: const EdgeInsets.only(top: 200),
-              child: const TextField(
-                decoration: InputDecoration(
+              child: TextField(
+                decoration: const InputDecoration(
                   hintText: "Insert your message",
                 ),
-                scrollPadding: EdgeInsets.all(20.0),
+                scrollPadding: const EdgeInsets.all(20.0),
                 keyboardType: TextInputType.multiline,
                 maxLines: 99999,
                 autofocus: true,
+                onChanged: (String memory) => setState(() {
+                  _memory = memory;
+                }),
               ),
             ),
           ),

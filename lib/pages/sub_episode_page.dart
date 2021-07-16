@@ -9,7 +9,6 @@ import 'package:provider/provider.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 
 class SubEpisodePage extends StatelessWidget {
-
   SubEpisodePage({Key key}) : super(key: key);
 
   final picker = ImagePicker();
@@ -43,8 +42,8 @@ class SubEpisodePage extends StatelessWidget {
   }
 
   Future onTapAddButton(BuildContext context) async {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => AddSubEpisodePage()));
+    Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => const AddSubEpisodePage()));
   }
 
   Future onTapArriveButton(BuildContext context) async {
@@ -52,9 +51,10 @@ class SubEpisodePage extends StatelessWidget {
 
     if (takenPhoto != null) {
       File photoFile = File(takenPhoto.path);
+      context.read<UserModel>().setPhoto(photoFile);
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => PostPage(photo: photoFile),
+          builder: (context) => const PostPage(),
         ),
       );
     }
@@ -109,7 +109,7 @@ class SubEpisodePage extends StatelessWidget {
               itemBuilder: (context, index) {
                 final item = userModel.subEpisodeList[index];
                 return Dismissible(
-                  key: Key(item),
+                  key: Key(item.episode),
                   onDismissed: (direction) {
                     userModel.removeSubEpisode(index);
                   },
@@ -119,7 +119,7 @@ class SubEpisodePage extends StatelessWidget {
                       padding: const EdgeInsets.all(20.0),
                       child: ListTile(
                         title: Text(
-                          item,
+                          item.episode,
                           style: const TextStyle(fontSize: 22.0),
                           textAlign: TextAlign.center,
                         ),
@@ -139,38 +139,22 @@ class SubEpisodePage extends StatelessWidget {
                 ),
               ),
             ),
-            // Column(
-            //   children: [
-            //     Expanded(
-            //       child: ListView.builder(
-            //         itemCount: _list.length,
-            //         itemBuilder: (BuildContext context, int index) {
-            //           return Card(
-            //             child: Padding(
-            //               child: Text('$index', style: TextStyle(fontSize: 22.0),textAlign: TextAlign.center,),
-            //               padding: EdgeInsets.all(100.0)
-            //             ),
-            //           );
-            //
-            //           // return _list[index];
-            //         },
-            //       ),
-            //     ),
-            //   ],
-            // ),
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
-                  margin: const EdgeInsets.only(bottom: 89),
-                  child:
-                      longButton("エピソードを追加する", () => onTapAddButton(context))),
+                margin: const EdgeInsets.only(bottom: 89),
+                child: longButton("エピソードを追加する", () => onTapAddButton(context)),
+              ),
             ),
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
-                  margin: const EdgeInsets.only(bottom: 22),
-                  child:
-                      longButton("目的地に到着", () => onTapArriveButton(context))),
+                margin: const EdgeInsets.only(bottom: 22),
+                child: longButton(
+                  "目的地に到着",
+                  () => onTapArriveButton(context),
+                ),
+              ),
             ),
             Align(
               alignment: Alignment.topRight,
@@ -193,7 +177,7 @@ class SubEpisodePage extends StatelessWidget {
               child: Container(
                 margin: const EdgeInsets.only(top: 22),
                 child: (userModel.subEpisodeList.isEmpty)
-                    ? Image.asset('assets/hukura.jpg')
+                    ? Image.asset('assets/normal.png')
                     : const Text(" "),
               ),
             ),
