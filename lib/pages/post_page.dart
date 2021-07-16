@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:memory_share/models/models.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
+
 
 class PostPage extends StatefulWidget {
   const PostPage({Key key}) : super(key: key);
@@ -13,11 +15,6 @@ class PostPage extends StatefulWidget {
 class _PostPageState extends State<PostPage> {
   String _memory = "";
 
-  Future post(BuildContext context) async {
-    // API処理を書く
-    // とりあえず、home_pageへの画面遷移だけ書いておく
-    Navigator.of(context).popUntil((route) => route.isFirst);
-  }
 
   Future _showAlertDialog(BuildContext context) async {
     return showDialog<void>(
@@ -56,7 +53,24 @@ class _PostPageState extends State<PostPage> {
           await userModel.postMemory(_memory),
           Navigator.of(context).popUntil((route) => route.isFirst),
         },
-        onCancel: () => _showAlertDialog(context),
+        onCancel: () => AwesomeDialog(
+          context: context,
+          dialogType: DialogType.INFO_REVERSED,
+          borderSide: const BorderSide(color: Colors.green, width: 2),
+          width: 480,
+          buttonsBorderRadius: const BorderRadius.all(Radius.circular(2)),
+          headerAnimationLoop: false,
+          animType: AnimType.BOTTOMSLIDE,
+          title: 'このページを離れますか？',
+          desc: '「はい」を押すと、文章と写真は削除されます。',
+          showCloseIcon: true,
+          btnOkText: "はい",
+          btnCancelText: "いいえ",
+          btnCancelOnPress: () => {},
+          btnOkOnPress: () => {
+            Navigator.pop(context),
+          },
+        ).show(),
       ),
       body: Stack(
         children: [
