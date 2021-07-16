@@ -157,7 +157,7 @@ class SubEpisodePage extends StatelessWidget {
               child: Container(
                 margin: const EdgeInsets.only(top: 22),
                 child: (userModel.subEpisodeList.isEmpty)
-                    ? Image.asset('assets/hukura.jpg')
+                    ? Image.asset('assets/normal.png')
                     : const Text(" "),
               ),
             ),

@@ -65,7 +65,7 @@ class _EpisodeViewPageState extends State<EpisodeViewPage> {
   void initState() {
     super.initState();
     Timer.periodic(
-        const Duration(milliseconds: 10),
+        const Duration(milliseconds: 1000),
         _onTimer
     );
     availableCameras().then((cameras) {
