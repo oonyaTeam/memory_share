@@ -29,13 +29,15 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<UserModel>(create: (_) => UserModel()),
         ChangeNotifierProvider<MapModel>(create: (_) => MapModel()),
+        ChangeNotifierProvider<LoginModel>(create: (_) => LoginModel()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
           primarySwatch: customSwatch,
         ),
-        home: const HomePage(title: 'Flutter Demo Home Page'),
+        // home: const LoginPage(),
+        home: const HomePage(title: 'Home Page'),
       ),
     );
   }

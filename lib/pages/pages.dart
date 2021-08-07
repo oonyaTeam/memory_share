@@ -2,6 +2,7 @@ export 'add_sub_episode_page.dart';
 export 'address_page.dart';
 export 'episode_view_page.dart';
 export 'home_page.dart';
+export 'login_page.dart';
 export 'password_page.dart';
 export 'post_page.dart';
 export 're_experience_page.dart';
