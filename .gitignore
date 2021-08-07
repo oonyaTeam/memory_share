@@ -9,7 +9,6 @@
 .history
 .svn/
 
-.env
 
 # IntelliJ related
 *.iml
@@ -46,3 +45,7 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Own ignores
+.env
+/android/app/google-services.json
