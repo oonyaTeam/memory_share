@@ -7,5 +7,6 @@ export 'password_page.dart';
 export 'post_page.dart';
 export 're_experience_page.dart';
 export 'setting_page.dart';
+export 'sign_up_page.dart';
 export 'sub_episode_page.dart';
 export 'user_page.dart';
