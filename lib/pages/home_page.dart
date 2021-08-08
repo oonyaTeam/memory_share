@@ -7,9 +7,8 @@ import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
-  final String title;
 
-  const HomePage({Key key, this.title}) : super(key: key);
+  const HomePage({Key key}) : super(key: key);
 
   void _showDetermineDestinationDialog(BuildContext context) {
     showDialog(
@@ -24,7 +23,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final mapModel = context.watch<MapModel>();
     return Scaffold(
-      appBar: appBarComponent(title),
+      appBar: appBarComponent("Home Page"),
       body: mapModel.currentPosition == null
           ? const Center(
               child: CircularProgressIndicator(),
@@ -80,20 +79,21 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 Align(
-                    alignment: Alignment.topLeft,
-                    child: IconButton(
-                      iconSize: 64,
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const UserPage(),
-                          ),
-                        );
-                      },
-                      color: const Color.fromARGB(255, 233, 103, 75),
-                      icon: const Icon(Icons.assignment_ind_rounded),
-                    )),
+                  alignment: Alignment.topLeft,
+                  child: IconButton(
+                    iconSize: 64,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const UserPage(),
+                        ),
+                      );
+                    },
+                    color: const Color.fromARGB(255, 233, 103, 75),
+                    icon: const Icon(Icons.assignment_ind_rounded),
+                  ),
+                ),
               ],
             ),
     );

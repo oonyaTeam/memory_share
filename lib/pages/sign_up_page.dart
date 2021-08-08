@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:memory_share/models/models.dart';
+import 'package:memory_share/pages/pages.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -27,8 +28,19 @@ class SignUpPage extends StatelessWidget {
                 onChanged: (text) => authModel.changePassword(text),
               ),
               ElevatedButton(
-                onPressed: () => authModel.signUpWithEmailAndPassword(),
+                onPressed: () async {
+                  await authModel.signUpWithEmailAndPassword();
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => const HomePage()),
+                  );
+                },
                 child: const Text("SignUp"),
+              ),
+              TextButton(
+                onPressed: () => Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                ),
+                child: const Text("Login"),
               ),
             ],
           ),
