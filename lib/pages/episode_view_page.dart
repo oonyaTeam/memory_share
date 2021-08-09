@@ -45,11 +45,11 @@ class _EpisodeViewPageState extends State<EpisodeViewPage> {
           content: const Text('エモいねえ'),
           actions: <Widget>[
             ElevatedButton(
-              child: const Text('back'),
-              onPressed: () {
-                Navigator.pop(context);
-                dialogFlag = true;
-              }
+                child: const Text('back'),
+                onPressed: () {
+                  Navigator.pop(context);
+                  dialogFlag = true;
+                }
             ),
           ],
         );
@@ -89,21 +89,24 @@ class _EpisodeViewPageState extends State<EpisodeViewPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (!controller.value.isInitialized) {
+    try {
+      if (!controller.value.isInitialized) {
+        return Container();
+      }
+      return Scaffold(
+          appBar: AppBar(
+            title: const Text("EpisodeViewPage"),
+          ),
+          body: Center(
+            child: Column(
+              children: <Widget>[
+                CameraPreview(controller)
+              ],
+            ),
+          )
+      );
+    }on NoSuchMethodError {
       return Container();
     }
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text("EpisodeViewPage"),
-        ),
-        body: Center(
-          child: Column(
-            children: <Widget>[
-              Text(_compass),
-              CameraPreview(controller)
-            ],
-          ),
-        )
-    );
   }
 }
