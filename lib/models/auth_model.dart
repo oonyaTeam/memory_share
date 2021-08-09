@@ -2,6 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class AuthModel with ChangeNotifier {
+
+  AuthModel() {
+    _currentUser = FirebaseAuth.instance.currentUser;
+  }
+
   String _email = "";
   String _password = "";
   User _currentUser;
