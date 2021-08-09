@@ -45,11 +45,11 @@ class _EpisodeViewPageState extends State<EpisodeViewPage> {
           content: const Text('エモいねえ'),
           actions: <Widget>[
             ElevatedButton(
-                child: const Text('back'),
-                onPressed: () {
-                  Navigator.pop(context);
-                  dialogFlag = true;
-                }
+              child: const Text('back'),
+              onPressed: () {
+                Navigator.pop(context);
+                dialogFlag = true;
+              },
             ),
           ],
         );
@@ -64,19 +64,14 @@ class _EpisodeViewPageState extends State<EpisodeViewPage> {
   @override
   void initState() {
     super.initState();
-    Timer.periodic(
-        const Duration(milliseconds: 1000),
-        _onTimer
-    );
+    Timer.periodic(const Duration(milliseconds: 1000), _onTimer);
     availableCameras().then((cameras) {
       controller = CameraController(cameras[0], ResolutionPreset.max);
       controller.initialize().then((_) {
         if (!mounted) {
           return;
         }
-        setState(() {
-
-        });
+        setState(() {});
       });
     });
   }
@@ -94,18 +89,18 @@ class _EpisodeViewPageState extends State<EpisodeViewPage> {
         return Container();
       }
       return Scaffold(
-          appBar: AppBar(
-            title: const Text("EpisodeViewPage"),
+        appBar: AppBar(
+          title: const Text("EpisodeViewPage"),
+        ),
+        body: Center(
+          child: Column(
+            children: <Widget>[
+              CameraPreview(controller)
+            ],
           ),
-          body: Center(
-            child: Column(
-              children: <Widget>[
-                CameraPreview(controller)
-              ],
-            ),
-          )
+        ),
       );
-    }on NoSuchMethodError {
+    } on NoSuchMethodError {
       return Container();
     }
   }
