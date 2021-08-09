@@ -33,7 +33,7 @@ class AuthModel with ChangeNotifier {
   }
 
   Future<void> signUpWithEmailAndPassword() async {
-    if (!validateEmail() || !validatePassword()) return;
+    if (!validateEmail() || !validatePassword()) throw Error();
 
     final User user =
         (await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -45,7 +45,7 @@ class AuthModel with ChangeNotifier {
   }
 
   Future<void> loginWithEmailAndPassword() async {
-    if (!validateEmail() || !validatePassword()) return;
+    if (!validateEmail() || !validatePassword()) throw Error();
 
     final User user =
         (await FirebaseAuth.instance.signInWithEmailAndPassword(

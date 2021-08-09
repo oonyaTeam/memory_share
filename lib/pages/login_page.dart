@@ -29,10 +29,11 @@ class LoginPage extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () async {
-                  await authModel.loginWithEmailAndPassword();
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => const HomePage()),
-                  );
+                  await authModel.loginWithEmailAndPassword().then((_) {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => const HomePage()),
+                    );
+                  }).catchError((e) {});
                 },
                 child: const Text("Login"),
               ),
