@@ -4,7 +4,6 @@ import 'package:memory_share/pages/pages.dart';
 import 'package:provider/provider.dart';
 
 class MyApp extends StatelessWidget {
-
   const MyApp({Key key}) : super(key: key);
 
   static const MaterialColor customSwatch = MaterialColor(
@@ -29,13 +28,18 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<UserModel>(create: (_) => UserModel()),
         ChangeNotifierProvider<MapModel>(create: (_) => MapModel()),
+        ChangeNotifierProvider<AuthModel>(create: (_) => AuthModel()),
       ],
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: customSwatch,
+      child: Builder(
+        builder: (context) => MaterialApp(
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            primarySwatch: customSwatch,
+          ),
+          home: context.read<AuthModel>().currentUser != null
+              ? const HomePage()
+              : const LoginPage(),
         ),
-        home: const HomePage(title: 'Flutter Demo Home Page'),
       ),
     );
   }

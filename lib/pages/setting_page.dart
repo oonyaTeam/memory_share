@@ -3,7 +3,6 @@ import 'package:memory_share/pages/address_page.dart';
 import 'package:memory_share/pages/password_page.dart';
 
 class SettingPage extends StatelessWidget {
-
   const SettingPage({Key key}) : super(key: key);
 
   @override
@@ -16,44 +15,50 @@ class SettingPage extends StatelessWidget {
       body: Column(
         children: [
           Container(
-              decoration: const BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(color: Colors.black),
-                ),
+            decoration: const BoxDecoration(
+              border: Border(
+                bottom: BorderSide(color: Colors.black),
               ),
-              child: ListTile(
-                title: const Text('メールアドレスの変更'),
-                  trailing: const Icon(Icons.arrow_forward_ios),
-                  onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => AddressPage()));
-                  }
-              )
+            ),
+            child: ListTile(
+              title: const Text('メールアドレスの変更'),
+              trailing: const Icon(Icons.arrow_forward_ios),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const AddressPage()),
+                );
+              },
+            ),
           ),
           Container(
-              decoration: const BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(color: Colors.black),
-                ),
+            decoration: const BoxDecoration(
+              border: Border(
+                bottom: BorderSide(color: Colors.black),
               ),
-              child: ListTile(
-                  title: const Text('パスワードの変更'),
-                  trailing: const Icon(Icons.arrow_forward_ios),
-                  onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => PasswordPage()));
-                  }
-              )
+            ),
+            child: ListTile(
+              title: const Text('パスワードの変更'),
+              trailing: const Icon(Icons.arrow_forward_ios),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const PasswordPage()),
+                );
+              },
+            ),
           ),
           Container(
-              decoration: const BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(color: Colors.black),
-                ),
+            decoration: const BoxDecoration(
+              border: Border(
+                bottom: BorderSide(color: Colors.black),
               ),
-              child: ListTile(
-                  title: const Text('ログアウト'),
-                  trailing: const Icon(Icons.arrow_forward_ios),
-                  onTap:(){}
-              )
+            ),
+            child: ListTile(
+              title: const Text('ログアウト'),
+              trailing: const Icon(Icons.arrow_forward_ios),
+              onTap: () {},
+            ),
           ),
         ],
       ),
