@@ -91,8 +91,23 @@ class HomePage extends StatelessWidget {
                           ),
                         );
                       },
+                      color: Colors.white,
+                      icon: const Icon(Icons.circle),
+                    )),
+                Align(
+                    alignment: Alignment.topLeft,
+                    child: IconButton(
+                      iconSize: 64,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const UserPage(),
+                          ),
+                        );
+                      },
                       color: const Color.fromARGB(255, 233, 103, 75),
-                      icon: const Icon(Icons.assignment_ind_rounded),
+                      icon: const Icon(Icons.account_circle_rounded),
                     )),
               ],
             ),

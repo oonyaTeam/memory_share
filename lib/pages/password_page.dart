@@ -11,7 +11,9 @@ class PasswordPage extends StatelessWidget {
           title: const Text("change_password"),
         ),
         body:
-        Center(),
+        Center(
+
+        ),
     );
   }
 }
