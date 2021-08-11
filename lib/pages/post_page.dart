@@ -1,9 +1,8 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_share/models/models.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
-
 
 class PostPage extends StatefulWidget {
   const PostPage({Key key}) : super(key: key);
@@ -14,7 +13,6 @@ class PostPage extends StatefulWidget {
 
 class _PostPageState extends State<PostPage> {
   String _memory = "";
-
 
   Future _showAlertDialog(BuildContext context) async {
     return showDialog<void>(
@@ -49,9 +47,10 @@ class _PostPageState extends State<PostPage> {
       resizeToAvoidBottomInset: true,
       appBar: EditorAppBar(
         postLabel: "投稿する",
-        onPost: () async => {
-          await userModel.postMemory(_memory),
-          Navigator.of(context).popUntil((route) => route.isFirst),
+        onPost: () async {
+          await userModel.postMemory(_memory).then(
+              (_) => Navigator.of(context).popUntil((route) => route.isFirst))
+          .catchError((e) => {});
         },
         onCancel: () => AwesomeDialog(
           context: context,

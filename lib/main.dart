@@ -1,8 +1,10 @@
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_config/flutter_config.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:memory_share/models/records/user_record.dart';
 import 'app.dart';
 
 void main() async {
@@ -10,6 +12,9 @@ void main() async {
   // 環境変数をFlutterプロジェクト内で呼び出すための関数
   WidgetsFlutterBinding.ensureInitialized();
   await FlutterConfig.loadEnvVariables();
+
+  await Hive.initFlutter();
+  Hive.registerAdapter(UserRecordAdapter());
 
   // Firebaseの設定
   await Firebase.initializeApp();
