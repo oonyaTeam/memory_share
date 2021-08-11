@@ -17,8 +17,8 @@ class UserRecordAdapter extends TypeAdapter<UserRecord> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return UserRecord(
-      fields[0] as bool,
-      fields[1] as bool,
+      reExperienceTutorialDone: fields[0] as bool,
+      postTutorialDone: fields[1] as bool,
     );
   }
 
