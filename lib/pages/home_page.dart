@@ -93,7 +93,8 @@ class HomePage extends StatelessWidget {
                       },
                       color: Colors.white,
                       icon: const Icon(Icons.circle),
-                    )),
+                    ),
+                ),
                 Align(
                     alignment: Alignment.topLeft,
                     child: IconButton(
@@ -108,7 +109,8 @@ class HomePage extends StatelessWidget {
                       },
                       color: const Color.fromARGB(255, 233, 103, 75),
                       icon: const Icon(Icons.account_circle_rounded),
-                    )),
+                    ),
+                ),
               ],
             ),
     );
