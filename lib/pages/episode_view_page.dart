@@ -49,7 +49,7 @@ class _EpisodeViewPageState extends State<EpisodeViewPage> {
               onPressed: () {
                 Navigator.pop(context);
                 dialogFlag = true;
-              }
+              },
             ),
           ],
         );
@@ -64,19 +64,14 @@ class _EpisodeViewPageState extends State<EpisodeViewPage> {
   @override
   void initState() {
     super.initState();
-    Timer.periodic(
-        const Duration(milliseconds: 1000),
-        _onTimer
-    );
+    Timer.periodic(const Duration(milliseconds: 1000), _onTimer);
     availableCameras().then((cameras) {
       controller = CameraController(cameras[0], ResolutionPreset.max);
       controller.initialize().then((_) {
         if (!mounted) {
           return;
         }
-        setState(() {
-
-        });
+        setState(() {});
       });
     });
   }
@@ -89,21 +84,24 @@ class _EpisodeViewPageState extends State<EpisodeViewPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (!controller.value.isInitialized) {
-      return Container();
-    }
-    return Scaffold(
+    try {
+      if (!controller.value.isInitialized) {
+        return Container();
+      }
+      return Scaffold(
         appBar: AppBar(
           title: const Text("EpisodeViewPage"),
         ),
         body: Center(
           child: Column(
             children: <Widget>[
-              Text(_compass),
               CameraPreview(controller)
             ],
           ),
-        )
-    );
+        ),
+      );
+    } on NoSuchMethodError {
+      return Container();
+    }
   }
 }

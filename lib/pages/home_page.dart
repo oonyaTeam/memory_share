@@ -7,9 +7,8 @@ import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
-  final String title;
 
-  const HomePage({Key key, this.title}) : super(key: key);
+  const HomePage({Key key}) : super(key: key);
 
   void _showDetermineDestinationDialog(BuildContext context) {
     showDialog(
@@ -24,7 +23,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final mapModel = context.watch<MapModel>();
     return Scaffold(
-      appBar: appBarComponent(title),
+      appBar: appBarComponent("Home Page"),
       body: mapModel.currentPosition == null
           ? const Center(
               child: CircularProgressIndicator(),
