@@ -1,9 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:memory_share/models/records/records.dart';
+import 'package:memory_share/models/entities/entities.dart';
 
-class HiveBoxModel with ChangeNotifier {
-  HiveBoxModel();
+class HiveBoxRepository {
+  HiveBoxRepository();
 
   static const String userRecordKey = 'user_record';
   final Future<Box<UserRecord>> _box = Hive.openBox('user_record');
