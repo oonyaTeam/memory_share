@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:memory_share/models/records/user_record.dart';
+import 'package:memory_share/models/records/records.dart';
 
 class HiveBoxModel with ChangeNotifier {
   HiveBoxModel();
