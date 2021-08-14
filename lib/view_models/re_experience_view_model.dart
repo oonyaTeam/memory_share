@@ -12,9 +12,9 @@ class MarkerData {
   MarkerData(this.markerId, this.position);
 }
 
-class HomeViewModel with ChangeNotifier {
-  HomeViewModel() {
-    getMemories();
+class ReExperienceViewModel with ChangeNotifier {
+  ReExperienceViewModel() {
+    _reExperienceMapController = Completer();
 
     getPosition();
 
@@ -25,6 +25,7 @@ class HomeViewModel with ChangeNotifier {
       if (_currentMemory != null) {
         setDistance();
       }
+      notifyListeners();
     });
   }
 
@@ -32,8 +33,7 @@ class HomeViewModel with ChangeNotifier {
 
   Position _currentPosition;
   int _distance = 0;
-  final Completer<GoogleMapController> _homeMapController = Completer();
-  final List<Memory> _memories = [];
+  Completer<GoogleMapController> _reExperienceMapController;
   Memory _currentMemory;
 
   StreamSubscription<Position> _positionStream;
@@ -42,29 +42,13 @@ class HomeViewModel with ChangeNotifier {
 
   int get distance => _distance;
 
-  Completer<GoogleMapController> get homeMapController => _homeMapController;
-
-  List<Memory> get memories => _memories;
+  Completer<GoogleMapController> get reExperienceMapController =>
+    _reExperienceMapController;
 
   Memory get currentMemory => _currentMemory;
 
   void setCurrentMemory(Memory memory) {
     _currentMemory = memory;
-    notifyListeners();
-  }
-
-  void addMemory(Memory memory) {
-    _memories.add(memory);
-    notifyListeners();
-  }
-
-  void addMemories(List<Memory> memories) {
-    _memories.addAll(memories);
-    notifyListeners();
-  }
-
-  void clearMemories() {
-    _memories.clear();
     notifyListeners();
   }
 
@@ -81,14 +65,9 @@ class HomeViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  void setHomeMapController(GoogleMapController controller) {
-    _homeMapController.complete(controller);
+  void setReExperienceMapController(GoogleMapController controller) {
+    _reExperienceMapController.complete(controller);
     notifyListeners();
-  }
-
-  void getMemories() async {
-    final memories = await _mapRepository.getMemories();
-    addMemories(memories);
   }
 
   @override
