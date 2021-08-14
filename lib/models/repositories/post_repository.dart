@@ -7,12 +7,12 @@ class PostRepository {
   PostService _postService;
 
   Future<void> postMemory({
-    @required String mainMemory,
+    @required String mainEpisode,
     @required List<SubEpisode> subEpisodeList,
     @required File photo,
   }) async {
     await _postService.postMemory(
-      mainMemory: mainMemory,
+      mainEpisode: mainEpisode,
       subEpisodes: subEpisodeList.asMap(),
       photo: photo,
     );

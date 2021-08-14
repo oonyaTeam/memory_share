@@ -9,7 +9,7 @@ import 'package:memory_share/utils/utils.dart';
 class PostService {
 
   Future<void> postMemory({
-    @required String mainMemory,
+    @required String mainEpisode,
     @required Map<int, SubEpisode> subEpisodes,
     @required File photo,
   }) async {
@@ -19,7 +19,7 @@ class PostService {
     // TODO: サンプルimageをセット（cloud storageに上げて、Urlを入れる処理が必要）
     // episode: idにindexを入れたいので、一度Mapにして、展開している。idに入れる値は後々検討すべき？
     final Memory newMemory = Memory(
-      memory: mainMemory,
+      memory: mainEpisode,
       author: "author1",
       seenAuthor: ["author1"],
       image:
