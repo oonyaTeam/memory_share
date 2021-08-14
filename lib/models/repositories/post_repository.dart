@@ -17,4 +17,9 @@ class PostRepository {
       photo: photo,
     );
   }
+
+  Future<List<Memory>> getMyMemories(String uuid) async {
+    final myMemories = _postService.getMyMemories(uuid);
+    return myMemories;
+  }
 }

@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:memory_share/models/models.dart';
-import 'package:memory_share/utils/utils.dart';
 
 class PostViewModel with ChangeNotifier {
+
   PostViewModel() {
     getMyMemories();
   }
@@ -16,7 +16,6 @@ class PostViewModel with ChangeNotifier {
   File _photo;
   List<Memory> _myMemories = [];
   final List<SubEpisode> _subEpisodeList = [];
-  String _mainEpisode;
   Memory _newMemory;
 
   File get photo => _photo;
@@ -24,8 +23,6 @@ class PostViewModel with ChangeNotifier {
   List<Memory> get myMemories => _myMemories;
 
   List<SubEpisode> get subEpisodeList => _subEpisodeList;
-
-  String get mainEpisode => _mainEpisode;
 
   Memory get newMemory => _newMemory;
 
@@ -63,7 +60,7 @@ class PostViewModel with ChangeNotifier {
 
   void getMyMemories() async {
     const uuid = "author1"; // TODO: sampleなので、firebase Authを導入したら変える
-    await fetchMyMemories(uuid).then((myMemories) => _myMemories = myMemories);
+    await _postRepository.getMyMemories(uuid).then((myMemories) => _myMemories = myMemories);
     notifyListeners();
   }
 

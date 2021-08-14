@@ -7,6 +7,7 @@ import 'package:memory_share/models/models.dart';
 import 'package:memory_share/utils/utils.dart';
 
 class PostService {
+
   Future<void> postMemory({
     @required String mainMemory,
     @required Map<int, SubEpisode> subEpisodes,
@@ -37,5 +38,11 @@ class PostService {
               ))),
     );
     await createMemory(newMemory);
+  }
+
+  Future<List<Memory>> getMyMemories(String uuid) async {
+    // TODO: sampleなので、firebase Authを導入したら変える
+    final List<Memory> myMemories = await fetchMyMemories(uuid);
+    return myMemories;
   }
 }
