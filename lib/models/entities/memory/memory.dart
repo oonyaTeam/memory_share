@@ -65,3 +65,12 @@ class Memory {
     'author': author,
   };
 }
+
+
+// SubEpisode作成用
+class SubEpisode {
+  LatLng latLng;
+  String episode;
+
+  SubEpisode({this.latLng, this.episode});
+}
