@@ -1,11 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:memory_share/models/models.dart';
 
 class AuthViewModel with ChangeNotifier {
 
-  AuthViewModel() {
+  AuthViewModel(this._authRepository) {
     _currentUser = FirebaseAuth.instance.currentUser;
   }
+
+  final AuthRepository _authRepository;
 
   String _email = "";
   String _password = "";
@@ -33,26 +36,16 @@ class AuthViewModel with ChangeNotifier {
   }
 
   Future<void> signUpWithEmailAndPassword() async {
-    if (!validateEmail() || !validatePassword()) throw Error();
+    if (!validateEmail() || !validatePassword()) return;
 
-    final User user =
-      (await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: _email,
-        password: _password,
-      ))
-        .user;
+    final User user = await _authRepository.login(_email, _password);
     setCurrentUser(user);
   }
 
   Future<void> loginWithEmailAndPassword() async {
     if (!validateEmail() || !validatePassword()) throw Error();
 
-    final User user =
-      (await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: _email,
-        password: _password,
-      ))
-        .user;
+    final User user = await _authRepository.signUp(_email, _password);
     setCurrentUser(user);
   }
 
