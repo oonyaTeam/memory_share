@@ -15,6 +15,7 @@ class PostViewModel with ChangeNotifier {
   File _photo;
   List<Memory> _myMemories = [];
   final List<SubEpisode> _subEpisodeList = [];
+  String _mainEpisode = "";
 
   File get photo => _photo;
 
@@ -22,15 +23,16 @@ class PostViewModel with ChangeNotifier {
 
   List<SubEpisode> get subEpisodeList => _subEpisodeList;
 
+  String get mainEpisode => _mainEpisode;
+
   void setPhoto(File photo) {
     _photo = photo;
     notifyListeners();
   }
 
-  void setMemory(String memory) {
+  void setMainEpisode(String mainEpisode) {
+    _mainEpisode = mainEpisode;
     notifyListeners();
-    // post_pageで再レンダリングしないためにここではnotifyListeners()を呼び出さない。
-    // 投稿内容を永続化しておくなら、ここにその処理を記述する。
   }
 
   void addSubEpisode(String subEpisode) async {

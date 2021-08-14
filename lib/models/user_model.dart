@@ -29,6 +29,11 @@ class UserModel with ChangeNotifier {
     notifyListeners();
   }
 
+  void setMainEpisode(String mainEpisode) {
+    _mainEpisode = mainEpisode;
+    notifyListeners();
+  }
+
   void addSubEpisode(String subEpisode) async {
     final position = await Geolocator.getCurrentPosition();
     _subEpisodeList.add(SubEpisode(
@@ -54,14 +59,14 @@ class UserModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> postMemory(String memory) async {
+  Future<void> postMemory() async {
     final currentPosition = await Geolocator.getCurrentPosition();
 
     // TODO: 自分をauthorとseenAuthorに登録してる。sampleなので（以下略
     // TODO: サンプルimageをセット（cloud storageに上げて、Urlを入れる処理が必要）
     // episode: idにindexを入れたいので、一度Mapにして、展開している。idに入れる値は後々検討すべき？
     final _newMemory = Memory(
-      memory: memory,
+      memory: _mainEpisode,
       author: "author1",
       seenAuthor: ["author1"],
       image:
