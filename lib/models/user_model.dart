@@ -15,7 +15,6 @@ class UserModel with ChangeNotifier {
   List<Memory> _myMemories = [];
   final List<SubEpisode> _subEpisodeList = [];
   String _mainEpisode;
-  Memory _newMemory;
 
   File get photo => _photo;
 
@@ -25,18 +24,9 @@ class UserModel with ChangeNotifier {
 
   String get mainEpisode => _mainEpisode;
 
-  Memory get newMemory => _newMemory;
-
   void setPhoto(File photo) {
     _photo = photo;
     notifyListeners();
-  }
-
-  void setMemory(String memory) {
-    _newMemory.memory = memory;
-    notifyListeners();
-    // post_pageで再レンダリングしないためにここではnotifyListeners()を呼び出さない。
-    // 投稿内容を永続化しておくなら、ここにその処理を記述する。
   }
 
   void addSubEpisode(String subEpisode) async {
@@ -55,7 +45,6 @@ class UserModel with ChangeNotifier {
 
   void clearSubEpisode() {
     _subEpisodeList.clear();
-    _newMemory.episodes.clear();
     notifyListeners();
   }
 
@@ -71,7 +60,7 @@ class UserModel with ChangeNotifier {
     // TODO: 自分をauthorとseenAuthorに登録してる。sampleなので（以下略
     // TODO: サンプルimageをセット（cloud storageに上げて、Urlを入れる処理が必要）
     // episode: idにindexを入れたいので、一度Mapにして、展開している。idに入れる値は後々検討すべき？
-    _newMemory = Memory(
+    final _newMemory = Memory(
       memory: memory,
       author: "author1",
       seenAuthor: ["author1"],
