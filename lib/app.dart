@@ -29,7 +29,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<UserModel>(create: (_) => UserModel()),
         ChangeNotifierProvider<MapModel>(create: (_) => MapModel()),
         ChangeNotifierProvider<AuthModel>(create: (_) => AuthModel()),
-        ChangeNotifierProvider<HiveBoxModel>(create: (_) => HiveBoxModel()),
       ],
       child: Builder(
         builder: (context) => MaterialApp(

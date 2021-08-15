@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class Episode {
@@ -7,9 +7,9 @@ class Episode {
   final num distance;
 
   Episode({
-    this.id,
-    this.episode,
-    this.distance,
+    @required this.id,
+    @required this.episode,
+    @required this.distance,
   });
 
   factory Episode.fromJson(Map<String, dynamic> json) {
@@ -21,10 +21,10 @@ class Episode {
   }
 
   Map<String, dynamic> toJson() => {
-    'id': id,
-    'episode': episode,
-    'distance': distance,
-  };
+        'id': id,
+        'episode': episode,
+        'distance': distance,
+      };
 }
 
 class Memory {
@@ -49,19 +49,28 @@ class Memory {
       memory: json['memory'],
       latLng: LatLng(json['latitude'], json['longitude']),
       seenAuthor: json['seen_author'].cast<String>() as List<String>,
-      episodes: List<Episode>.from(json['episodes'].map((value) => Episode.fromJson(value))),
+      episodes: List<Episode>.from(
+          json['episodes'].map((value) => Episode.fromJson(value))),
       image: json['image'],
       author: json['author'],
     );
   }
 
   Map<String, dynamic> toJson() => {
-    'memory': memory,
-    'latitude': latLng.latitude,
-    'longitude': latLng.longitude,
-    'seen_author': seenAuthor,
-    'episodes': episodes.map((episode) => episode.toJson()).toList(),
-    'image': image,
-    'author': author,
-  };
+        'memory': memory,
+        'latitude': latLng.latitude,
+        'longitude': latLng.longitude,
+        'seen_author': seenAuthor,
+        'episodes': episodes.map((episode) => episode.toJson()).toList(),
+        'image': image,
+        'author': author,
+      };
+}
+
+// SubEpisode作成用
+class SubEpisode {
+  LatLng latLng;
+  String episode;
+
+  SubEpisode({@required this.latLng, @required this.episode});
 }
