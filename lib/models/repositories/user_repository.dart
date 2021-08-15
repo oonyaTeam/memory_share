@@ -1,8 +1,8 @@
 import 'package:memory_share/models/entities/entities.dart';
 import 'package:memory_share/models/services/services.dart';
 
-class HiveBoxRepository {
-  HiveBoxRepository();
+class UserRepository {
+  UserRepository();
 
   final HiveBoxService _hiveBoxService = HiveBoxService();
 
