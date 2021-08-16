@@ -29,10 +29,10 @@ class SubEpisodePage extends StatelessWidget {
             ),
             ElevatedButton(
               child: const Text('はい'),
-              onPressed: () => {
-                Navigator.pop(context),
-                Navigator.pop(context),
-                userModel.clearSubEpisode(),
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.pop(context);
+                userModel.clearSubEpisode();
               }, //TODO　なんか動いた
             ),
           ],
@@ -80,10 +80,10 @@ class SubEpisodePage extends StatelessWidget {
             showCloseIcon: true,
             btnOkText: "はい",
             btnCancelText: "いいえ",
-            btnCancelOnPress: () => {},
-            btnOkOnPress: () => {
-              Navigator.pop(context),
-              userModel.clearSubEpisode(),
+            btnCancelOnPress: () {},
+            btnOkOnPress: () {
+              Navigator.pop(context);
+              userModel.clearSubEpisode();
             },
           ).show();
           return false;
