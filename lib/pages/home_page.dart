@@ -9,11 +9,15 @@ import 'package:provider/provider.dart';
 class HomePage extends StatelessWidget {
   const HomePage({Key key}) : super(key: key);
 
-  void _showDetermineDestinationDialog(BuildContext context) {
+  void _showDetermineDestinationDialog({
+    @required BuildContext context,
+    @required HomeViewModel model,
+  }) {
     showDialog(
       context: context,
       builder: (BuildContext context) => determineDestinationDialogBuilder(
         context: context,
+        model: model,
       ),
     );
   }
@@ -50,7 +54,10 @@ class HomePage extends StatelessWidget {
                               onTap: () => {
                                 homeViewModel.setCurrentMemory(memory),
                                 homeViewModel.setDistance(),
-                                _showDetermineDestinationDialog(context),
+                                _showDetermineDestinationDialog(
+                                  context: context,
+                                  model: homeViewModel,
+                                ),
                               },
                               infoWindow: InfoWindow(
                                 title: memory.latLng.toString(),
@@ -68,12 +75,12 @@ class HomePage extends StatelessWidget {
                         margin: const EdgeInsets.only(bottom: 15),
                         child: longButton(
                           '思い出を投稿する',
-                          () => {
+                          ()  {
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) => SubEpisodePage(),
                               ),
-                            )
+                            );
                           },
                         ),
                       ),

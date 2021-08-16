@@ -3,7 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:memory_share/models/models.dart';
 
 class MapRepository {
-  MapService _mapService;
+  final MapService _mapService = MapService();
 
   Future<List<Memory>> getMemories() async {
     // サンプルデータ

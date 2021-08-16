@@ -43,7 +43,6 @@ class ReExperienceViewModel with ChangeNotifier {
 
   void setCurrentMemory(Memory memory) {
     _currentMemory = memory;
-    notifyListeners();
   }
 
   void getPosition() async {

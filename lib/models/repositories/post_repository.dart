@@ -4,7 +4,7 @@ import 'package:memory_share/models/models.dart';
 import 'package:memory_share/models/services/post_service.dart';
 
 class PostRepository {
-  PostService _postService;
+  final PostService _postService = PostService();
 
   Future<void> postMemory({
     @required String mainEpisode,
