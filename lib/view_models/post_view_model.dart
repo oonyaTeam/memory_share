@@ -10,7 +10,7 @@ class PostViewModel with ChangeNotifier {
     getMyMemories();
   }
 
-  PostRepository _postRepository;
+  final PostRepository _postRepository = PostRepository();
 
   File _photo;
   List<Memory> _myMemories = [];

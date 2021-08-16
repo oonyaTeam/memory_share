@@ -20,9 +20,9 @@ class UserModel with ChangeNotifier {
     _userStream.cancel();
   }
 
-  UserRepository _userRepository;
+  final UserRepository _userRepository = UserRepository();
 
-  PostRepository _postRepository;
+  final PostRepository _postRepository = PostRepository();
 
   StreamSubscription<User> _userStream;
 
@@ -52,6 +52,7 @@ class UserModel with ChangeNotifier {
   }
 
   void getMyMemories() async {
+    if(_currentUser == null) return;
     _myMemories = await _postRepository.getMyMemories(_currentUser.uid);
     notifyListeners();
   }

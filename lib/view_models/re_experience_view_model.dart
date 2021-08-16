@@ -23,7 +23,7 @@ class ReExperienceViewModel with ChangeNotifier {
     });
   }
 
-  MapRepository _mapRepository;
+  final MapRepository _mapRepository = MapRepository();
 
   Position _currentPosition;
   int _distance = 0;

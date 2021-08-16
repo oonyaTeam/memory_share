@@ -19,7 +19,7 @@ class PostRepository {
   }
 
   Future<List<Memory>> getMyMemories(String uuid) async {
-    final myMemories = _postService.getMyMemories(uuid);
+    final myMemories = await _postService.getMyMemories(uuid);
     return myMemories;
   }
 }
