@@ -7,7 +7,9 @@ import 'package:memory_share/models/models.dart';
 class UserModel with ChangeNotifier {
   UserModel() {
     _userStream = FirebaseAuth.instance.authStateChanges().listen((User user) {
-      User _currentUser = user;
+      _currentUser = user;
+      getMyMemories();
+
       notifyListeners();
     });
   }
@@ -20,6 +22,8 @@ class UserModel with ChangeNotifier {
 
   UserRepository _userRepository;
 
+  PostRepository _postRepository;
+
   StreamSubscription<User> _userStream;
 
   User _currentUser;
@@ -27,14 +31,33 @@ class UserModel with ChangeNotifier {
   bool _reExperienceTutorialDone;
   bool _postTutorialDone;
 
+  List<Memory> _myMemories;
+
   User get currentUser => _currentUser;
 
   bool get reExperienceTutorialDone => _reExperienceTutorialDone;
 
   bool get postTutorialDone => _postTutorialDone;
 
-  void reExperienceTutorialIsFinished() =>
-      _userRepository.reExperienceTutorialIsFinished();
+  List<Memory> get myMemories => _myMemories;
 
-  void postTutorialIsFinished() => _userRepository.postTutorialIsFinished();
+  void reExperienceTutorialIsFinished() async {
+    await _userRepository.reExperienceTutorialIsFinished();
+    notifyListeners();
+  }
+
+  void postTutorialIsFinished() async {
+    await _userRepository.postTutorialIsFinished();
+    notifyListeners();
+  }
+
+  void getMyMemories() async {
+    _myMemories = await _postRepository.getMyMemories(_currentUser.uid);
+    notifyListeners();
+  }
+
+  void addMymemories(Memory memory) async {
+    _myMemories.add(memory);
+    notifyListeners();
+  }
 }

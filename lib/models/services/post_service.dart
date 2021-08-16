@@ -40,6 +40,7 @@ class PostService {
     await createMemory(newMemory);
   }
 
+  // post_serviceに置くのは適切でないような気がするので、後々修正予定。
   Future<List<Memory>> getMyMemories(String uuid) async {
     // TODO: sampleなので、firebase Authを導入したら変える
     final List<Memory> myMemories = await fetchMyMemories(uuid);

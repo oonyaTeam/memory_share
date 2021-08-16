@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:memory_share/models/models.dart';
+import 'package:memory_share/view_models/view_models.dart';
 import 'package:memory_share/pages/pages.dart';
 import 'package:provider/provider.dart';
 
