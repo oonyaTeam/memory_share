@@ -1,4 +1,3 @@
-import 'package:memory_share/models/entities/entities.dart';
 import 'package:memory_share/models/services/services.dart';
 
 class UserRepository {
@@ -10,7 +9,7 @@ class UserRepository {
     _hiveBoxService.putReExperienceTutorialDone();
   }
 
-  Future<void> postTutorialIsFinished(UserRecord record) async {
+  Future<void> postTutorialIsFinished() async {
     _hiveBoxService.putPostTutorialDone();
   }
 }
