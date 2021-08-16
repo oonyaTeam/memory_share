@@ -5,12 +5,6 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:memory_share/models/models.dart';
 
-class MarkerData {
-  String markerId;
-  LatLng position;
-
-  MarkerData(this.markerId, this.position);
-}
 
 class ReExperienceViewModel with ChangeNotifier {
   ReExperienceViewModel() {

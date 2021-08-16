@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:memory_share/models/models.dart';
 import 'package:memory_share/pages/pages.dart';
+import 'package:memory_share/view_models/view_models.dart';
 import 'package:provider/provider.dart';
 
 // DetermineDestinationDialog (マーカーを設定するか確認するダイアログ)
 
 Widget determineDestinationDialogBuilder({
-  BuildContext context,
+  @required BuildContext context,
 }) {
-  final mapModel = context.watch<MapModel>();
+  final homeViewModel = context.watch<HomeViewModel>();
   return AlertDialog(
     title: const Text("この場所を目的地に設定しますか？"),
-    content: Text('目的地までの距離は、${mapModel.distance}mです。'),
+    content: Text('目的地までの距離は、${homeViewModel.distance}mです。'),
     actions: [
       ElevatedButton(
         onPressed: () => Navigator.pop(context),

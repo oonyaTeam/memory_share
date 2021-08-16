@@ -29,7 +29,6 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<UserModel>(create: (_) => UserModel()),
         ChangeNotifierProvider<PostViewModel>(create: (_) => PostViewModel()),
-        ChangeNotifierProvider<MapModel>(create: (_) => MapModel()),
       ],
       child: Builder(
         builder: (context) => MaterialApp(
