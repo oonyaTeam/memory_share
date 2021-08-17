@@ -1,43 +1,53 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:memory_share/models/models.dart';
+import 'package:memory_share/models/entities/entities.dart';
+import 'package:memory_share/view_models/re_experience_view_model.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 class ReExperiencePage extends StatelessWidget {
-  const ReExperiencePage({Key key}) : super(key: key);
+  const ReExperiencePage({Key key, @required this.currentMemory})
+      : super(key: key);
+
+  final Memory currentMemory;
 
   @override
   Widget build(BuildContext context) {
-    final mapModel = context.watch<MapModel>();
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("ReExperience"),
-      ),
-      body: mapModel.currentPosition == null
-          ? const Center(
+    return ChangeNotifierProvider(
+      create: (_) => ReExperienceViewModel(),
+      child: Consumer<ReExperienceViewModel>(
+        builder: (context, reExperienceViewModel, _) {
+          reExperienceViewModel.setCurrentMemory(currentMemory);
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text("ReExperience"),
+            ),
+            body: reExperienceViewModel.currentPosition == null
+              ? const Center(
               child: CircularProgressIndicator(),
             )
-          : Stack(
+              : Stack(
               children: [
                 GoogleMap(
                   mapType: MapType.normal,
                   initialCameraPosition: CameraPosition(
                     target: LatLng(
-                      mapModel.currentPosition?.latitude,
-                      mapModel.currentPosition?.longitude,
+                      reExperienceViewModel.currentPosition?.latitude,
+                      reExperienceViewModel.currentPosition?.longitude,
                     ),
                     zoom: 15.0,
                   ),
                   onMapCreated: (GoogleMapController controller) {
-                    mapModel.setReExperienceMapController(controller);
+                    reExperienceViewModel
+                      .setReExperienceMapController(controller);
                   },
                   markers: {
                     Marker(
-                      markerId:
-                          MarkerId(mapModel.currentMemory.latLng.toString()),
-                      position: mapModel.currentMemory.latLng,
+                      markerId: MarkerId(reExperienceViewModel
+                        .currentMemory.latLng
+                        .toString()),
+                      position: reExperienceViewModel.currentMemory.latLng,
                       infoWindow: const InfoWindow(
                         title: "目的地",
                         snippet: 'text',
@@ -48,11 +58,12 @@ class ReExperiencePage extends StatelessWidget {
                           isDismissible: false,
                           backgroundColor: Colors.transparent,
                           context: context,
-                          builder: (BuildContext context) => bottomModalBuilder(
-                            context: context,
-                            distance: mapModel.distance,
-                            sigma: mapModel.distance / 100,
-                          ),
+                          builder: (BuildContext context) =>
+                            bottomModalBuilder(
+                              context: context,
+                              distance: reExperienceViewModel.distance,
+                              sigma: reExperienceViewModel.distance / 100,
+                            ),
                         )
                       },
                     ),
@@ -62,6 +73,9 @@ class ReExperiencePage extends StatelessWidget {
                 ),
               ],
             ),
+          );
+        }
+      ),
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:memory_share/models/models.dart';
+import 'package:memory_share/view_models/view_models.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -10,13 +10,13 @@ class PostPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userModel = context.watch()<UserModel>();
+    final postViewModel = context.watch<PostViewModel>();
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: EditorAppBar(
         postLabel: "投稿する",
         onPost: () async {
-          await userModel.postMemory().then(
+          await postViewModel.postMemory().then(
               (_) => Navigator.of(context).popUntil((route) => route.isFirst))
             .catchError((e) => {});
         },
@@ -52,7 +52,7 @@ class PostPage extends StatelessWidget {
                   shape: BoxShape.rectangle,
                   image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: FileImage(userModel.photo),
+                    image: FileImage(postViewModel.photo),
                   ),
                 ),
               ),
@@ -70,7 +70,7 @@ class PostPage extends StatelessWidget {
                 keyboardType: TextInputType.multiline,
                 maxLines: 99999,
                 autofocus: true,
-                onChanged: (String mainEpisode) => userModel.setMainEpisode(mainEpisode),
+                onChanged: (String mainEpisode) => postViewModel.setMainEpisode(mainEpisode),
               ),
             ),
           ),

@@ -5,13 +5,6 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:memory_share/models/models.dart';
 
-class MarkerData {
-  String markerId;
-  LatLng position;
-
-  MarkerData(this.markerId, this.position);
-}
-
 class HomeViewModel with ChangeNotifier {
   HomeViewModel() {
     getMemories();
@@ -28,7 +21,7 @@ class HomeViewModel with ChangeNotifier {
     });
   }
 
-  MapRepository _mapRepository;
+  final MapRepository _mapRepository = MapRepository();
 
   Position _currentPosition;
   int _distance = 0;

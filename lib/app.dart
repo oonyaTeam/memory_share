@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:memory_share/models/models.dart';
 import 'package:memory_share/pages/pages.dart';
+import 'package:memory_share/view_models/view_models.dart';
 import 'package:provider/provider.dart';
 
 class MyApp extends StatelessWidget {
@@ -43,8 +44,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<UserModel>(create: (_) => UserModel()),
-        ChangeNotifierProvider<MapModel>(create: (_) => MapModel()),
-        ChangeNotifierProvider<AuthModel>(create: (_) => AuthModel()),
+        ChangeNotifierProvider<PostViewModel>(create: (_) => PostViewModel()),
       ],
       child: Builder(
         builder: (context) => MaterialApp(
@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: primary,
           ),
-          home: context.read<AuthModel>().currentUser != null
+          home: context.read<UserModel>().currentUser != null
               ? const HomePage()
               : const LoginPage(),
         ),

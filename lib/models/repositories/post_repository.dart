@@ -4,7 +4,7 @@ import 'package:memory_share/models/models.dart';
 import 'package:memory_share/models/services/post_service.dart';
 
 class PostRepository {
-  PostService _postService;
+  final PostService _postService = PostService();
 
   Future<void> postMemory({
     @required String mainEpisode,
@@ -19,7 +19,7 @@ class PostRepository {
   }
 
   Future<List<Memory>> getMyMemories(String uuid) async {
-    final myMemories = _postService.getMyMemories(uuid);
+    final myMemories = await _postService.getMyMemories(uuid);
     return myMemories;
   }
 }

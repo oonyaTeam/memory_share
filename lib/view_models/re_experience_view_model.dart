@@ -5,12 +5,6 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:memory_share/models/models.dart';
 
-class MarkerData {
-  String markerId;
-  LatLng position;
-
-  MarkerData(this.markerId, this.position);
-}
 
 class ReExperienceViewModel with ChangeNotifier {
   ReExperienceViewModel() {
@@ -29,7 +23,7 @@ class ReExperienceViewModel with ChangeNotifier {
     });
   }
 
-  MapRepository _mapRepository;
+  final MapRepository _mapRepository = MapRepository();
 
   Position _currentPosition;
   int _distance = 0;
@@ -49,7 +43,6 @@ class ReExperienceViewModel with ChangeNotifier {
 
   void setCurrentMemory(Memory memory) {
     _currentMemory = memory;
-    notifyListeners();
   }
 
   void getPosition() async {

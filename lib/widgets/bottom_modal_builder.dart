@@ -6,7 +6,7 @@ import 'package:memory_share/pages/pages.dart';
 // BottomModal（ReExperiencePage で下に画像等を表示するモーダル）
 
 Widget bottomModalBuilder(
-    {BuildContext context, double distance, double sigma}) {
+    {BuildContext context, int distance, double sigma}) {
   return Container(
     padding: const EdgeInsets.only(top: 30.0),
     decoration: const BoxDecoration(

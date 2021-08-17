@@ -1,45 +1,17 @@
 import 'dart:io';
 
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:memory_share/models/models.dart';
 import 'package:memory_share/pages/pages.dart';
+import 'package:memory_share/view_models/view_models.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
 
 class SubEpisodePage extends StatelessWidget {
   SubEpisodePage({Key key}) : super(key: key);
 
   final picker = ImagePicker();
-
-  Future _showAlertDialog(BuildContext context) async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        final userModel = context.read<UserModel>();
-        return AlertDialog(
-          title: const Text('サブエピソードが残っています'),
-          content: const Text('ホームに戻るとサブエピソードは全て消えます'),
-          actions: <Widget>[
-            ElevatedButton(
-              child: const Text('いいえ'),
-              onPressed: () => Navigator.pop(context),
-            ),
-            ElevatedButton(
-              child: const Text('はい'),
-              onPressed: () => {
-                Navigator.pop(context),
-                Navigator.pop(context),
-                userModel.clearSubEpisode(),
-              }, //TODO　なんか動いた
-            ),
-          ],
-        );
-      },
-    );
-  }
 
   Future onTapAddButton(BuildContext context) async {
     Navigator.of(context).push(
@@ -51,7 +23,7 @@ class SubEpisodePage extends StatelessWidget {
 
     if (takenPhoto != null) {
       File photoFile = File(takenPhoto.path);
-      context.read<UserModel>().setPhoto(photoFile);
+      context.read<PostViewModel>().setPhoto(photoFile);
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => const PostPage(),
@@ -62,10 +34,10 @@ class SubEpisodePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userModel = context.watch<UserModel>();
+    final postViewModel = context.watch<PostViewModel>();
     return WillPopScope(
       onWillPop: () async {
-        if (userModel.subEpisodeList.isNotEmpty) {
+        if (postViewModel.subEpisodeList.isNotEmpty) {
           //_showAlertDialog(context);
           AwesomeDialog(
             context: context,
@@ -80,10 +52,10 @@ class SubEpisodePage extends StatelessWidget {
             showCloseIcon: true,
             btnOkText: "はい",
             btnCancelText: "いいえ",
-            btnCancelOnPress: () => {},
-            btnOkOnPress: () => {
-              Navigator.pop(context),
-              userModel.clearSubEpisode(),
+            btnCancelOnPress: () {},
+            btnOkOnPress: () {
+              Navigator.pop(context);
+              postViewModel.clearSubEpisode();
             },
           ).show();
           return false;
@@ -105,13 +77,13 @@ class SubEpisodePage extends StatelessWidget {
         body: Stack(
           children: [
             ListView.builder(
-              itemCount: userModel.subEpisodeList.length,
+              itemCount: postViewModel.subEpisodeList.length,
               itemBuilder: (context, index) {
-                final item = userModel.subEpisodeList[index];
+                final item = postViewModel.subEpisodeList[index];
                 return Dismissible(
                   key: Key(item.episode),
                   onDismissed: (direction) {
-                    userModel.removeSubEpisode(index);
+                    postViewModel.removeSubEpisode(index);
                   },
                   background: Container(color: Colors.red),
                   child: Card(
@@ -163,10 +135,10 @@ class SubEpisodePage extends StatelessWidget {
                 child: IconButton(
                   icon: const Icon(Icons.remove),
                   onPressed: () {
-                    if (userModel.subEpisodeList.isEmpty) {
+                    if (postViewModel.subEpisodeList.isEmpty) {
                     } else {
-                      userModel.removeSubEpisode(
-                          userModel.subEpisodeList.length - 1);
+                      postViewModel.removeSubEpisode(
+                          postViewModel.subEpisodeList.length - 1);
                     }
                   },
                 ),
@@ -176,7 +148,7 @@ class SubEpisodePage extends StatelessWidget {
               alignment: Alignment.topCenter,
               child: Container(
                 margin: const EdgeInsets.only(top: 22),
-                child: (userModel.subEpisodeList.isEmpty)
+                child: (postViewModel.subEpisodeList.isEmpty)
                     ? Image.asset('assets/normal.png')
                     : const Text(" "),
               ),
