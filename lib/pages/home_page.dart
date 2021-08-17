@@ -75,7 +75,7 @@ class HomePage extends StatelessWidget {
                         margin: const EdgeInsets.only(bottom: 15),
                         child: longButton(
                           '思い出を投稿する',
-                          ()  {
+                          () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) => SubEpisodePage(),
@@ -97,7 +97,7 @@ class HomePage extends StatelessWidget {
                             ),
                           );
                         },
-                        color: Colors.white,
+                        color: const Color.fromARGB(255, 246, 114, 128),
                         icon: const Icon(Icons.circle),
                       ),
                     ),
@@ -113,7 +113,7 @@ class HomePage extends StatelessWidget {
                             ),
                           );
                         },
-                        color: const Color.fromARGB(255, 233, 103, 75),
+                        color: const Color.fromARGB(255, 255, 255, 255),
                         icon: const Icon(Icons.account_circle_rounded),
                       ),
                     ),
