@@ -10,7 +10,7 @@ class PostPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final postViewModel = context.watch()<PostViewModel>();
+    final postViewModel = context.watch<PostViewModel>();
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: EditorAppBar(

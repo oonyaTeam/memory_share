@@ -62,9 +62,9 @@ class PostViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> postMemory(String mainEpisode) async {
+  Future<void> postMemory() async {
     await _postRepository.postMemory(
-      mainEpisode: mainEpisode,
+      mainEpisode: _mainEpisode,
       subEpisodeList: _subEpisodeList,
       photo: _photo,
     );
