@@ -90,7 +90,7 @@ class HomePage extends StatelessWidget {
                           ),
                         );
                       },
-                      color: Colors.white,
+                      color: Color.fromARGB(255, 246, 114, 128),
                       icon: const Icon(Icons.circle),
                     ),
                 ),
@@ -106,7 +106,7 @@ class HomePage extends StatelessWidget {
                           ),
                         );
                       },
-                      color: const Color.fromARGB(255, 233, 103, 75),
+                      color: const Color.fromARGB(255, 255, 255, 255),
                       icon: const Icon(Icons.account_circle_rounded),
                     ),
                 ),
