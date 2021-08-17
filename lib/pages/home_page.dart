@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:memory_share/models/models.dart';
@@ -5,6 +7,7 @@ import 'package:memory_share/pages/pages.dart';
 import 'package:memory_share/pages/user_page.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:memory_share/theme.dart';
 
 class HomePage extends StatelessWidget {
 
@@ -90,7 +93,7 @@ class HomePage extends StatelessWidget {
                           ),
                         );
                       },
-                      color: Color.fromARGB(255, 246, 114, 128),
+                      color: newTheme().primary,
                       icon: const Icon(Icons.circle),
                     ),
                 ),
