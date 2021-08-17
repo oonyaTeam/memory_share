@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
   static const MaterialColor customSwatch = MaterialColor(
     0xFFE9674B,
     <int, Color>{
-      50: Color(0xFFFCEDE9),
+      50:  Color(0xFFFCEDE9),
       100: Color(0xFFF8D1C9),
       200: Color(0xFFF4B3A5),
       300: Color(0xFFF09581),
@@ -19,6 +19,22 @@ class MyApp extends StatelessWidget {
       700: Color(0xFFE3543B),
       800: Color(0xFFDF4A33),
       900: Color(0xFFD93923),
+    },
+  );
+
+  static const MaterialColor primary = MaterialColor(
+    0xFFF67280,
+    <int, Color>{
+      50:  Color(0xFFF67280),
+      100: Color(0xFFF67280),
+      200: Color(0xFFF67280),
+      300: Color(0xFFF67280),
+      400: Color(0xFFF67280),
+      500: Color(0xFFF67280),
+      600: Color(0xFFF67280),
+      700: Color(0xFFF67280),
+      800: Color(0xFFF67280),
+      900: Color(0xFFF67280),
     },
   );
 
@@ -35,7 +51,7 @@ class MyApp extends StatelessWidget {
         builder: (context) => MaterialApp(
           title: 'Flutter Demo',
           theme: ThemeData(
-            primarySwatch: customSwatch,
+            primarySwatch: primary,
           ),
           home: context.read<AuthModel>().currentUser != null
               ? const HomePage()
