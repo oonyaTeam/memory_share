@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_config/flutter_config.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:memory_share/models/records/user_record.dart';
+import 'package:memory_share/models/entities/entities.dart';
 import 'app.dart';
 
 void main() async {

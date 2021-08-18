@@ -1,56 +1,24 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:memory_share/models/models.dart';
+import 'package:memory_share/view_models/view_models.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
-class PostPage extends StatefulWidget {
+class PostPage extends StatelessWidget {
+
   const PostPage({Key key}) : super(key: key);
 
   @override
-  _PostPageState createState() => _PostPageState();
-}
-
-class _PostPageState extends State<PostPage> {
-  String _memory = "";
-
-  Future _showAlertDialog(BuildContext context) async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('このページを離れますか？'),
-          content: const Text('「はい」を押すと、文章と写真は削除されます。'),
-          actions: <Widget>[
-            ElevatedButton(
-              child: const Text('いいえ'),
-              onPressed: () => Navigator.pop(context),
-            ),
-            ElevatedButton(
-              child: const Text('はい'),
-              onPressed: () => {
-                Navigator.pop(context),
-                Navigator.pop(context)
-              }, //TODO　なんか動いた
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final userModel = context.read<UserModel>();
+    final postViewModel = context.watch<PostViewModel>();
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: EditorAppBar(
         postLabel: "投稿する",
         onPost: () async {
-          await userModel.postMemory(_memory).then(
+          await postViewModel.postMemory().then(
               (_) => Navigator.of(context).popUntil((route) => route.isFirst))
-          .catchError((e) => {});
+            .catchError((e) => {});
         },
         onCancel: () => AwesomeDialog(
           context: context,
@@ -84,7 +52,7 @@ class _PostPageState extends State<PostPage> {
                   shape: BoxShape.rectangle,
                   image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: FileImage(userModel.photo),
+                    image: FileImage(postViewModel.photo),
                   ),
                 ),
               ),
@@ -102,9 +70,7 @@ class _PostPageState extends State<PostPage> {
                 keyboardType: TextInputType.multiline,
                 maxLines: 99999,
                 autofocus: true,
-                onChanged: (String memory) => setState(() {
-                  _memory = memory;
-                }),
+                onChanged: (String mainEpisode) => postViewModel.setMainEpisode(mainEpisode),
               ),
             ),
           ),
