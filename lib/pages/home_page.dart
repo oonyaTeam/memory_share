@@ -88,22 +88,21 @@ class HomePage extends StatelessWidget {
                         ),
                       ),
                     ),
-                  ),
-                ),
-                Align(
-                    alignment: Alignment.topLeft,
-                    child: IconButton(
-                      iconSize: 64,
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const UserPage(),
-                          ),
-                        );
-                      },
-                      color: newTheme().primary,
-                      icon: const Icon(Icons.circle),
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: IconButton(
+                        iconSize: 64,
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const UserPage(),
+                            ),
+                          );
+                        },
+                        color: newTheme().primary,
+                        icon: const Icon(Icons.circle),
+                      ),
                     ),
                     Align(
                       alignment: Alignment.topLeft,
