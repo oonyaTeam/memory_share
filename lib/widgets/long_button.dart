@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:memory_share/theme.dart';
 
 Widget longButton(String buttonText, Function() tappedEvent){
   return SizedBox(
@@ -7,6 +8,7 @@ Widget longButton(String buttonText, Function() tappedEvent){
     child: ElevatedButton(
       style: ElevatedButton.styleFrom(
         shape: const StadiumBorder(),
+        primary: newTheme().primary,
         onPrimary: Colors.white,
       ),
       child: Text(

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:memory_share/pages/pages.dart';
@@ -5,6 +7,7 @@ import 'package:memory_share/pages/user_page.dart';
 import 'package:memory_share/view_models/view_models.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:memory_share/theme.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key key}) : super(key: key);
@@ -85,21 +88,22 @@ class HomePage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: IconButton(
-                        iconSize: 64,
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const UserPage(),
-                            ),
-                          );
-                        },
-                        color: const Color.fromARGB(255, 246, 114, 128),
-                        icon: const Icon(Icons.circle),
-                      ),
+                  ),
+                ),
+                Align(
+                    alignment: Alignment.topLeft,
+                    child: IconButton(
+                      iconSize: 64,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const UserPage(),
+                          ),
+                        );
+                      },
+                      color: newTheme().primary,
+                      icon: const Icon(Icons.circle),
                     ),
                     Align(
                       alignment: Alignment.topLeft,
