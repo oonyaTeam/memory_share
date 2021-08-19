@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:memory_share/theme.dart';
 
 class HomePage extends StatelessWidget {
-  HomePage({Key key}) : super(key: key);
+  const HomePage({Key key}) : super(key: key);
 
   void _showDetermineDestinationDialog({
     @required BuildContext context,
@@ -24,21 +24,6 @@ class HomePage extends StatelessWidget {
         model: model,
       ),
     );
-  }
-
-  GoogleMapController _controller;
-
-  
-  changeMapMode(){
-    getMapStyleJsonFile("assets/Light.json").then(setMapStyle);
-  }
-
-  Future<String> getMapStyleJsonFile(String path) async {
-    return await rootBundle.loadString(path);
-  }
-
-  void setMapStyle(String mapStyle){
-    _controller.setMapStyle(mapStyle);
   }
 
   @override
@@ -65,7 +50,7 @@ class HomePage extends StatelessWidget {
                       ),
                       onMapCreated: (GoogleMapController controller) {
                         homeViewModel.setHomeMapController(controller);
-                        changeMapMode();
+                        homeViewModel.changeMapMode(controller);
                       },
                       markers: homeViewModel.memories
                           .map(
