@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:memory_share/pages/pages.dart';
 import 'package:memory_share/pages/user_page.dart';
@@ -45,8 +46,10 @@ class HomePage extends StatelessWidget {
                         ),
                         zoom: 15.0,
                       ),
-                      onMapCreated: (GoogleMapController controller) =>
-                          homeViewModel.setHomeMapController(controller),
+                      onMapCreated: (GoogleMapController controller) {
+                        homeViewModel.setHomeMapController(controller);
+                        homeViewModel.changeMapMode(controller);
+                      },
                       markers: homeViewModel.memories
                           .map(
                             (memory) => Marker(

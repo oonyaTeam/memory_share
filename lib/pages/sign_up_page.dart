@@ -22,12 +22,9 @@ class SignUpPage extends StatelessWidget {
                 textBox(Icons.https_outlined, "Password", signUpViewModel.changePassword),
                 ElevatedButton(
                   onPressed: () async {
-                    await signUpViewModel
-                        .signUpWithEmailAndPassword()
-                        .then((_) {
+                    await signUpViewModel.signUpWithEmailAndPassword().then((_) {
                       Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                            builder: (context) => const HomePage()),
+                        MaterialPageRoute(builder: (context) => const HomePage()),
                       );
                     }).catchError((e) {});
                   },
