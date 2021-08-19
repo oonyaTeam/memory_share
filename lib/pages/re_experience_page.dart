@@ -52,8 +52,9 @@ class ReExperiencePage extends StatelessWidget {
                         title: "目的地",
                         snippet: 'text',
                       ),
-                      onTap: () => {
-                        showModalBottomSheet(
+                      onTap: () async {
+                        await reExperienceViewModel.setDistance();
+                        await showModalBottomSheet(
                           barrierColor: Colors.black.withOpacity(0.0),
                           isDismissible: false,
                           backgroundColor: Colors.transparent,
@@ -61,10 +62,9 @@ class ReExperiencePage extends StatelessWidget {
                           builder: (BuildContext context) =>
                             bottomModalBuilder(
                               context: context,
-                              distance: reExperienceViewModel.distance,
-                              sigma: reExperienceViewModel.distance / 100,
+                              model: reExperienceViewModel,
                             ),
-                        )
+                        );
                       },
                     ),
                   },
