@@ -1,14 +1,12 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:memory_share/pages/pages.dart';
 import 'package:memory_share/pages/user_page.dart';
+import 'package:memory_share/theme.dart';
 import 'package:memory_share/view_models/view_models.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:memory_share/theme.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key key}) : super(key: key);
@@ -57,13 +55,13 @@ class HomePage extends StatelessWidget {
                             (memory) => Marker(
                               markerId: MarkerId(memory.latLng.toString()),
                               position: memory.latLng,
-                              onTap: () => {
-                                homeViewModel.setCurrentMemory(memory),
-                                homeViewModel.setDistance(),
+                              onTap: () async {
+                                homeViewModel.setCurrentMemory(memory);
+                                await homeViewModel.setDistance();
                                 _showDetermineDestinationDialog(
                                   context: context,
                                   model: homeViewModel,
-                                ),
+                                );
                               },
                               infoWindow: InfoWindow(
                                 title: memory.latLng.toString(),
