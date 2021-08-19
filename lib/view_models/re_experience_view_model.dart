@@ -51,7 +51,7 @@ class ReExperienceViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  void setDistance() async {
+  Future<void> setDistance() async {
     if (_currentPosition == null || _currentMemory == null) return;
 
     _distance = await _mapRepository.getDistance(_currentMemory);
