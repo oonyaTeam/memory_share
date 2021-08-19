@@ -34,7 +34,7 @@ class SignUpPage extends StatelessWidget {
                   onPressed: () async {
                     await signUpViewModel.signUpWithEmailAndPassword().then((_) {
                       Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => HomePage()),
+                        MaterialPageRoute(builder: (context) => const HomePage()),
                       );
                     }).catchError((e) {});
                   },
