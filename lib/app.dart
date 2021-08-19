@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
             primarySwatch: primary,
           ),
           home: context.read<UserModel>().currentUser != null
-              ? const HomePage()
+              ? HomePage()
               : const LoginPage(),
         ),
       ),

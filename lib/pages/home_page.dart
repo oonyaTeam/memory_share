@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:memory_share/pages/pages.dart';
 import 'package:memory_share/pages/user_page.dart';
@@ -10,7 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:memory_share/theme.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key key}) : super(key: key);
+  HomePage({Key key}) : super(key: key);
 
   void _showDetermineDestinationDialog({
     @required BuildContext context,
@@ -23,6 +24,21 @@ class HomePage extends StatelessWidget {
         model: model,
       ),
     );
+  }
+
+  GoogleMapController _controller;
+
+  
+  changeMapMode(){
+    getMapStyleJsonFile("assets/Light.json").then(setMapStyle);
+  }
+
+  Future<String> getMapStyleJsonFile(String path) async {
+    return await rootBundle.loadString(path);
+  }
+
+  void setMapStyle(String mapStyle){
+    _controller.setMapStyle(mapStyle);
   }
 
   @override
@@ -47,8 +63,10 @@ class HomePage extends StatelessWidget {
                         ),
                         zoom: 15.0,
                       ),
-                      onMapCreated: (GoogleMapController controller) =>
-                          homeViewModel.setHomeMapController(controller),
+                      onMapCreated: (GoogleMapController controller) {
+                        homeViewModel.setHomeMapController(controller);
+                        changeMapMode();
+                      },
                       markers: homeViewModel.memories
                           .map(
                             (memory) => Marker(
