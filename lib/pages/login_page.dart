@@ -17,18 +17,8 @@ class LoginPage extends StatelessWidget {
           appBar: appBarComponent("Login"),
           body: Column(
             children: [
-              const SizedBox(
-                height: 50,
-              ),
-              const Text("Email"),
-              TextField(
-                onChanged: (text) => loginViewModel.changeEmail(text),
-              ),
-              const Text("Password"),
-              TextField(
-                obscureText: true,
-                onChanged: (text) => loginViewModel.changePassword(text),
-              ),
+              textBox(Icons.email_outlined, "Email", loginViewModel.changeEmail),
+              textBox(Icons.https_outlined, "Password", loginViewModel.changePassword),
               ElevatedButton(
                 onPressed: () async {
                   await loginViewModel.loginWithEmailAndPassword().then((_) {
@@ -40,10 +30,9 @@ class LoginPage extends StatelessWidget {
                 child: const Text("Login"),
               ),
               TextButton(
-                onPressed: () =>
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => const SignUpPage()),
-                  ),
+                onPressed: () => Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => const SignUpPage()),
+                ),
                 child: const Text("SignUp"),
               ),
             ],
