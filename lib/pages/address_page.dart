@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:memory_share/widgets/widgets.dart';
 
 class AddressPage extends StatelessWidget {
 
@@ -11,7 +12,17 @@ class AddressPage extends StatelessWidget {
         centerTitle: true,
         title: const Text("Change_mail"),
       ),
-      body: Container()
+      body: Align(
+        alignment: Alignment.topCenter,
+        child:
+          Container(
+            margin: const EdgeInsets.only(top: 15),
+            child: signInUpButton(
+              'Sign in',
+                  () {},
+            ),
+          ),
+      )
     );
   }
 }
