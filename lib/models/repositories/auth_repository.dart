@@ -14,4 +14,16 @@ class AuthRepository {
     final User user = await _authService.signUpWithEmailAndPassword(email, password);
     return user;
   }
+
+  Future<void> logout() async {
+    await _authService.logout();
+  }
+
+  Future<void> updateEmail(String newEmail) async {
+    await _authService.updateEmail(newEmail);
+  }
+
+  Future<void> updatePassword(String newPassword) async {
+    await _authService.updatePassword(newPassword);
+  }
 }
