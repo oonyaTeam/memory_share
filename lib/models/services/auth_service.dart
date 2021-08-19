@@ -1,26 +1,22 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {
-
   final FirebaseAuth _instance = FirebaseAuth.instance;
 
   Future<User> signUpWithEmailAndPassword(String email, String password) async {
-    final User user =
-      (await _instance.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      ))
+    final User user = (await _instance.createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    ))
         .user;
     return user;
   }
 
   Future<User> loginWithEmailAndPassword(String email, String password) async {
-    final User user =
-      (await _instance.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      ))
+    final User user = (await _instance.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    ))
         .user;
     return user;
   }
@@ -29,7 +25,14 @@ class AuthService {
     await _instance.signOut();
   }
 
-  Future<void> updateEmail(String newEmail) async {
+  Future<void> updateEmail(String newEmail, String password) async {
+    final user = _instance.currentUser;
+    AuthResult authResult = await user.reauthenticateWithCredential(
+      EmailAuthProvider.credential(
+        email: user.email,
+        password: ,
+      ),
+    );
     await _instance.currentUser.updateEmail(newEmail);
   }
 

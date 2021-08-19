@@ -3,7 +3,7 @@ export 'update_mail_address_page.dart';
 export 'episode_view_page.dart';
 export 'home_page.dart';
 export 'login_page.dart';
-export 'password_page.dart';
+export 'update_password_page.dart';
 export 'post_page.dart';
 export 're_experience_page.dart';
 export 'setting_page.dart';

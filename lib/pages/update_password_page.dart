@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class PasswordPage extends StatelessWidget {
+class UpdatePasswordPage extends StatelessWidget {
 
-  const PasswordPage({Key key}) : super(key: key);
+  const UpdatePasswordPage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
