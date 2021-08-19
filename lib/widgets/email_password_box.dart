@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:memory_share/theme.dart';
 
-Widget textBox(IconData iconData, String topText) {
+Widget textBox(IconData iconData, String topText, var textBoxFunc) {
   newTheme theme = newTheme();
+  bool obscureTextFlag = false;
+
+  if (topText == "Password") {
+    obscureTextFlag = true;
+  }
 
   return Column(
     children: <Widget>[
@@ -22,7 +27,6 @@ Widget textBox(IconData iconData, String topText) {
       ),
       Container(
         padding: const EdgeInsets.only(left: 24, right: 24),
-        //padding: const EdgeInsets.all(10),
         child: TextField(
           decoration: InputDecoration(
             prefixIcon: Icon(iconData, color: theme.primary),
@@ -31,8 +35,9 @@ Widget textBox(IconData iconData, String topText) {
             ),
             filled: true,
             fillColor: Color.alphaBlend(theme.primaryPale, Colors.white),
-            //hintText: "mail address",
           ),
+          obscureText: obscureTextFlag,
+          onChanged: (text) => textBoxFunc(text),
         ),
       ),
     ],
