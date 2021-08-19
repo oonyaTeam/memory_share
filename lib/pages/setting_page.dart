@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:memory_share/pages/address_page.dart';
+import 'package:memory_share/pages/update_mail_address_page.dart';
 import 'package:memory_share/pages/password_page.dart';
 
 class SettingPage extends StatelessWidget {
@@ -26,7 +26,7 @@ class SettingPage extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const AddressPage()),
+                  MaterialPageRoute(builder: (context) => const UpdateMailAddressPage()),
                 );
               },
             ),
