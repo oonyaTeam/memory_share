@@ -43,7 +43,7 @@ class HomeViewModel with ChangeNotifier {
 
   void setCurrentMemory(Memory memory) {
     _currentMemory = memory;
-    notifyListeners();
+    setDistance();
   }
 
   void addMemory(Memory memory) {
@@ -67,7 +67,7 @@ class HomeViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  void setDistance() async {
+  Future<void> setDistance() async {
     if (_currentPosition == null || _currentMemory == null) return;
 
     _distance = await _mapRepository.getDistance(_currentMemory);
