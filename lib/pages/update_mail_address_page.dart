@@ -18,19 +18,27 @@ class UpdateMailAddressPage extends StatelessWidget {
           ),
           body: Column(
             children: [
-              // TODO: 新しいメールアドレスにする前に、再ログインが必要。
               textBox(
                 Icons.email_outlined,
                 "新しいメールアドレス",
-                (String email) => updateMailAddressViewModel.changeNewEmail(email),
+                (String email) =>
+                    updateMailAddressViewModel.changeNewEmail(email),
+              ),
+              textBox(
+                Icons.https_outlined,
+                "パスワード",
+                (String password) =>
+                    updateMailAddressViewModel.changePassword(password),
               ),
               Container(
                 margin: const EdgeInsets.only(top: 15),
                 child: signInUpButton(
                   '変更する',
                   () async {
-                    await updateMailAddressViewModel.updateEmail();
-                    Navigator.pop(context);
+                    await updateMailAddressViewModel
+                        .updateEmail()
+                        .then((_) => Navigator.pop(context))
+                        .catchError((e) {});
                   },
                 ),
               ),

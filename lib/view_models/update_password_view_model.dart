@@ -29,9 +29,12 @@ class UpdatePasswordViewModel with ChangeNotifier {
   Future<void> updatePassword() async {
     if (!validateNewPassword()) throw Error();
 
-    if (_newPassword == _newPasswordForConfirmation) throw Error();
+    if (_newPassword != _newPasswordForConfirmation) throw Error();
 
-    await _authRepository.updatePassword(_newPassword);
+    await _authRepository.updatePassword(
+      newPassword: _newPassword,
+      oldPassword: _oldPassword,
+    );
   }
 
   bool validateNewPassword() => true;

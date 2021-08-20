@@ -8,21 +8,26 @@ class UpdateMailAddressViewModel with ChangeNotifier {
   final AuthRepository _authRepository = AuthRepository();
 
   String _newEmail = "";
-
-  String get newEmail => _newEmail;
-
+  String _password = "";
 
   void changeNewEmail(String email) {
     _newEmail = email;
     notifyListeners();
   }
 
+  void changePassword(String password) {
+    _password = password;
+    notifyListeners();
+  }
+
   Future<void> updateEmail() async {
     if (!validateNewEmail()) throw Error();
 
-    await _authRepository.updateEmail(_newEmail);
+    await _authRepository.updateEmail(
+      newEmail: _newEmail,
+      password: _password,
+    );
   }
 
   bool validateNewEmail() => true;
-
 }

@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 class AuthService {
   final FirebaseAuth _instance = FirebaseAuth.instance;
@@ -25,18 +26,32 @@ class AuthService {
     await _instance.signOut();
   }
 
-  Future<void> updateEmail(String newEmail, String password) async {
+  Future<UserCredential> _reAuthentication(String password) async {
     final user = _instance.currentUser;
-    AuthResult authResult = await user.reauthenticateWithCredential(
+    final UserCredential userCredential = await user.reauthenticateWithCredential(
       EmailAuthProvider.credential(
         email: user.email,
-        password: ,
+        password: password,
       ),
     );
-    await _instance.currentUser.updateEmail(newEmail);
+    return userCredential;
   }
 
-  Future<void> updatePassword(String newPassword) async {
-    await _instance.currentUser.updatePassword(newPassword);
+  Future<void> updateEmail({
+    @required String newEmail,
+    @required String password,
+  }) async {
+    final UserCredential userCredential = await _reAuthentication(password);
+
+    await userCredential.user.updateEmail(newEmail);
+  }
+
+  Future<void> updatePassword({
+    @required String newPassword,
+    @required String oldPassword,
+  }) async {
+    final UserCredential userCredential = await _reAuthentication(oldPassword);
+
+    await userCredential.user.updatePassword(newPassword);
   }
 }
