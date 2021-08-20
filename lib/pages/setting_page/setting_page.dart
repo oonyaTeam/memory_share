@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:memory_share/utils/utils.dart';
 import 'package:memory_share/pages/pages.dart';
 import 'package:memory_share/pages/setting_page/setting_view_model.dart';
+
 import 'package:provider/provider.dart';
 
 class SettingPage extends StatelessWidget {
@@ -72,6 +74,8 @@ class SettingPage extends StatelessWidget {
                   trailing: const Icon(Icons.arrow_forward_ios),
                   onTap: () {
                     settingViewModel.logout().then((_) {
+                      //toastの表示
+                      showCustomToast(context, 'ログアウトしました', true);
                       // 全ての画面を破棄し、ログイン画面に遷移
                       Navigator.pushAndRemoveUntil(
                         context,
@@ -80,7 +84,9 @@ class SettingPage extends StatelessWidget {
                         ),
                         (_) => false,
                       );
-                    }).catchError((_) {});
+                    }).catchError((_) {
+                      showCustomToast(context, 'ログアウトに失敗しました', false);
+                    });
                   },
                 ),
               ),
