@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:memory_share/models/models.dart';
 import 'package:memory_share/pages/pages.dart';
-import 'package:memory_share/view_models/sign_up_view_model.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
+import 'sign_up_view_model.dart';
 
 class SignUpPage extends StatelessWidget {
   const SignUpPage({Key key}) : super(key: key);

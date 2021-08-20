@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:memory_share/pages/login_page.dart';
-import 'package:memory_share/pages/update_password_page.dart';
-import 'package:memory_share/pages/update_mail_address_page.dart';
-import 'package:memory_share/view_models/setting_view_model.dart';
+import 'package:memory_share/pages/pages.dart';
+import 'package:memory_share/pages/setting_page/setting_view_model.dart';
 import 'package:provider/provider.dart';
 
 class SettingPage extends StatelessWidget {
