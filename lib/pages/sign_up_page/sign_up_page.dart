@@ -18,8 +18,25 @@ class SignUpPage extends StatelessWidget {
             appBar: appBarComponent("SignUp"),
             body: Column(
               children: [
-                textBox(Icons.email_outlined, "Email", signUpViewModel.changeEmail),
-                textBox(Icons.https_outlined, "Password", signUpViewModel.changePassword),
+                const SizedBox(
+                  height: 24,
+                ),
+                emailPasswordBox(
+                  iconData: Icons.email_outlined,
+                  topText: "Email",
+                  onChanged: signUpViewModel.changeEmail,
+                ),
+                const SizedBox(
+                  height: 4,
+                ),
+                emailPasswordBox(
+                  iconData: Icons.https_outlined,
+                  topText: "Password",
+                  onChanged: signUpViewModel.changePassword,
+                ),
+                const SizedBox(
+                  height: 32,
+                ),
                 ElevatedButton(
                   onPressed: () async {
                     await signUpViewModel.signUpWithEmailAndPassword().then((_) {
