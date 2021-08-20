@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:memory_share/utils/toast.dart';
 import 'package:memory_share/view_models/update_password_view_model.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
@@ -43,8 +44,13 @@ class UpdatePasswordPage extends StatelessWidget {
                   () async {
                     await updatePasswordViewModel
                         .updatePassword()
-                        .then((_) => Navigator.pop(context))
-                        .catchError((e) {});
+                        .then((_) => {
+                          showCustomToast(context, 'パスワードを更新しました', true),
+                          Navigator.pop(context)
+                        })
+                        .catchError((e) {
+                          showCustomToast(context, 'パスワードの更新に失敗しました。', false);
+                    });
                   },
                 ),
               ),

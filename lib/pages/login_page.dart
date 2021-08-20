@@ -3,7 +3,6 @@ import 'package:memory_share/models/models.dart';
 import 'package:memory_share/pages/pages.dart';
 import 'package:memory_share/view_models/login_view_model.dart';
 import 'package:memory_share/widgets/widgets.dart';
-import 'package:memory_share/utils/utils.dart';
 import 'package:provider/provider.dart';
 
 
@@ -36,12 +35,6 @@ class LoginPage extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => const SignUpPage()),
                 ),
                 child: const Text("SignUp"),
-              ),
-              TextButton(
-                onPressed: () => {
-                  showCustomToast(context)
-                },
-                child: const Text("toast test"),
               ),
             ],
           ),

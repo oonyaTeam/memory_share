@@ -3,6 +3,7 @@ import 'package:memory_share/pages/login_page.dart';
 import 'package:memory_share/pages/update_password_page.dart';
 import 'package:memory_share/pages/update_mail_address_page.dart';
 import 'package:memory_share/view_models/setting_view_model.dart';
+import 'package:memory_share/utils/utils.dart';
 import 'package:provider/provider.dart';
 
 class SettingPage extends StatelessWidget {
@@ -74,6 +75,8 @@ class SettingPage extends StatelessWidget {
                   trailing: const Icon(Icons.arrow_forward_ios),
                   onTap: () {
                     settingViewModel.logout().then((_) {
+                      //toastの表示
+                      showCustomToast(context, 'ログアウトしました', true);
                       // 全ての画面を破棄し、ログイン画面に遷移
                       Navigator.pushAndRemoveUntil(
                         context,
@@ -82,7 +85,9 @@ class SettingPage extends StatelessWidget {
                         ),
                         (_) => false,
                       );
-                    }).catchError((_) {});
+                    }).catchError((_) {
+                      showCustomToast(context, 'ログアウトに失敗しました', false);
+                    });
                   },
                 ),
               ),
