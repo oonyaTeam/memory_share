@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:memory_share/theme.dart';
 
-Widget textBox(IconData iconData, String topText, var textBoxFunc) {
+Widget emailPasswordBox({@required IconData iconData, @required String topText, @required var onChanged}) {
   newTheme theme = newTheme();
   bool obscureTextFlag = false;
 
@@ -11,7 +11,6 @@ Widget textBox(IconData iconData, String topText, var textBoxFunc) {
 
   return Column(
     children: <Widget>[
-      const SizedBox(height: 24),
       SizedBox(
         width: double.infinity,
         child: Container(
@@ -37,7 +36,7 @@ Widget textBox(IconData iconData, String topText, var textBoxFunc) {
             fillColor: Color.alphaBlend(theme.primaryPale, Colors.white),
           ),
           obscureText: obscureTextFlag,
-          onChanged: (text) => textBoxFunc(text),
+          onChanged: (text) => onChanged(text),
         ),
       ),
     ],

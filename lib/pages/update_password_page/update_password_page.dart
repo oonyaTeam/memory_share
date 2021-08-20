@@ -18,23 +18,35 @@ class UpdatePasswordPage extends StatelessWidget {
           ),
           body: Column(
             children: [
-              textBox(
-                Icons.https_outlined,
-                "現在のパスワード",
-                (String password) =>
+              const SizedBox(
+                height: 24,
+              ),
+              emailPasswordBox(
+                iconData: Icons.https_outlined,
+                topText: "現在のパスワード",
+                onChanged: (String password) =>
                     updatePasswordViewModel.changeOldPassword(password),
               ),
-              textBox(
-                Icons.https_outlined,
-                "新しいパスワード",
-                (String password) =>
+              const SizedBox(
+                height: 4,
+              ),
+              emailPasswordBox(
+                iconData: Icons.https_outlined,
+                topText: "新しいパスワード",
+                onChanged: (String password) =>
                     updatePasswordViewModel.changeNewPassword(password),
               ),
-              textBox(
-                Icons.https_outlined,
-                "新しいパスワード（確認）",
-                (String password) => updatePasswordViewModel
+              const SizedBox(
+                height: 4,
+              ),
+              emailPasswordBox(
+                iconData: Icons.https_outlined,
+                topText: "新しいパスワード（確認）",
+                onChanged: (String password) => updatePasswordViewModel
                     .changeNewPasswordForConfirmation(password),
+              ),
+              const SizedBox(
+                height: 32,
               ),
               Container(
                 margin: const EdgeInsets.only(top: 15),

@@ -4,6 +4,7 @@ import 'package:memory_share/pages/pages.dart';
 import 'login_view_model.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:memory_share/theme.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key key}) : super(key: key);
@@ -17,8 +18,25 @@ class LoginPage extends StatelessWidget {
           appBar: appBarComponent("Login"),
           body: Column(
             children: [
-              textBox(Icons.email_outlined, "Email", loginViewModel.changeEmail),
-              textBox(Icons.https_outlined, "Password", loginViewModel.changePassword),
+              const SizedBox(
+                height: 24,
+              ),
+              emailPasswordBox(
+                iconData: Icons.email_outlined,
+                topText: "Email",
+                onChanged: loginViewModel.changeEmail,
+              ),
+              const SizedBox(
+                height: 4,
+              ),
+              emailPasswordBox(
+                iconData: Icons.https_outlined,
+                topText: "Password",
+                onChanged: loginViewModel.changePassword,
+              ),
+              const SizedBox(
+                height: 32,
+              ),
               ElevatedButton(
                 onPressed: () async {
                   await loginViewModel.loginWithEmailAndPassword().then((_) {
@@ -34,6 +52,24 @@ class LoginPage extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => const SignUpPage()),
                 ),
                 child: const Text("SignUp"),
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 100),
+                child: googleTwitterButton(
+                    'Sign  in  with\n     Google',
+                        () {},
+                    newTheme().googleRed,
+                    'assets/Logo white.svg'
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 50),
+                child: googleTwitterButton(
+                    'Sign  in  with\n     Twitter',
+                        () {},
+                    newTheme().twitterBlue,
+                    'assets/Logo white.svg'
+                ),
               ),
             ],
           ),
