@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:memory_share/models/models.dart';
 import 'package:memory_share/pages/pages.dart';
-import 'login_view_model.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
+
+import 'login_view_model.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key key}) : super(key: key);
@@ -17,8 +18,16 @@ class LoginPage extends StatelessWidget {
           appBar: appBarComponent("Login"),
           body: Column(
             children: [
-              textBox(Icons.email_outlined, "Email", loginViewModel.changeEmail),
-              textBox(Icons.https_outlined, "Password", loginViewModel.changePassword),
+              textBox(
+                Icons.email_outlined,
+                "Email",
+                loginViewModel.changeEmail,
+              ),
+              textBox(
+                Icons.https_outlined,
+                "Password",
+                loginViewModel.changePassword,
+              ),
               ElevatedButton(
                 onPressed: () async {
                   await loginViewModel.loginWithEmailAndPassword().then((_) {

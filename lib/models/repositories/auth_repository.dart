@@ -17,6 +17,11 @@ class AuthRepository {
     return user;
   }
 
+  Future<User> loginWithGoogle() async {
+    final User user = await _authService.loginWithGoogle();
+    return user;
+  }
+
   Future<void> logout() async {
     await _authService.logout();
   }
