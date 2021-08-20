@@ -5,7 +5,7 @@ Widget textBox(IconData iconData, String topText, var textBoxFunc) {
   newTheme theme = newTheme();
   bool obscureTextFlag = false;
 
-  if (topText == "Password") {
+  if (iconData == Icons.https_outlined) {
     obscureTextFlag = true;
   }
 
