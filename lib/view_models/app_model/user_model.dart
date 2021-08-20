@@ -52,13 +52,23 @@ class UserModel with ChangeNotifier {
   }
 
   void getMyMemories() async {
-    if(_currentUser == null) return;
+    if (_currentUser == null) return;
     _myMemories = await _postRepository.getMyMemories(_currentUser.uid);
     notifyListeners();
   }
 
-  void addMymemories(Memory memory) async {
+  void addMyMemories(Memory memory) async {
     _myMemories.add(memory);
     notifyListeners();
+  }
+
+  bool isEmailUser() {
+    if (currentUser == null) return false;
+
+    final UserInfo userInfo = _currentUser.providerData.firstWhere(
+      (UserInfo userInfo) => userInfo.providerId == "password",
+      orElse: () => null
+    );
+    return userInfo != null;
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:memory_share/pages/pages.dart';
 import 'package:memory_share/pages/setting_page/setting_view_model.dart';
+import 'package:memory_share/view_models/app_model/app_model.dart';
 import 'package:provider/provider.dart';
 
 class SettingPage extends StatelessWidget {
@@ -8,6 +9,7 @@ class SettingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userModel = context.watch<UserModel>();
     return ChangeNotifierProvider(
       create: (_) => SettingViewModel(),
       child: Consumer<SettingViewModel>(
@@ -18,42 +20,48 @@ class SettingPage extends StatelessWidget {
           ),
           body: Column(
             children: [
-              Container(
-                decoration: const BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(color: Colors.black),
-                  ),
-                ),
-                child: ListTile(
-                  title: const Text('メールアドレスの変更'),
-                  trailing: const Icon(Icons.arrow_forward_ios),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const UpdateMailAddressPage()),
-                    );
-                  },
-                ),
-              ),
-              Container(
-                decoration: const BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(color: Colors.black),
-                  ),
-                ),
-                child: ListTile(
-                  title: const Text('パスワードの変更'),
-                  trailing: const Icon(Icons.arrow_forward_ios),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const UpdatePasswordPage()),
-                    );
-                  },
-                ),
-              ),
+              userModel.isEmailUser()
+                  ? Container(
+                      decoration: const BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(color: Colors.black),
+                        ),
+                      ),
+                      child: ListTile(
+                        title: const Text('メールアドレスの変更'),
+                        trailing: const Icon(Icons.arrow_forward_ios),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const UpdateMailAddressPage()),
+                          );
+                        },
+                      ),
+                    )
+                  : Container(),
+              userModel.isEmailUser()
+                  ? Container(
+                      decoration: const BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(color: Colors.black),
+                        ),
+                      ),
+                      child: ListTile(
+                        title: const Text('パスワードの変更'),
+                        trailing: const Icon(Icons.arrow_forward_ios),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const UpdatePasswordPage()),
+                          );
+                        },
+                      ),
+                    )
+                  : Container(),
               Container(
                 decoration: const BoxDecoration(
                   border: Border(

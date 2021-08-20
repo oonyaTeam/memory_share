@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:memory_share/models/models.dart';
 import 'package:memory_share/pages/pages.dart';
+import 'package:memory_share/theme.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:memory_share/theme.dart';
 
 import 'login_view_model.dart';
 
@@ -57,19 +57,25 @@ class LoginPage extends StatelessWidget {
               Container(
                 margin: const EdgeInsets.only(top: 100),
                 child: googleTwitterButton(
-                    'Sign  in  with\n     Google',
-                        () {},
-                    newTheme().googleRed,
-                    'assets/Logo white.svg'
+                  'Sign  in  with\n     Google',
+                  () async {
+                    await loginViewModel.loginWithGoogle().then((_) {
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) => const HomePage()),
+                      );
+                    }).catchError((e) {});
+                  },
+                  newTheme().googleRed,
+                  'assets/Logo white.svg',
                 ),
               ),
               Container(
                 margin: const EdgeInsets.only(top: 50),
                 child: googleTwitterButton(
-                    'Sign  in  with\n     Twitter',
-                        () {},
-                    newTheme().twitterBlue,
-                    'assets/Logo white.svg'
+                  'Sign  in  with\n     Twitter',
+                  () {},
+                  newTheme().twitterBlue,
+                  'assets/Logo white.svg',
                 ),
               ),
             ],
