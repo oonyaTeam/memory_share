@@ -26,7 +26,7 @@ class UserModel with ChangeNotifier {
 
   StreamSubscription<User> _userStream;
 
-  User _currentUser;
+  User _currentUser = FirebaseAuth.instance.currentUser;
 
   bool _reExperienceTutorialDone;
   bool _postTutorialDone;

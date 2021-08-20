@@ -1,6 +1,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:memory_share/view_models/view_models.dart';
+import 'package:memory_share/view_models/app_model/app_model.dart';
+import 'add_sub_episode_view_model.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 

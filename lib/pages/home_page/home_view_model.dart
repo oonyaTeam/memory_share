@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:memory_share/models/models.dart';
@@ -43,7 +44,7 @@ class HomeViewModel with ChangeNotifier {
 
   void setCurrentMemory(Memory memory) {
     _currentMemory = memory;
-    notifyListeners();
+    setDistance();
   }
 
   void addMemory(Memory memory) {
@@ -67,7 +68,7 @@ class HomeViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  void setDistance() async {
+  Future<void> setDistance() async {
     if (_currentPosition == null || _currentMemory == null) return;
 
     _distance = await _mapRepository.getDistance(_currentMemory);
@@ -83,6 +84,17 @@ class HomeViewModel with ChangeNotifier {
     final memories = await _mapRepository.getMemories();
     addMemories(memories);
   }
+
+  changeMapMode(GoogleMapController controller){
+    getMapStyleJsonFile("assets/Light.json").then((res) => {
+      controller.setMapStyle(res)
+    });
+  }
+
+  Future<String> getMapStyleJsonFile(String path) async {
+    return await rootBundle.loadString(path);
+  }
+
 
   @override
   void dispose() {
