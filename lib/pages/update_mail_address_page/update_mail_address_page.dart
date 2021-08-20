@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'update_mail_address_view_model.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:memory_share/theme.dart';
+
 
 class UpdateMailAddressPage extends StatelessWidget {
   const UpdateMailAddressPage({Key key}) : super(key: key);
@@ -19,17 +19,26 @@ class UpdateMailAddressPage extends StatelessWidget {
           ),
           body: Column(
             children: [
-              textBox(
-                Icons.email_outlined,
-                "新しいメールアドレス",
-                (String email) =>
+              const SizedBox(
+                height: 24,
+              ),
+              emailPasswordBox(
+                iconData: Icons.email_outlined,
+                topText: "新しいメールアドレス",
+                onChanged: (String email) =>
                     updateMailAddressViewModel.changeNewEmail(email),
               ),
-              textBox(
-                Icons.https_outlined,
-                "パスワード",
-                (String password) =>
+              const SizedBox(
+                height: 4,
+              ),
+              emailPasswordBox(
+                iconData: Icons.https_outlined,
+                topText: "パスワード",
+                onChanged: (String password) =>
                     updateMailAddressViewModel.changePassword(password),
+              ),
+              const SizedBox(
+                height: 32,
               ),
               Container(
                 margin: const EdgeInsets.only(top: 15),
@@ -41,24 +50,6 @@ class UpdateMailAddressPage extends StatelessWidget {
                         .then((_) => Navigator.pop(context))
                         .catchError((e) {});
                   },
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 100),
-                child: googleTwitterButton(
-                    'Sign  in  with\n     Google',
-                        () {},
-                    newTheme().googleRed,
-                    'assets/Logo white.svg'
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 180),
-                child: googleTwitterButton(
-                    'Sign  in  with\n     Twitter',
-                        () {},
-                    newTheme().twitterBlue,
-                    'assets/Logo white.svg'
                 ),
               ),
             ],
