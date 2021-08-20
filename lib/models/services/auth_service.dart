@@ -22,6 +22,10 @@ class AuthService {
     return user;
   }
 
+  Future<User> loginWithGoogle() {
+
+  }
+
   Future<void> logout() async {
     await _instance.signOut();
   }
