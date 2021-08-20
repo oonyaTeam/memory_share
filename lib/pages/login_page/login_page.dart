@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:memory_share/models/models.dart';
 import 'package:memory_share/pages/pages.dart';
-import 'package:memory_share/view_models/login_view_model.dart';
+import 'login_view_model.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 

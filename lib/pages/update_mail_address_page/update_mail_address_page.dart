@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:memory_share/view_models/update_mail_address_view_model.dart';
+import 'update_mail_address_view_model.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
