@@ -34,6 +34,10 @@ class LoginViewModel with ChangeNotifier {
     await _authRepository.loginWithGoogle();
   }
 
+  Future<void> loginWithTwiiter() async {
+    await _authRepository.loginWithTwitter();
+  }
+
   bool validateEmail() => true;
 
   bool validatePassword() => true;

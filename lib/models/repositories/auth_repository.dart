@@ -22,6 +22,11 @@ class AuthRepository {
     return user;
   }
 
+  Future<User> loginWithTwitter() async {
+    final User user = await _authService.loginWithTwitter();
+    return user;
+  }
+
   Future<void> logout() async {
     await _authService.logout();
   }

@@ -73,7 +73,13 @@ class LoginPage extends StatelessWidget {
                 margin: const EdgeInsets.only(top: 50),
                 child: googleTwitterButton(
                   'Sign  in  with\n     Twitter',
-                  () {},
+                    () async {
+                    await loginViewModel.loginWithTwiiter().then((_) {
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) => const HomePage()),
+                      );
+                    }).catchError((e) {});
+                  },
                   newTheme().twitterBlue,
                   'assets/Logo white.svg',
                 ),
