@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'update_mail_address_view_model.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:memory_share/theme.dart';
 
 class UpdateMailAddressPage extends StatelessWidget {
   const UpdateMailAddressPage({Key key}) : super(key: key);
@@ -40,6 +41,24 @@ class UpdateMailAddressPage extends StatelessWidget {
                         .then((_) => Navigator.pop(context))
                         .catchError((e) {});
                   },
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 100),
+                child: googleTwitterButton(
+                    'Sign  in  with\n     Google',
+                        () {},
+                    newTheme().googleRed,
+                    'assets/Logo white.svg'
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 180),
+                child: googleTwitterButton(
+                    'Sign  in  with\n     Twitter',
+                        () {},
+                    newTheme().twitterBlue,
+                    'assets/Logo white.svg'
                 ),
               ),
             ],
