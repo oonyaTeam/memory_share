@@ -2,10 +2,9 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:memory_share/pages/pages.dart';
-import 'package:memory_share/view_models/re_experience_view_model.dart';
+import 'package:memory_share/pages/re_experience_page/re_experience_view_model.dart';
 
 // BottomModal（ReExperiencePage で下に画像等を表示するモーダル）
-
 Widget bottomModalBuilder({
   @required BuildContext context,
   @required ReExperienceViewModel model,
