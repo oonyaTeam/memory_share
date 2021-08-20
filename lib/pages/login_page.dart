@@ -3,21 +3,12 @@ import 'package:memory_share/models/models.dart';
 import 'package:memory_share/pages/pages.dart';
 import 'package:memory_share/view_models/login_view_model.dart';
 import 'package:memory_share/widgets/widgets.dart';
+import 'package:memory_share/utils/utils.dart';
 import 'package:provider/provider.dart';
 
-import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key key}) : super(key: key);
-
-  void _showCustomToast() {
-    FToast fToast = FToast();
-    fToast.showToast(
-      child: toast(),
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 2)
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +39,7 @@ class LoginPage extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () => {
-                  _showCustomToast()
+                  showCustomToast(context)
                 },
                 child: const Text("toast test"),
               ),
