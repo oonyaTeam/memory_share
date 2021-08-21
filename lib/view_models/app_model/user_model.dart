@@ -31,7 +31,7 @@ class UserModel with ChangeNotifier {
   bool _reExperienceTutorialDone;
   bool _postTutorialDone;
 
-  List<Memory> _myMemories;
+  List<Memory> _myMemories = [];
 
   User get currentUser => _currentUser;
 

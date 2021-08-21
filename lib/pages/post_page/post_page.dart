@@ -1,5 +1,6 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:memory_share/utils/toast.dart';
 import 'package:memory_share/view_models/view_models.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
@@ -17,8 +18,13 @@ class PostPage extends StatelessWidget {
         postLabel: "投稿する",
         onPost: () async {
           await postViewModel.postMemory().then(
-              (_) => Navigator.of(context).popUntil((route) => route.isFirst))
-            .catchError((e) => {});
+              (_) => {
+                showCustomToast(context, '投稿しました', true),
+                Navigator.of(context).popUntil((route) => route.isFirst)
+              })
+            .catchError((e) => {
+              showCustomToast(context, '投稿に失敗しました', false)
+          });
         },
         onCancel: () => AwesomeDialog(
           context: context,

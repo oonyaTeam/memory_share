@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'update_mail_address_view_model.dart';
+import 'package:memory_share/pages/update_mail_address_page/update_mail_address_view_model.dart';
+import 'package:memory_share/utils/toast.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -47,8 +48,13 @@ class UpdateMailAddressPage extends StatelessWidget {
                   () async {
                     await updateMailAddressViewModel
                         .updateEmail()
-                        .then((_) => Navigator.pop(context))
-                        .catchError((e) {});
+                        .then((_) => {
+                          showCustomToast(context, 'メールアドレスを変更しました', true),
+                          Navigator.pop(context)
+                    })
+                        .catchError((e) {
+                          showCustomToast(context, 'メールアドレスの更新に失敗しました', false);
+                    });
                   },
                 ),
               ),
