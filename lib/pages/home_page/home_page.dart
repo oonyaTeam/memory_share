@@ -74,18 +74,24 @@ class HomePage extends StatelessWidget {
                     ),
                     Align(
                       alignment: Alignment.bottomRight,
-                      child: IconButton(
-                        iconSize: 64,
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => SubEpisodePage(),
-                            ),
-                          );
-                        },
-                        color: newTheme().primary,
-                        icon: const Icon(Icons.circle),
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 8,bottom: 8),
+                        // ignore: sized_box_for_whitespace
+                        child: Container(
+                          width: 64,
+                          height: 64,
+                          child: FloatingActionButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => SubEpisodePage(),
+                                ),
+                              );
+                            },
+                            backgroundColor: newTheme().primary,
+                          ),
+                        ),
                       ),
                     ),
                     Align(
