@@ -73,22 +73,6 @@ class HomePage extends StatelessWidget {
                       zoomControlsEnabled: false,
                     ),
                     Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Container(
-                        margin: const EdgeInsets.only(bottom: 15),
-                        child: longButton(
-                          '思い出を投稿する',
-                          () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => SubEpisodePage(),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                    Align(
                       alignment: Alignment.topLeft,
                       child: IconButton(
                         iconSize: 64,
@@ -122,6 +106,18 @@ class HomePage extends StatelessWidget {
                     ),
                   ],
                 ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SubEpisodePage(),
+                ),
+              );
+            },
+            child: const Icon(Icons.add),
+            backgroundColor: newTheme().primary,
+          ),
         ),
       ),
     );
