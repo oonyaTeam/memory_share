@@ -83,6 +83,7 @@ class HomeViewModel with ChangeNotifier {
   void getMemories() async {
     final memories = await _mapRepository.getMemories();
     addMemories(memories);
+    notifyListeners();
   }
 
   changeMapMode(GoogleMapController controller){
