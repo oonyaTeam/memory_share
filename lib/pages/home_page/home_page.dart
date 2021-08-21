@@ -73,46 +73,6 @@ class HomePage extends StatelessWidget {
                       zoomControlsEnabled: false,
                     ),
                     Align(
-                      alignment: Alignment.bottomRight,
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 8,bottom: 8),
-                        // ignore: sized_box_for_whitespace
-                        child: Container(
-                          width: 64,
-                          height: 64,
-                          child: FloatingActionButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => SubEpisodePage(),
-                                ),
-                              );
-                            },
-                            backgroundColor: newTheme().primary,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 16,bottom: 16),
-                        child: IconButton(
-                          iconSize: 32,
-                          onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => SubEpisodePage(),
-                              ),
-                            );
-                          },
-                          color: Colors.white,
-                          icon: const Icon(Icons.add),
-                        ),
-                      ),
-                    ),
-                    Align(
                       alignment: Alignment.topLeft,
                       child: IconButton(
                         iconSize: 64,
@@ -146,6 +106,18 @@ class HomePage extends StatelessWidget {
                     ),
                   ],
                 ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SubEpisodePage(),
+                ),
+              );
+            },
+            child: const Icon(Icons.add),
+            backgroundColor: newTheme().primary,
+          ),
         ),
       ),
     );
