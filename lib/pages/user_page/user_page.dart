@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:memory_share/view_models/view_models.dart';
 import 'package:memory_share/pages/pages.dart';
+import 'package:memory_share/theme.dart';
+import 'package:memory_share/view_models/view_models.dart';
 import 'package:provider/provider.dart';
 
 class UserPage extends StatelessWidget {
@@ -28,38 +29,39 @@ class UserPage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Align(
-            alignment: Alignment.topCenter,
-            child: Column(
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(top: 10),
-                  alignment: Alignment.center,
-                  height: 60,
-                  width: 400,
-                  color: Colors.orangeAccent,
-                  child: const Text(
-                    "  今  ま  で  の  投  稿  ",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
           Expanded(
-            child: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-              ),
+            child: ListView.separated(
+              separatorBuilder: (BuildContext context, int index) {
+                return const SizedBox(height: 16.0);
+              },
               itemCount: userModel.myMemories.length,
               itemBuilder: (BuildContext context, int index) {
-                return Card(
-                  child: Image.network(userModel.myMemories[index].image),
+                return Column(
+                  children: [
+                    Image.network(userModel.myMemories[index].image),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "2021/08/16",
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              color: newTheme().middle,
+                            ),
+                          ),
+                          Text(
+                            "東京都渋谷区",
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              color: newTheme().middle,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 );
               },
             ),
