@@ -9,6 +9,6 @@ void showCustomToast(BuildContext context, String text, bool isSuccessed) {
   fToast.showToast(
     child: toast(text, isSuccessed),
     gravity: ToastGravity.BOTTOM,
-    toastDuration: Duration(seconds: 2)
+    toastDuration: const Duration(seconds: 2),
   );
 }
