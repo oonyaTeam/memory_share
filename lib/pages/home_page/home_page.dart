@@ -107,20 +107,31 @@ class HomePage extends StatelessWidget {
           floatingActionButton: SizedBox(
             width: 64.0,
             height: 64.0,
-            child: FloatingActionButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => SubEpisodePage(),
-                  ),
-                );
-              },
-              child: const Icon(
-                Icons.add,
-                size: 32.0,
+            child: Container(
+              decoration: const BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Color.fromRGBO(0, 0, 0, 0.25),
+                    blurRadius: 20,
+                    spreadRadius: 1,
+                  )
+                ],
               ),
-              backgroundColor: newTheme().primary,
+              child: FloatingActionButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SubEpisodePage(),
+                    ),
+                  );
+                },
+                child: const Icon(
+                  Icons.add,
+                  size: 32.0,
+                ),
+                backgroundColor: newTheme().primary,
+              ),
             ),
           ),
         ),
