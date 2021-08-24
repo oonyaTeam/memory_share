@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:memory_share/theme.dart';
 
-Widget emailPasswordBox({@required IconData iconData, @required String topText, @required var onChanged}) {
+Widget emailPasswordBox({@required IconData iconData, @required String topText, @required var onChanged, @required double width}) {
   newTheme theme = newTheme();
   bool obscureTextFlag = false;
 
@@ -11,21 +11,25 @@ Widget emailPasswordBox({@required IconData iconData, @required String topText, 
 
   return Column(
     children: <Widget>[
+      // email, passwordという文字の部分
       SizedBox(
-        width: double.infinity,
+        width: width - 48,
         child: Container(
-          margin: const EdgeInsets.only(left: 24, bottom: 4),
+          margin: const EdgeInsets.only(bottom: 4),
           child: Text(
             topText,
             style: TextStyle(
               color: theme.deep,
               fontSize: 18,
+              fontWeight: FontWeight.w600
             ),
           ),
         ),
       ),
+      // メールアドレス、パスワードを入力する部分
       Container(
-        padding: const EdgeInsets.only(left: 24, right: 24),
+        width: width - 48 ,
+        height: 48,
         child: TextField(
           decoration: InputDecoration(
             prefixIcon: Icon(iconData, color: theme.primary),
