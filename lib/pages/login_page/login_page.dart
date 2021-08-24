@@ -48,6 +48,7 @@ class LoginPage extends StatelessWidget {
                 },
                 child: const Text("Login"),
               ),
+              signInUpButton("Sign in", () => {}, MediaQuery.of(context).size.width),
               TextButton(
                 onPressed: () => Navigator.of(context).pushReplacement(
                   MaterialPageRoute(builder: (context) => const SignUpPage()),
