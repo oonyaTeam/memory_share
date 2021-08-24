@@ -59,7 +59,7 @@ class LoginPage extends StatelessWidget {
                     'Sign  in  with\n     Google',
                         () {},
                     newTheme().googleRed,
-                    'assets/Logo white.svg'
+                    'assets/google.svg'
                 ),
               ),
               Container(
@@ -68,7 +68,7 @@ class LoginPage extends StatelessWidget {
                     'Sign  in  with\n     Twitter',
                         () {},
                     newTheme().twitterBlue,
-                    'assets/Logo white.svg'
+                    'assets/twitter.svg'
                 ),
               ),
             ],
