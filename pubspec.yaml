@@ -46,6 +46,8 @@ dependencies:
 
   fluttertoast: ^8.0.8
 
+  google_fonts: ^2.1.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -63,3 +65,4 @@ flutter:
 
   assets:
     - assets/
+    - google_fonts/

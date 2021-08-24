@@ -3,6 +3,8 @@ import 'package:memory_share/pages/pages.dart';
 import 'package:memory_share/view_models/view_models.dart';
 import 'package:provider/provider.dart';
 
+import 'package:google_fonts/google_fonts.dart';
+
 class MyApp extends StatelessWidget {
   const MyApp({Key key}) : super(key: key);
 
@@ -50,6 +52,7 @@ class MyApp extends StatelessWidget {
           title: 'Flutter Demo',
           theme: ThemeData(
             primarySwatch: primary,
+            textTheme: GoogleFonts.notoSansTextTheme(Theme.of(context).textTheme),
           ),
           home: context.read<UserModel>().currentUser != null
               ? const HomePage()
