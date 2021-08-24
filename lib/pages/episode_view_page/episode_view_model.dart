@@ -21,7 +21,7 @@ class EpisodeViewModel with ChangeNotifier {
   double get angle => _angle;
 
   EpisodeViewModel() {
-    _showDialogFlag = true;
+    _showDialogFlag = false;
 
     getCamera();
     getCompass();
@@ -45,42 +45,14 @@ class EpisodeViewModel with ChangeNotifier {
     _compassStream = FlutterCompass.events.listen((value) {
       _angle = value.heading;
 
+      if (_angle >= 0.0 && _angle <= 360.0) {
+        _showDialogFlag = true;
+      }else{
+        _showDialogFlag = false;
+      }
+
       notifyListeners();
     });
-  }
-
-  void _showEpisodeDialog({
-    @required BuildContext context,
-  }) async {
-    await showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text("えもい"),
-          content: const Text("えもいねえ"),
-          actions: <Widget>[
-            ElevatedButton(
-              child: const Text('back'),
-              onPressed: () {
-                //Navigator.pop(context);
-                _showDialogFlag = true;
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  void huntingEpisode({
-    @required BuildContext context,
-  }) {
-    if (_angle >= 100.0 && _angle <= 110.0 && _showDialogFlag) {
-      _showEpisodeDialog(context: context);
-      _showDialogFlag = false;
-      //print("えもい");
-    }
   }
 
   @override

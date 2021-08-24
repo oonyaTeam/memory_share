@@ -9,28 +9,6 @@ import 'episode_view_model.dart';
 class EpisodeViewPage extends StatelessWidget {
   const EpisodeViewPage({Key key}) : super(key: key);
 
-  void _showEpisodeDialog({
-    @required BuildContext context,
-  }) {
-    showDialog(
-      context: context,
-      builder: (_) {
-        return AlertDialog(
-          title: const Text("aaaaa"),
-          content: const Text("aaaaaaaa"),
-          actions: <Widget>[
-            ElevatedButton(
-              child: const Text('back'),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     try {
@@ -57,9 +35,23 @@ class EpisodeViewPage extends StatelessWidget {
                   alignment: Alignment.topCenter,
                   child: episodeViewModel.showDialogFlag
                       ? Container(
-                    color: Colors.white,
-                    margin: const EdgeInsets.fromLTRB(40, 40, 30, 40),
-                  )
+                          color: Colors.white.withOpacity(0.8),
+                          margin: const EdgeInsets.fromLTRB(40, 150, 40, 150),
+                          child: Center(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Text("えもいねぇ"),
+                                ElevatedButton(
+                                  child: const Text('back'),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
                       : Container(),
                 ),
               ],
