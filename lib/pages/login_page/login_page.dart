@@ -66,7 +66,7 @@ class LoginPage extends StatelessWidget {
                     }).catchError((e) {});
                   },
                   newTheme().googleRed,
-                  'assets/Logo white.svg',
+                  'assets/google.svg',
                 ),
               ),
               Container(
@@ -81,7 +81,7 @@ class LoginPage extends StatelessWidget {
                     }).catchError((e) {});
                   },
                   newTheme().twitterBlue,
-                  'assets/Logo white.svg',
+                  'assets/twitter.svg',
                 ),
               ),
             ],
