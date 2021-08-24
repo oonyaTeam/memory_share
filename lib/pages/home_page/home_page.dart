@@ -29,7 +29,6 @@ class HomePage extends StatelessWidget {
       create: (_) => HomeViewModel(),
       child: Consumer<HomeViewModel>(
         builder: (context, homeViewModel, _) => Scaffold(
-          appBar: appBarComponent("Home Page"),
           body: homeViewModel.currentPosition == null
               ? const Center(
                   child: CircularProgressIndicator(),

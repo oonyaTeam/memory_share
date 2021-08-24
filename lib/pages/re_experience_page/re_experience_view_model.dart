@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:memory_share/models/models.dart';
@@ -61,6 +62,16 @@ class ReExperienceViewModel with ChangeNotifier {
   void setReExperienceMapController(GoogleMapController controller) {
     _reExperienceMapController.complete(controller);
     notifyListeners();
+  }
+
+  changeMapMode(GoogleMapController controller){
+    getMapStyleJsonFile("assets/Light.json").then((res) => {
+      controller.setMapStyle(res)
+    });
+  }
+
+  Future<String> getMapStyleJsonFile(String path) async {
+    return await rootBundle.loadString(path);
   }
 
   @override

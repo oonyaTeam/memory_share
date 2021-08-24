@@ -20,9 +20,6 @@ class ReExperiencePage extends StatelessWidget {
         builder: (context, reExperienceViewModel, _) {
           reExperienceViewModel.setCurrentMemory(currentMemory);
           return Scaffold(
-            appBar: AppBar(
-              title: const Text("ReExperience"),
-            ),
             body: reExperienceViewModel.currentPosition == null
               ? const Center(
               child: CircularProgressIndicator(),
@@ -41,6 +38,7 @@ class ReExperiencePage extends StatelessWidget {
                   onMapCreated: (GoogleMapController controller) {
                     reExperienceViewModel
                       .setReExperienceMapController(controller);
+                    reExperienceViewModel.changeMapMode(controller);
                   },
                   markers: {
                     Marker(
