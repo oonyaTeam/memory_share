@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:memory_share/utils/utils.dart';
 import 'package:memory_share/pages/pages.dart';
-import 'setting_view_model.dart';
+import 'package:memory_share/utils/utils.dart';
 import 'package:memory_share/view_models/app_model/app_model.dart';
 import 'package:provider/provider.dart';
+
+import 'setting_view_model.dart';
 
 class SettingPage extends StatelessWidget {
   const SettingPage({Key key}) : super(key: key);

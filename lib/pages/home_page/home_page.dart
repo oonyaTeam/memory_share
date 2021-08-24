@@ -29,7 +29,6 @@ class HomePage extends StatelessWidget {
       create: (_) => HomeViewModel(),
       child: Consumer<HomeViewModel>(
         builder: (context, homeViewModel, _) => Scaffold(
-          appBar: appBarComponent("Home Page"),
           body: homeViewModel.currentPosition == null
               ? const Center(
                   child: CircularProgressIndicator(),
@@ -73,50 +72,67 @@ class HomePage extends StatelessWidget {
                       zoomControlsEnabled: false,
                     ),
                     Align(
-                      alignment: Alignment.topLeft,
-                      child: IconButton(
-                        iconSize: 64,
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const UserPage(),
-                            ),
-                          );
-                        },
-                        color: newTheme().primary,
-                        icon: const Icon(Icons.circle),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: IconButton(
-                        iconSize: 64,
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const UserPage(),
-                            ),
-                          );
-                        },
-                        color: const Color.fromARGB(255, 255, 255, 255),
-                        icon: const Icon(Icons.account_circle_rounded),
+                      alignment: Alignment.topRight,
+                      child: Container(
+                        margin: const EdgeInsets.only(top: 16.0, right: 16.0),
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color.fromRGBO(0, 0, 0, 0.25),
+                              blurRadius: 20,
+                              spreadRadius: 1,
+                            )
+                          ],
+                        ),
+                        child: IconButton(
+                          iconSize: 32.0,
+                          padding: const EdgeInsets.all(16),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const UserPage(),
+                              ),
+                            );
+                          },
+                          color: newTheme().primary,
+                          icon: const Icon(Icons.person),
+                        ),
                       ),
                     ),
                   ],
                 ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SubEpisodePage(),
+          floatingActionButton: SizedBox(
+            width: 64.0,
+            height: 64.0,
+            child: Container(
+              decoration: const BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Color.fromRGBO(0, 0, 0, 0.25),
+                    blurRadius: 20,
+                    spreadRadius: 1,
+                  )
+                ],
+              ),
+              child: FloatingActionButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SubEpisodePage(),
+                    ),
+                  );
+                },
+                child: const Icon(
+                  Icons.add,
+                  size: 32.0,
                 ),
-              );
-            },
-            child: const Icon(Icons.add),
-            backgroundColor: newTheme().primary,
+                backgroundColor: newTheme().primary,
+              ),
+            ),
           ),
         ),
       ),
