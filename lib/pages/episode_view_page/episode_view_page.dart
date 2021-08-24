@@ -2,8 +2,13 @@ import 'dart:async';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:memory_share/widgets/widgets.dart';
 import 'package:flutter_compass/flutter_compass.dart';
 
+import 'episode_view_model.dart';
+
+/*
 class EpisodeViewPage extends StatefulWidget {
   const EpisodeViewPage({Key key}) : super(key: key);
 
@@ -35,7 +40,7 @@ class _EpisodeViewPageState extends State<EpisodeViewPage> {
     }
   }
 
-  Future _showAlertDialog(BuildContext context) async {
+  Future<void> _showAlertDialog(BuildContext context) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false,
@@ -97,6 +102,49 @@ class _EpisodeViewPageState extends State<EpisodeViewPage> {
             children: <Widget>[
               CameraPreview(controller)
             ],
+          ),
+        ),
+      );
+    } on NoSuchMethodError {
+      return Container();
+    }
+  }
+}
+*/
+
+class EpisodeViewPage extends StatelessWidget {
+  final CameraDescription camera;
+
+  const EpisodeViewPage({Key key, @required this.camera}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    try {
+      return ChangeNotifierProvider(
+        create: (_) => EpisodeViewModel(),
+        child: Consumer<EpisodeViewModel>(
+          builder: (context, episodeViewModel, _) => Scaffold(
+            appBar: appBarComponent("EpisodeView Page"),
+            /*
+            body: !(episodeViewModel.controller.value.isInitialized)
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : CameraPreview(episodeViewModel.controller),
+
+             */
+            body: FutureBuilder<void>(
+              future: episodeViewModel.initializeCameraController,
+              builder: (context, snapshot){
+                if (snapshot.connectionState == ConnectionState.done){
+                  return CameraPreview(episodeViewModel.controller);
+                } else {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              },
+            ),
           ),
         ),
       );
