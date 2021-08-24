@@ -62,7 +62,6 @@ class ReExperiencePage extends StatelessWidget {
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: Container(
-                        padding: const EdgeInsets.only(top: 30.0),
                         decoration: const BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.only(
@@ -73,21 +72,25 @@ class ReExperiencePage extends StatelessWidget {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            RichText(
-                              text: TextSpan(
-                                style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                children: <TextSpan>[
-                                  const TextSpan(text: "残り"),
-                                  TextSpan(
-                                    text: "${reExperienceViewModel.distance}",
-                                    style: const TextStyle(fontSize: 24.0),
+                            Container(
+                              margin:
+                                  const EdgeInsets.only(top: 16, bottom: 16),
+                              child: RichText(
+                                text: TextSpan(
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                  const TextSpan(text: "m"),
-                                ],
+                                  children: <TextSpan>[
+                                    const TextSpan(text: "残り"),
+                                    TextSpan(
+                                      text: "${reExperienceViewModel.distance}",
+                                      style: const TextStyle(fontSize: 24.0),
+                                    ),
+                                    const TextSpan(text: "m"),
+                                  ],
+                                ),
                               ),
                             ),
                             GestureDetector(
