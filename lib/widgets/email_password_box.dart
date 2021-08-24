@@ -29,8 +29,12 @@ Widget emailPasswordBox({@required IconData iconData, @required String topText, 
         child: TextField(
           decoration: InputDecoration(
             prefixIcon: Icon(iconData, color: theme.primary),
-            border: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(16.0)),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: const BorderSide(
+                width: 0,
+                style: BorderStyle.none
+              )
             ),
             filled: true,
             fillColor: Color.alphaBlend(theme.primaryPale, Colors.white),
