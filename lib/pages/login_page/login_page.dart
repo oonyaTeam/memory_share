@@ -24,7 +24,7 @@ class LoginPage extends StatelessWidget {
               // 上のSign inってとこをラップ
               Container(
                 alignment: Alignment.topLeft,
-                margin: const EdgeInsets.only(top: 64, left: 24, bottom: 64),
+                margin: EdgeInsets.only(top: (MediaQuery.of(context).size.height - 508 - 36) / 2, left: 24, bottom: (MediaQuery.of(context).size.height - 508 - 36) / 2),
                 child: Text(
                   "Sign in",
                   style: GoogleFonts.montserrat(
@@ -122,7 +122,7 @@ class LoginPage extends StatelessWidget {
                     ),
                     // 横並びするためにラップ
                     Container(
-                      margin: const EdgeInsets.only(top: 64, bottom: 32),
+                      margin: const EdgeInsets.only(top: 32, bottom: 16),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
