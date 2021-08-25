@@ -64,6 +64,7 @@ class UpdatePasswordPage extends StatelessWidget {
                           showCustomToast(context, 'パスワードの更新に失敗しました。', false);
                     });
                   },
+                  MediaQuery.of(context).size.width
                 ),
               ),
             ],

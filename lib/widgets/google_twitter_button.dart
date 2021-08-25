@@ -6,9 +6,12 @@ Widget googleTwitterButton(
   Function() tappedEvent,
   Color primaryColor,
   String setSvg,
+  double screenWidth
 ) {
+
   return SizedBox(
-    width: 178,
+    // 48pxが画面端から、8pxがボタン同士の間隔なので -54 してる
+    width: ( screenWidth - 56 ) / 2,
     height: 48,
     child: ElevatedButton.icon(
       style: ElevatedButton.styleFrom(
