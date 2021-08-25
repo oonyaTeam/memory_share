@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:memory_share/pages/pages.dart';
+import 'package:memory_share/theme.dart';
 import 'package:memory_share/view_models/view_models.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +21,7 @@ class SubEpisodePage extends StatelessWidget {
   }
 
   Future onTapArriveButton(BuildContext context) async {
-    final takenPhoto = await picker.getImage(source: ImageSource.camera);
+    final takenPhoto = await picker.pickImage(source: ImageSource.camera);
 
     if (takenPhoto != null) {
       File photoFile = File(takenPhoto.path);
@@ -38,7 +40,6 @@ class SubEpisodePage extends StatelessWidget {
     return WillPopScope(
       onWillPop: () async {
         if (postViewModel.subEpisodeList.isNotEmpty) {
-          //_showAlertDialog(context);
           AwesomeDialog(
             context: context,
             dialogType: DialogType.INFO_REVERSED,
@@ -78,12 +79,26 @@ class SubEpisodePage extends StatelessWidget {
         body: Stack(
           children: [
             ListView.builder(
+              padding:
+                  const EdgeInsets.only(left: 24.0, right: 24.0, top: 16.0),
               itemCount: postViewModel.subEpisodeList.length,
               itemBuilder: (context, index) {
                 final item = postViewModel.subEpisodeList[index];
-                return Container(
-                  margin: const EdgeInsets.all(24.0),
-                  child: SubEpisodeWrapper(subEpisode: item.episode),
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SubEpisodeWrapper(subEpisode: item.episode),
+                    Container(
+                      margin: const EdgeInsets.only(
+                          top: 8.0, bottom: 8.0, left: 24.0),
+                      child: SvgPicture.asset(
+                        'assets/foot_prints.svg',
+                        height: 80.0,
+                        width: 40.0,
+                        color: newTheme().pale,
+                      ),
+                    ),
+                  ],
                 );
               },
             ),
