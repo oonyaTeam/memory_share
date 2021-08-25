@@ -74,30 +74,16 @@ class SubEpisodePage extends StatelessWidget {
             ),
           ),
         ),
+        backgroundColor: Colors.white,
         body: Stack(
           children: [
             ListView.builder(
               itemCount: postViewModel.subEpisodeList.length,
               itemBuilder: (context, index) {
                 final item = postViewModel.subEpisodeList[index];
-                return Dismissible(
-                  key: Key(item.episode),
-                  onDismissed: (direction) {
-                    postViewModel.removeSubEpisode(index);
-                  },
-                  background: Container(color: Colors.red),
-                  child: Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: ListTile(
-                        title: Text(
-                          item.episode,
-                          style: const TextStyle(fontSize: 22.0),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
-                  ),
+                return Container(
+                  margin: const EdgeInsets.all(24.0),
+                  child: SubEpisodeWrapper(subEpisode: item.episode),
                 );
               },
             ),
@@ -129,28 +115,12 @@ class SubEpisodePage extends StatelessWidget {
               ),
             ),
             Align(
-              alignment: Alignment.topRight,
-              child: Container(
-                margin: const EdgeInsets.only(right: 22),
-                child: IconButton(
-                  icon: const Icon(Icons.remove),
-                  onPressed: () {
-                    if (postViewModel.subEpisodeList.isEmpty) {
-                    } else {
-                      postViewModel.removeSubEpisode(
-                          postViewModel.subEpisodeList.length - 1);
-                    }
-                  },
-                ),
-              ),
-            ),
-            Align(
               alignment: Alignment.topCenter,
               child: Container(
                 margin: const EdgeInsets.only(top: 22),
                 child: (postViewModel.subEpisodeList.isEmpty)
                     ? Image.asset('assets/normal.png')
-                    : const Text(" "),
+                    : const Text(""),
               ),
             ),
           ],
