@@ -25,6 +25,7 @@ class SignUpPage extends StatelessWidget {
                   iconData: Icons.email_outlined,
                   topText: "Email",
                   onChanged: signUpViewModel.changeEmail,
+                  width: MediaQuery.of(context).size.width,
                 ),
                 const SizedBox(
                   height: 4,
@@ -33,6 +34,7 @@ class SignUpPage extends StatelessWidget {
                   iconData: Icons.https_outlined,
                   topText: "Password",
                   onChanged: signUpViewModel.changePassword,
+                  width: MediaQuery.of(context).size.width
                 ),
                 const SizedBox(
                   height: 32,

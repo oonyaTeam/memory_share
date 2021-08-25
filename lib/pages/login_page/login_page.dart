@@ -24,13 +24,15 @@ class LoginPage extends StatelessWidget {
               // 上のSign inってとこをラップ
               Container(
                 alignment: Alignment.topLeft,
-                margin: EdgeInsets.only(top: (MediaQuery.of(context).size.height - 508 - 36) / 2, left: 24, bottom: (MediaQuery.of(context).size.height - 508 - 36) / 2),
+                // 480が白いところのheight, 36はSign inのtextのheight
+                margin: EdgeInsets.only(top: (MediaQuery.of(context).size.height - 480 - 36) / 2, left: 24, bottom: (MediaQuery.of(context).size.height - 480 - 36) / 2),
                 child: Text(
                   "Sign in",
                   style: GoogleFonts.montserrat(
                     fontSize: 36,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white
+                    color: Colors.white,
+                    height: 1.0
                   ),
                 ),
               ),
@@ -81,7 +83,8 @@ class LoginPage extends StatelessWidget {
                       "または",
                       style: TextStyle(
                           fontSize: 12,
-                          color: newTheme().deep
+                          color: newTheme().deep,
+                          height: 1.0
                       ),
                     ),
                     // twitter,googleのボタンを横並びさせるためにラップ
@@ -130,14 +133,22 @@ class LoginPage extends StatelessWidget {
                             "アカウントを持っていない？",
                             style: TextStyle(
                                 fontSize: 12,
-                                color: newTheme().deep
+                                color: newTheme().deep,
+                                height: 1.0
                             ),
                           ),
                           TextButton(
                             onPressed: () => Navigator.of(context).pushReplacement(
                               MaterialPageRoute(builder: (context) => const SignUpPage()),
                             ),
-                            child: const Text("SignUp"),
+                            child: Text(
+                                "SignUp",
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: newTheme().primary,
+                                height: 1.0
+                              ),
+                            ),
                           )
                         ],
                       ),

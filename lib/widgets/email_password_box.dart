@@ -21,7 +21,8 @@ Widget emailPasswordBox({@required IconData iconData, @required String topText, 
             style: TextStyle(
               color: theme.deep,
               fontSize: 18,
-              fontWeight: FontWeight.w600
+              fontWeight: FontWeight.w600,
+              height: 1.0
             ),
           ),
         ),
