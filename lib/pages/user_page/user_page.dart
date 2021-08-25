@@ -11,22 +11,6 @@ class UserPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final userModel = context.watch<UserModel>();
     return Scaffold(
-      // appBar: AppBar(
-      //   centerTitle: true,
-      //   title: const Text("マイページ"),
-      //   actions: <Widget>[
-      //     IconButton(
-      //       icon: const Icon(Icons.settings),
-      //       iconSize: 36,
-      //       onPressed: () {
-      //         Navigator.push(
-      //           context,
-      //           MaterialPageRoute(builder: (context) => const SettingPage()),
-      //         );
-      //       },
-      //     ),
-      //   ],
-      // ),
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
@@ -54,7 +38,8 @@ class UserPage extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const SettingPage()),
+                      builder: (context) => const SettingPage(),
+                    ),
                   );
                 },
               ),
@@ -71,7 +56,7 @@ class UserPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "2021/08/16",
+                          "2021/08/16", // TODO: APIができ次第ここも変える
                           style: TextStyle(
                             fontSize: 16.0,
                             color: newTheme().middle,
