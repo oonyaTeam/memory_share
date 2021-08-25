@@ -30,9 +30,21 @@ class UserPage extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            expandedHeight: 200.0,
-            flexibleSpace: const FlexibleSpaceBar(
-              title: Text('これまでの投稿', textScaleFactor: 1),
+            expandedHeight: 128.0,
+            backgroundColor: Colors.white,
+            foregroundColor: newTheme().primary,
+            iconTheme: IconThemeData(color: newTheme().primary),
+            pinned: true,
+            snap: false,
+            floating: true,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Text('これまでの投稿',
+                  style: TextStyle(
+                    color: newTheme().primary,
+                    fontSize: 24.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textScaleFactor: 1),
             ),
             actions: <Widget>[
               IconButton(
@@ -48,13 +60,9 @@ class UserPage extends StatelessWidget {
               ),
             ],
           ),
-          ListView.separated(
-            separatorBuilder: (BuildContext context, int index) {
-              return const SizedBox(height: 16.0);
-            },
-            itemCount: userModel.myMemories.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Column(
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) => Column(
                 children: [
                   Image.network(userModel.myMemories[index].image),
                   Padding(
@@ -79,9 +87,11 @@ class UserPage extends StatelessWidget {
                       ],
                     ),
                   ),
+                  const SizedBox(height: 16.0),
                 ],
-              );
-            },
+              ),
+              childCount: userModel.myMemories.length,
+            ),
           ),
         ],
       ),
