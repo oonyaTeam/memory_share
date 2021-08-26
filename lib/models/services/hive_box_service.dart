@@ -2,42 +2,47 @@ import 'package:hive/hive.dart';
 import 'package:memory_share/models/models.dart';
 
 class HiveBoxService {
-  HiveBoxService() {
-    initRecord();
-  }
-
-  void initRecord() async {
-    _box = await Hive.openBox('user_record');
-  }
-
   static const String _userRecordKey = 'user_record';
 
-  Box<UserRecord> _box;
+  final Future<Box<UserRecord>> _box = Hive.openBox('user_record');
 
-  bool getReExperienceTutorialDone() {
-    final UserRecord userRecord = _box.get(_userRecordKey);
+  Future<UserRecord> _getUserRecord() async {
+    final box = await _box;
+    return box.get(
+      _userRecordKey,
+      defaultValue: UserRecord(
+        postTutorialDone: false,
+        reExperienceTutorialDone: false,
+      ),
+    );
+  }
+
+  Future<bool> getReExperienceTutorialDone() async {
+    final UserRecord userRecord = await _getUserRecord();
     return userRecord.reExperienceTutorialDone;
   }
 
-  bool getPostTutorialDone() {
-    final UserRecord userRecord = _box.get(_userRecordKey);
+  Future<bool> getPostTutorialDone() async {
+    final UserRecord userRecord = await _getUserRecord();
     return userRecord.postTutorialDone;
   }
 
   Future<void> putReExperienceTutorialDone() async {
-    final UserRecord userRecord = _box.get(_userRecordKey);
-    await _box.put(
+    final box = await _box;
+    final UserRecord userRecord = await _getUserRecord();
+    await box.put(
       _userRecordKey,
       UserRecord(
-        reExperienceTutorialDone: userRecord.reExperienceTutorialDone,
-        postTutorialDone: true,
+        reExperienceTutorialDone: true,
+        postTutorialDone: userRecord.postTutorialDone,
       ),
     );
   }
 
   Future<void> putPostTutorialDone() async {
-    final UserRecord userRecord = _box.get(_userRecordKey);
-    await _box.put(
+    final box = await _box;
+    final UserRecord userRecord = await _getUserRecord();
+    await box.put(
       _userRecordKey,
       UserRecord(
         reExperienceTutorialDone: userRecord.reExperienceTutorialDone,

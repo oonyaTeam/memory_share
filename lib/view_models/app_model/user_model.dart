@@ -13,8 +13,11 @@ class UserModel with ChangeNotifier {
       notifyListeners();
     });
 
-    _reExperienceTutorialDone = _userRepository.getReExperienceTutorialDone();
-    _postTutorialDone = _userRepository.getPostTutorialDone();
+    Future(() async {
+      _reExperienceTutorialDone =
+          await _userRepository.getReExperienceTutorialDone();
+      _postTutorialDone = await _userRepository.getPostTutorialDone();
+    });
   }
 
   @override

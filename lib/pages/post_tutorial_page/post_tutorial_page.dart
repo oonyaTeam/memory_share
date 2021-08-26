@@ -11,9 +11,9 @@ class PostTutorialPage extends StatelessWidget {
   const PostTutorialPage(Key key) : super(key: key);
 
   Widget _getTutorialPage(int index, PostTutorialViewModel model) {
-    switch (index) {
+    switch (index % 2) {
       case 0:
-        model.changeNotifier()
+        model.changeNotifier(0);
         return Tutorial1Page(page: index, notifier: model.notifier);
       case 1:
         return Tutorial2Page(page: index, notifier: model.notifier);
@@ -37,7 +37,7 @@ class PostTutorialPage extends StatelessWidget {
                     controller: _pageController,
                     children: List<Widget>.generate(
                       model.pageCount,
-                      (index) => _getTutorialPage(index, model.notifier),
+                      (index) => _getTutorialPage(index, model),
                     ),
                   ),
                   colors: model.colors,

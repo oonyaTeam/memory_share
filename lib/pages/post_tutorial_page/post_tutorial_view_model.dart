@@ -15,7 +15,7 @@ class PostTutorialViewModel with ChangeNotifier {
 
   ValueNotifier<double> get notifier => _notifier;
 
-  void changeNotifier(ValueNotifier<double> notifier) {
-    _notifier = notifier;
+  void changeNotifier(double value) {
+    _notifier = ValueNotifier(value);
   }
 }
