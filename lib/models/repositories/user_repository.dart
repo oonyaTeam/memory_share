@@ -5,11 +5,16 @@ class UserRepository {
 
   final HiveBoxService _hiveBoxService = HiveBoxService();
 
+  bool getReExperienceTutorialDone() =>
+      _hiveBoxService.getReExperienceTutorialDone();
+
+  bool getPostTutorialDone() => _hiveBoxService.getPostTutorialDone();
+
   Future<void> reExperienceTutorialIsFinished() async {
-    _hiveBoxService.putReExperienceTutorialDone();
+    await _hiveBoxService.putReExperienceTutorialDone();
   }
 
   Future<void> postTutorialIsFinished() async {
-    _hiveBoxService.putPostTutorialDone();
+    await _hiveBoxService.putPostTutorialDone();
   }
 }

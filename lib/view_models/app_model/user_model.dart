@@ -12,6 +12,9 @@ class UserModel with ChangeNotifier {
 
       notifyListeners();
     });
+
+    _reExperienceTutorialDone = _userRepository.getReExperienceTutorialDone();
+    _postTutorialDone = _userRepository.getPostTutorialDone();
   }
 
   @override
@@ -43,11 +46,13 @@ class UserModel with ChangeNotifier {
 
   void reExperienceTutorialIsFinished() async {
     await _userRepository.reExperienceTutorialIsFinished();
+    _reExperienceTutorialDone = true;
     notifyListeners();
   }
 
   void postTutorialIsFinished() async {
     await _userRepository.postTutorialIsFinished();
+    _postTutorialDone = true;
     notifyListeners();
   }
 
@@ -66,9 +71,8 @@ class UserModel with ChangeNotifier {
     if (currentUser == null) return false;
 
     final UserInfo userInfo = _currentUser.providerData.firstWhere(
-      (UserInfo userInfo) => userInfo.providerId == "password",
-      orElse: () => null
-    );
+        (UserInfo userInfo) => userInfo.providerId == "password",
+        orElse: () => null);
     return userInfo != null;
   }
 }
