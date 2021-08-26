@@ -6,7 +6,6 @@ import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 class PostPage extends StatelessWidget {
-
   const PostPage({Key key}) : super(key: key);
 
   @override
@@ -17,14 +16,15 @@ class PostPage extends StatelessWidget {
       appBar: EditorAppBar(
         postLabel: "投稿する",
         onPost: () async {
-          await postViewModel.postMemory().then(
-              (_) => {
-                showCustomToast(context, '投稿しました', true),
-                Navigator.of(context).popUntil((route) => route.isFirst)
-              })
-            .catchError((e) => {
-              showCustomToast(context, '投稿に失敗しました', false)
-          });
+          await postViewModel
+              .postMemory()
+              .then((_) => {
+                    showCustomToast(context, '投稿しました', true),
+                    Navigator.of(context).popUntil((route) => route.isFirst)
+                  })
+              .catchError(
+                (e) => {showCustomToast(context, '投稿に失敗しました', false)},
+              );
         },
         onCancel: () => AwesomeDialog(
           context: context,
@@ -35,7 +35,7 @@ class PostPage extends StatelessWidget {
           headerAnimationLoop: false,
           animType: AnimType.BOTTOMSLIDE,
           title: 'このページを離れますか？',
-          desc: '「はい」を押すと、文章と写真は削除されます。',
+          desc: '「はい」を押すと、文章と写真は削除されます。}',
           showCloseIcon: true,
           btnOkText: "はい",
           btnCancelText: "いいえ",
@@ -76,7 +76,8 @@ class PostPage extends StatelessWidget {
                 keyboardType: TextInputType.multiline,
                 maxLines: 99999,
                 autofocus: true,
-                onChanged: (String mainEpisode) => postViewModel.setMainEpisode(mainEpisode),
+                onChanged: (String mainEpisode) =>
+                    postViewModel.setMainEpisode(mainEpisode),
               ),
             ),
           ),
