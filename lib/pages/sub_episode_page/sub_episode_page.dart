@@ -17,7 +17,8 @@ class SubEpisodePage extends StatelessWidget {
 
   Future onTapAddButton(BuildContext context) async {
     Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => const AddSubEpisodePage()));
+      MaterialPageRoute(builder: (context) => const AddSubEpisodePage()),
+    );
   }
 
   Future onTapArriveButton(BuildContext context) async {
@@ -34,9 +35,19 @@ class SubEpisodePage extends StatelessWidget {
     }
   }
 
+  void _showTutorial(BuildContext context) {
+    // if (context.read<UserModel>().postTutorialDone) return;
+
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => const PostTutorialPage()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final postViewModel = context.watch<PostViewModel>();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _showTutorial(context));
+
     return WillPopScope(
       onWillPop: () async {
         if (postViewModel.subEpisodeList.isNotEmpty) {

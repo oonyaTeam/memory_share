@@ -8,7 +8,7 @@ import 'page/tutorial_2_page.dart';
 import 'post_tutorial_view_model.dart';
 
 class PostTutorialPage extends StatelessWidget {
-  const PostTutorialPage(Key key) : super(key: key);
+  const PostTutorialPage({Key key}) : super(key: key);
 
   Widget _getTutorialPage(int index, PostTutorialViewModel model) {
     switch (index % 2) {
@@ -43,6 +43,14 @@ class PostTutorialPage extends StatelessWidget {
                   colors: model.colors,
                   pageController: _pageController,
                   pageCount: model.pageCount,
+                ),
+                Align(
+                  alignment: const Alignment(0, 0.85),
+                  child: Container(
+                    width: double.infinity,
+                    height: 0.5,
+                    color: Colors.white,
+                  ),
                 ),
                 Align(
                   alignment: const Alignment(0, 0.94),
