@@ -6,20 +6,13 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:memory_share/models/models.dart';
 
 class PostViewModel with ChangeNotifier {
-  PostViewModel() {
-    getMyMemories();
-  }
-
   final PostRepository _postRepository = PostRepository();
 
   File _photo;
-  List<Memory> _myMemories = [];
   final List<SubEpisode> _subEpisodeList = [];
   String _mainEpisode = "";
 
   File get photo => _photo;
-
-  List<Memory> get myMemories => _myMemories;
 
   List<SubEpisode> get subEpisodeList => _subEpisodeList;
 
@@ -51,14 +44,6 @@ class PostViewModel with ChangeNotifier {
 
   void clearSubEpisode() {
     _subEpisodeList.clear();
-    notifyListeners();
-  }
-
-  void getMyMemories() async {
-    const uuid = "author1"; // TODO: sampleなので、firebase Authを導入したら変える
-    await _postRepository
-        .getMyMemories(uuid)
-        .then((myMemories) => _myMemories = myMemories);
     notifyListeners();
   }
 

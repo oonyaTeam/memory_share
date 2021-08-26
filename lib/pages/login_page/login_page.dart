@@ -25,22 +25,28 @@ class LoginPage extends StatelessWidget {
               Container(
                 alignment: Alignment.topLeft,
                 // 480が白いところのheight, 36はSign inのtextのheight
-                margin: EdgeInsets.only(top: (MediaQuery.of(context).size.height - 480 - 36) / 2, left: 24, bottom: (MediaQuery.of(context).size.height - 480 - 36) / 2),
+                margin: EdgeInsets.only(
+                    top: (MediaQuery.of(context).size.height - 480 - 36) / 2,
+                    left: 24,
+                    bottom:
+                        (MediaQuery.of(context).size.height - 480 - 36) / 2),
                 child: Text(
                   "Sign in",
                   style: GoogleFonts.montserrat(
-                    fontSize: 36,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    height: 1.0
-                  ),
+                      fontSize: 36,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      height: 1.0),
                 ),
               ),
               // そっから下のところ全部をラップ
               Container(
                 decoration: const BoxDecoration(
                   color: Colors.white,
-                  borderRadius: const BorderRadius.only(topLeft: const Radius.circular(16), topRight: const Radius.circular(16)),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(16),
+                    topRight: Radius.circular(16),
+                  ),
                 ),
                 child: Column(
                   children: [
@@ -50,8 +56,7 @@ class LoginPage extends StatelessWidget {
                           iconData: Icons.email_outlined,
                           topText: "Email",
                           onChanged: loginViewModel.changeEmail,
-                          width: MediaQuery.of(context).size.width
-                      ),
+                          width: MediaQuery.of(context).size.width),
                       margin: const EdgeInsets.only(top: 24),
                     ),
                     // margin取るためにラップ password
@@ -67,25 +72,25 @@ class LoginPage extends StatelessWidget {
                     // margin取るためにラップ sign inボタン
                     Container(
                       child: signInUpButton(
-                          "Sign in",
-                              () async {
-                            await loginViewModel.loginWithEmailAndPassword().then((_) {
-                              Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(builder: (context) => const HomePage()),
-                              );
-                            }).catchError((e) {});
-                          },
-                          MediaQuery.of(context).size.width
+                        "Sign in",
+                        () async {
+                          await loginViewModel
+                              .loginWithEmailAndPassword()
+                              .then((_) {
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (context) => const HomePage()),
+                            );
+                          }).catchError((e) {});
+                        },
+                        MediaQuery.of(context).size.width,
                       ),
                       margin: const EdgeInsets.only(top: 32, bottom: 32),
                     ),
                     Text(
                       "または",
                       style: TextStyle(
-                          fontSize: 12,
-                          color: newTheme().deep,
-                          height: 1.0
-                      ),
+                          fontSize: 12, color: newTheme().deep, height: 1.0),
                     ),
                     // twitter,googleのボタンを横並びさせるためにラップ
                     Container(
@@ -96,10 +101,11 @@ class LoginPage extends StatelessWidget {
                         children: [
                           googleTwitterButton(
                             'Sign  in  with\n     Google',
-                                () async {
+                            () async {
                               await loginViewModel.loginWithGoogle().then((_) {
                                 Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(builder: (context) => const HomePage()),
+                                  MaterialPageRoute(
+                                      builder: (context) => const HomePage()),
                                 );
                               }).catchError((e) {});
                             },
@@ -109,10 +115,11 @@ class LoginPage extends StatelessWidget {
                           ),
                           googleTwitterButton(
                             'Sign  in  with\n     Twitter',
-                                () async {
+                            () async {
                               await loginViewModel.loginWithTwiiter().then((_) {
                                 Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(builder: (context) => const HomePage()),
+                                  MaterialPageRoute(
+                                      builder: (context) => const HomePage()),
                                 );
                               }).catchError((e) {});
                             },
@@ -134,20 +141,20 @@ class LoginPage extends StatelessWidget {
                             style: TextStyle(
                                 fontSize: 12,
                                 color: newTheme().deep,
-                                height: 1.0
-                            ),
+                                height: 1.0),
                           ),
                           TextButton(
-                            onPressed: () => Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(builder: (context) => const SignUpPage()),
+                            onPressed: () =>
+                                Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (context) => const SignUpPage()),
                             ),
                             child: Text(
-                                "SignUp",
+                              "SignUp",
                               style: TextStyle(
-                                fontSize: 12,
-                                color: newTheme().primary,
-                                height: 1.0
-                              ),
+                                  fontSize: 12,
+                                  color: newTheme().primary,
+                                  height: 1.0),
                             ),
                           )
                         ],
