@@ -7,7 +7,7 @@ class UserRecord {
   UserRecord({this.reExperienceTutorialDone, this.postTutorialDone});
 
   @HiveField(0)
-  bool reExperienceTutorialDone = false;
+  bool reExperienceTutorialDone;
   @HiveField(1)
-  bool postTutorialDone = false;
+  bool postTutorialDone;
 }
