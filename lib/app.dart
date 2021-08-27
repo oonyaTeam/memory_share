@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:memory_share/pages/pages.dart';
 import 'package:memory_share/view_models/view_models.dart';
 import 'package:provider/provider.dart';
-
-import 'package:google_fonts/google_fonts.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key key}) : super(key: key);
@@ -11,7 +10,7 @@ class MyApp extends StatelessWidget {
   static const MaterialColor customSwatch = MaterialColor(
     0xFFE9674B,
     <int, Color>{
-      50:  Color(0xFFFCEDE9),
+      50: Color(0xFFFCEDE9),
       100: Color(0xFFF8D1C9),
       200: Color(0xFFF4B3A5),
       300: Color(0xFFF09581),
@@ -27,7 +26,7 @@ class MyApp extends StatelessWidget {
   static const MaterialColor primary = MaterialColor(
     0xFFF67280,
     <int, Color>{
-      50:  Color(0xFFF67280),
+      50: Color(0xFFF67280),
       100: Color(0xFFF67280),
       200: Color(0xFFF67280),
       300: Color(0xFFF67280),
@@ -52,10 +51,15 @@ class MyApp extends StatelessWidget {
           title: 'Flutter Demo',
           theme: ThemeData(
             primarySwatch: primary,
-            textTheme: GoogleFonts.notoSansTextTheme(Theme.of(context).textTheme),
+            textTheme:
+                GoogleFonts.notoSansTextTheme(Theme.of(context).textTheme),
           ),
           home: context.read<UserModel>().currentUser != null
-              ? const HomePage()
+              ? context.watch<UserModel>().reExperienceTutorialDone == null
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : const HomePage()
               : const LoginPage(),
         ),
       ),

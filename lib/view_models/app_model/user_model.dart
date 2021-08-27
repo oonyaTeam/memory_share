@@ -17,6 +17,7 @@ class UserModel with ChangeNotifier {
       _reExperienceTutorialDone =
           await _userRepository.getReExperienceTutorialDone();
       _postTutorialDone = await _userRepository.getPostTutorialDone();
+      notifyListeners();
     });
   }
 

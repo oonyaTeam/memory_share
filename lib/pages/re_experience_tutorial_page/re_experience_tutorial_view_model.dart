@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class ReExperienceTutorialViewModel with ChangeNotifier {
   ReExperienceTutorialViewModel() {
-    _notifier = ValueNotifier(0);
+    _notifier;
+    pageController.addListener(_onScroll);
   }
 
   final int pageCount = 2;
@@ -10,11 +11,19 @@ class ReExperienceTutorialViewModel with ChangeNotifier {
     Colors.red,
     Colors.blue,
   ];
-  ValueNotifier<double> _notifier;
+
+  final PageController pageController = PageController(initialPage: 0);
+
+  final ValueNotifier<double> _notifier = ValueNotifier(0);
 
   ValueNotifier<double> get notifier => _notifier;
 
-  void changeNotifier(ValueNotifier<double> notifier) {
-    _notifier = notifier;
+  void changeNotifier(double value) {
+    _notifier.value = value;
+    notifyListeners();
+  }
+
+  void _onScroll() {
+    _notifier.value = pageController.page ?? 0;
   }
 }
