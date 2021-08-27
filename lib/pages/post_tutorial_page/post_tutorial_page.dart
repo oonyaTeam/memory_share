@@ -10,16 +10,25 @@ import 'post_tutorial_view_model.dart';
 class PostTutorialPage extends StatelessWidget {
   const PostTutorialPage({Key key}) : super(key: key);
 
-  Widget _getTutorialPage(int index, PostTutorialViewModel model) {
+  Widget _getTutorialPage(
+      int index, PostTutorialViewModel model, BuildContext context) {
     switch (index % 2) {
       case 0:
-        model.changeNotifier(0);
         return Tutorial1Page(page: index, notifier: model.notifier);
       case 1:
-        return Tutorial2Page(page: index, notifier: model.notifier);
+        return Tutorial2Page(
+          page: index,
+          notifier: model.notifier,
+          onTap: () => _onFinishTutorial(context),
+        );
       default:
         throw ArgumentError("範囲外です");
     }
+  }
+
+  void _onFinishTutorial(BuildContext context) async {
+    // context.read<UserModel>().postTutorialIsFinished();
+    Navigator.pop(context);
   }
 
   @override
@@ -27,21 +36,20 @@ class PostTutorialPage extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => PostTutorialViewModel(),
       child: Consumer<PostTutorialViewModel>(builder: (context, model, _) {
-        final PageController _pageController = PageController();
         return Scaffold(
           body: Center(
             child: Stack(
               children: [
                 AnimatedBackgroundColor(
                   child: PageView(
-                    controller: _pageController,
+                    controller: model.pageController,
                     children: List<Widget>.generate(
                       model.pageCount,
-                      (index) => _getTutorialPage(index, model),
+                      (index) => _getTutorialPage(index, model, context),
                     ),
                   ),
                   colors: model.colors,
-                  pageController: _pageController,
+                  pageController: model.pageController,
                   pageCount: model.pageCount,
                 ),
                 Align(
@@ -61,7 +69,8 @@ class PostTutorialPage extends StatelessWidget {
                       Icons.check_circle,
                       color: newTheme().pale,
                     ),
-                    inActiveIndicator: Container(
+                    inActiveIndicator: const Icon(
+                      Icons.check_circle,
                       color: Colors.black,
                     ),
                   ),
