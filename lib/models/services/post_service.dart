@@ -4,6 +4,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:memory_share/models/models.dart';
 import 'package:memory_share/utils/utils.dart';
 
+/// 投稿に関する処理をまとめたService
 class PostService {
   Future<void> postMemory({
     @required String mainEpisode,
