@@ -6,7 +6,7 @@ import 'package:memory_share/utils/utils.dart';
 
 /// 投稿に関する処理をまとめたService
 class PostService {
-  Future<void> postMemory({
+  Future<Memory> postMemory({
     @required String mainEpisode,
     @required Map<int, SubEpisode> subEpisodes,
     @required String imageUrl,
@@ -35,6 +35,7 @@ class PostService {
               ))),
     );
     await createMemory(newMemory);
+    return newMemory;
   }
 
   // post_serviceに置くのは適切でないような気がするので、後々修正予定。

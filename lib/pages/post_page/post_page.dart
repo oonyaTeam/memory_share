@@ -16,15 +16,13 @@ class PostPage extends StatelessWidget {
       appBar: EditorAppBar(
         postLabel: "投稿する",
         onPost: () async {
-          await postViewModel
-              .postMemory()
-              .then((_) => {
-                    showCustomToast(context, '投稿しました', true),
-                    Navigator.of(context).popUntil((route) => route.isFirst)
-                  })
-              .catchError(
-                (e) => {showCustomToast(context, '投稿に失敗しました', false)},
-              );
+          await postViewModel.postMemory().then((memory) {
+            context.read<UserModel>().addMyMemories(memory);
+            showCustomToast(context, '投稿しました', true);
+            Navigator.of(context).popUntil((route) => route.isFirst);
+          }).catchError(
+            (e) => {showCustomToast(context, '投稿に失敗しました', false)},
+          );
         },
         onCancel: () => AwesomeDialog(
           context: context,
