@@ -1,5 +1,6 @@
 import 'package:memory_share/models/services/services.dart';
 
+/// Userに関する処理をまとめたRepository
 class UserRepository {
   UserRepository();
 

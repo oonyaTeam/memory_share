@@ -9,6 +9,8 @@ class PostRepository {
   final PostService _postService = PostService();
   final StorageService _storageService = StorageService();
 
+  /// 投稿を行う処理。撮った画像を[StorageService]でCloudStorageに投げたあと、
+  /// そのURLとエピソードなどを[Memory]としてAPIに投げている。
   Future<void> postMemory({
     @required String mainEpisode,
     @required List<SubEpisode> subEpisodeList,
