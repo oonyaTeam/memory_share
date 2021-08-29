@@ -1,11 +1,18 @@
 import 'package:hive/hive.dart';
 import 'package:memory_share/models/models.dart';
 
+/// Hiveを使用した永続化に関するServiceです。
+/// [UserRecord]型のBoxを扱っています。
 class HiveBoxService {
+  /// Box内のデータを入れておく場所のキー
   static const String _userRecordKey = 'user_record';
 
   final Future<Box<UserRecord>> _box = Hive.openBox('user_record');
 
+  /// HiveのBoxからデータを取り出す処理を書いています。[UserRecord]は1つしか持たないので、
+  /// 定数で持っている[_userRecordKey]をキーとしてアクセスしています。
+  /// 初回起動時などまだデータが保存されていないときのために、defaultValueを指定しています。
+  /// 最初はどのチュートリアルも見ていない状態なので、両方falseを入れています。
   Future<UserRecord> _getUserRecord() async {
     final box = await _box;
     return box.get(
