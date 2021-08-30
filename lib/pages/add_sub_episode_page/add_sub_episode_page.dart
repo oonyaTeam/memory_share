@@ -1,9 +1,10 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_share/view_models/app_model/app_model.dart';
-import 'add_sub_episode_view_model.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
+
+import 'add_sub_episode_view_model.dart';
 
 class AddSubEpisodePage extends StatelessWidget {
   const AddSubEpisodePage({Key key}) : super(key: key);
@@ -11,6 +12,7 @@ class AddSubEpisodePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final postViewModel = context.read<PostViewModel>();
+
     return ChangeNotifierProvider(
       create: (_) => AddSubEpisodeViewModel(),
       child: Consumer<AddSubEpisodeViewModel>(
@@ -57,7 +59,8 @@ class AddSubEpisodePage extends StatelessWidget {
                     maxLines: 99999,
                     autofocus: true,
                     controller: addSubEpisodeViewModel.textEditingController,
-                    onChanged: (String text) => addSubEpisodeViewModel.onChanged(text),
+                    onChanged: (String text) =>
+                        addSubEpisodeViewModel.onChanged(text),
                   ),
                 ],
               ),

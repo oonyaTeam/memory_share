@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:memory_share/pages/pages.dart';
+import 'package:memory_share/theme.dart';
 import 'package:memory_share/view_models/view_models.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
@@ -15,11 +17,12 @@ class SubEpisodePage extends StatelessWidget {
 
   Future onTapAddButton(BuildContext context) async {
     Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => const AddSubEpisodePage()));
+      MaterialPageRoute(builder: (context) => const AddSubEpisodePage()),
+    );
   }
 
   Future onTapArriveButton(BuildContext context) async {
-    final takenPhoto = await picker.getImage(source: ImageSource.camera);
+    final takenPhoto = await picker.pickImage(source: ImageSource.camera);
 
     if (takenPhoto != null) {
       File photoFile = File(takenPhoto.path);
@@ -32,13 +35,22 @@ class SubEpisodePage extends StatelessWidget {
     }
   }
 
+  void _showTutorial(BuildContext context) {
+    if (context.read<UserModel>().postTutorialDone) return;
+
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => const PostTutorialPage()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final postViewModel = context.watch<PostViewModel>();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _showTutorial(context));
+
     return WillPopScope(
       onWillPop: () async {
         if (postViewModel.subEpisodeList.isNotEmpty) {
-          //_showAlertDialog(context);
           AwesomeDialog(
             context: context,
             dialogType: DialogType.INFO_REVERSED,
@@ -74,30 +86,30 @@ class SubEpisodePage extends StatelessWidget {
             ),
           ),
         ),
+        backgroundColor: Colors.white,
         body: Stack(
           children: [
             ListView.builder(
+              padding:
+                  const EdgeInsets.only(left: 24.0, right: 24.0, top: 16.0),
               itemCount: postViewModel.subEpisodeList.length,
               itemBuilder: (context, index) {
                 final item = postViewModel.subEpisodeList[index];
-                return Dismissible(
-                  key: Key(item.episode),
-                  onDismissed: (direction) {
-                    postViewModel.removeSubEpisode(index);
-                  },
-                  background: Container(color: Colors.red),
-                  child: Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: ListTile(
-                        title: Text(
-                          item.episode,
-                          style: const TextStyle(fontSize: 22.0),
-                          textAlign: TextAlign.center,
-                        ),
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SubEpisodeWrapper(subEpisode: item.episode),
+                    Container(
+                      margin: const EdgeInsets.only(
+                          top: 8.0, bottom: 8.0, left: 24.0),
+                      child: SvgPicture.asset(
+                        'assets/foot_prints.svg',
+                        height: 80.0,
+                        width: 40.0,
+                        color: newTheme().pale,
                       ),
                     ),
-                  ),
+                  ],
                 );
               },
             ),
@@ -129,28 +141,12 @@ class SubEpisodePage extends StatelessWidget {
               ),
             ),
             Align(
-              alignment: Alignment.topRight,
-              child: Container(
-                margin: const EdgeInsets.only(right: 22),
-                child: IconButton(
-                  icon: const Icon(Icons.remove),
-                  onPressed: () {
-                    if (postViewModel.subEpisodeList.isEmpty) {
-                    } else {
-                      postViewModel.removeSubEpisode(
-                          postViewModel.subEpisodeList.length - 1);
-                    }
-                  },
-                ),
-              ),
-            ),
-            Align(
               alignment: Alignment.topCenter,
               child: Container(
                 margin: const EdgeInsets.only(top: 22),
                 child: (postViewModel.subEpisodeList.isEmpty)
                     ? Image.asset('assets/normal.png')
-                    : const Text(" "),
+                    : const Text(""),
               ),
             ),
           ],

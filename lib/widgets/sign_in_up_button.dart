@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:memory_share/theme.dart';
 
-Widget signInUpButton(String buttonText, Function() tappedEvent){
+Widget signInUpButton(String buttonText, Function() tappedEvent, double width){
   return SizedBox(
-    width: 363,
+    width: width - 48,
     height: 64,
     child: ElevatedButton(
       style: ElevatedButton.styleFrom(
