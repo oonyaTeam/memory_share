@@ -6,9 +6,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomDialogBox extends StatefulWidget {
-  final String title, descriptions1, text;
-
-  const CustomDialogBox({Key key, this.title, this.descriptions1, this.text}) : super(key: key);
+  final String title, descriptions1;
+  final double wid;
+  final Function() tapEvent1, tapEvent2;
+  const CustomDialogBox({Key key, this.title, this.descriptions1, this.wid, this.tapEvent1, this.tapEvent2}) : super(key: key);
 
   @override
   _CustomDialogBoxState createState() => _CustomDialogBoxState();
@@ -31,7 +32,7 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
       alignment: AlignmentDirectional.center,
       children: <Widget>[
         Container(
-          width: 360, //dialogの横幅
+          width: widget.wid-48, //dialogの横幅
           margin: const EdgeInsets.only(top: Constants.avatarRadius),
           decoration: BoxDecoration(
               shape: BoxShape.rectangle,
@@ -55,9 +56,9 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
                       borderRadius: const BorderRadius.only(topRight: Radius.circular(16),topLeft: Radius.circular(16)),
                   ),
                 ),
-              Container(height: 66),
               Container(
-                width: 288,
+                width: (widget.wid-48)*0.9,
+                margin: const EdgeInsets.only(bottom: 48,top: 64),
                 child: Text(
                     widget.descriptions1,
                  style: const TextStyle(
@@ -66,7 +67,6 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
                   textAlign: TextAlign.center,
                 ),
               ),
-              Container(height: 49),
 
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -74,24 +74,24 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
               Container(
                 height: 64,
                 width: 170,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   border: Border(
                     top: BorderSide(
-                      color: Color(0xFFd2d2d2),
+                      color: newTheme().light,
                       width: 1,
                     ),
                   ),
                 ),
                 child: TextButton(
                   onPressed: (){
-
+                    widget.tapEvent1;
                   },
-                  child: const Text(
+                  child: Text(
                       "いいえ",
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 24,
-                          color: Color(0xFF8c8c8c),
+                          color: newTheme().deep,
                       ),
                   ),
                 ),
@@ -99,21 +99,21 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
               Container(
                 height: 64,
                 width: 170,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   border: Border(
                     top: BorderSide(
-                      color: Color(0xFFd2d2d2),
+                      color: newTheme().light,
                       width: 1,
                     ),
                     left: BorderSide(
-                      color: Color(0xFFd2d2d2),
+                      color: newTheme().light,
                       width: 1,
                     ),
                   ),
                 ),
                 child: TextButton(
                   onPressed: (){
-
+                    widget.tapEvent2;
                   },
                   child: const Text(
                       "はい",
@@ -143,9 +143,9 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
         Positioned(
           top: 118,
           child: Container(
-            child: const Icon(
+            child: Icon(
               Icons.photo_outlined,
-              color: Color(0xFFF67280),
+              color: newTheme().primary,
               size: 72,
             ),
           ),

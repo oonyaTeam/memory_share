@@ -64,10 +64,12 @@ class UpdateMailAddressPage extends StatelessWidget {
                   onPressed: (){
                     showDialog(context: context,
                         builder: (BuildContext context){
-                          return const CustomDialogBox(
+                          return CustomDialogBox(
                             title: "custom_dialog",
-                            descriptions1: "目的地の周辺です。　　　カメラに切り替えます。",
-                            text: "yes",
+                            descriptions1: "目的地の周辺です。\nカメラに切り替えます。",
+                            wid: MediaQuery.of(context).size.width,
+                            tapEvent1: (){},
+                            tapEvent2: (){},
                           );
                         }
                     );
