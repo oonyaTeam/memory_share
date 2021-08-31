@@ -52,5 +52,18 @@ void main() {
         body: anyNamed('body'),
       ));
     });
+
+    test("Throw Exception", () async {
+      final client = MockClient();
+
+      when(client.post(
+        Uri.parse(apiEndpoint + 'create-memory'),
+        headers: anyNamed('headers'),
+        body: anyNamed('body'),
+      )).thenAnswer((_) async => http.Response('{ "msg": "Error" }', 400));
+
+      expect(() async => await createMemory(sampleMemory, client),
+          throwsException);
+    });
   });
 }
