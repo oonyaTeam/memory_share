@@ -597,13 +597,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
-  mock_web_server:
-    dependency: "direct main"
+  mockito:
+    dependency: "direct dev"
     description:
-      name: mock_web_server
+      name: mockito
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.1.1"
+    version: "5.0.15"
   nested:
     dependency: transitive
     description:

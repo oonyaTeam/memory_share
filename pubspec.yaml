@@ -50,8 +50,6 @@ dependencies:
 
   flutter_sliding_tutorial: ^1.1.0+1
 
-  mock_web_server: ^4.1.1
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -63,6 +61,9 @@ dev_dependencies:
   flutter_lints: ^1.0.4
 
   flutter_svg: ^0.22.0
+
+  mockito: ^5.0.15
+
 
 flutter:
   uses-material-design: true

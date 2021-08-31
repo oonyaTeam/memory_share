@@ -1,6 +1,7 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:http/http.dart' as http;
 import 'package:memory_share/models/models.dart';
 import 'package:memory_share/utils/utils.dart';
 
@@ -29,7 +30,7 @@ class PostService {
                 latLng: subEpisode.value.latLng,
               ))),
     );
-    await createMemory(newMemory);
+    await createMemory(newMemory, http.Client()); // IOClient:
     return newMemory;
   }
 

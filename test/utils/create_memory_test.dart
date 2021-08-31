@@ -1,21 +1,22 @@
 import 'package:flutter_config/flutter_config.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:http/http.dart' as http;
 import 'package:memory_share/models/models.dart';
 import 'package:memory_share/utils/utils.dart';
-import 'package:mock_web_server/mock_web_server.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 
+import 'create_memory_test.mocks.dart';
+
+@GenerateMocks([http.Client])
 void main() {
   Memory sampleMemory;
 
-  const apiEndpoint = 'http://127.0.0.1:8081/'; // モックAPIのエンドポイント
+  const apiEndpoint = 'http://example.com/'; // サンプルエンドポイント
   FlutterConfig.loadValueForTesting({'API_ENDPOINT': apiEndpoint});
 
-  final _server = MockWebServer(port: 8081);
-
   setUp(() {
-    _server.start(); // Mockサーバーを起動
-
     sampleMemory = Memory(
       memory: "this is sample main episode",
       latLng: const LatLng(34.8532, 136.5822),
@@ -33,14 +34,23 @@ void main() {
     );
   });
 
-  // 全てのテストが終了したら、Mockサーバーを閉じる。
-  tearDown(_server.shutdown);
-
   group("createMemory testing", () {
-    test("test", () async {
-      _server.enqueue(httpCode: 201, body: '{ "msg: "OK" }');
-      await createMemory(sampleMemory);
-      expect("test", "test");
+    test("create sample Memory", () async {
+      final client = MockClient();
+
+      when(client.post(
+        Uri.parse(apiEndpoint + 'create-memory'),
+        headers: anyNamed('headers'),
+        body: anyNamed('body'),
+      )).thenAnswer((_) async => http.Response('{ "msg": "OK" }', 201));
+
+      await createMemory(sampleMemory, client);
+
+      verify(client.post(
+        Uri.parse(apiEndpoint + 'create-memory'),
+        headers: anyNamed('headers'),
+        body: anyNamed('body'),
+      ));
     });
   });
 }
