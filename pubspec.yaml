@@ -38,10 +38,17 @@ dependencies:
   firebase_auth: ^3.0.1
   firebase_storage: ^10.0.1
 
+  google_sign_in: ^5.0.7
+  twitter_login: ^4.0.1
+
   hive: ^2.0.4
   hive_flutter: ^1.1.0
 
   fluttertoast: ^8.0.8
+
+  google_fonts: ^2.1.0
+
+  flutter_sliding_tutorial: ^1.1.0+1
 
 dev_dependencies:
   flutter_test:
@@ -60,3 +67,4 @@ flutter:
 
   assets:
     - assets/
+    - google_fonts/
