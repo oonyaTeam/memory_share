@@ -26,12 +26,7 @@ class PostService {
           List<Episode>.from(subEpisodes.entries.map((subEpisode) => Episode(
                 id: subEpisode.key.toString(),
                 episode: subEpisode.value.episode,
-                distance: Geolocator.distanceBetween(
-                  currentPosition.latitude,
-                  currentPosition.longitude,
-                  subEpisode.value.latLng.latitude,
-                  subEpisode.value.latLng.longitude,
-                ).toInt(),
+                latLng: subEpisode.value.latLng,
               ))),
     );
     await createMemory(newMemory);

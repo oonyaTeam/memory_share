@@ -24,7 +24,7 @@ void main() {
         Episode(
           id: "episodeId1",
           episode: "This is sample sub episode",
-          distance: 200,
+          latLng: const LatLng(34.8528, 136.5817),
         ),
       ],
       image:

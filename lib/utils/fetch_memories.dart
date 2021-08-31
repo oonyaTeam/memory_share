@@ -12,9 +12,10 @@ Future<List<Memory>> fetchMemories(
       '${endpoint}memories?lowerLeft=$lowerLeft&lowerRight=$lowerRight&upperLeft=$upperLeft&upperRight=$upperRight';
   final resp = await http.get(Uri.parse(url));
 
-  /// ステータスコードが200なら、取得したデータを[Memory]に変換して返す。
-  /// それ以外はエラーを投げる。
+  // ステータスコードが200なら、取得したデータを[Memory]に変換して返す。
+  // それ以外はエラーを投げる。
   if (resp.statusCode == 200) {
+    // 受け取ったJson内の'memories'のリストの各要素に対して、Json -> Memoryの変換を行い、Memoryのリストにして返す。
     return List<Memory>.from(json
         .decode(resp.body)['memories']
         .map((value) => Memory.fromJson(value))

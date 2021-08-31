@@ -6,26 +6,27 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 class Episode {
   final String id;
   final String episode;
-  final num distance;
+  final LatLng latLng;
 
   Episode({
     @required this.id,
     @required this.episode,
-    @required this.distance,
+    @required this.latLng,
   });
 
   factory Episode.fromJson(Map<String, dynamic> json) {
     return Episode(
       id: json['id'],
       episode: json['episode'],
-      distance: json['distance'],
+      latLng: LatLng(json['latitude'], json['longitude']),
     );
   }
 
   Map<String, dynamic> toJson() => {
         'id': id,
         'episode': episode,
-        'distance': distance,
+        'latitude': latLng.latitude,
+        'longitude': latLng.longitude,
       };
 }
 
