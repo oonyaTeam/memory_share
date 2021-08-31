@@ -50,6 +50,8 @@ dependencies:
 
   flutter_sliding_tutorial: ^1.1.0+1
 
+  mock_web_server: ^4.1.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
