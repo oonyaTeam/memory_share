@@ -9,7 +9,7 @@ import 'package:memory_share/utils/utils.dart';
 class PostService {
   Future<Memory> postMemory({
     @required String mainEpisode,
-    @required Map<int, SubEpisode> subEpisodes,
+    @required List<Episode> subEpisodes,
     @required String imageUrl,
   }) async {
     final currentPosition = await Geolocator.getCurrentPosition();
@@ -23,14 +23,9 @@ class PostService {
       seenAuthor: ["author1"],
       image: imageUrl,
       latLng: LatLng(currentPosition.latitude, currentPosition.longitude),
-      episodes:
-          List<Episode>.from(subEpisodes.entries.map((subEpisode) => Episode(
-                id: subEpisode.key.toString(),
-                episode: subEpisode.value.episode,
-                latLng: subEpisode.value.latLng,
-              ))),
+      episodes: subEpisodes,
     );
-    await createMemory(newMemory, http.Client()); // IOClient:
+    await createMemory(newMemory, http.Client());
     return newMemory;
   }
 
