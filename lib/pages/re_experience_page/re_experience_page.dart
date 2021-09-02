@@ -32,10 +32,8 @@ class ReExperiencePage extends StatelessWidget {
                     GoogleMap(
                       mapType: MapType.normal,
                       initialCameraPosition: CameraPosition(
-                        target: LatLng(
-                          reExperienceViewModel.currentPosition?.latitude,
-                          reExperienceViewModel.currentPosition?.longitude,
-                        ),
+                        // メインエピソードと自分の位置の中間をカメラ位置に設定してる。
+                        target: reExperienceViewModel.getCameraPosition(),
                         zoom: 15.0,
                       ),
                       onMapCreated: (GoogleMapController controller) {
@@ -55,6 +53,13 @@ class ReExperiencePage extends StatelessWidget {
                           ),
                           onTap: () {},
                         ),
+                        ...reExperienceViewModel.currentMemory.episodes
+                            .map((episode) => Marker(
+                                  markerId: MarkerId(episode.id),
+                                  position: episode.latLng,
+                                  onTap: () {},
+                                ))
+                            .toSet(),
                       },
                       myLocationEnabled: true,
                       zoomControlsEnabled: false,

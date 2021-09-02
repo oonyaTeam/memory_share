@@ -8,12 +8,23 @@ class MapRepository {
   /// 投稿を取得する処理。現状は、サンプルのデータとAPIから取得したデータを合わせて返している。
   Future<List<Memory>> getMemories() async {
     // サンプルデータ
-    List<Memory> sampleMemories = [
+    final List<Memory> sampleMemories = [
       Memory(
         memory: "this is sample memory1",
         latLng: const LatLng(34.8532, 136.5822),
         seenAuthor: ["author1"],
-        episodes: [],
+        episodes: [
+          Episode(
+            id: 'episode1',
+            episode: 'this is sub episode 1',
+            latLng: const LatLng(34.8520, 136.580),
+          ),
+          Episode(
+            id: 'episode2',
+            episode: 'this is sub episode 2',
+            latLng: const LatLng(34.8515, 136.581),
+          ),
+        ],
         image:
             "https://pbs.twimg.com/media/E6CYtu1VcAIjMvY?format=jpg&name=large",
         author: "author1",
@@ -22,7 +33,18 @@ class MapRepository {
         memory: "this is sample memory2",
         latLng: const LatLng(34.8480, 136.5756),
         seenAuthor: ["author2"],
-        episodes: [],
+        episodes: [
+          Episode(
+            id: 'episode1',
+            episode: 'this is sub episode 1',
+            latLng: const LatLng(34.8520, 136.580),
+          ),
+          Episode(
+            id: 'episode2',
+            episode: 'this is sub episode 2',
+            latLng: const LatLng(34.8515, 136.581),
+          ),
+        ],
         image:
             "https://pbs.twimg.com/media/E6CYtu1VcAIjMvY?format=jpg&name=large",
         author: "author2",
