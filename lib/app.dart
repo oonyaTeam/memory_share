@@ -40,6 +40,7 @@ class MyApp extends StatelessWidget {
             textTheme:
                 GoogleFonts.notoSansTextTheme(Theme.of(context).textTheme),
           ),
+          color: Colors.white,
 
           /// ログインしていない（currentUserがnull）ならLoginPageに遷移。
           ///　`reExperienceTutorialDone == null` は、[UserModel]でコンストラクタ内の非同期処理が完了するのを待っています。
