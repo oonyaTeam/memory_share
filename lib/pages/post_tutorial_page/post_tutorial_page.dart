@@ -67,9 +67,9 @@ class PostTutorialPage extends StatelessWidget {
                     child: SlidingIndicator(
                       indicatorCount: model.pageCount,
                       notifier: model.notifier,
-                      activeIndicator: Icon(
+                      activeIndicator: const Icon(
                         Icons.check_circle,
-                        color: CustomColors().pale,
+                        color: CustomColors.pale,
                       ),
                       inActiveIndicator: const Icon(
                         Icons.check_circle,

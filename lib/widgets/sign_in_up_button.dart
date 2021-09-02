@@ -12,7 +12,7 @@ Widget signInUpButton(String buttonText, Function() tappedEvent, double width) {
             Radius.circular(16),
           ),
         ),
-        primary: CustomColors().primary,
+        primary: CustomColors.primary,
         onPrimary: Colors.white,
       ),
       child: Text(

@@ -44,24 +44,26 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
           width: widget.wid - 48, //dialogの横幅
           margin: const EdgeInsets.only(top: Constants.avatarRadius),
           decoration: BoxDecoration(
-              shape: BoxShape.rectangle,
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(16),
-              boxShadow: [
-                const BoxShadow(
-                    color: Colors.black, offset: Offset(0, 10), blurRadius: 10),
-              ]),
+            shape: BoxShape.rectangle,
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: const [
+              BoxShadow(
+                  color: Colors.black, offset: Offset(0, 10), blurRadius: 10),
+            ],
+          ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Container(
                 height: 100,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   shape: BoxShape.rectangle,
-                  color: CustomColors().primary,
-                  borderRadius: const BorderRadius.only(
-                      topRight: Radius.circular(16),
-                      topLeft: Radius.circular(16)),
+                  color: CustomColors.primary,
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(16),
+                    topLeft: Radius.circular(16),
+                  ),
                 ),
               ),
               Container(
@@ -81,10 +83,10 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
                   Container(
                     height: 64,
                     width: 170,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       border: Border(
                         top: BorderSide(
-                          color: CustomColors().light,
+                          color: CustomColors.light,
                           width: 1,
                         ),
                       ),
@@ -93,12 +95,12 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
                       onPressed: () {
                         widget.tapEvent1;
                       },
-                      child: Text(
+                      child: const Text(
                         "いいえ",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 24,
-                          color: CustomColors().deep,
+                          color: CustomColors.deep,
                         ),
                       ),
                     ),
@@ -106,14 +108,14 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
                   Container(
                     height: 64,
                     width: 170,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       border: Border(
                         top: BorderSide(
-                          color: CustomColors().light,
+                          color: CustomColors.light,
                           width: 1,
                         ),
                         left: BorderSide(
-                          color: CustomColors().light,
+                          color: CustomColors.light,
                           width: 1,
                         ),
                       ),
@@ -147,14 +149,12 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
             ),
           ),
         ),
-        Positioned(
+        const Positioned(
           top: 118,
-          child: Container(
-            child: Icon(
-              Icons.photo_outlined,
-              color: CustomColors().primary,
-              size: 72,
-            ),
+          child: Icon(
+            Icons.photo_outlined,
+            color: CustomColors.primary,
+            size: 72,
           ),
         )
       ],

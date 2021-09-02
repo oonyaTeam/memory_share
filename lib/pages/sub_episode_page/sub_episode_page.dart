@@ -108,10 +108,10 @@ class SubEpisodePage extends StatelessWidget {
                               width: 180.0,
                             ),
                           ),
-                          Text(
+                          const Text(
                             "思い出の場所へ到着するまでに\n思い出したエピソードを書きましょう。\n到着したら、思い出の場所の写真を撮ります。",
                             style: TextStyle(
-                              color: CustomColors().primary,
+                              color: CustomColors.primary,
                               fontWeight: FontWeight.bold,
                               fontSize: 18.0,
                               height: 1.15,
@@ -142,7 +142,7 @@ class SubEpisodePage extends StatelessWidget {
                               'assets/foot_prints.svg',
                               height: 80.0,
                               width: 40.0,
-                              color: CustomColors().pale,
+                              color: CustomColors.pale,
                             ),
                           ),
                         ],

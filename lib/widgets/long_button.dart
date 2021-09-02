@@ -8,7 +8,7 @@ Widget longButton(String buttonText, Function() tappedEvent) {
     child: ElevatedButton(
       style: ElevatedButton.styleFrom(
         shape: const StadiumBorder(),
-        primary: CustomColors().primary,
+        primary: CustomColors.primary,
         onPrimary: Colors.white,
       ),
       child: Text(

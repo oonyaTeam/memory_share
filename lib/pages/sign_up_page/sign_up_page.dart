@@ -17,7 +17,7 @@ class SignUpPage extends StatelessWidget {
       create: (_) => SignUpViewModel(AuthRepository()),
       child: Consumer<SignUpViewModel>(
           builder: (context, signUpViewModel, _) => Scaffold(
-                backgroundColor: CustomColors().primary,
+                backgroundColor: CustomColors.primary,
                 body: Column(
                   children: [
                     // sign upをラップ
@@ -84,11 +84,11 @@ class SignUpPage extends StatelessWidget {
                             }, MediaQuery.of(context).size.width),
                             margin: const EdgeInsets.only(top: 32, bottom: 32),
                           ),
-                          Text(
+                          const Text(
                             "または",
                             style: TextStyle(
                                 fontSize: 12,
-                                color: CustomColors().deep,
+                                color: CustomColors.deep,
                                 height: 1.0),
                           ),
                           // 横並びするためにラップ
@@ -97,11 +97,11 @@ class SignUpPage extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(
+                                const Text(
                                   "アカウントを持っていない？",
                                   style: TextStyle(
                                       fontSize: 12,
-                                      color: CustomColors().deep,
+                                      color: CustomColors.deep,
                                       height: 1.0),
                                 ),
                                 TextButton(
@@ -111,11 +111,11 @@ class SignUpPage extends StatelessWidget {
                                         builder: (context) =>
                                             const LoginPage()),
                                   ),
-                                  child: Text(
+                                  child: const Text(
                                     "SignUp",
                                     style: TextStyle(
                                         fontSize: 12,
-                                        color: CustomColors().primary,
+                                        color: CustomColors.primary,
                                         height: 1.0),
                                   ),
                                 )
