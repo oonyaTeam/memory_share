@@ -23,32 +23,57 @@ class PostDetailPage extends StatelessWidget {
             appBar: AppBar(
               title: const Text('PostDetail'),
             ),
-            body: ListView.builder(
-              padding: const EdgeInsets.only(
-                left: 24.0,
-                right: 24.0,
-                top: 16.0,
-              ),
-              itemCount: memory.episodes.length,
-              itemBuilder: (context, index) {
-                final item = memory.episodes[index];
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SubEpisodeWrapper(subEpisode: item.episode),
-                    Container(
-                      margin: const EdgeInsets.only(
-                          top: 8.0, bottom: 8.0, left: 24.0),
-                      child: SvgPicture.asset(
-                        'assets/foot_prints.svg',
-                        height: 80.0,
-                        width: 40.0,
-                        color: newTheme().pale,
+            body: Container(
+              margin: const EdgeInsets.fromLTRB(24.0, 16.0, 24.0, 16.0),
+              child: CustomScrollView(
+                slivers: [
+                  SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (context, index) {
+                        final item = memory.episodes[index];
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SubEpisodeWrapper(subEpisode: item.episode),
+                            Container(
+                              margin: const EdgeInsets.only(
+                                  top: 8.0, bottom: 8.0, left: 24.0),
+                              child: SvgPicture.asset(
+                                'assets/foot_prints.svg',
+                                height: 80.0,
+                                width: 40.0,
+                                color: newTheme().pale,
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                      childCount: memory.episodes.length,
+                    ),
+                  ),
+                  SliverToBoxAdapter(
+                    child: Container(
+                      decoration: BoxDecoration(),
+                      child: Column(
+                        children: [
+                          Image.network(memory.image),
+                        ],
                       ),
                     ),
-                  ],
-                );
-              },
+                  )
+                ],
+              ),
+
+              // ListView.builder(
+              //   itemCount: memory.episodes.length,
+              //   itemBuilder: (context, index) {
+              //     final item = memory.episodes[index];
+              //
+              //     if (index == memory.episodes.length - 1) {
+              //     }
+              //
+              //   },
+              // ),
             ),
           );
         },
