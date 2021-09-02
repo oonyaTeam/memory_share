@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
@@ -17,7 +18,8 @@ class SubEpisodePage extends StatelessWidget {
 
   Future onTapAddButton(BuildContext context) async {
     Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => const AddSubEpisodePage()));
+      MaterialPageRoute(builder: (context) => const AddSubEpisodePage()),
+    );
   }
 
   Future onTapArriveButton(BuildContext context) async {
@@ -34,9 +36,19 @@ class SubEpisodePage extends StatelessWidget {
     }
   }
 
+  void _showTutorial(BuildContext context) {
+    if (context.read<UserModel>().postTutorialDone) return;
+
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => const PostTutorialPage()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final postViewModel = context.watch<PostViewModel>();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _showTutorial(context));
+
     return WillPopScope(
       onWillPop: () async {
         if (postViewModel.subEpisodeList.isNotEmpty) {
@@ -78,30 +90,65 @@ class SubEpisodePage extends StatelessWidget {
         backgroundColor: Colors.white,
         body: Stack(
           children: [
-            ListView.builder(
-              padding:
-                  const EdgeInsets.only(left: 24.0, right: 24.0, top: 16.0),
-              itemCount: postViewModel.subEpisodeList.length,
-              itemBuilder: (context, index) {
-                final item = postViewModel.subEpisodeList[index];
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SubEpisodeWrapper(subEpisode: item.episode),
-                    Container(
+            postViewModel.subEpisodeList.isEmpty
+                ? Center(
+                    child: Container(
                       margin: const EdgeInsets.only(
-                          top: 8.0, bottom: 8.0, left: 24.0),
-                      child: SvgPicture.asset(
-                        'assets/foot_prints.svg',
-                        height: 80.0,
-                        width: 40.0,
-                        color: newTheme().pale,
+                        left: 24.0,
+                        right: 24.0,
+                        top: 24.0,
+                      ),
+                      child: Column(
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.only(bottom: 24.0),
+                            child: SvgPicture.asset(
+                              'assets/normal.svg',
+                              height: 180.0,
+                              width: 180.0,
+                            ),
+                          ),
+                          Text(
+                            "思い出の場所へ到着するまでに\n思い出したエピソードを書きましょう。\n到着したら、思い出の場所の写真を撮ります。",
+                            style: TextStyle(
+                              color: newTheme().primary,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18.0,
+                              height: 1.15,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                );
-              },
-            ),
+                  )
+                : ListView.builder(
+                    padding: const EdgeInsets.only(
+                      left: 24.0,
+                      right: 24.0,
+                      top: 16.0,
+                    ),
+                    itemCount: postViewModel.subEpisodeList.length,
+                    itemBuilder: (context, index) {
+                      final item = postViewModel.subEpisodeList[index];
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SubEpisodeWrapper(subEpisode: item.episode),
+                          Container(
+                            margin: const EdgeInsets.only(
+                                top: 8.0, bottom: 8.0, left: 24.0),
+                            child: SvgPicture.asset(
+                              'assets/foot_prints.svg',
+                              height: 80.0,
+                              width: 40.0,
+                              color: newTheme().pale,
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
@@ -127,15 +174,6 @@ class SubEpisodePage extends StatelessWidget {
                   "目的地に到着",
                   () => onTapArriveButton(context),
                 ),
-              ),
-            ),
-            Align(
-              alignment: Alignment.topCenter,
-              child: Container(
-                margin: const EdgeInsets.only(top: 22),
-                child: (postViewModel.subEpisodeList.isEmpty)
-                    ? Image.asset('assets/normal.png')
-                    : const Text(""),
               ),
             ),
           ],

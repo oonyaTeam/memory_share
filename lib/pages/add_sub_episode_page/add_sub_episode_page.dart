@@ -12,6 +12,7 @@ class AddSubEpisodePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final postViewModel = context.read<PostViewModel>();
+
     return ChangeNotifierProvider(
       create: (_) => AddSubEpisodeViewModel(),
       child: Consumer<AddSubEpisodeViewModel>(

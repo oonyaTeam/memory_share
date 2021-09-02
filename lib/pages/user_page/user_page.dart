@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:memory_share/pages/pages.dart';
+import 'package:memory_share/pages/post_detail_page/post_detail_page.dart';
 import 'package:memory_share/theme.dart';
 import 'package:memory_share/view_models/view_models.dart';
 import 'package:provider/provider.dart';
@@ -47,34 +48,42 @@ class UserPage extends StatelessWidget {
           ),
           SliverList(
             delegate: SliverChildBuilderDelegate(
-              (context, index) => Column(
-                children: [
-                  Image.network(userModel.myMemories[index].image),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "2021/08/16", // TODO: APIができ次第ここも変える
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            color: newTheme().middle,
-                          ),
-                        ),
-                        Text(
-                          "東京都渋谷区",
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            color: newTheme().middle,
-                          ),
-                        ),
-                      ],
-                    ),
+              (context, index) {
+                final item = userModel.myMemories[index];
+                return GestureDetector(
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => PostDetailPage(item)),
                   ),
-                  const SizedBox(height: 16.0),
-                ],
-              ),
+                  child: Column(
+                    children: [
+                      Image.network(item.image),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "2021/08/16", // TODO: APIができ次第ここも変える
+                              style: TextStyle(
+                                fontSize: 16.0,
+                                color: newTheme().middle,
+                              ),
+                            ),
+                            Text(
+                              "東京都渋谷区",
+                              style: TextStyle(
+                                fontSize: 16.0,
+                                color: newTheme().middle,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 16.0),
+                    ],
+                  ),
+                );
+              },
               childCount: userModel.myMemories.length,
             ),
           ),

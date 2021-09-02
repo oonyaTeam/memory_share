@@ -37,8 +37,8 @@ class UserRecordAdapter extends TypeAdapter<UserRecord> {
 
   @override
   bool operator ==(Object other) =>
-    identical(this, other) ||
+      identical(this, other) ||
       other is UserRecordAdapter &&
-        runtimeType == other.runtimeType &&
-        typeId == other.typeId;
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
 }

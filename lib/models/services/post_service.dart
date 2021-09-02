@@ -1,13 +1,15 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:http/http.dart' as http;
 import 'package:memory_share/models/models.dart';
 import 'package:memory_share/utils/utils.dart';
 
+/// 投稿に関する処理をまとめたService
 class PostService {
-  Future<void> postMemory({
+  Future<Memory> postMemory({
     @required String mainEpisode,
-    @required Map<int, SubEpisode> subEpisodes,
+    @required List<Episode> subEpisodes,
     @required String imageUrl,
   }) async {
     final currentPosition = await Geolocator.getCurrentPosition();
@@ -21,19 +23,10 @@ class PostService {
       seenAuthor: ["author1"],
       image: imageUrl,
       latLng: LatLng(currentPosition.latitude, currentPosition.longitude),
-      episodes:
-          List<Episode>.from(subEpisodes.entries.map((subEpisode) => Episode(
-                id: subEpisode.key.toString(),
-                episode: subEpisode.value.episode,
-                distance: Geolocator.distanceBetween(
-                  currentPosition.latitude,
-                  currentPosition.longitude,
-                  subEpisode.value.latLng.latitude,
-                  subEpisode.value.latLng.longitude,
-                ).toInt(),
-              ))),
+      episodes: subEpisodes,
     );
-    await createMemory(newMemory);
+    await createMemory(newMemory, http.Client());
+    return newMemory;
   }
 
   // post_serviceに置くのは適切でないような気がするので、後々修正予定。

@@ -1,32 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+/// サブエピソードの型です、APIで受け取ったサブエピソードなど、主に閲覧の方で使用します。
+/// 投稿のほうでは、一時的に[SubEpisode]を使います。（今後修正の余地あり）
 class Episode {
   final String id;
   final String episode;
-  final num distance;
+  final LatLng latLng;
 
   Episode({
     @required this.id,
     @required this.episode,
-    @required this.distance,
+    @required this.latLng,
   });
 
   factory Episode.fromJson(Map<String, dynamic> json) {
     return Episode(
       id: json['id'],
       episode: json['episode'],
-      distance: json['distance'],
+      latLng: LatLng(json['latitude'], json['longitude']),
     );
   }
 
   Map<String, dynamic> toJson() => {
         'id': id,
         'episode': episode,
-        'distance': distance,
+        'latitude': latLng.latitude,
+        'longitude': latLng.longitude,
       };
 }
 
+/// 投稿全体の型です。メインのエピソードやサブエピソードなどを持ちます。
 class Memory {
   String memory;
   LatLng latLng;
@@ -67,7 +71,7 @@ class Memory {
       };
 }
 
-// SubEpisode作成用
+/// SubEpisode作成時にのみ使用。APIから取得したサブエピソードは[Episode]である。
 class SubEpisode {
   LatLng latLng;
   String episode;

@@ -4,14 +4,16 @@ import 'package:flutter_config/flutter_config.dart';
 import 'package:http/http.dart' as http;
 import 'package:memory_share/models/models.dart';
 
-Future<void> createMemory(Memory memory) async {
+/// 作成したMemoryをAPIへ投稿する。
+Future<void> createMemory(Memory memory, http.Client client) async {
   final endpoint = FlutterConfig.get("API_ENDPOINT");
-  final resp = await http.post(
+  final resp = await client.post(
     Uri.parse(endpoint + 'create-memory'),
     body: json.encode(memory.toJson()),
     headers: {'Content-Type': 'application/json'},
   );
 
+  // ステータスコードが201ならreturnして、そうじゃなかったらエラーを投げる。
   if (resp.statusCode == 201) {
     return;
   } else {

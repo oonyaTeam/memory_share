@@ -72,6 +72,15 @@ class ReExperienceViewModel with ChangeNotifier {
     return await rootBundle.loadString(path);
   }
 
+  // メインエピソードと自分の位置の中間をカメラ位置に設定してる。
+  LatLng getCameraPosition() {
+    final latitude =
+        (_currentPosition.latitude + _currentMemory.latLng.latitude) / 2;
+    final longitude =
+        (_currentPosition.longitude + _currentMemory.latLng.longitude) / 2;
+    return LatLng(latitude, longitude);
+  }
+
   @override
   void dispose() {
     super.dispose();

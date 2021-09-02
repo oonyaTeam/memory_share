@@ -59,6 +59,25 @@ class UpdateMailAddressPage extends StatelessWidget {
                   MediaQuery.of(context).size.width
                 ),
               ),
+              Container(
+                child: ElevatedButton(
+                  onPressed: (){
+                    showDialog(context: context,
+                        builder: (BuildContext context){
+                          return CustomDialogBox(
+                            title: "custom_dialog",
+                            descriptions1: "目的地の周辺です。\nカメラに切り替えます。",
+                            wid: MediaQuery.of(context).size.width,
+                            tapEvent1: (){},
+                            tapEvent2: (){},
+                          );
+                        }
+                    );
+                  },
+                  child: const Text("Custom Dialog"),
+
+                ),
+              )
             ],
           ),
         ),
