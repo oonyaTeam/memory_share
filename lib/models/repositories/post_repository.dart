@@ -19,7 +19,11 @@ class PostRepository {
     final String imageUrl = await _storageService.uploadImage(photo);
     final newMemory = await _postService.postMemory(
       mainEpisode: mainEpisode,
-      subEpisodes: subEpisodeList.asMap(),
+      subEpisodes: subEpisodeList.asMap().entries.map((entry) => Episode(
+            id: entry.key.toString(),
+            episode: entry.value.episode,
+            latLng: entry.value.latLng,
+          )),
       imageUrl: imageUrl,
     );
     return newMemory;
