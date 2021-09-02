@@ -14,7 +14,7 @@ class SubEpisodeWrapper extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
-        color: newTheme().pale,
+        color: CustomColors().pale,
         borderRadius: const BorderRadius.all(Radius.circular(16.0)),
       ),
       child: Row(
@@ -25,7 +25,7 @@ class SubEpisodeWrapper extends StatelessWidget {
             child: Icon(
               Icons.sticky_note_2_outlined,
               size: 40.0,
-              color: newTheme().primary,
+              color: CustomColors().primary,
             ),
           ),
           Flexible(

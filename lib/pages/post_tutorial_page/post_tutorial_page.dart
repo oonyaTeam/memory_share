@@ -69,7 +69,7 @@ class PostTutorialPage extends StatelessWidget {
                       notifier: model.notifier,
                       activeIndicator: Icon(
                         Icons.check_circle,
-                        color: newTheme().pale,
+                        color: CustomColors().pale,
                       ),
                       inActiveIndicator: const Icon(
                         Icons.check_circle,
