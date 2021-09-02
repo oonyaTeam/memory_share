@@ -53,10 +53,31 @@ class PostDetailPage extends StatelessWidget {
                   ),
                   SliverToBoxAdapter(
                     child: Container(
-                      decoration: BoxDecoration(),
+                      decoration: BoxDecoration(
+                        color: newTheme().pale,
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(16.0),
+                        ),
+                      ),
                       child: Column(
                         children: [
-                          Image.network(memory.image),
+                          ClipRRect(
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(16.0),
+                              topRight: Radius.circular(16.0),
+                            ),
+                            child: Image.network(
+                              memory.image,
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Text(
+                              memory.memory,
+                              style: const TextStyle(fontSize: 16.0),
+                            ),
+                          ),
                         ],
                       ),
                     ),
