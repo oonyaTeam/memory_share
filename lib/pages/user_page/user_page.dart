@@ -23,13 +23,15 @@ class UserPage extends StatelessWidget {
             snap: false,
             floating: true,
             flexibleSpace: const FlexibleSpaceBar(
-              title: Text('これまでの投稿',
-                  style: TextStyle(
-                    color: CustomColors.primary,
-                    fontSize: 24.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textScaleFactor: 1),
+              title: Text(
+                'これまでの投稿',
+                style: TextStyle(
+                  color: CustomColors.primary,
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.bold,
+                ),
+                textScaleFactor: 1.0,
+              ),
             ),
             actions: <Widget>[
               IconButton(

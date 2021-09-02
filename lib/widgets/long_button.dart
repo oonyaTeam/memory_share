@@ -18,9 +18,7 @@ Widget longButton(String buttonText, Function() tappedEvent) {
           fontWeight: FontWeight.bold,
         ),
       ),
-      onPressed: () => {
-        tappedEvent(),
-      },
+      onPressed: () => tappedEvent(),
     ),
   );
 }

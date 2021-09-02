@@ -34,7 +34,7 @@ class PostDetailPage extends StatelessWidget {
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SubEpisodeWrapper(subEpisode: item.episode),
+                            SubEpisodeWrapper(item.episode),
                             Container(
                               margin: const EdgeInsets.only(
                                   top: 8.0, bottom: 8.0, left: 24.0),
@@ -81,7 +81,7 @@ class PostDetailPage extends StatelessWidget {
                         ],
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),

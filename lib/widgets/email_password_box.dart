@@ -23,10 +23,11 @@ Widget emailPasswordBox({
           child: Text(
             topText,
             style: const TextStyle(
-                color: CustomColors.deep,
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-                height: 1.0),
+              color: CustomColors.deep,
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+              height: 1.0,
+            ),
           ),
         ),
       ),
@@ -38,9 +39,9 @@ Widget emailPasswordBox({
           decoration: InputDecoration(
             prefixIcon: Icon(iconData, color: CustomColors.primary),
             border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
-                borderSide:
-                    const BorderSide(width: 0, style: BorderStyle.none)),
+              borderRadius: BorderRadius.circular(16),
+              borderSide: const BorderSide(width: 0, style: BorderStyle.none),
+            ),
             filled: true,
             fillColor: Color.alphaBlend(CustomColors.primaryPale, Colors.white),
           ),

@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:memory_share/theme.dart';
@@ -10,14 +9,14 @@ class CustomDialogBox extends StatefulWidget {
   final String title, descriptions1;
   final double wid;
   final Function() tapEvent1, tapEvent2;
-  const CustomDialogBox(
-      {Key key,
-      this.title,
-      this.descriptions1,
-      this.wid,
-      this.tapEvent1,
-      this.tapEvent2})
-      : super(key: key);
+  const CustomDialogBox({
+    Key key,
+    this.title,
+    this.descriptions1,
+    this.wid,
+    this.tapEvent1,
+    this.tapEvent2,
+  }) : super(key: key);
 
   @override
   _CustomDialogBoxState createState() => _CustomDialogBoxState();
@@ -49,7 +48,10 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
             borderRadius: BorderRadius.circular(16),
             boxShadow: const [
               BoxShadow(
-                  color: Colors.black, offset: Offset(0, 10), blurRadius: 10),
+                color: Colors.black,
+                offset: Offset(0, 10),
+                blurRadius: 10,
+              ),
             ],
           ),
           child: Column(
@@ -156,7 +158,7 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
             color: CustomColors.primary,
             size: 72,
           ),
-        )
+        ),
       ],
     );
   }

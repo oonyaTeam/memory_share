@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:memory_share/theme.dart';
 
 class SubEpisodeWrapper extends StatelessWidget {
-  const SubEpisodeWrapper({
-    Key key,
-    @required this.subEpisode,
-  }) : super(key: key);
+  const SubEpisodeWrapper(this.subEpisode, {Key key}) : super(key: key);
 
   final String subEpisode;
 

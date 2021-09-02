@@ -22,6 +22,7 @@ class SettingPage extends StatelessWidget {
           ),
           body: Column(
             children: [
+              // Emailでログインしているユーザーの場合、「メールを変更する」を表示してる
               userModel.isEmailUser()
                   ? Container(
                       decoration: const BoxDecoration(
@@ -36,13 +37,15 @@ class SettingPage extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    const UpdateMailAddressPage()),
+                              builder: (context) =>
+                                  const UpdateMailAddressPage(),
+                            ),
                           );
                         },
                       ),
                     )
                   : Container(),
+              // Emailでログインしているユーザーの場合、「パスワードを変更する」を表示してる
               userModel.isEmailUser()
                   ? Container(
                       decoration: const BoxDecoration(
@@ -57,8 +60,8 @@ class SettingPage extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    const UpdatePasswordPage()),
+                              builder: (context) => const UpdatePasswordPage(),
+                            ),
                           );
                         },
                       ),

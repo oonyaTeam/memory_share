@@ -12,7 +12,10 @@ class ReExperienceTutorialPage extends StatelessWidget {
   const ReExperienceTutorialPage({Key key}) : super(key: key);
 
   Widget _getTutorialPage(
-      int index, ReExperienceTutorialViewModel model, BuildContext context) {
+    int index,
+    ReExperienceTutorialViewModel model,
+    BuildContext context,
+  ) {
     switch (index % 2) {
       case 0:
         return Tutorial1Page(page: index, notifier: model.notifier);

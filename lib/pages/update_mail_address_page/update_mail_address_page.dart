@@ -71,7 +71,7 @@ class UpdateMailAddressPage extends StatelessWidget {
                   );
                 },
                 child: const Text("Custom Dialog"),
-              )
+              ),
             ],
           ),
         ),
