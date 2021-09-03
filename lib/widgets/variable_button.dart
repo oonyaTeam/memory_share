@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
-Widget variableButton(String buttonText, Function() tappedEvent, double width, double height){
+Widget variableButton(
+  String buttonText,
+  Function() tappedEvent,
+  double width,
+  double height,
+) {
   return SizedBox(
     width: width,
     height: height,
@@ -16,9 +21,7 @@ Widget variableButton(String buttonText, Function() tappedEvent, double width, d
           fontWeight: FontWeight.bold,
         ),
       ),
-      onPressed: () => {
-        tappedEvent(),
-      },
+      onPressed: () => tappedEvent(),
     ),
   );
 }

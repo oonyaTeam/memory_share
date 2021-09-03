@@ -108,7 +108,7 @@ class HomePage extends StatelessWidget {
                               ),
                             );
                           },
-                          color: newTheme().primary,
+                          color: CustomColors.primary,
                           icon: const Icon(Icons.person),
                         ),
                       ),
@@ -141,7 +141,7 @@ class HomePage extends StatelessWidget {
                   Icons.add,
                   size: 32.0,
                 ),
-                backgroundColor: newTheme().primary,
+                backgroundColor: CustomColors.primary,
               ),
             ),
           ),

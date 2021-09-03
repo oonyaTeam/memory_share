@@ -1,6 +1,6 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:memory_share/utils/toast.dart';
+import 'package:memory_share/utils/utils.dart';
 import 'package:memory_share/view_models/view_models.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';

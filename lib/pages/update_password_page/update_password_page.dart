@@ -54,17 +54,18 @@ class UpdatePasswordPage extends StatelessWidget {
                 child: signInUpButton(
                   '変更する',
                   () async {
-                    await updatePasswordViewModel
-                        .updatePassword()
-                        .then((_) => {
-                          showCustomToast(context, 'パスワードを更新しました', true),
-                          Navigator.pop(context)
-                        })
-                        .catchError((e) {
-                          showCustomToast(context, 'パスワードの更新に失敗しました。', false);
+                    await updatePasswordViewModel.updatePassword().then((_) {
+                      showCustomToast(
+                        context,
+                        'パスワードを更新しました',
+                        true,
+                      );
+                      Navigator.pop(context);
+                    }).catchError((e) {
+                      showCustomToast(context, 'パスワードの更新に失敗しました。', false);
                     });
                   },
-                  MediaQuery.of(context).size.width
+                  MediaQuery.of(context).size.width,
                 ),
               ),
             ],

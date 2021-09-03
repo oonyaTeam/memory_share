@@ -18,7 +18,7 @@ class LoginPage extends StatelessWidget {
       create: (_) => LoginViewModel(AuthRepository()),
       child: Consumer<LoginViewModel>(
         builder: (context, loginViewModel, _) => Scaffold(
-          backgroundColor: newTheme().primary,
+          backgroundColor: CustomColors.primary,
           body: Column(
             children: [
               // 上のSign inってとこをラップ
@@ -26,17 +26,18 @@ class LoginPage extends StatelessWidget {
                 alignment: Alignment.topLeft,
                 // 480が白いところのheight, 36はSign inのtextのheight
                 margin: EdgeInsets.only(
-                    top: (MediaQuery.of(context).size.height - 480 - 36) / 2,
-                    left: 24,
-                    bottom:
-                        (MediaQuery.of(context).size.height - 480 - 36) / 2),
+                  top: (MediaQuery.of(context).size.height - 480 - 36) / 2,
+                  left: 24,
+                  bottom: (MediaQuery.of(context).size.height - 480 - 36) / 2,
+                ),
                 child: Text(
                   "Sign in",
                   style: GoogleFonts.montserrat(
-                      fontSize: 36,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      height: 1.0),
+                    fontSize: 36,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    height: 1.0,
+                  ),
                 ),
               ),
               // そっから下のところ全部をラップ
@@ -53,10 +54,11 @@ class LoginPage extends StatelessWidget {
                     // margin取るためにラップ email
                     Container(
                       child: emailPasswordBox(
-                          iconData: Icons.email_outlined,
-                          topText: "Email",
-                          onChanged: loginViewModel.changeEmail,
-                          width: MediaQuery.of(context).size.width),
+                        iconData: Icons.email_outlined,
+                        topText: "Email",
+                        onChanged: loginViewModel.changeEmail,
+                        width: MediaQuery.of(context).size.width,
+                      ),
                       margin: const EdgeInsets.only(top: 24),
                     ),
                     // margin取るためにラップ password
@@ -87,10 +89,13 @@ class LoginPage extends StatelessWidget {
                       ),
                       margin: const EdgeInsets.only(top: 32, bottom: 32),
                     ),
-                    Text(
+                    const Text(
                       "または",
                       style: TextStyle(
-                          fontSize: 12, color: newTheme().deep, height: 1.0),
+                        fontSize: 12,
+                        color: CustomColors.deep,
+                        height: 1.0,
+                      ),
                     ),
                     // twitter,googleのボタンを横並びさせるためにラップ
                     Container(
@@ -109,7 +114,7 @@ class LoginPage extends StatelessWidget {
                                 );
                               }).catchError((e) {});
                             },
-                            newTheme().googleRed,
+                            CustomColors.googleRed,
                             'assets/google.svg',
                             MediaQuery.of(context).size.width,
                           ),
@@ -123,7 +128,7 @@ class LoginPage extends StatelessWidget {
                                 );
                               }).catchError((e) {});
                             },
-                            newTheme().twitterBlue,
+                            CustomColors.twitterBlue,
                             'assets/twitter.svg',
                             MediaQuery.of(context).size.width,
                           ),
@@ -136,33 +141,36 @@ class LoginPage extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
+                          const Text(
                             "アカウントを持っていない？",
                             style: TextStyle(
-                                fontSize: 12,
-                                color: newTheme().deep,
-                                height: 1.0),
+                              fontSize: 12,
+                              color: CustomColors.deep,
+                              height: 1.0,
+                            ),
                           ),
                           TextButton(
                             onPressed: () =>
                                 Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
-                                  builder: (context) => const SignUpPage()),
+                                builder: (context) => const SignUpPage(),
+                              ),
                             ),
-                            child: Text(
+                            child: const Text(
                               "SignUp",
                               style: TextStyle(
-                                  fontSize: 12,
-                                  color: newTheme().primary,
-                                  height: 1.0),
+                                fontSize: 12,
+                                color: CustomColors.primary,
+                                height: 1.0,
+                              ),
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),

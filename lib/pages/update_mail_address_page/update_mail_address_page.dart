@@ -4,7 +4,6 @@ import 'package:memory_share/utils/toast.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
-
 class UpdateMailAddressPage extends StatelessWidget {
   const UpdateMailAddressPage({Key key}) : super(key: key);
 
@@ -46,38 +45,33 @@ class UpdateMailAddressPage extends StatelessWidget {
                 child: signInUpButton(
                   '変更する',
                   () async {
-                    await updateMailAddressViewModel
-                        .updateEmail()
-                        .then((_) => {
-                          showCustomToast(context, 'メールアドレスを変更しました', true),
-                          Navigator.pop(context)
-                    })
-                        .catchError((e) {
-                          showCustomToast(context, 'メールアドレスの更新に失敗しました', false);
+                    await updateMailAddressViewModel.updateEmail().then((_) {
+                      showCustomToast(context, 'メールアドレスを変更しました', true);
+                      Navigator.pop(context);
+                    }).catchError((e) {
+                      showCustomToast(context, 'メールアドレスの更新に失敗しました', false);
                     });
                   },
-                  MediaQuery.of(context).size.width
+                  MediaQuery.of(context).size.width,
                 ),
               ),
-              Container(
-                child: ElevatedButton(
-                  onPressed: (){
-                    showDialog(context: context,
-                        builder: (BuildContext context){
-                          return CustomDialogBox(
-                            title: "custom_dialog",
-                            descriptions1: "目的地の周辺です。\nカメラに切り替えます。",
-                            wid: MediaQuery.of(context).size.width,
-                            tapEvent1: (){},
-                            tapEvent2: (){},
-                          );
-                        }
-                    );
-                  },
-                  child: const Text("Custom Dialog"),
-
-                ),
-              )
+              ElevatedButton(
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return CustomDialogBox(
+                        title: "custom_dialog",
+                        descriptions1: "目的地の周辺です。\nカメラに切り替えます。",
+                        wid: MediaQuery.of(context).size.width,
+                        tapEvent1: () {},
+                        tapEvent2: () {},
+                      );
+                    },
+                  );
+                },
+                child: const Text("Custom Dialog"),
+              ),
             ],
           ),
         ),
