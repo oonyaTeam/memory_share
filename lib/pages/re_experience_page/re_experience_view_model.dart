@@ -64,8 +64,9 @@ class ReExperienceViewModel with ChangeNotifier {
   }
 
   changeMapMode(GoogleMapController controller) {
-    getMapStyleJsonFile("assets/Light.json")
-        .then((res) => {controller.setMapStyle(res)});
+    getMapStyleJsonFile("assets/Light.json").then((res) =>
+      controller.setMapStyle(res)
+    );
   }
 
   Future<String> getMapStyleJsonFile(String path) async {

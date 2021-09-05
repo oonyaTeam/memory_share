@@ -34,7 +34,7 @@ class PostDetailPage extends StatelessWidget {
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SubEpisodeWrapper(subEpisode: item.episode),
+                            SubEpisodeWrapper(item.episode),
                             Container(
                               margin: const EdgeInsets.only(
                                   top: 8.0, bottom: 8.0, left: 24.0),
@@ -42,7 +42,7 @@ class PostDetailPage extends StatelessWidget {
                                 'assets/foot_prints.svg',
                                 height: 80.0,
                                 width: 40.0,
-                                color: newTheme().pale,
+                                color: CustomColors.pale,
                               ),
                             ),
                           ],
@@ -53,9 +53,9 @@ class PostDetailPage extends StatelessWidget {
                   ),
                   SliverToBoxAdapter(
                     child: Container(
-                      decoration: BoxDecoration(
-                        color: newTheme().pale,
-                        borderRadius: const BorderRadius.all(
+                      decoration: const BoxDecoration(
+                        color: CustomColors.pale,
+                        borderRadius: BorderRadius.all(
                           Radius.circular(16.0),
                         ),
                       ),
@@ -81,20 +81,9 @@ class PostDetailPage extends StatelessWidget {
                         ],
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
-
-              // ListView.builder(
-              //   itemCount: memory.episodes.length,
-              //   itemBuilder: (context, index) {
-              //     final item = memory.episodes[index];
-              //
-              //     if (index == memory.episodes.length - 1) {
-              //     }
-              //
-              //   },
-              // ),
             ),
           );
         },

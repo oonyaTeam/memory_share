@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:memory_share/theme.dart';
 
-Widget signInUpButton(String buttonText, Function() tappedEvent, double width){
+Widget signInUpButton(
+  String buttonText,
+  Function() tappedEvent,
+  double width,
+) {
   return SizedBox(
     width: width - 48,
     height: 64,
@@ -12,7 +16,7 @@ Widget signInUpButton(String buttonText, Function() tappedEvent, double width){
             Radius.circular(16),
           ),
         ),
-        primary: newTheme().primary,
+        primary: CustomColors.primary,
         onPrimary: Colors.white,
       ),
       child: Text(
@@ -22,9 +26,7 @@ Widget signInUpButton(String buttonText, Function() tappedEvent, double width){
           fontWeight: FontWeight.bold,
         ),
       ),
-      onPressed: () => {
-        tappedEvent(),
-      },
+      onPressed: () => tappedEvent(),
     ),
   );
 }

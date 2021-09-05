@@ -6,12 +6,11 @@ Widget googleTwitterButton(
   Function() tappedEvent,
   Color primaryColor,
   String setSvg,
-  double screenWidth
+  double screenWidth,
 ) {
-
   return SizedBox(
     // 48pxが画面端から、8pxがボタン同士の間隔なので -54 してる
-    width: ( screenWidth - 56 ) / 2,
+    width: (screenWidth - 56) / 2,
     height: 48,
     child: ElevatedButton.icon(
       style: ElevatedButton.styleFrom(
@@ -23,7 +22,7 @@ Widget googleTwitterButton(
         primary: primaryColor,
         onPrimary: Colors.white,
       ),
-      onPressed: () => {tappedEvent()},
+      onPressed: () => tappedEvent(),
       icon: Padding(
         padding: const EdgeInsets.only(right: 18),
         child: SvgPicture.asset(
