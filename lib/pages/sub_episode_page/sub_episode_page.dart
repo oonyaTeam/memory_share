@@ -169,7 +169,7 @@ class SubEpisodePage extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: Container(
                 margin: const EdgeInsets.only(bottom: 22),
-                child: longButton(
+                child: longButtonBorderPrimary(
                   "目的地に到着",
                   () => onTapArriveButton(context),
                 ),
