@@ -1,7 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:memory_share/widgets/widgets.dart';
+import 'package:provider/provider.dart';
 
 import 'episode_view_model.dart';
 
@@ -27,11 +27,14 @@ class EpisodeViewPage extends StatelessWidget {
                         return RotatedBox(
                           quarterTurns: 3,
                           child: Transform.scale(
-                            scale: episodeViewModel.controller.value.aspectRatio,
+                            scale:
+                                episodeViewModel.controller.value.aspectRatio,
                             child: Center(
                               child: AspectRatio(
-                                aspectRatio: episodeViewModel.controller.value.aspectRatio,
-                                child: CameraPreview(episodeViewModel.controller),
+                                aspectRatio: episodeViewModel
+                                    .controller.value.aspectRatio,
+                                child:
+                                    CameraPreview(episodeViewModel.controller),
                               ),
                             ),
                           ),
@@ -47,7 +50,7 @@ class EpisodeViewPage extends StatelessWidget {
                 Align(
                   alignment: Alignment.topCenter,
                   child: episodeViewModel.showDialogFlag
-                      ? episodePreview(episodeText: "えもいねぇ")
+                      ? episodePreview("えもいねぇ")
                       : Container(),
                 ),
               ],

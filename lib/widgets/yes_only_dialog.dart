@@ -1,27 +1,25 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:memory_share/theme.dart';
 import 'package:memory_share/widgets/widgets.dart';
 
-class CustomDialogBox extends StatefulWidget {
+class YesDialogBox extends StatefulWidget {
   final String descriptions1;
   final double wid;
-  final Function() tapEvent1, tapEvent2;
-  const CustomDialogBox({
+  final Function() tapEvent1;
+  const YesDialogBox({
     Key key,
     this.descriptions1,
     this.wid,
     this.tapEvent1,
-    this.tapEvent2,
   }) : super(key: key);
 
   @override
-  _CustomDialogBoxState createState() => _CustomDialogBoxState();
+  _YesDialogBoxState createState() => _YesDialogBoxState();
 }
 
-class _CustomDialogBoxState extends State<CustomDialogBox> {
+class _YesDialogBoxState extends State<YesDialogBox> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -83,39 +81,10 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
                 children: [
                   Container(
                     height: 64,
-                    width: 170,
+                    width: (widget.wid - 48) * 0.9,
                     decoration: const BoxDecoration(
                       border: Border(
                         top: BorderSide(
-                          color: CustomColors.light,
-                          width: 1,
-                        ),
-                      ),
-                    ),
-                    child: TextButton(
-                      onPressed: () {
-                        widget.tapEvent2();
-                      },
-                      child: const Text(
-                        "いいえ",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 24,
-                          color: CustomColors.deep,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    height: 64,
-                    width: 170,
-                    decoration: const BoxDecoration(
-                      border: Border(
-                        top: BorderSide(
-                          color: CustomColors.light,
-                          width: 1,
-                        ),
-                        left: BorderSide(
                           color: CustomColors.light,
                           width: 1,
                         ),

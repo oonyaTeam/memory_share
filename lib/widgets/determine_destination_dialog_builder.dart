@@ -3,7 +3,6 @@ import 'package:memory_share/pages/home_page/home_view_model.dart';
 import 'package:memory_share/pages/pages.dart';
 
 // DetermineDestinationDialog (マーカーを設定するか確認するダイアログ)
-
 Widget determineDestinationDialogBuilder({
   @required BuildContext context,
   @required HomeViewModel model,
@@ -22,7 +21,9 @@ Widget determineDestinationDialogBuilder({
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ReExperiencePage(currentMemory: model.currentMemory,),
+              builder: (context) => ReExperiencePage(
+                currentMemory: model.currentMemory,
+              ),
             ),
           );
         },

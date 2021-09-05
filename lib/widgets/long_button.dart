@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:memory_share/theme.dart';
 
-Widget longButton(String buttonText, Function() tappedEvent){
+Widget longButton(String buttonText, Function() tappedEvent) {
   return SizedBox(
-    width:346.0,
-    height:56.0,
+    width: 346.0,
+    height: 56.0,
     child: ElevatedButton(
       style: ElevatedButton.styleFrom(
         shape: const StadiumBorder(),
-        primary: newTheme().primary,
+        primary: CustomColors.primary,
         onPrimary: Colors.white,
       ),
       child: Text(
@@ -18,9 +18,7 @@ Widget longButton(String buttonText, Function() tappedEvent){
           fontWeight: FontWeight.bold,
         ),
       ),
-      onPressed: () => {
-        tappedEvent(),
-      },
+      onPressed: () => tappedEvent(),
     ),
   );
 }

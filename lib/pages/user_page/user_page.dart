@@ -17,19 +17,21 @@ class UserPage extends StatelessWidget {
           SliverAppBar(
             expandedHeight: 128.0,
             backgroundColor: Colors.white,
-            foregroundColor: newTheme().primary,
-            iconTheme: IconThemeData(color: newTheme().primary),
+            foregroundColor: CustomColors.primary,
+            iconTheme: const IconThemeData(color: CustomColors.primary),
             pinned: true,
             snap: false,
             floating: true,
-            flexibleSpace: FlexibleSpaceBar(
-              title: Text('これまでの投稿',
-                  style: TextStyle(
-                    color: newTheme().primary,
-                    fontSize: 24.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textScaleFactor: 1),
+            flexibleSpace: const FlexibleSpaceBar(
+              title: Text(
+                'これまでの投稿',
+                style: TextStyle(
+                  color: CustomColors.primary,
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.bold,
+                ),
+                textScaleFactor: 1.0,
+              ),
             ),
             actions: <Widget>[
               IconButton(
@@ -61,19 +63,19 @@ class UserPage extends StatelessWidget {
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
+                          children: const [
                             Text(
                               "2021/08/16", // TODO: APIができ次第ここも変える
                               style: TextStyle(
                                 fontSize: 16.0,
-                                color: newTheme().middle,
+                                color: CustomColors.middle,
                               ),
                             ),
                             Text(
                               "東京都渋谷区",
                               style: TextStyle(
                                 fontSize: 16.0,
-                                color: newTheme().middle,
+                                color: CustomColors.middle,
                               ),
                             ),
                           ],

@@ -12,7 +12,10 @@ class ReExperienceTutorialPage extends StatelessWidget {
   const ReExperienceTutorialPage({Key key}) : super(key: key);
 
   Widget _getTutorialPage(
-      int index, ReExperienceTutorialViewModel model, BuildContext context) {
+    int index,
+    ReExperienceTutorialViewModel model,
+    BuildContext context,
+  ) {
     switch (index % 2) {
       case 0:
         return Tutorial1Page(page: index, notifier: model.notifier);
@@ -67,9 +70,9 @@ class ReExperienceTutorialPage extends StatelessWidget {
                     child: SlidingIndicator(
                       indicatorCount: model.pageCount,
                       notifier: model.notifier,
-                      activeIndicator: Icon(
+                      activeIndicator: const Icon(
                         Icons.check_circle,
-                        color: newTheme().pale,
+                        color: CustomColors.pale,
                       ),
                       inActiveIndicator: const Icon(
                         Icons.check_circle,

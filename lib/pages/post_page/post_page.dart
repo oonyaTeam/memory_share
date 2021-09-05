@@ -1,6 +1,5 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:memory_share/utils/toast.dart';
+import 'package:memory_share/utils/utils.dart';
 import 'package:memory_share/view_models/view_models.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
@@ -24,24 +23,22 @@ class PostPage extends StatelessWidget {
             (e) => {showCustomToast(context, '投稿に失敗しました', false)},
           );
         },
-        onCancel: () => AwesomeDialog(
-          context: context,
-          dialogType: DialogType.INFO_REVERSED,
-          borderSide: const BorderSide(color: Colors.green, width: 2),
-          width: 480,
-          buttonsBorderRadius: const BorderRadius.all(Radius.circular(2)),
-          headerAnimationLoop: false,
-          animType: AnimType.BOTTOMSLIDE,
-          title: 'このページを離れますか？',
-          desc: '「はい」を押すと、文章と写真は削除されます。}',
-          showCloseIcon: true,
-          btnOkText: "はい",
-          btnCancelText: "いいえ",
-          btnCancelOnPress: () => {},
-          btnOkOnPress: () => {
-            Navigator.pop(context),
-          },
-        ).show(),
+        onCancel: () => showDialog(
+            context: context,
+            builder: (BuildContext context){
+              return CustomDialogBox(
+                wid: MediaQuery.of(context).size.width,
+                descriptions1: "写真とエピソードが\n削除されますが\nよろしいですか？",
+                tapEvent1: (){
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                },
+                tapEvent2: (){
+                  Navigator.pop(context);
+                },
+              );
+            }
+        )
       ),
       body: Stack(
         children: [

@@ -39,7 +39,12 @@ class EditorAppBar extends StatelessWidget with PreferredSizeWidget {
             alignment: Alignment.centerRight,
             child: Container(
               //margin: EdgeInsets.all(0.0),
-              child: variableButton(postLabel, () => onPost(), 114.0, 44.0),
+              child: variableButton(
+                postLabel,
+                () => onPost(),
+                114.0,
+                44.0,
+              ),
             ),
           ),
         ],

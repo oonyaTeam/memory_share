@@ -4,6 +4,7 @@ import 'package:memory_share/models/models.dart';
 import 'package:memory_share/pages/pages.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
+
 import '../../theme.dart';
 import 'sign_up_view_model.dart';
 
@@ -16,21 +17,25 @@ class SignUpPage extends StatelessWidget {
       create: (_) => SignUpViewModel(AuthRepository()),
       child: Consumer<SignUpViewModel>(
         builder: (context, signUpViewModel, _) => Scaffold(
-          backgroundColor: newTheme().primary,
+          backgroundColor: CustomColors.primary,
           body: Column(
             children: [
               // sign upをラップ
               Container(
                 alignment: Alignment.topLeft,
                 // 480が白いところのheight, 36はSign upのtextのheight
-                margin: EdgeInsets.only(top: (MediaQuery.of(context).size.height - 480 - 36) / 2, left: 24, bottom: (MediaQuery.of(context).size.height - 480 - 36) / 2),
+                margin: EdgeInsets.only(
+                  top: (MediaQuery.of(context).size.height - 480 - 36) / 2,
+                  left: 24,
+                  bottom: (MediaQuery.of(context).size.height - 480 - 36) / 2,
+                ),
                 child: Text(
                   "Sign up",
                   style: GoogleFonts.montserrat(
                     fontSize: 36,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
-                    height: 1.0
+                    height: 1.0,
                   ),
                 ),
               ),
@@ -38,7 +43,10 @@ class SignUpPage extends StatelessWidget {
               Container(
                 decoration: const BoxDecoration(
                   color: Colors.white,
-                  borderRadius: const BorderRadius.only(topLeft: const Radius.circular(16), topRight: const Radius.circular(16)),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(16),
+                    topRight: Radius.circular(16),
+                  ),
                 ),
                 child: Column(
                   children: [
@@ -48,7 +56,7 @@ class SignUpPage extends StatelessWidget {
                         iconData: Icons.email_outlined,
                         topText: "Email",
                         onChanged: signUpViewModel.changeEmail,
-                        width: MediaQuery.of(context).size.width
+                        width: MediaQuery.of(context).size.width,
                       ),
                       margin: const EdgeInsets.only(top: 24),
                     ),
@@ -66,23 +74,27 @@ class SignUpPage extends StatelessWidget {
                     Container(
                       child: signInUpButton(
                         "Sign in",
-                            () async {
-                          await signUpViewModel.signUpWithEmailAndPassword().then((_) {
+                        () async {
+                          await signUpViewModel
+                              .signUpWithEmailAndPassword()
+                              .then((_) {
                             Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(builder: (context) => const HomePage()),
+                              MaterialPageRoute(
+                                builder: (context) => const HomePage(),
+                              ),
                             );
                           }).catchError((e) {});
                         },
-                        MediaQuery.of(context).size.width
+                        MediaQuery.of(context).size.width,
                       ),
                       margin: const EdgeInsets.only(top: 32, bottom: 32),
                     ),
-                    Text(
+                    const Text(
                       "または",
                       style: TextStyle(
                         fontSize: 12,
-                        color: newTheme().deep,
-                        height: 1.0
+                        color: CustomColors.deep,
+                        height: 1.0,
                       ),
                     ),
                     // 横並びするためにラップ
@@ -91,36 +103,39 @@ class SignUpPage extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
+                          const Text(
                             "アカウントを持っていない？",
                             style: TextStyle(
-                                fontSize: 12,
-                                color: newTheme().deep,
-                                height: 1.0
+                              fontSize: 12,
+                              color: CustomColors.deep,
+                              height: 1.0,
                             ),
                           ),
                           TextButton(
-                            onPressed: () => Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(builder: (context) => const LoginPage()),
+                            onPressed: () =>
+                                Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (context) => const LoginPage(),
+                              ),
                             ),
-                            child: Text(
+                            child: const Text(
                               "SignUp",
                               style: TextStyle(
                                 fontSize: 12,
-                                color: newTheme().primary,
-                                height: 1.0
+                                color: CustomColors.primary,
+                                height: 1.0,
                               ),
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
                   ],
                 ),
-                ),
-              ],
-            ),
-          )
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
