@@ -30,8 +30,6 @@ dependencies:
 
   provider: ^5.0.0
 
-  awesome_dialog: ^2.1.0
-
   http: ^0.13.3
 
   firebase_core: ^1.4.0

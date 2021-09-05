@@ -6,12 +6,11 @@ import 'package:memory_share/theme.dart';
 import 'package:memory_share/widgets/widgets.dart';
 
 class CustomDialogBox extends StatefulWidget {
-  final String title, descriptions1;
+  final String descriptions1;
   final double wid;
   final Function() tapEvent1, tapEvent2;
   const CustomDialogBox({
     Key key,
-    this.title,
     this.descriptions1,
     this.wid,
     this.tapEvent1,
@@ -95,7 +94,7 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
                     ),
                     child: TextButton(
                       onPressed: () {
-                        widget.tapEvent1;
+                        widget.tapEvent2();
                       },
                       child: const Text(
                         "いいえ",
@@ -124,7 +123,7 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
                     ),
                     child: TextButton(
                       onPressed: () {
-                        widget.tapEvent2;
+                        widget.tapEvent1();
                       },
                       child: const Text(
                         "はい",
