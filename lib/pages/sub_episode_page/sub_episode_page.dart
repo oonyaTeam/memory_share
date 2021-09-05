@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -52,25 +50,23 @@ class SubEpisodePage extends StatelessWidget {
     return WillPopScope(
       onWillPop: () async {
         if (postViewModel.subEpisodeList.isNotEmpty) {
-          AwesomeDialog(
-            context: context,
-            dialogType: DialogType.INFO_REVERSED,
-            borderSide: const BorderSide(color: Colors.green, width: 2),
-            width: 480,
-            buttonsBorderRadius: const BorderRadius.all(Radius.circular(2)),
-            headerAnimationLoop: false,
-            animType: AnimType.BOTTOMSLIDE,
-            title: 'サブエピソードが残っています',
-            desc: 'ホームに戻るとサブエピソードは全て消えます',
-            showCloseIcon: true,
-            btnOkText: "はい",
-            btnCancelText: "いいえ",
-            btnCancelOnPress: () {},
-            btnOkOnPress: () {
-              Navigator.pop(context);
-              postViewModel.clearSubEpisode();
-            },
-          ).show();
+          showDialog(
+              context: context,
+              builder: (BuildContext context){
+                return CustomDialogBox(
+                  wid: MediaQuery.of(context).size.width,
+                  descriptions1: "エピソードが\n全て削除されますが\nよろしいですか？",
+                  tapEvent1: (){
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    postViewModel.clearSubEpisode();
+                  },
+                  tapEvent2: (){
+                    Navigator.pop(context);
+                  },
+                );
+              }
+          );
           return false;
         } else {
           return true;
