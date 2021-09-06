@@ -23,6 +23,10 @@ class MyApp extends StatelessWidget {
     },
   );
 
+  Future<void> initialize(BuildContext context) async {
+    await context.read<UserModel>().initialize();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -33,25 +37,45 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<PostViewModel>(create: (_) => PostViewModel()),
       ],
       child: Builder(
-        builder: (context) => MaterialApp(
-          title: 'Flutter Demo',
-          theme: ThemeData(
-            primarySwatch: primary,
-            textTheme:
-                GoogleFonts.notoSansTextTheme(Theme.of(context).textTheme),
-          ),
-          color: Colors.white,
-
-          /// ログインしていない（currentUserがnull）ならLoginPageに遷移。
-          ///　`reExperienceTutorialDone == null` は、[UserModel]でコンストラクタ内の非同期処理が完了するのを待っています。
-          home: context.read<UserModel>().currentUser != null
-              ? context.watch<UserModel>().reExperienceTutorialDone == null
-                  ? const Center(
-                      child: CircularProgressIndicator(),
-                    )
-                  : const HomePage()
-              : const LoginPage(),
+        builder: (context) => FutureBuilder(
+          future: initialize(context),
+          builder: (context, AsyncSnapshot<void> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const MaterialApp(
+                home: Splash(),
+              );
+            } else {
+              return MaterialApp(
+                title: 'Flutter Demo',
+                theme: ThemeData(
+                  primarySwatch: primary,
+                  textTheme: GoogleFonts.notoSansTextTheme(
+                      Theme.of(context).textTheme),
+                ),
+                color: Colors.white,
+                // ログインしていない（currentUserがnull）ならLoginPageに遷移。
+                //　`reExperienceTutorialDone == null` は、[UserModel]でコンストラクタ内の非同期処理が完了するのを待っています。
+                home: context.read<UserModel>().currentUser != null
+                    ? const HomePage()
+                    : const LoginPage(),
+              );
+            }
+          },
         ),
+      ),
+    );
+  }
+}
+
+class Splash extends StatelessWidget {
+  const Splash({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(
+        child: Image.asset("assets/sample_splash.png"),
       ),
     );
   }

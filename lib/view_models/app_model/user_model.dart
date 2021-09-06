@@ -32,6 +32,14 @@ class UserModel with ChangeNotifier {
     _userStream.cancel();
   }
 
+  /// アプリ起動時に行う非同期処理（コンストラクタとは別に置いて、app.dartで呼び出す。
+  Future<void> initialize() async {
+    _reExperienceTutorialDone =
+        await _userRepository.getReExperienceTutorialDone();
+    _postTutorialDone = await _userRepository.getPostTutorialDone();
+    notifyListeners();
+  }
+
   final UserRepository _userRepository = UserRepository();
 
   final PostRepository _postRepository = PostRepository();
