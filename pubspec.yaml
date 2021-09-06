@@ -50,6 +50,8 @@ dependencies:
 
   flutter_sliding_tutorial: ^1.1.0+1
 
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -64,6 +66,8 @@ dev_dependencies:
 
   mockito: ^5.0.15
 
+  flutter_native_splash: ^1.2.1
+
 
 flutter:
   uses-material-design: true
@@ -71,3 +75,12 @@ flutter:
   assets:
     - assets/
     - google_fonts/
+
+
+flutter_native_splash:
+
+  color: "#ffffff"
+
+  image: assets/sample_splash.png
+
+  fullscreen: true
