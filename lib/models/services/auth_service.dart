@@ -75,6 +75,8 @@ class AuthService {
         // error
         throw Error();
         break;
+      default:
+        throw Error();
     }
   }
 

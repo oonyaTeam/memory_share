@@ -1,4 +1,5 @@
 export 'add_sub_episode_page/add_sub_episode_page.dart';
+export 'ask_permission_page/ask_permission_page.dart';
 export 'episode_view_page/episode_view_page.dart';
 export 'home_page/home_page.dart';
 export 'login_page/login_page.dart';

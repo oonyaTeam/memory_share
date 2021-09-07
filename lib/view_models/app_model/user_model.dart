@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:memory_share/models/models.dart';
 
 /// ユーザーに関することや、アプリの全体で参照したい値や処理をまとめてるViewModelです。
@@ -88,5 +89,25 @@ class UserModel with ChangeNotifier {
       orElse: () => null,
     );
     return userInfo != null;
+  }
+
+  Future<bool> checkPermission() async {
+    final LocationPermission permission = await Geolocator.checkPermission();
+    switch (permission) {
+      case LocationPermission.denied:
+        return false;
+        break;
+      case LocationPermission.deniedForever:
+        return false;
+        break;
+      case LocationPermission.whileInUse:
+        return true;
+        break;
+      case LocationPermission.always:
+        return true;
+        break;
+      default:
+        return true;
+    }
   }
 }
