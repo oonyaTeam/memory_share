@@ -22,7 +22,7 @@ class UpdatePasswordPage extends StatelessWidget {
               const SizedBox(
                 height: 24,
               ),
-              emailPasswordBox(
+              EmailPasswordBox(
                 iconData: Icons.https_outlined,
                 topText: "現在のパスワード",
                 onChanged: (String password) =>
@@ -31,7 +31,7 @@ class UpdatePasswordPage extends StatelessWidget {
               const SizedBox(
                 height: 4,
               ),
-              emailPasswordBox(
+              EmailPasswordBox(
                 iconData: Icons.https_outlined,
                 topText: "新しいパスワード",
                 onChanged: (String password) =>
@@ -40,7 +40,7 @@ class UpdatePasswordPage extends StatelessWidget {
               const SizedBox(
                 height: 4,
               ),
-              emailPasswordBox(
+              EmailPasswordBox(
                 iconData: Icons.https_outlined,
                 topText: "新しいパスワード（確認）",
                 onChanged: (String password) => updatePasswordViewModel
