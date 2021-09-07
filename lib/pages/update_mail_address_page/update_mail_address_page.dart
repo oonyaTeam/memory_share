@@ -22,7 +22,7 @@ class UpdateMailAddressPage extends StatelessWidget {
               const SizedBox(
                 height: 24,
               ),
-              emailPasswordBox(
+              EmailPasswordBox(
                 iconData: Icons.email_outlined,
                 topText: "新しいメールアドレス",
                 onChanged: (String email) =>
@@ -31,7 +31,7 @@ class UpdateMailAddressPage extends StatelessWidget {
               const SizedBox(
                 height: 4,
               ),
-              emailPasswordBox(
+              EmailPasswordBox(
                 iconData: Icons.https_outlined,
                 topText: "パスワード",
                 onChanged: (String password) =>
