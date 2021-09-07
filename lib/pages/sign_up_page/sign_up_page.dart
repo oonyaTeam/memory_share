@@ -52,7 +52,7 @@ class SignUpPage extends StatelessWidget {
                   children: [
                     // margin取るためにラップ email
                     Container(
-                      child: emailPasswordBox(
+                      child: EmailPasswordBox(
                         iconData: Icons.email_outlined,
                         topText: "Email",
                         onChanged: signUpViewModel.changeEmail,
@@ -62,7 +62,7 @@ class SignUpPage extends StatelessWidget {
                     ),
                     // margin取るためにラップ password
                     Container(
-                      child: emailPasswordBox(
+                      child: EmailPasswordBox(
                         iconData: Icons.https_outlined,
                         topText: "Password",
                         onChanged: signUpViewModel.changePassword,

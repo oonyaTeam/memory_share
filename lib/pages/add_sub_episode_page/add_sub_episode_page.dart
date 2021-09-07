@@ -1,4 +1,3 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_share/view_models/app_model/app_model.dart';
 import 'package:memory_share/widgets/widgets.dart';
@@ -24,25 +23,22 @@ class AddSubEpisodePage extends StatelessWidget {
               Navigator.of(context).pop();
             },
             onCancel: () {
-              AwesomeDialog(
-                context: context,
-                dialogType: DialogType.INFO_REVERSED,
-                borderSide: const BorderSide(color: Colors.green, width: 2),
-                width: 480,
-                buttonsBorderRadius: const BorderRadius.all(Radius.circular(2)),
-                headerAnimationLoop: false,
-                animType: AnimType.BOTTOMSLIDE,
-                title: '入力中の文章は全て消えます',
-                desc: '本当に戻りますか',
-                showCloseIcon: true,
-                btnOkText: "はい",
-                btnCancelText: "いいえ",
-                btnCancelOnPress: () => {},
-                btnOkOnPress: () {
-                  Navigator.pop(context);
-                  postViewModel.clearSubEpisode();
-                },
-              ).show();
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context){
+                    return CustomDialogBox(
+                      wid: MediaQuery.of(context).size.width,
+                      descriptions1: "エピソードが\n削除されますが\nよろしいですか？",
+                      tapEvent1: (){
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                      },
+                      tapEvent2: (){
+                        Navigator.pop(context);
+                      },
+                    );
+                  }
+              );
             },
           ),
           body: Center(
