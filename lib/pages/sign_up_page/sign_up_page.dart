@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:memory_share/models/models.dart';
 import 'package:memory_share/pages/pages.dart';
+import 'package:memory_share/view_models/view_models.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -10,6 +11,25 @@ import 'sign_up_view_model.dart';
 
 class SignUpPage extends StatelessWidget {
   const SignUpPage({Key key}) : super(key: key);
+
+  void _onSubmitSignUp(BuildContext context, SignUpViewModel model) async {
+    await model.signUpWithEmailAndPassword();
+    final bool permission = await context.read<UserModel>().checkPermission();
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) {
+          if (!context.read<UserModel>().reExperienceTutorialDone) {
+            return const ReExperienceTutorialPage();
+          }
+          if (permission) {
+            return const HomePage();
+          } else {
+            return const AskPermissionPage();
+          }
+        },
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,18 +93,8 @@ class SignUpPage extends StatelessWidget {
                     // margin取るためにラップ sign inボタン
                     Container(
                       child: signInUpButton(
-                        "Sign in",
-                        () async {
-                          await signUpViewModel
-                              .signUpWithEmailAndPassword()
-                              .then((_) {
-                            Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                builder: (context) => const HomePage(),
-                              ),
-                            );
-                          }).catchError((e) {});
-                        },
+                        "Sign Up",
+                        () => _onSubmitSignUp(context, signUpViewModel),
                         MediaQuery.of(context).size.width,
                       ),
                       margin: const EdgeInsets.only(top: 32, bottom: 32),

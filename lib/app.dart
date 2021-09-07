@@ -23,8 +23,10 @@ class MyApp extends StatelessWidget {
     },
   );
 
-  Future<void> initialize(BuildContext context) async {
+  Future<bool> initialize(BuildContext context) async {
     await context.read<UserModel>().initialize();
+    final bool permission = await context.read<UserModel>().checkPermission();
+    return permission;
   }
 
   @override
@@ -39,7 +41,7 @@ class MyApp extends StatelessWidget {
       child: Builder(
         builder: (context) => FutureBuilder(
           future: initialize(context),
-          builder: (context, AsyncSnapshot<void> snapshot) {
+          builder: (context, AsyncSnapshot<bool> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const MaterialApp(
                 home: Splash(),
@@ -57,7 +59,9 @@ class MyApp extends StatelessWidget {
                 //　`reExperienceTutorialDone == null` は、[UserModel]でコンストラクタ内の非同期処理が完了するのを待っています。
                 home: context.read<UserModel>().currentUser != null
                     ? context.read<UserModel>().reExperienceTutorialDone
-                        ? context.read<UserModel>() const HomePage()
+                        ? snapshot.data // 位置情報の権限が許可されているかどうか
+                            ? const HomePage()
+                            : const AskPermissionPage()
                         : const ReExperienceTutorialPage()
                     : const LoginPage(),
               );
