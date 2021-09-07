@@ -14,6 +14,11 @@ class SignUpPage extends StatelessWidget {
 
   void _onSubmitSignUp(BuildContext context, SignUpViewModel model) async {
     await model.signUpWithEmailAndPassword();
+    await _routeNextPage(context);
+  }
+
+  /// 次の画面に遷移する。命名は後で変えるかも
+  Future<void> _routeNextPage(BuildContext context) async {
     final bool permission = await context.read<UserModel>().checkPermission();
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(

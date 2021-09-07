@@ -13,8 +13,8 @@ import 'login_view_model.dart';
 class LoginPage extends StatelessWidget {
   const LoginPage({Key key}) : super(key: key);
 
-  void _onSubmitLogin(BuildContext context, LoginViewModel model) async {
-    await model.loginWithEmailAndPassword();
+  /// 次の画面に遷移する。命名は後で変えるかも
+  Future<void> _routeNextPage(BuildContext context) async {
     final bool permission = await context.read<UserModel>().checkPermission();
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
@@ -30,6 +30,21 @@ class LoginPage extends StatelessWidget {
         },
       ),
     );
+  }
+
+  void _onSubmitLogin(BuildContext context, LoginViewModel model) async {
+    await model.loginWithEmailAndPassword();
+    await _routeNextPage(context);
+  }
+
+  void _onSubmitGoogleLogin(BuildContext context, LoginViewModel model) async {
+    await model.loginWithGoogle();
+    await _routeNextPage(context);
+  }
+
+  void _onSubmitTwitterLogin(BuildContext context, LoginViewModel model) async {
+    await model.loginWithTwitter();
+    await _routeNextPage(context);
   }
 
   @override
@@ -118,32 +133,16 @@ class LoginPage extends StatelessWidget {
                           children: [
                             googleTwitterButton(
                               'Sign  in  with\n     Google',
-                              () async {
-                                await loginViewModel
-                                    .loginWithGoogle()
-                                    .then((_) {
-                                  Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(
-                                        builder: (context) => const HomePage()),
-                                  );
-                                }).catchError((e) {});
-                              },
+                              () =>
+                                  _onSubmitGoogleLogin(context, loginViewModel),
                               CustomColors.googleRed,
                               'assets/google.svg',
                               MediaQuery.of(context).size.width,
                             ),
                             googleTwitterButton(
                               'Sign  in  with\n     Twitter',
-                              () async {
-                                await loginViewModel
-                                    .loginWithTwiiter()
-                                    .then((_) {
-                                  Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(
-                                        builder: (context) => const HomePage()),
-                                  );
-                                }).catchError((e) {});
-                              },
+                              () => _onSubmitTwitterLogin(
+                                  context, loginViewModel),
                               CustomColors.twitterBlue,
                               'assets/twitter.svg',
                               MediaQuery.of(context).size.width,
