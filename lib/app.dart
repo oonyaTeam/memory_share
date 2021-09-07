@@ -56,7 +56,9 @@ class MyApp extends StatelessWidget {
                 // ログインしていない（currentUserがnull）ならLoginPageに遷移。
                 //　`reExperienceTutorialDone == null` は、[UserModel]でコンストラクタ内の非同期処理が完了するのを待っています。
                 home: context.read<UserModel>().currentUser != null
-                    ? const HomePage()
+                    ? context.read<UserModel>().reExperienceTutorialDone
+                        ? context.read<UserModel>() const HomePage()
+                        : const ReExperienceTutorialPage()
                     : const LoginPage(),
               );
             }
