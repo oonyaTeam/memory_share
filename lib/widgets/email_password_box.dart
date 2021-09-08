@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:memory_share/theme.dart';
 
 class EmailPasswordBox extends StatelessWidget {
-  const EmailPasswordBox(
-      {Key key,
-      @required this.iconData,
-      @required this.topText,
-      @required this.onChanged,
-      this.width})
-      : super(key: key);
+  const EmailPasswordBox({
+    Key? key,
+    required this.iconData,
+    required this.topText,
+    required this.onChanged,
+    required this.width,
+  }) : super(key: key);
 
   final IconData iconData;
   final String topText;
@@ -18,7 +18,6 @@ class EmailPasswordBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool obscureTextFlag = false;
-    String _errorText = "";
 
     if (iconData == Icons.https_outlined) {
       obscureTextFlag = true;
@@ -43,7 +42,7 @@ class EmailPasswordBox extends StatelessWidget {
           ),
         ),
         // メールアドレス、パスワードを入力する部分
-        Container(
+        SizedBox(
           width: width - 48,
           height: 70,
           child: Form(
@@ -61,7 +60,7 @@ class EmailPasswordBox extends StatelessWidget {
                     Color.alphaBlend(CustomColors.primaryPale, Colors.white),
               ),
               validator: (value) {
-                if (value.isEmpty) {
+                if (value == null || value.isEmpty) {
                   return 'テキストを入力してください。';
                 }
                 return null;

@@ -7,11 +7,11 @@ import 'package:memory_share/widgets/widgets.dart';
 
 class CustomDialogBox extends StatelessWidget {
   const CustomDialogBox({
-    Key key,
-    this.descriptions1,
-    this.wid,
-    this.tapEvent1,
-    this.tapEvent2,
+    Key? key,
+    required this.descriptions1,
+    required this.wid,
+    required this.tapEvent1,
+    required this.tapEvent2,
   }) : super(key: key);
 
   final String descriptions1;

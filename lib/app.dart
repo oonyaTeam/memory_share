@@ -5,7 +5,7 @@ import 'package:memory_share/view_models/view_models.dart';
 import 'package:provider/provider.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   static const MaterialColor primary = MaterialColor(
     0xFFF67280,

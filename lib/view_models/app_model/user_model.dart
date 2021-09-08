@@ -106,16 +106,12 @@ class UserModel with ChangeNotifier {
     switch (permission) {
       case LocationPermission.denied:
         return false;
-        break;
       case LocationPermission.deniedForever:
         return false;
-        break;
       case LocationPermission.whileInUse:
         return true;
-        break;
       case LocationPermission.always:
         return true;
-        break;
       default:
         return true;
     }

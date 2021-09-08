@@ -6,8 +6,8 @@ import 'package:memory_share/pages/re_experience_page/re_experience_view_model.d
 
 // BottomModal（ReExperiencePage で下に画像等を表示するモーダル）
 Widget bottomModalBuilder({
-  @required BuildContext context,
-  @required ReExperienceViewModel model,
+  required BuildContext context,
+  required ReExperienceViewModel model,
 }) {
   return Container(
     padding: const EdgeInsets.only(top: 30.0),

@@ -7,10 +7,10 @@ import 'package:memory_share/widgets/widgets.dart';
 
 class YesDialogBox extends StatelessWidget {
   const YesDialogBox({
-    Key key,
-    this.descriptions1,
-    this.wid,
-    this.tapEvent1,
+    Key? key,
+    required this.descriptions1,
+    required this.wid,
+    required this.tapEvent1,
   }) : super(key: key);
 
   final String descriptions1;
