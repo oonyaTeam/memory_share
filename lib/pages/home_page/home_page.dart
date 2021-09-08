@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:memory_share/pages/pages.dart';
 import 'package:memory_share/theme.dart';
-import 'package:memory_share/view_models/view_models.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -24,18 +23,8 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  void _showTutorial(BuildContext context) {
-    if (context.read<UserModel>().reExperienceTutorialDone) return;
-
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => const ReExperienceTutorialPage()),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) => _showTutorial(context));
-
     return ChangeNotifierProvider(
       create: (_) => HomeViewModel(),
       child: Consumer<HomeViewModel>(

@@ -32,15 +32,17 @@ class ReExperienceTutorialPage extends StatelessWidget {
   }
 
   void _onFinishTutorial(BuildContext context) async {
+    await context.read<UserModel>().reExperienceTutorialIsFinished();
     final bool isPermissionAllowed =
         await context.read<ReExperienceTutorialViewModel>().requestPermission();
     if (isPermissionAllowed) {
       // チュートリアルが終わったというbool値を保存する。
-      context.read<UserModel>().reExperienceTutorialIsFinished();
-      Navigator.pop(context);
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (_) => const HomePage()),
+      );
     } else {
       // 位置情報取得の権限が許可されなかったら、AskPermissionPageに飛ぶ
-      Navigator.of(context).push(
+      Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (_) => const AskPermissionPage()),
       );
     }

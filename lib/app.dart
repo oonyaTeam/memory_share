@@ -23,6 +23,12 @@ class MyApp extends StatelessWidget {
     },
   );
 
+  Future<bool> initialize(BuildContext context) async {
+    await context.read<UserModel>().initialize();
+    final bool permission = await context.read<UserModel>().checkPermission();
+    return permission;
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -33,25 +39,49 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<PostViewModel>(create: (_) => PostViewModel()),
       ],
       child: Builder(
-        builder: (context) => MaterialApp(
-          title: 'Flutter Demo',
-          theme: ThemeData(
-            primarySwatch: primary,
-            textTheme:
-                GoogleFonts.notoSansTextTheme(Theme.of(context).textTheme),
-          ),
-          color: Colors.white,
-
-          /// ログインしていない（currentUserがnull）ならLoginPageに遷移。
-          ///　`reExperienceTutorialDone == null` は、[UserModel]でコンストラクタ内の非同期処理が完了するのを待っています。
-          home: context.read<UserModel>().currentUser != null
-              ? context.watch<UserModel>().reExperienceTutorialDone == null
-                  ? const Center(
-                      child: CircularProgressIndicator(),
-                    )
-                  : const HomePage()
-              : const LoginPage(),
+        builder: (context) => FutureBuilder(
+          future: initialize(context),
+          builder: (context, AsyncSnapshot<bool> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const MaterialApp(
+                home: Splash(),
+              );
+            } else {
+              return MaterialApp(
+                title: 'Flutter Demo',
+                theme: ThemeData(
+                  primarySwatch: primary,
+                  textTheme: GoogleFonts.notoSansTextTheme(
+                      Theme.of(context).textTheme),
+                ),
+                color: Colors.white,
+                // ログインしていない（currentUserがnull）ならLoginPageに遷移。
+                //　`reExperienceTutorialDone == null` は、[UserModel]でコンストラクタ内の非同期処理が完了するのを待っています。
+                home: context.read<UserModel>().currentUser != null
+                    ? context.read<UserModel>().reExperienceTutorialDone
+                        ? snapshot.data // 位置情報の権限が許可されているかどうか
+                            ? const HomePage()
+                            : const AskPermissionPage()
+                        : const ReExperienceTutorialPage()
+                    : const LoginPage(),
+              );
+            }
+          },
         ),
+      ),
+    );
+  }
+}
+
+class Splash extends StatelessWidget {
+  const Splash({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(
+        child: Image.asset("assets/sample_splash.png"),
       ),
     );
   }

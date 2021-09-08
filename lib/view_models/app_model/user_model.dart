@@ -33,13 +33,22 @@ class UserModel with ChangeNotifier {
     _userStream.cancel();
   }
 
+  /// アプリ起動時に行う非同期処理（コンストラクタとは別に置いて、app.dartで呼び出す。
+  Future<void> initialize() async {
+    _reExperienceTutorialDone =
+        await _userRepository.getReExperienceTutorialDone();
+    _postTutorialDone = await _userRepository.getPostTutorialDone();
+    _currentUser = FirebaseAuth.instance.currentUser;
+    notifyListeners();
+  }
+
   final UserRepository _userRepository = UserRepository();
 
   final PostRepository _postRepository = PostRepository();
 
   StreamSubscription<User> _userStream;
 
-  User _currentUser = FirebaseAuth.instance.currentUser;
+  User _currentUser;
 
   bool _reExperienceTutorialDone;
   bool _postTutorialDone;
@@ -55,7 +64,7 @@ class UserModel with ChangeNotifier {
   List<Memory> get myMemories => _myMemories;
 
   /// チュートリアルが終了した際の処理。bool値を変更し、hive(永続化)の処理も呼び出す。
-  void reExperienceTutorialIsFinished() async {
+  Future<void> reExperienceTutorialIsFinished() async {
     await _userRepository.reExperienceTutorialIsFinished();
     _reExperienceTutorialDone = true;
     notifyListeners();
@@ -91,6 +100,7 @@ class UserModel with ChangeNotifier {
     return userInfo != null;
   }
 
+  /// 位置情報の取得の権限が許可されていたら true、拒否されたら false を返す。
   Future<bool> checkPermission() async {
     final LocationPermission permission = await Geolocator.checkPermission();
     switch (permission) {
