@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:memory_share/models/entities/entities.dart';
@@ -45,17 +44,17 @@ class ReExperiencePage extends StatelessWidget {
                           markers: {
                             Marker(
                               markerId: MarkerId(reExperienceViewModel
-                                  .currentMemory.latLng
+                                  .currentMemory!.latLng
                                   .toString()),
                               position:
-                                  reExperienceViewModel.currentMemory.latLng,
+                                  reExperienceViewModel.currentMemory!.latLng,
                               infoWindow: const InfoWindow(
                                 title: "目的地",
                                 snippet: 'text',
                               ),
                               onTap: () {},
                             ),
-                            ...reExperienceViewModel.currentMemory.episodes
+                            ...reExperienceViewModel.currentMemory!.episodes
                                 .map((episode) => Marker(
                                       markerId: MarkerId(episode.id),
                                       position: episode.latLng,
@@ -115,7 +114,7 @@ class ReExperiencePage extends StatelessWidget {
                                 padding: const EdgeInsets.only(top: 20),
                                 child: ImageFiltered(
                                   child: Image.network(reExperienceViewModel
-                                      .currentMemory.image),
+                                      .currentMemory!.image),
                                   imageFilter: ImageFilter.blur(
                                     sigmaX:
                                         reExperienceViewModel.distance / 100,

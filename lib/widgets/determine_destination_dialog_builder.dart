@@ -22,7 +22,7 @@ Widget determineDestinationDialogBuilder({
             context,
             MaterialPageRoute(
               builder: (context) => ReExperiencePage(
-                currentMemory: model.currentMemory,
+                currentMemory: model.currentMemory!,
               ),
             ),
           );

@@ -46,26 +46,34 @@ class MyApp extends StatelessWidget {
               return const MaterialApp(
                 home: Splash(),
               );
-            } else {
-              return MaterialApp(
-                title: 'Flutter Demo',
-                theme: ThemeData(
-                  primarySwatch: primary,
-                  textTheme: GoogleFonts.notoSansTextTheme(
-                      Theme.of(context).textTheme),
+            }
+
+            if (!snapshot.hasData) {
+              return const MaterialApp(
+                home: Scaffold(
+                  body: Text("snapshot don't has Data"),
                 ),
-                color: Colors.white,
-                // ログインしていない（currentUserがnull）ならLoginPageに遷移。
-                //　`reExperienceTutorialDone == null` は、[UserModel]でコンストラクタ内の非同期処理が完了するのを待っています。
-                home: context.read<UserModel>().currentUser != null
-                    ? context.read<UserModel>().reExperienceTutorialDone
-                        ? snapshot.data // 位置情報の権限が許可されているかどうか
-                            ? const HomePage()
-                            : const AskPermissionPage()
-                        : const ReExperienceTutorialPage()
-                    : const LoginPage(),
               );
             }
+
+            return MaterialApp(
+              title: 'Flutter Demo',
+              theme: ThemeData(
+                primarySwatch: primary,
+                textTheme:
+                    GoogleFonts.notoSansTextTheme(Theme.of(context).textTheme),
+              ),
+              color: Colors.white,
+              // ログインしていない（currentUserがnull）ならLoginPageに遷移。
+              //　`reExperienceTutorialDone == null` は、[UserModel]でコンストラクタ内の非同期処理が完了するのを待っています。
+              home: context.read<UserModel>().currentUser != null
+                  ? context.read<UserModel>().reExperienceTutorialDone!
+                      ? snapshot.data! // 位置情報の権限が許可されているかどうか
+                          ? const HomePage()
+                          : const AskPermissionPage()
+                      : const ReExperienceTutorialPage()
+                  : const LoginPage(),
+            );
           },
         ),
       ),

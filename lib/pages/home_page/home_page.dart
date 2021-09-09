@@ -39,8 +39,8 @@ class HomePage extends StatelessWidget {
                       mapType: MapType.normal,
                       initialCameraPosition: CameraPosition(
                         target: LatLng(
-                          homeViewModel.currentPosition?.latitude,
-                          homeViewModel.currentPosition?.longitude,
+                          homeViewModel.currentPosition!.latitude,
+                          homeViewModel.currentPosition!.longitude,
                         ),
                         zoom: 15.0,
                       ),

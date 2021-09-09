@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
@@ -36,7 +35,7 @@ class SubEpisodePage extends StatelessWidget {
   }
 
   void _showTutorial(BuildContext context) {
-    if (context.read<UserModel>().postTutorialDone) return;
+    if (context.read<UserModel>().postTutorialDone!) return;
 
     Navigator.of(context).push(
       MaterialPageRoute(builder: (_) => const PostTutorialPage()),
@@ -46,7 +45,8 @@ class SubEpisodePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final postViewModel = context.watch<PostViewModel>();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _showTutorial(context));
+    WidgetsBinding.instance!
+        .addPostFrameCallback((_) => _showTutorial(context));
 
     return WillPopScope(
       onWillPop: () async {

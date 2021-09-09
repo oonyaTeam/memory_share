@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:memory_share/models/models.dart';
@@ -19,7 +18,7 @@ class LoginPage extends StatelessWidget {
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
         builder: (context) {
-          if (!context.read<UserModel>().reExperienceTutorialDone) {
+          if (!context.read<UserModel>().reExperienceTutorialDone!) {
             return const ReExperienceTutorialPage();
           }
           if (permission) {

@@ -53,7 +53,7 @@ class PostPage extends StatelessWidget {
                   shape: BoxShape.rectangle,
                   image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: FileImage(postViewModel.photo),
+                    image: FileImage(postViewModel.photo!),
                   ),
                 ),
               ),

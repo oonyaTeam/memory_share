@@ -23,7 +23,7 @@ class SignUpPage extends StatelessWidget {
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
         builder: (context) {
-          if (!context.read<UserModel>().reExperienceTutorialDone) {
+          if (!context.read<UserModel>().reExperienceTutorialDone!) {
             return const ReExperienceTutorialPage();
           }
           if (permission) {

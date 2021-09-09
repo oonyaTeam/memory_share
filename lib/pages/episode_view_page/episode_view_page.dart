@@ -28,13 +28,13 @@ class EpisodeViewPage extends StatelessWidget {
                           quarterTurns: 3,
                           child: Transform.scale(
                             scale:
-                                episodeViewModel.controller.value.aspectRatio,
+                                episodeViewModel.controller!.value.aspectRatio,
                             child: Center(
                               child: AspectRatio(
                                 aspectRatio: episodeViewModel
-                                    .controller.value.aspectRatio,
+                                    .controller!.value.aspectRatio,
                                 child:
-                                    CameraPreview(episodeViewModel.controller),
+                                    CameraPreview(episodeViewModel.controller!),
                               ),
                             ),
                           ),

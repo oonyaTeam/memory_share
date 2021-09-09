@@ -5,27 +5,15 @@ import 'package:memory_share/models/services/auth_service.dart';
 class AuthRepository {
   final AuthService _authService = AuthService();
 
-  Future<User> login(String email, String password) async {
-    final User user =
-        await _authService.loginWithEmailAndPassword(email, password);
-    return user;
-  }
+  Future<User?> login(String email, String password) =>
+      _authService.loginWithEmailAndPassword(email, password);
 
-  Future<User> signUp(String email, String password) async {
-    final User user =
-        await _authService.signUpWithEmailAndPassword(email, password);
-    return user;
-  }
+  Future<User?> signUp(String email, String password) async =>
+      _authService.signUpWithEmailAndPassword(email, password);
 
-  Future<User> loginWithGoogle() async {
-    final User user = await _authService.loginWithGoogle();
-    return user;
-  }
+  Future<User?> loginWithGoogle() => _authService.loginWithGoogle();
 
-  Future<User> loginWithTwitter() async {
-    final User user = await _authService.loginWithTwitter();
-    return user;
-  }
+  Future<User?> loginWithTwitter() => _authService.loginWithTwitter();
 
   Future<void> logout() async {
     await _authService.logout();

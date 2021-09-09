@@ -15,8 +15,9 @@ class AuthService {
   );
 
   /// EmailとPasswordを使ってユーザ登録を行い、登録したユーザーを返す。
-  Future<User> signUpWithEmailAndPassword(String email, String password) async {
-    final User user = (await _instance.createUserWithEmailAndPassword(
+  Future<User?> signUpWithEmailAndPassword(
+      String email, String password) async {
+    final User? user = (await _instance.createUserWithEmailAndPassword(
       email: email,
       password: password,
     ))
@@ -25,8 +26,8 @@ class AuthService {
   }
 
   /// EmailとPasswordを使ってログインを行い、ログインしたユーザーを返す。
-  Future<User> loginWithEmailAndPassword(String email, String password) async {
-    final User user = (await _instance.signInWithEmailAndPassword(
+  Future<User?> loginWithEmailAndPassword(String email, String password) async {
+    final User? user = (await _instance.signInWithEmailAndPassword(
       email: email,
       password: password,
     ))
@@ -37,7 +38,7 @@ class AuthService {
   /// Googleアカウントでログインを行い、ログインしたユーザーを返す。
   /// Google, Twitterは、一度Google, Twitter自体のログインを行い、それが成功したら、
   /// アカウント登録の処理を行うという流れになっている。
-  Future<User> loginWithGoogle() async {
+  Future<User?> loginWithGoogle() async {
     GoogleSignInAccount? signInAccount = await GoogleSignIn().signIn();
     if (signInAccount == null) throw Error();
 
@@ -46,34 +47,31 @@ class AuthService {
       idToken: auth.idToken,
       accessToken: auth.accessToken,
     );
-    User user = (await _instance.signInWithCredential(credential)).user;
+    User? user = (await _instance.signInWithCredential(credential)).user;
     return user;
   }
 
   /// Googleアカウントでログインを行い、ログインしたユーザーを返す。
   /// Googleと同様、Twitter自体のログインを行い、それが成功したら、アカウント登録の処理を行うという流れになっている。
-  Future<User> loginWithTwitter() async {
+  Future<User?> loginWithTwitter() async {
     final AuthResult authResult = await twitterLogin.login();
 
     // ログインのステータスによって胃処理を分けてる。
     switch (authResult.status) {
       case TwitterLoginStatus.loggedIn:
         final credential = TwitterAuthProvider.credential(
-          accessToken: authResult.authToken,
-          secret: authResult.authTokenSecret,
+          accessToken: authResult.authToken!,
+          secret: authResult.authTokenSecret!,
         );
-        final User user =
-            (await _instance.signInWithCredential(credential)).user;
-        return user;
-        break;
+        final UserCredential userCredential =
+            await _instance.signInWithCredential(credential);
+        return userCredential.user;
       case TwitterLoginStatus.cancelledByUser:
         // ユーザーがキャンセルした
         throw Error();
-        break;
       case TwitterLoginStatus.error:
         // error
         throw Error();
-        break;
       default:
         throw Error();
     }
@@ -87,10 +85,14 @@ class AuthService {
   /// 再認証を行う。
   Future<UserCredential> _reAuthentication(String password) async {
     final user = _instance.currentUser;
+    if (user == null) throw Error();
+
+    if (user.email == null) throw Error();
+
     final UserCredential userCredential =
         await user.reauthenticateWithCredential(
       EmailAuthProvider.credential(
-        email: user.email,
+        email: user.email!,
         password: password,
       ),
     );
@@ -104,8 +106,7 @@ class AuthService {
     required String password,
   }) async {
     final UserCredential userCredential = await _reAuthentication(password);
-
-    await userCredential.user.updateEmail(newEmail);
+    await userCredential.user!.updateEmail(newEmail);
   }
 
   /// [updateEmail]と同様に、一度再認証を行ってから、更新処理を行っている。
@@ -114,7 +115,6 @@ class AuthService {
     required String oldPassword,
   }) async {
     final UserCredential userCredential = await _reAuthentication(oldPassword);
-
-    await userCredential.user.updatePassword(newPassword);
+    await userCredential.user!.updatePassword(newPassword);
   }
 }

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -9,20 +10,10 @@ import 'package:memory_share/models/models.dart';
 class UserModel with ChangeNotifier {
   UserModel() {
     // ユーザーの認証情報をlistenするように設定。
-    _userStream = FirebaseAuth.instance.authStateChanges().listen((User user) {
+    _userStream = FirebaseAuth.instance.authStateChanges().listen((User? user) {
       // 認証情報が変わった時は、currentUserの変更と、自分の投稿の取得を行っている。
       _currentUser = user;
       getMyMemories();
-      notifyListeners();
-    });
-
-    /// 各チュートリアルを見たかどうかのbool値を取得している。
-    /// `Future(() async{})` はコンストラクタ内で非同期処理を行う書き方。
-    /// 実際はコンストラクタが非同期処理を待たずに終了してしまうので、[]
-    Future(() async {
-      _reExperienceTutorialDone =
-          await _userRepository.getReExperienceTutorialDone();
-      _postTutorialDone = await _userRepository.getPostTutorialDone();
       notifyListeners();
     });
   }
@@ -30,7 +21,7 @@ class UserModel with ChangeNotifier {
   @override
   void dispose() {
     super.dispose();
-    _userStream.cancel();
+    _userStream?.cancel();
   }
 
   /// アプリ起動時に行う非同期処理（コンストラクタとは別に置いて、app.dartで呼び出す。
@@ -46,20 +37,20 @@ class UserModel with ChangeNotifier {
 
   final PostRepository _postRepository = PostRepository();
 
-  StreamSubscription<User> _userStream;
+  StreamSubscription<User?>? _userStream;
 
   User? _currentUser;
 
-  bool _reExperienceTutorialDone;
-  bool _postTutorialDone;
+  bool? _reExperienceTutorialDone;
+  bool? _postTutorialDone;
 
   List<Memory> _myMemories = [];
 
   User? get currentUser => _currentUser;
 
-  bool get reExperienceTutorialDone => _reExperienceTutorialDone;
+  bool? get reExperienceTutorialDone => _reExperienceTutorialDone;
 
-  bool get postTutorialDone => _postTutorialDone;
+  bool? get postTutorialDone => _postTutorialDone;
 
   List<Memory> get myMemories => _myMemories;
 
@@ -79,11 +70,11 @@ class UserModel with ChangeNotifier {
   /// 自分の投稿の一覧の取得
   void getMyMemories() async {
     if (_currentUser == null) return;
-    _myMemories = await _postRepository.getMyMemories(_currentUser.uid);
+    _myMemories = await _postRepository.getMyMemories(_currentUser!.uid);
     notifyListeners();
   }
 
-  /// 投稿した際に、
+  /// 投稿した際に、自分の思い出のリストに追加する。
   void addMyMemories(Memory memory) async {
     _myMemories.add(memory);
     notifyListeners();
@@ -93,9 +84,9 @@ class UserModel with ChangeNotifier {
   bool isEmailUser() {
     if (_currentUser == null) return false;
 
-    final UserInfo userInfo = _currentUser!.providerData.firstWhere(
+    // collection パッケージの firstWhereOrNullを使用。ある場合とない場合を区別したかったので。
+    final UserInfo? userInfo = _currentUser!.providerData.firstWhereOrNull(
       (UserInfo userInfo) => userInfo.providerId == "password",
-      orElse: null,
     );
     return userInfo != null;
   }
