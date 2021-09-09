@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import 'setting_view_model.dart';
 
 class SettingPage extends StatelessWidget {
-  const SettingPage({Key key}) : super(key: key);
+  const SettingPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

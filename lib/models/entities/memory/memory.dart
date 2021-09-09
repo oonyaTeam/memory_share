@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 /// サブエピソードの型です、APIで受け取ったサブエピソードなど、主に閲覧の方で使用します。
@@ -9,9 +8,9 @@ class Episode {
   final LatLng latLng;
 
   Episode({
-    @required this.id,
-    @required this.episode,
-    @required this.latLng,
+    required this.id,
+    required this.episode,
+    required this.latLng,
   });
 
   factory Episode.fromJson(Map<String, dynamic> json) {
@@ -40,12 +39,12 @@ class Memory {
   String author;
 
   Memory({
-    @required this.memory,
-    @required this.latLng,
-    @required this.seenAuthor,
-    @required this.episodes,
-    @required this.image,
-    @required this.author,
+    required this.memory,
+    required this.latLng,
+    required this.seenAuthor,
+    required this.episodes,
+    required this.image,
+    required this.author,
   });
 
   factory Memory.fromJson(Map<String, dynamic> json) {
@@ -76,5 +75,5 @@ class SubEpisode {
   LatLng latLng;
   String episode;
 
-  SubEpisode({@required this.latLng, @required this.episode});
+  SubEpisode({required this.latLng, required this.episode});
 }

@@ -5,7 +5,7 @@ import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 class UpdateMailAddressPage extends StatelessWidget {
-  const UpdateMailAddressPage({Key key}) : super(key: key);
+  const UpdateMailAddressPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +27,7 @@ class UpdateMailAddressPage extends StatelessWidget {
                 topText: "新しいメールアドレス",
                 onChanged: (String email) =>
                     updateMailAddressViewModel.changeNewEmail(email),
+                width: MediaQuery.of(context).size.width,
               ),
               const SizedBox(
                 height: 4,
@@ -36,6 +37,7 @@ class UpdateMailAddressPage extends StatelessWidget {
                 topText: "パスワード",
                 onChanged: (String password) =>
                     updateMailAddressViewModel.changePassword(password),
+                width: MediaQuery.of(context).size.width,
               ),
               const SizedBox(
                 height: 32,

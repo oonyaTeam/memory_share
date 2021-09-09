@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:memory_share/models/services/auth_service.dart';
 
 /// 認証に関する処理をまとめたRepository
@@ -33,8 +32,8 @@ class AuthRepository {
   }
 
   Future<void> updateEmail({
-    @required String newEmail,
-    @required String password,
+    required String newEmail,
+    required String password,
   }) async {
     await _authService.updateEmail(
       newEmail: newEmail,
@@ -43,8 +42,8 @@ class AuthRepository {
   }
 
   Future<void> updatePassword({
-    @required String newPassword,
-    @required String oldPassword,
+    required String newPassword,
+    required String oldPassword,
   }) async {
     await _authService.updatePassword(
       newPassword: newPassword,

@@ -25,7 +25,7 @@ class EpisodeViewModel with ChangeNotifier {
     _showDialogFlag = false;
 
     SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeLeft,//横固定
+      DeviceOrientation.landscapeLeft, //横固定
     ]);
 
     getCamera();
@@ -52,7 +52,7 @@ class EpisodeViewModel with ChangeNotifier {
 
       if (_angle >= 0.0 && _angle <= 360.0) {
         _showDialogFlag = true;
-      }else{
+      } else {
         _showDialogFlag = false;
       }
 
@@ -62,12 +62,12 @@ class EpisodeViewModel with ChangeNotifier {
 
   @override
   void dispose() {
-    _controller?.dispose();
-    _compassStream?.cancel();
+    _controller.dispose();
+    _compassStream.cancel();
     super.dispose();
 
     SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,//縦固定
+      DeviceOrientation.portraitUp, //縦固定
     ]);
   }
 }

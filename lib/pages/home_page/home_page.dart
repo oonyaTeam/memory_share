@@ -8,11 +8,11 @@ import 'package:provider/provider.dart';
 import 'home_view_model.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   void _showDetermineDestinationDialog({
-    @required BuildContext context,
-    @required HomeViewModel model,
+    required BuildContext context,
+    required HomeViewModel model,
   }) {
     showDialog(
       context: context,

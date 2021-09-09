@@ -10,7 +10,7 @@ import 'page/tutorial_2_page.dart';
 import 're_experience_tutorial_view_model.dart';
 
 class ReExperienceTutorialPage extends StatelessWidget {
-  const ReExperienceTutorialPage({Key key}) : super(key: key);
+  const ReExperienceTutorialPage({Key? key}) : super(key: key);
 
   Widget _getTutorialPage(
     int index,

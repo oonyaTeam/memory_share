@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'episode_view_model.dart';
 
 class EpisodeViewPage extends StatelessWidget {
-  const EpisodeViewPage({Key key}) : super(key: key);
+  const EpisodeViewPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 import 're_experience_view_model.dart';
 
 class ReExperiencePage extends StatelessWidget {
-  const ReExperiencePage({Key key, @required this.currentMemory})
+  const ReExperiencePage({Key? key, required this.currentMemory})
       : super(key: key);
 
   final Memory currentMemory;

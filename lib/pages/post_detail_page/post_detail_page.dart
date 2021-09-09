@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 import 'post_detail_view_model.dart';
 
 class PostDetailPage extends StatelessWidget {
-  const PostDetailPage(this.memory, {Key key}) : super(key: key);
+  const PostDetailPage(this.memory, {Key? key}) : super(key: key);
 
   final Memory memory;
 

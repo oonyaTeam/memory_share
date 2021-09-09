@@ -48,14 +48,14 @@ class UserModel with ChangeNotifier {
 
   StreamSubscription<User> _userStream;
 
-  User _currentUser;
+  User? _currentUser;
 
   bool _reExperienceTutorialDone;
   bool _postTutorialDone;
 
   List<Memory> _myMemories = [];
 
-  User get currentUser => _currentUser;
+  User? get currentUser => _currentUser;
 
   bool get reExperienceTutorialDone => _reExperienceTutorialDone;
 
@@ -91,11 +91,11 @@ class UserModel with ChangeNotifier {
 
   /// ユーザがEmail＆パスワードでの認証をしているユーザかどうかの判定
   bool isEmailUser() {
-    if (currentUser == null) return false;
+    if (_currentUser == null) return false;
 
-    final UserInfo userInfo = _currentUser.providerData.firstWhere(
+    final UserInfo userInfo = _currentUser!.providerData.firstWhere(
       (UserInfo userInfo) => userInfo.providerId == "password",
-      orElse: () => null,
+      orElse: null,
     );
     return userInfo != null;
   }

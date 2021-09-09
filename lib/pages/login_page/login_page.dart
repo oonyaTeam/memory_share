@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 import 'login_view_model.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({Key key}) : super(key: key);
+  const LoginPage({Key? key}) : super(key: key);
 
   /// 次の画面に遷移する。命名は後で変えるかも
   Future<void> _routeNextPage(BuildContext context) async {

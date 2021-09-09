@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
@@ -8,9 +7,9 @@ import 'package:memory_share/utils/utils.dart';
 /// 投稿に関する処理をまとめたService
 class PostService {
   Future<Memory> postMemory({
-    @required String mainEpisode,
-    @required List<Episode> subEpisodes,
-    @required String imageUrl,
+    required String mainEpisode,
+    required List<Episode> subEpisodes,
+    required String imageUrl,
   }) async {
     final currentPosition = await Geolocator.getCurrentPosition();
 

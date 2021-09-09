@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_config/flutter_config.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:twitter_login/entity/auth_result.dart';
@@ -39,11 +38,11 @@ class AuthService {
   /// Google, Twitterは、一度Google, Twitter自体のログインを行い、それが成功したら、
   /// アカウント登録の処理を行うという流れになっている。
   Future<User> loginWithGoogle() async {
-    GoogleSignInAccount signInAccount = await GoogleSignIn().signIn();
+    GoogleSignInAccount? signInAccount = await GoogleSignIn().signIn();
     if (signInAccount == null) throw Error();
 
     GoogleSignInAuthentication auth = await signInAccount.authentication;
-    final GoogleAuthCredential credential = GoogleAuthProvider.credential(
+    final OAuthCredential credential = GoogleAuthProvider.credential(
       idToken: auth.idToken,
       accessToken: auth.accessToken,
     );
@@ -101,8 +100,8 @@ class AuthService {
   /// Emailを更新するには再認証が必要なので、
   /// 一度を[_reAuthentication]を呼び出してから更新の処理を行っている。
   Future<void> updateEmail({
-    @required String newEmail,
-    @required String password,
+    required String newEmail,
+    required String password,
   }) async {
     final UserCredential userCredential = await _reAuthentication(password);
 
@@ -111,8 +110,8 @@ class AuthService {
 
   /// [updateEmail]と同様に、一度再認証を行ってから、更新処理を行っている。
   Future<void> updatePassword({
-    @required String newPassword,
-    @required String oldPassword,
+    required String newPassword,
+    required String oldPassword,
   }) async {
     final UserCredential userCredential = await _reAuthentication(oldPassword);
 
