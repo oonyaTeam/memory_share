@@ -24,15 +24,15 @@ class HomeViewModel with ChangeNotifier {
 
   final MapRepository _mapRepository = MapRepository();
 
-  Position _currentPosition;
+  Position? _currentPosition;
   int _distance = 0;
   final Completer<GoogleMapController> _homeMapController = Completer();
   final List<Memory> _memories = [];
-  Memory _currentMemory;
+  Memory? _currentMemory;
 
-  StreamSubscription<Position> _positionStream;
+  StreamSubscription<Position>? _positionStream;
 
-  Position get currentPosition => _currentPosition;
+  Position? get currentPosition => _currentPosition;
 
   int get distance => _distance;
 
@@ -40,7 +40,7 @@ class HomeViewModel with ChangeNotifier {
 
   List<Memory> get memories => _memories;
 
-  Memory get currentMemory => _currentMemory;
+  Memory? get currentMemory => _currentMemory;
 
   void setCurrentMemory(Memory memory) {
     _currentMemory = memory;
@@ -71,7 +71,7 @@ class HomeViewModel with ChangeNotifier {
   Future<void> setDistance() async {
     if (_currentPosition == null || _currentMemory == null) return;
 
-    _distance = await _mapRepository.getDistance(_currentMemory);
+    _distance = await _mapRepository.getDistance(_currentMemory!);
     notifyListeners();
   }
 
@@ -86,20 +86,18 @@ class HomeViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  changeMapMode(GoogleMapController controller){
-    getMapStyleJsonFile("assets/Light.json").then((res) => {
-      controller.setMapStyle(res)
-    });
+  changeMapMode(GoogleMapController controller) {
+    getMapStyleJsonFile("assets/Light.json")
+        .then((res) => {controller.setMapStyle(res)});
   }
 
   Future<String> getMapStyleJsonFile(String path) async {
     return await rootBundle.loadString(path);
   }
 
-
   @override
   void dispose() {
     super.dispose();
-    _positionStream.cancel();
+    _positionStream?.cancel();
   }
 }

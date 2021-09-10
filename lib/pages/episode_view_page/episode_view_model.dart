@@ -6,26 +6,24 @@ import 'package:flutter/services.dart';
 import 'package:flutter_compass/flutter_compass.dart';
 
 class EpisodeViewModel with ChangeNotifier {
-  List<CameraDescription> cameras;
-  Future<void> _initializeCameraController;
-  CameraController _controller;
-  StreamSubscription _compassStream;
-  bool _showDialogFlag;
-  double _angle;
+  List<CameraDescription> cameras = [];
+  Future<void>? _initializeCameraController;
+  CameraController? _controller;
+  StreamSubscription? _compassStream;
+  bool _showDialogFlag = false;
+  double _angle = 0;
 
-  CameraController get controller => _controller;
+  CameraController? get controller => _controller;
 
-  Future<void> get initializeCameraController => _initializeCameraController;
+  Future<void>? get initializeCameraController => _initializeCameraController;
 
   bool get showDialogFlag => _showDialogFlag;
 
   double get angle => _angle;
 
   EpisodeViewModel() {
-    _showDialogFlag = false;
-
     SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeLeft,//横固定
+      DeviceOrientation.landscapeLeft, //横固定
     ]);
 
     getCamera();
@@ -42,17 +40,19 @@ class EpisodeViewModel with ChangeNotifier {
       imageFormatGroup: ImageFormatGroup.yuv420,
     );
 
-    _initializeCameraController = _controller.initialize();
+    _initializeCameraController = _controller!.initialize();
     notifyListeners();
   }
 
   void getCompass() {
-    _compassStream = FlutterCompass.events.listen((value) {
-      _angle = value.heading;
+    _compassStream = FlutterCompass.events!.listen((value) {
+      if (value.heading == null) return;
+
+      _angle = value.heading!;
 
       if (_angle >= 0.0 && _angle <= 360.0) {
         _showDialogFlag = true;
-      }else{
+      } else {
         _showDialogFlag = false;
       }
 
@@ -67,7 +67,7 @@ class EpisodeViewModel with ChangeNotifier {
     super.dispose();
 
     SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,//縦固定
+      DeviceOrientation.portraitUp, //縦固定
     ]);
   }
 }

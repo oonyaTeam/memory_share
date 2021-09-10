@@ -3,10 +3,10 @@ import 'package:flutter_sliding_tutorial/flutter_sliding_tutorial.dart';
 
 class Tutorial2Page extends StatelessWidget {
   const Tutorial2Page({
-    this.page,
-    this.notifier,
-    this.onTap,
-    Key key,
+    required this.page,
+    required this.notifier,
+    required this.onTap,
+    Key? key,
   }) : super(key: key);
 
   final int page;

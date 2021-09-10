@@ -6,7 +6,7 @@ import 'package:memory_share/view_models/view_models.dart';
 import 'package:provider/provider.dart';
 
 class UserPage extends StatelessWidget {
-  const UserPage({Key key}) : super(key: key);
+  const UserPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

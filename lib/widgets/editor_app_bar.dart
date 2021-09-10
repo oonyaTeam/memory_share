@@ -3,10 +3,10 @@ import 'package:memory_share/widgets/widgets.dart';
 
 class EditorAppBar extends StatelessWidget with PreferredSizeWidget {
   const EditorAppBar({
-    Key key,
-    this.postLabel,
-    this.onCancel,
-    this.onPost,
+    Key? key,
+    required this.postLabel,
+    required this.onCancel,
+    required this.onPost,
   }) : super(key: key);
 
   final String postLabel;

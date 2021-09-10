@@ -7,32 +7,28 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:memory_share/models/models.dart';
 
 class ReExperienceViewModel with ChangeNotifier {
-  ReExperienceViewModel() {
-    _reExperienceMapController = Completer();
-
+  ReExperienceViewModel(this._currentMemory) {
     getPosition();
 
     _positionStream = Geolocator.getPositionStream(
       intervalDuration: const Duration(seconds: 5),
     ).listen((Position position) {
       _currentPosition = position;
-      if (_currentMemory != null) {
-        setDistance();
-      }
+      setDistance();
       notifyListeners();
     });
   }
 
   final MapRepository _mapRepository = MapRepository();
 
-  Position _currentPosition;
+  Position? _currentPosition;
   int _distance = 0;
-  Completer<GoogleMapController> _reExperienceMapController;
-  Memory _currentMemory;
+  final Completer<GoogleMapController> _reExperienceMapController = Completer();
+  final Memory _currentMemory;
 
-  StreamSubscription<Position> _positionStream;
+  StreamSubscription<Position>? _positionStream;
 
-  Position get currentPosition => _currentPosition;
+  Position? get currentPosition => _currentPosition;
 
   int get distance => _distance;
 
@@ -41,10 +37,6 @@ class ReExperienceViewModel with ChangeNotifier {
 
   Memory get currentMemory => _currentMemory;
 
-  void setCurrentMemory(Memory memory) {
-    _currentMemory = memory;
-  }
-
   void getPosition() async {
     Position currentPosition = await Geolocator.getCurrentPosition();
     _currentPosition = currentPosition;
@@ -52,7 +44,7 @@ class ReExperienceViewModel with ChangeNotifier {
   }
 
   Future<void> setDistance() async {
-    if (_currentPosition == null || _currentMemory == null) return;
+    if (_currentPosition == null) return;
 
     _distance = await _mapRepository.getDistance(_currentMemory);
     notifyListeners();
@@ -64,9 +56,8 @@ class ReExperienceViewModel with ChangeNotifier {
   }
 
   changeMapMode(GoogleMapController controller) {
-    getMapStyleJsonFile("assets/Light.json").then((res) =>
-      controller.setMapStyle(res)
-    );
+    getMapStyleJsonFile("assets/Light.json")
+        .then((res) => controller.setMapStyle(res));
   }
 
   Future<String> getMapStyleJsonFile(String path) async {
@@ -76,15 +67,15 @@ class ReExperienceViewModel with ChangeNotifier {
   // メインエピソードと自分の位置の中間をカメラ位置に設定してる。
   LatLng getCameraPosition() {
     final latitude =
-        (_currentPosition.latitude + _currentMemory.latLng.latitude) / 2;
+        (_currentPosition!.latitude + _currentMemory.latLng.latitude) / 2;
     final longitude =
-        (_currentPosition.longitude + _currentMemory.latLng.longitude) / 2;
+        (_currentPosition!.longitude + _currentMemory.latLng.longitude) / 2;
     return LatLng(latitude, longitude);
   }
 
   @override
   void dispose() {
     super.dispose();
-    _positionStream.cancel();
+    _positionStream?.cancel();
   }
 }

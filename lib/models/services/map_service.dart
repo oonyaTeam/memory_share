@@ -13,7 +13,6 @@ class MapService {
   ///　現在の位置と目的地との距離を返す
   Future<int> getDistance(Memory memory) async {
     final Position currentPosition = await Geolocator.getCurrentPosition();
-    if (currentPosition == null || memory == null) throw Error();
 
     final int distance = Geolocator.distanceBetween(
       currentPosition.latitude,

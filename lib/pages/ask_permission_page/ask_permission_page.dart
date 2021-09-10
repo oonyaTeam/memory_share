@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'ask_permission_view_model.dart';
 
 class AskPermissionPage extends StatelessWidget {
-  const AskPermissionPage({Key key}) : super(key: key);
+  const AskPermissionPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -5,7 +5,7 @@ import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 class PostPage extends StatelessWidget {
-  const PostPage({Key key}) : super(key: key);
+  const PostPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,26 +19,26 @@ class PostPage extends StatelessWidget {
             context.read<UserModel>().addMyMemories(memory);
             showCustomToast(context, '投稿しました', true);
             Navigator.of(context).popUntil((route) => route.isFirst);
-          }).catchError(
-            (e) => {showCustomToast(context, '投稿に失敗しました', false)},
-          );
+          }).catchError((e) {
+            showCustomToast(context, '投稿に失敗しました', false);
+          });
         },
         onCancel: () => showDialog(
-            context: context,
-            builder: (BuildContext context){
-              return CustomDialogBox(
-                wid: MediaQuery.of(context).size.width,
-                descriptions1: "写真とエピソードが\n削除されますが\nよろしいですか？",
-                tapEvent1: (){
-                  Navigator.pop(context);
-                  Navigator.pop(context);
-                },
-                tapEvent2: (){
-                  Navigator.pop(context);
-                },
-              );
-            }
-        )
+          context: context,
+          builder: (BuildContext context) {
+            return CustomDialogBox(
+              wid: MediaQuery.of(context).size.width,
+              descriptions1: "写真とエピソードが\n削除されますが\nよろしいですか？",
+              tapEvent1: () {
+                Navigator.pop(context);
+                Navigator.pop(context);
+              },
+              tapEvent2: () {
+                Navigator.pop(context);
+              },
+            );
+          },
+        ),
       ),
       body: Stack(
         children: [
@@ -53,7 +53,7 @@ class PostPage extends StatelessWidget {
                   shape: BoxShape.rectangle,
                   image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: FileImage(postViewModel.photo),
+                    image: FileImage(postViewModel.photo!),
                   ),
                 ),
               ),

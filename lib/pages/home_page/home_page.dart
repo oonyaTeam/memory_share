@@ -8,11 +8,11 @@ import 'package:provider/provider.dart';
 import 'home_view_model.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   void _showDetermineDestinationDialog({
-    @required BuildContext context,
-    @required HomeViewModel model,
+    required BuildContext context,
+    required HomeViewModel model,
   }) {
     showDialog(
       context: context,
@@ -39,8 +39,8 @@ class HomePage extends StatelessWidget {
                       mapType: MapType.normal,
                       initialCameraPosition: CameraPosition(
                         target: LatLng(
-                          homeViewModel.currentPosition?.latitude,
-                          homeViewModel.currentPosition?.longitude,
+                          homeViewModel.currentPosition!.latitude,
+                          homeViewModel.currentPosition!.longitude,
                         ),
                         zoom: 15.0,
                       ),

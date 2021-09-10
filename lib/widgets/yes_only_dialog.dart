@@ -1,25 +1,22 @@
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:memory_share/theme.dart';
 import 'package:memory_share/widgets/widgets.dart';
 
-class YesDialogBox extends StatefulWidget {
-  final String descriptions1;
-  final double wid;
-  final Function() tapEvent1;
+class YesDialogBox extends StatelessWidget {
   const YesDialogBox({
-    Key key,
-    this.descriptions1,
-    this.wid,
-    this.tapEvent1,
+    Key? key,
+    required this.descriptions1,
+    required this.wid,
+    required this.tapEvent1,
   }) : super(key: key);
 
-  @override
-  _YesDialogBoxState createState() => _YesDialogBoxState();
-}
+  final String descriptions1;
+  final double wid;
+  final void Function() tapEvent1;
 
-class _YesDialogBoxState extends State<YesDialogBox> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -37,7 +34,7 @@ class _YesDialogBoxState extends State<YesDialogBox> {
       alignment: AlignmentDirectional.center,
       children: <Widget>[
         Container(
-          width: widget.wid - 48, //dialogの横幅
+          width: wid - 48, //dialogの横幅
           margin: const EdgeInsets.only(top: Constants.avatarRadius),
           decoration: BoxDecoration(
             shape: BoxShape.rectangle,
@@ -66,10 +63,10 @@ class _YesDialogBoxState extends State<YesDialogBox> {
                 ),
               ),
               Container(
-                width: (widget.wid - 48) * 0.9,
+                width: (wid - 48) * 0.9,
                 margin: const EdgeInsets.only(bottom: 48, top: 64),
                 child: Text(
-                  widget.descriptions1,
+                  descriptions1,
                   style: const TextStyle(
                     fontSize: 24,
                   ),
@@ -81,7 +78,7 @@ class _YesDialogBoxState extends State<YesDialogBox> {
                 children: [
                   Container(
                     height: 64,
-                    width: (widget.wid - 48) * 0.9,
+                    width: (wid - 48) * 0.9,
                     decoration: const BoxDecoration(
                       border: Border(
                         top: BorderSide(
@@ -91,9 +88,7 @@ class _YesDialogBoxState extends State<YesDialogBox> {
                       ),
                     ),
                     child: TextButton(
-                      onPressed: () {
-                        widget.tapEvent1();
-                      },
+                      onPressed: () => tapEvent1(),
                       child: const Text(
                         "はい",
                         style: TextStyle(

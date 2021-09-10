@@ -10,7 +10,7 @@ import '../../theme.dart';
 import 'sign_up_view_model.dart';
 
 class SignUpPage extends StatelessWidget {
-  const SignUpPage({Key key}) : super(key: key);
+  const SignUpPage({Key? key}) : super(key: key);
 
   void _onSubmitSignUp(BuildContext context, SignUpViewModel model) async {
     await model.signUpWithEmailAndPassword();
@@ -23,7 +23,7 @@ class SignUpPage extends StatelessWidget {
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
         builder: (context) {
-          if (!context.read<UserModel>().reExperienceTutorialDone) {
+          if (!context.read<UserModel>().reExperienceTutorialDone!) {
             return const ReExperienceTutorialPage();
           }
           if (permission) {

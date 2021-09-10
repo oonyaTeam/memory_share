@@ -5,7 +5,7 @@ import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 class UpdatePasswordPage extends StatelessWidget {
-  const UpdatePasswordPage({Key key}) : super(key: key);
+  const UpdatePasswordPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +27,7 @@ class UpdatePasswordPage extends StatelessWidget {
                 topText: "現在のパスワード",
                 onChanged: (String password) =>
                     updatePasswordViewModel.changeOldPassword(password),
+                width: MediaQuery.of(context).size.width,
               ),
               const SizedBox(
                 height: 4,
@@ -36,6 +37,7 @@ class UpdatePasswordPage extends StatelessWidget {
                 topText: "新しいパスワード",
                 onChanged: (String password) =>
                     updatePasswordViewModel.changeNewPassword(password),
+                width: MediaQuery.of(context).size.width,
               ),
               const SizedBox(
                 height: 4,
@@ -45,6 +47,7 @@ class UpdatePasswordPage extends StatelessWidget {
                 topText: "新しいパスワード（確認）",
                 onChanged: (String password) => updatePasswordViewModel
                     .changeNewPasswordForConfirmation(password),
+                width: MediaQuery.of(context).size.width,
               ),
               const SizedBox(
                 height: 32,

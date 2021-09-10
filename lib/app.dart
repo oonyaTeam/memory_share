@@ -5,7 +5,7 @@ import 'package:memory_share/view_models/view_models.dart';
 import 'package:provider/provider.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   static const MaterialColor primary = MaterialColor(
     0xFFF67280,
@@ -46,26 +46,34 @@ class MyApp extends StatelessWidget {
               return const MaterialApp(
                 home: Splash(),
               );
-            } else {
-              return MaterialApp(
-                title: 'Flutter Demo',
-                theme: ThemeData(
-                  primarySwatch: primary,
-                  textTheme: GoogleFonts.notoSansTextTheme(
-                      Theme.of(context).textTheme),
+            }
+
+            if (!snapshot.hasData) {
+              return const MaterialApp(
+                home: Scaffold(
+                  body: Text("snapshot don't has Data"),
                 ),
-                color: Colors.white,
-                // ログインしていない（currentUserがnull）ならLoginPageに遷移。
-                //　`reExperienceTutorialDone == null` は、[UserModel]でコンストラクタ内の非同期処理が完了するのを待っています。
-                home: context.read<UserModel>().currentUser != null
-                    ? context.read<UserModel>().reExperienceTutorialDone
-                        ? snapshot.data // 位置情報の権限が許可されているかどうか
-                            ? const HomePage()
-                            : const AskPermissionPage()
-                        : const ReExperienceTutorialPage()
-                    : const LoginPage(),
               );
             }
+
+            return MaterialApp(
+              title: 'Flutter Demo',
+              theme: ThemeData(
+                primarySwatch: primary,
+                textTheme:
+                    GoogleFonts.notoSansTextTheme(Theme.of(context).textTheme),
+              ),
+              color: Colors.white,
+              // ログインしていない（currentUserがnull）ならLoginPageに遷移。
+              //　`reExperienceTutorialDone == null` は、[UserModel]でコンストラクタ内の非同期処理が完了するのを待っています。
+              home: context.read<UserModel>().currentUser != null
+                  ? context.read<UserModel>().reExperienceTutorialDone!
+                      ? snapshot.data! // 位置情報の権限が許可されているかどうか
+                          ? const HomePage()
+                          : const AskPermissionPage()
+                      : const ReExperienceTutorialPage()
+                  : const LoginPage(),
+            );
           },
         ),
       ),
@@ -74,7 +82,7 @@ class MyApp extends StatelessWidget {
 }
 
 class Splash extends StatelessWidget {
-  const Splash({Key key}) : super(key: key);
+  const Splash({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

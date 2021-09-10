@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:memory_share/models/models.dart';
@@ -11,7 +10,7 @@ import 'package:provider/provider.dart';
 import 'login_view_model.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({Key key}) : super(key: key);
+  const LoginPage({Key? key}) : super(key: key);
 
   /// 次の画面に遷移する。命名は後で変えるかも
   Future<void> _routeNextPage(BuildContext context) async {
@@ -19,7 +18,7 @@ class LoginPage extends StatelessWidget {
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
         builder: (context) {
-          if (!context.read<UserModel>().reExperienceTutorialDone) {
+          if (!context.read<UserModel>().reExperienceTutorialDone!) {
             return const ReExperienceTutorialPage();
           }
           if (permission) {
