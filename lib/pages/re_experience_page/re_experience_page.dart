@@ -9,18 +9,19 @@ import 'package:provider/provider.dart';
 import 're_experience_view_model.dart';
 
 class ReExperiencePage extends StatelessWidget {
-  const ReExperiencePage({Key? key, required this.currentMemory})
-      : super(key: key);
+  const ReExperiencePage({
+    Key? key,
+    required this.currentMemory,
+  }) : super(key: key);
 
   final Memory currentMemory;
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => ReExperienceViewModel(),
+      create: (_) => ReExperienceViewModel(currentMemory),
       child: Consumer<ReExperienceViewModel>(
         builder: (context, reExperienceViewModel, _) {
-          reExperienceViewModel.setCurrentMemory(currentMemory);
           return Scaffold(
             body: reExperienceViewModel.currentPosition == null
                 ? const Center(
@@ -44,17 +45,17 @@ class ReExperiencePage extends StatelessWidget {
                           markers: {
                             Marker(
                               markerId: MarkerId(reExperienceViewModel
-                                  .currentMemory!.latLng
+                                  .currentMemory.latLng
                                   .toString()),
                               position:
-                                  reExperienceViewModel.currentMemory!.latLng,
+                                  reExperienceViewModel.currentMemory.latLng,
                               infoWindow: const InfoWindow(
                                 title: "目的地",
                                 snippet: 'text',
                               ),
                               onTap: () {},
                             ),
-                            ...reExperienceViewModel.currentMemory!.episodes
+                            ...reExperienceViewModel.currentMemory.episodes
                                 .map((episode) => Marker(
                                       markerId: MarkerId(episode.id),
                                       position: episode.latLng,
@@ -114,7 +115,7 @@ class ReExperiencePage extends StatelessWidget {
                                 padding: const EdgeInsets.only(top: 20),
                                 child: ImageFiltered(
                                   child: Image.network(reExperienceViewModel
-                                      .currentMemory!.image),
+                                      .currentMemory.image),
                                   imageFilter: ImageFilter.blur(
                                     sigmaX:
                                         reExperienceViewModel.distance / 100,

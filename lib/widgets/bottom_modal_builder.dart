@@ -32,7 +32,7 @@ Widget bottomModalBuilder({
           child: Padding(
             padding: const EdgeInsets.only(top: 20),
             child: ImageFiltered(
-              child: Image.network(model.currentMemory!.image),
+              child: Image.network(model.currentMemory.image),
               imageFilter: ImageFilter.blur(
                 sigmaX: model.distance / 100,
                 sigmaY: model.distance / 100,
