@@ -17,6 +17,17 @@ class SignUpPage extends StatelessWidget {
     await _routeNextPage(context);
   }
 
+  void _onSubmitGoogleLogin(BuildContext context, SignUpViewModel model) async {
+    await model.loginWithGoogle();
+    await _routeNextPage(context);
+  }
+
+  void _onSubmitTwitterLogin(
+      BuildContext context, SignUpViewModel model) async {
+    await model.loginWithTwitter();
+    await _routeNextPage(context);
+  }
+
   /// 次の画面に遷移する。命名は後で変えるかも
   Future<void> _routeNextPage(BuildContext context) async {
     final bool permission = await context.read<UserModel>().checkPermission();
@@ -43,112 +54,143 @@ class SignUpPage extends StatelessWidget {
       child: Consumer<SignUpViewModel>(
         builder: (context, signUpViewModel, _) => Scaffold(
           backgroundColor: CustomColors.primary,
-          body: Column(
-            children: [
-              // sign upをラップ
-              Container(
-                alignment: Alignment.topLeft,
-                // 480が白いところのheight, 36はSign upのtextのheight
-                margin: EdgeInsets.only(
-                  top: (MediaQuery.of(context).size.height - 480 - 36) / 2,
-                  left: 24,
-                  bottom: (MediaQuery.of(context).size.height - 480 - 36) / 2,
-                ),
-                child: Text(
-                  "Sign up",
-                  style: GoogleFonts.montserrat(
-                    fontSize: 36,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    height: 1.0,
-                  ),
-                ),
-              ),
-              // そっから下のところ全部をラップ(白いところ)
-              Container(
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(16),
-                    topRight: Radius.circular(16),
-                  ),
-                ),
-                child: Column(
-                  children: [
-                    // margin取るためにラップ email
-                    Container(
-                      child: EmailPasswordBox(
-                        iconData: Icons.email_outlined,
-                        topText: "Email",
-                        onChanged: signUpViewModel.changeEmail,
-                        width: MediaQuery.of(context).size.width,
-                      ),
-                      margin: const EdgeInsets.only(top: 24),
+          body: SingleChildScrollView(
+            child: Center(
+              child: Column(
+                children: [
+                  // sign upをラップ
+                  Container(
+                    alignment: Alignment.topLeft,
+                    // 480が白いところのheight, 36はSign upのtextのheight
+                    margin: EdgeInsets.only(
+                      top: (MediaQuery.of(context).size.height - 480 - 36) / 2,
+                      left: 24,
+                      bottom:
+                          (MediaQuery.of(context).size.height - 480 - 36) / 2,
                     ),
-                    // margin取るためにラップ password
-                    Container(
-                      child: EmailPasswordBox(
-                        iconData: Icons.https_outlined,
-                        topText: "Password",
-                        onChanged: signUpViewModel.changePassword,
-                        width: MediaQuery.of(context).size.width,
-                      ),
-                      margin: const EdgeInsets.only(top: 16),
-                    ),
-                    // margin取るためにラップ sign inボタン
-                    Container(
-                      child: signInUpButton(
-                        "Sign Up",
-                        () => _onSubmitSignUp(context, signUpViewModel),
-                        MediaQuery.of(context).size.width,
-                      ),
-                      margin: const EdgeInsets.only(top: 32, bottom: 32),
-                    ),
-                    const Text(
-                      "または",
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: CustomColors.deep,
+                    child: Text(
+                      "Sign up",
+                      style: GoogleFonts.montserrat(
+                        fontSize: 36,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
                         height: 1.0,
                       ),
                     ),
-                    // 横並びするためにラップ
-                    Container(
-                      margin: const EdgeInsets.only(top: 32, bottom: 16),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                            "アカウントを持っていない？",
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: CustomColors.deep,
-                              height: 1.0,
-                            ),
-                          ),
-                          TextButton(
-                            onPressed: () =>
-                                Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                builder: (context) => const LoginPage(),
-                              ),
-                            ),
-                            child: const Text(
-                              "SignUp",
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: CustomColors.primary,
-                                height: 1.0,
-                              ),
-                            ),
-                          ),
-                        ],
+                  ),
+                  // そっから下のところ全部をラップ(白いところ)
+                  Container(
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(16),
+                        topRight: Radius.circular(16),
                       ),
                     ),
-                  ],
-                ),
+                    child: Column(
+                      children: [
+                        // margin取るためにラップ email
+                        Container(
+                          child: EmailPasswordBox(
+                            iconData: Icons.email_outlined,
+                            topText: "Email",
+                            onChanged: signUpViewModel.changeEmail,
+                            width: MediaQuery.of(context).size.width,
+                          ),
+                          margin: const EdgeInsets.only(top: 24),
+                        ),
+                        // margin取るためにラップ password
+                        Container(
+                          child: EmailPasswordBox(
+                            iconData: Icons.https_outlined,
+                            topText: "Password",
+                            onChanged: signUpViewModel.changePassword,
+                            width: MediaQuery.of(context).size.width,
+                          ),
+                          margin: const EdgeInsets.only(top: 16),
+                        ),
+                        // margin取るためにラップ sign inボタン
+                        Container(
+                          child: signInUpButton(
+                            "Sign Up",
+                            () => _onSubmitSignUp(context, signUpViewModel),
+                            MediaQuery.of(context).size.width,
+                          ),
+                          margin: const EdgeInsets.only(top: 32, bottom: 32),
+                        ),
+                        const Text(
+                          "または",
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: CustomColors.deep,
+                            height: 1.0,
+                          ),
+                        ),
+                        // twitter,googleのボタンを横並びさせるためにラップ
+                        Container(
+                          margin: const EdgeInsets.only(top: 16),
+                          width: MediaQuery.of(context).size.width - 48,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              googleTwitterButton(
+                                'Sign  in  with\n     Google',
+                                () => _onSubmitGoogleLogin(
+                                    context, signUpViewModel),
+                                CustomColors.googleRed,
+                                'assets/google.svg',
+                                MediaQuery.of(context).size.width,
+                              ),
+                              googleTwitterButton(
+                                'Sign  in  with\n     Twitter',
+                                () => _onSubmitTwitterLogin(
+                                    context, signUpViewModel),
+                                CustomColors.twitterBlue,
+                                'assets/twitter.svg',
+                                MediaQuery.of(context).size.width,
+                              ),
+                            ],
+                          ),
+                        ),
+                        // 横並びするためにラップ
+                        Container(
+                          margin: const EdgeInsets.only(top: 32, bottom: 16),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                "アカウントを持っていない？",
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: CustomColors.deep,
+                                  height: 1.0,
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                    builder: (context) => const LoginPage(),
+                                  ),
+                                ),
+                                child: const Text(
+                                  "SignUp",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: CustomColors.primary,
+                                    height: 1.0,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),
