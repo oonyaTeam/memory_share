@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:memory_share/theme.dart';
+import 'package:memory_share/utils/utils.dart';
 
 class EmailPasswordBox extends StatelessWidget {
   const EmailPasswordBox({
@@ -46,7 +47,7 @@ class EmailPasswordBox extends StatelessWidget {
           width: width - 48,
           height: 70,
           child: Form(
-            autovalidateMode: AutovalidateMode.always,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             child: TextFormField(
               decoration: InputDecoration(
                 prefixIcon: Icon(iconData, color: CustomColors.primary),
@@ -60,10 +61,7 @@ class EmailPasswordBox extends StatelessWidget {
                     Color.alphaBlend(CustomColors.primaryPale, Colors.white),
               ),
               validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'テキストを入力してください。';
-                }
-                return null;
+                return Validator.validate(kind: iconData, value: value);
               },
               obscureText: obscureTextFlag,
               onChanged: (text) => onChanged(text),
