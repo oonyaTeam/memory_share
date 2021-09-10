@@ -54,8 +54,12 @@ class MapRepository {
     return [...sampleMemories, ...memories];
   }
 
-  Future<int> getDistance(Memory memory) async {
-    final int distance = await _mapService.getDistance(memory);
+  ///　現在の位置と目的地との距離を返す
+  int getDistance(LatLng startLatLng, LatLng endLatLng) {
+    final int distance = _mapService.getDistance(
+      startLatLng,
+      endLatLng,
+    );
     return distance;
   }
 }

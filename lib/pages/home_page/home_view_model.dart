@@ -68,10 +68,13 @@ class HomeViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> setDistance() async {
+  void setDistance() {
     if (_currentPosition == null || _currentMemory == null) return;
 
-    _distance = await _mapRepository.getDistance(_currentMemory!);
+    _distance = _mapRepository.getDistance(
+      _currentMemory!.latLng,
+      LatLng(_currentPosition!.latitude, _currentPosition!.longitude),
+    );
     notifyListeners();
   }
 

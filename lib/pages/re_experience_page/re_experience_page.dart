@@ -19,7 +19,7 @@ class ReExperiencePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => ReExperienceViewModel(currentMemory),
+      create: (_) => ReExperienceViewModel(currentMemory, context),
       child: Consumer<ReExperienceViewModel>(
         builder: (context, reExperienceViewModel, _) {
           return Scaffold(
