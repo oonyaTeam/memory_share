@@ -17,63 +17,69 @@ class UpdateMailAddressPage extends StatelessWidget {
             centerTitle: true,
             title: const Text("メールアドレスの変更"),
           ),
-          body: Column(
-            children: [
-              const SizedBox(
-                height: 24,
-              ),
-              EmailPasswordBox(
-                iconData: Icons.email_outlined,
-                topText: "新しいメールアドレス",
-                onChanged: (String email) =>
-                    updateMailAddressViewModel.changeNewEmail(email),
-                width: MediaQuery.of(context).size.width,
-              ),
-              const SizedBox(
-                height: 4,
-              ),
-              EmailPasswordBox(
-                iconData: Icons.https_outlined,
-                topText: "パスワード",
-                onChanged: (String password) =>
-                    updateMailAddressViewModel.changePassword(password),
-                width: MediaQuery.of(context).size.width,
-              ),
-              const SizedBox(
-                height: 32,
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 15),
-                child: signInUpButton(
-                  '変更する',
-                  () async {
-                    await updateMailAddressViewModel.updateEmail().then((_) {
-                      showCustomToast(context, 'メールアドレスを変更しました', true);
-                      Navigator.pop(context);
-                    }).catchError((e) {
-                      showCustomToast(context, 'メールアドレスの更新に失敗しました', false);
-                    });
-                  },
-                  MediaQuery.of(context).size.width,
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return CustomDialogBox(
-                        descriptions1: "目的地の周辺です。\nカメラに切り替えます。",
-                        wid: MediaQuery.of(context).size.width,
-                        tapEvent1: () {},
-                        tapEvent2: () {},
+          body: SingleChildScrollView(
+            child: Center(
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 24,
+                  ),
+                  EmailPasswordBox(
+                    iconData: Icons.email_outlined,
+                    topText: "新しいメールアドレス",
+                    onChanged: (String email) =>
+                        updateMailAddressViewModel.changeNewEmail(email),
+                    width: MediaQuery.of(context).size.width,
+                  ),
+                  const SizedBox(
+                    height: 4,
+                  ),
+                  EmailPasswordBox(
+                    iconData: Icons.https_outlined,
+                    topText: "パスワード",
+                    onChanged: (String password) =>
+                        updateMailAddressViewModel.changePassword(password),
+                    width: MediaQuery.of(context).size.width,
+                  ),
+                  const SizedBox(
+                    height: 32,
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 15),
+                    child: signInUpButton(
+                      '変更する',
+                      () async {
+                        await updateMailAddressViewModel
+                            .updateEmail()
+                            .then((_) {
+                          showCustomToast(context, 'メールアドレスを変更しました', true);
+                          Navigator.pop(context);
+                        }).catchError((e) {
+                          showCustomToast(context, 'メールアドレスの更新に失敗しました', false);
+                        });
+                      },
+                      MediaQuery.of(context).size.width,
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return CustomDialogBox(
+                            descriptions1: "目的地の周辺です。\nカメラに切り替えます。",
+                            wid: MediaQuery.of(context).size.width,
+                            tapEvent1: () {},
+                            tapEvent2: () {},
+                          );
+                        },
                       );
                     },
-                  );
-                },
-                child: const Text("Custom Dialog"),
+                    child: const Text("Custom Dialog"),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),
