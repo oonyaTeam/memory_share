@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:memory_share/pages/pages.dart';
 import 'package:memory_share/theme.dart';
 import 'package:memory_share/view_models/view_models.dart';
+import 'package:memory_share/widgets/show_subepisode.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -148,16 +149,6 @@ class SubEpisodePage extends StatelessWidget {
                       );
                     },
                   ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                margin: const EdgeInsets.only(bottom: 89),
-                child: longButton(
-                  "エピソードを追加する",
-                  () => onTapAddButton(context),
-                ),
-              ),
-            ),
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
