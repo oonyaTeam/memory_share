@@ -29,14 +29,17 @@ class ReExperienceViewModel with ChangeNotifier {
   }
 
   final MapRepository _mapRepository = MapRepository();
+  final BuildContext _context;
+
+  // サブエピソードを見ることができる距離の定数値
+  static const distancePossibleViewSubEpisodeDialog = 100;
 
   Position? _currentPosition;
   int _distance = 0;
   final Completer<GoogleMapController> _reExperienceMapController = Completer();
   final Memory _currentMemory;
-  late List<SubEpisode> _subEpisodeList = [];
-
-  final BuildContext _context;
+  List<SubEpisode> _subEpisodeList = [];
+  bool _shouldViewingDialog = false;
 
   StreamSubscription<Position>? _positionStream;
 
@@ -50,6 +53,8 @@ class ReExperienceViewModel with ChangeNotifier {
   Memory get currentMemory => _currentMemory;
 
   List<SubEpisode> get subEpisodeList => _subEpisodeList;
+
+  bool get shouldViewingDialog => _shouldViewingDialog;
 
   void getPosition() async {
     final Position currentPosition = await Geolocator.getCurrentPosition();
@@ -77,9 +82,11 @@ class ReExperienceViewModel with ChangeNotifier {
 
   void checkDistance() {
     for (SubEpisode subEpisode in _subEpisodeList) {
-      if (!subEpisode.isViewed && subEpisode.distance <= 100) {
+      if (!subEpisode.isViewed &&
+          subEpisode.distance <= distancePossibleViewSubEpisodeDialog &&
+          !_shouldViewingDialog) {
         viewSubEpisode(subEpisode.id);
-        showSubEpisodeDialog();
+        showSubEpisodeDialog(subEpisode.episode);
       }
     }
   }
@@ -98,7 +105,7 @@ class ReExperienceViewModel with ChangeNotifier {
     return await rootBundle.loadString(path);
   }
 
-  // メインエピソードと自分の位置の中間をカメラ位置に設定してる。
+  /// メインエピソードと自分の位置の中間をカメラ位置に設定してる。
   LatLng getCameraPosition() {
     final latitude =
         (_currentPosition!.latitude + _currentMemory.latLng.latitude) / 2;
@@ -107,15 +114,21 @@ class ReExperienceViewModel with ChangeNotifier {
     return LatLng(latitude, longitude);
   }
 
-  void showSubEpisodeDialog() {
+  /// サブエピソードのダイアログを表示する関数
+  void showSubEpisodeDialog(String episode) {
+    _shouldViewingDialog = true;
     showDialog(
       context: _context,
-      builder: (_) => const AlertDialog(
-        title: Text('サブエピソード'),
+      builder: (_) => AlertDialog(
+        title: Text(episode),
       ),
-    );
+    ).then((_) {
+      // ダイアログが閉じたら、ダイアログを見ているかどうかを保持するbool値を変更。
+      _shouldViewingDialog = false;
+    });
   }
 
+  /// サブエピソードを閲覧したときに、その閲覧したという値を変更する関数
   void viewSubEpisode(String id) {
     final int index =
         _subEpisodeList.indexWhere((subEpisode) => subEpisode.id == id);
@@ -130,6 +143,7 @@ class ReExperienceViewModel with ChangeNotifier {
   }
 }
 
+/// [ReExperiencePage]において、サブエピソードに関するデータを持つためのクラス
 class SubEpisode {
   SubEpisode({
     required this.id,

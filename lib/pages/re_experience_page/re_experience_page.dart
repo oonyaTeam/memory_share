@@ -39,8 +39,8 @@ class ReExperiencePage extends StatelessWidget {
                           ),
                           onMapCreated: (GoogleMapController controller) {
                             reExperienceViewModel
-                                .setReExperienceMapController(controller);
-                            reExperienceViewModel.changeMapMode(controller);
+                              ..setReExperienceMapController(controller)
+                              ..changeMapMode(controller);
                           },
                           markers: {
                             Marker(
