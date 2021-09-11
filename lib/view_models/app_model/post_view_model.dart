@@ -11,13 +11,13 @@ class PostViewModel with ChangeNotifier {
   final PostRepository _postRepository = PostRepository();
 
   // 撮影した写真
-  File _photo;
+  File? _photo;
   // サブエピソードのリスト
   final List<SubEpisode> _subEpisodeList = [];
   // メインのエピソード
   String _mainEpisode = "";
 
-  File get photo => _photo;
+  File? get photo => _photo;
 
   List<SubEpisode> get subEpisodeList => _subEpisodeList;
 
@@ -54,10 +54,12 @@ class PostViewModel with ChangeNotifier {
 
   /// [PostRepository]のpostMemoryを呼び出して、入力したデータを投稿する。
   Future<Memory> postMemory() async {
+    if (_photo == null) throw Error();
+
     final newMemory = await _postRepository.postMemory(
       mainEpisode: _mainEpisode,
       subEpisodeList: _subEpisodeList,
-      photo: _photo,
+      photo: _photo!,
     );
     return newMemory;
   }

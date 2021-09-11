@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:memory_share/models/entities/entities.dart';
@@ -10,18 +9,19 @@ import 'package:provider/provider.dart';
 import 're_experience_view_model.dart';
 
 class ReExperiencePage extends StatelessWidget {
-  const ReExperiencePage({Key key, @required this.currentMemory})
-      : super(key: key);
+  const ReExperiencePage({
+    Key? key,
+    required this.currentMemory,
+  }) : super(key: key);
 
   final Memory currentMemory;
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => ReExperienceViewModel(),
+      create: (_) => ReExperienceViewModel(currentMemory),
       child: Consumer<ReExperienceViewModel>(
         builder: (context, reExperienceViewModel, _) {
-          reExperienceViewModel.setCurrentMemory(currentMemory);
           return Scaffold(
             body: reExperienceViewModel.currentPosition == null
                 ? const Center(

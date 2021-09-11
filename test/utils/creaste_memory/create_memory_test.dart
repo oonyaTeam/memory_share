@@ -11,28 +11,25 @@ import 'create_memory_test.mocks.dart';
 
 @GenerateMocks([http.Client])
 void main() {
-  Memory sampleMemory;
+  final Memory sampleMemory = Memory(
+    memory: "this is sample main episode",
+    latLng: const LatLng(34.8532, 136.5822),
+    seenAuthor: ["author1"],
+    episodes: [
+      Episode(
+        id: "episodeId1",
+        episode: "This is sample sub episode",
+        latLng: const LatLng(34.8528, 136.5817),
+      ),
+    ],
+    image: "https://pbs.twimg.com/media/E6CYtu1VcAIjMvY?format=jpg&name=large",
+    author: "author1",
+  );
 
   const apiEndpoint = 'http://example.com/'; // サンプルエンドポイント
   FlutterConfig.loadValueForTesting({'API_ENDPOINT': apiEndpoint});
 
-  setUp(() {
-    sampleMemory = Memory(
-      memory: "this is sample main episode",
-      latLng: const LatLng(34.8532, 136.5822),
-      seenAuthor: ["author1"],
-      episodes: [
-        Episode(
-          id: "episodeId1",
-          episode: "This is sample sub episode",
-          latLng: const LatLng(34.8528, 136.5817),
-        ),
-      ],
-      image:
-          "https://pbs.twimg.com/media/E6CYtu1VcAIjMvY?format=jpg&name=large",
-      author: "author1",
-    );
-  });
+  setUp(() {});
 
   group("createMemory testing", () {
     test("create sample Memory", () async {

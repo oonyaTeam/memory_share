@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'add_sub_episode_view_model.dart';
 
 class AddSubEpisodePage extends StatelessWidget {
-  const AddSubEpisodePage({Key key}) : super(key: key);
+  const AddSubEpisodePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,20 +24,20 @@ class AddSubEpisodePage extends StatelessWidget {
             },
             onCancel: () {
               showDialog(
-                  context: context,
-                  builder: (BuildContext context){
-                    return CustomDialogBox(
-                      wid: MediaQuery.of(context).size.width,
-                      descriptions1: "エピソードが\n削除されますが\nよろしいですか？",
-                      tapEvent1: (){
-                        Navigator.pop(context);
-                        Navigator.pop(context);
-                      },
-                      tapEvent2: (){
-                        Navigator.pop(context);
-                      },
-                    );
-                  }
+                context: context,
+                builder: (BuildContext context) {
+                  return CustomDialogBox(
+                    wid: MediaQuery.of(context).size.width,
+                    descriptions1: "エピソードが\n削除されますが\nよろしいですか？",
+                    tapEvent1: () {
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                    },
+                    tapEvent2: () {
+                      Navigator.pop(context);
+                    },
+                  );
+                },
               );
             },
           ),

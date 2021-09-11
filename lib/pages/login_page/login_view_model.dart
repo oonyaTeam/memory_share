@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:memory_share/models/models.dart';
 
 class LoginViewModel with ChangeNotifier {
-
   LoginViewModel(this._authRepository);
 
   final AuthRepository _authRepository;
@@ -34,7 +33,7 @@ class LoginViewModel with ChangeNotifier {
     await _authRepository.loginWithGoogle();
   }
 
-  Future<void> loginWithTwiiter() async {
+  Future<void> loginWithTwitter() async {
     await _authRepository.loginWithTwitter();
   }
 

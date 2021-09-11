@@ -4,8 +4,8 @@ import 'package:memory_share/pages/pages.dart';
 
 // DetermineDestinationDialog (マーカーを設定するか確認するダイアログ)
 Widget determineDestinationDialogBuilder({
-  @required BuildContext context,
-  @required HomeViewModel model,
+  required BuildContext context,
+  required HomeViewModel model,
 }) {
   return AlertDialog(
     title: const Text("この場所を目的地に設定しますか？"),
@@ -22,7 +22,7 @@ Widget determineDestinationDialogBuilder({
             context,
             MaterialPageRoute(
               builder: (context) => ReExperiencePage(
-                currentMemory: model.currentMemory,
+                currentMemory: model.currentMemory!,
               ),
             ),
           );

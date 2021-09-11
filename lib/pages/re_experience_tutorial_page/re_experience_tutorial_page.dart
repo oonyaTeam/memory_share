@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sliding_tutorial/flutter_sliding_tutorial.dart';
+import 'package:memory_share/pages/pages.dart';
 import 'package:memory_share/theme.dart';
 import 'package:memory_share/view_models/view_models.dart';
 import 'package:provider/provider.dart';
@@ -9,7 +10,7 @@ import 'page/tutorial_2_page.dart';
 import 're_experience_tutorial_view_model.dart';
 
 class ReExperienceTutorialPage extends StatelessWidget {
-  const ReExperienceTutorialPage({Key key}) : super(key: key);
+  const ReExperienceTutorialPage({Key? key}) : super(key: key);
 
   Widget _getTutorialPage(
     int index,
@@ -31,8 +32,20 @@ class ReExperienceTutorialPage extends StatelessWidget {
   }
 
   void _onFinishTutorial(BuildContext context) async {
-    context.read<UserModel>().reExperienceTutorialIsFinished();
-    Navigator.pop(context);
+    await context.read<UserModel>().reExperienceTutorialIsFinished();
+    final bool isPermissionAllowed =
+        await context.read<ReExperienceTutorialViewModel>().requestPermission();
+    if (isPermissionAllowed) {
+      // チュートリアルが終わったというbool値を保存する。
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (_) => const HomePage()),
+      );
+    } else {
+      // 位置情報取得の権限が許可されなかったら、AskPermissionPageに飛ぶ
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (_) => const AskPermissionPage()),
+      );
+    }
   }
 
   @override

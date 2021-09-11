@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'episode_view_model.dart';
 
 class EpisodeViewPage extends StatelessWidget {
-  const EpisodeViewPage({Key key}) : super(key: key);
+  const EpisodeViewPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,13 +28,13 @@ class EpisodeViewPage extends StatelessWidget {
                           quarterTurns: 3,
                           child: Transform.scale(
                             scale:
-                                episodeViewModel.controller.value.aspectRatio,
+                                episodeViewModel.controller!.value.aspectRatio,
                             child: Center(
                               child: AspectRatio(
                                 aspectRatio: episodeViewModel
-                                    .controller.value.aspectRatio,
+                                    .controller!.value.aspectRatio,
                                 child:
-                                    CameraPreview(episodeViewModel.controller),
+                                    CameraPreview(episodeViewModel.controller!),
                               ),
                             ),
                           ),
