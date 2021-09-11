@@ -12,10 +12,10 @@ class ReExperienceViewModel with ChangeNotifier {
 
     _positionStream = Geolocator.getPositionStream(
       intervalDuration: const Duration(seconds: 5),
-    ).listen((Position position) {
+    ).listen((Position position) async {
       _currentPosition = position;
-      setDistance();
-      getDistances();
+      await setDistance();
+      checkDistance();
       notifyListeners();
     });
 
@@ -49,8 +49,10 @@ class ReExperienceViewModel with ChangeNotifier {
 
   Memory get currentMemory => _currentMemory;
 
+  List<SubEpisode> get subEpisodeList => _subEpisodeList;
+
   void getPosition() async {
-    Position currentPosition = await Geolocator.getCurrentPosition();
+    final Position currentPosition = await Geolocator.getCurrentPosition();
     _currentPosition = currentPosition;
     notifyListeners();
   }
@@ -58,11 +60,29 @@ class ReExperienceViewModel with ChangeNotifier {
   Future<void> setDistance() async {
     if (_currentPosition == null) return;
 
-    _distance = await _mapRepository.getDistance(_currentMemory.latLng);
-    notifyListeners();
+    final Position currentPosition = await Geolocator.getCurrentPosition();
+
+    _distance = _mapRepository.getDistance(
+      _currentMemory.latLng,
+      LatLng(currentPosition.latitude, currentPosition.longitude),
+    );
+
+    for (int i = 0; i < _subEpisodeList.length; i++) {
+      _subEpisodeList[i].distance = _mapRepository.getDistance(
+        LatLng(currentPosition.latitude, currentPosition.longitude),
+        _subEpisodeList[i].latLng,
+      );
+    }
   }
 
-  Future<void> getDistances() async {}
+  void checkDistance() {
+    for (SubEpisode subEpisode in _subEpisodeList) {
+      if (!subEpisode.isViewed && subEpisode.distance <= 100) {
+        viewSubEpisode(subEpisode.id);
+        showSubEpisodeDialog();
+      }
+    }
+  }
 
   void setReExperienceMapController(GoogleMapController controller) {
     _reExperienceMapController.complete(controller);
@@ -116,10 +136,12 @@ class SubEpisode {
     required this.episode,
     required this.latLng,
     this.isViewed = false,
+    this.distance = double.infinity,
   });
 
   final String id;
   final String episode;
   final LatLng latLng;
   bool isViewed;
+  num distance;
 }

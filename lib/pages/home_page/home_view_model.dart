@@ -65,7 +65,6 @@ class HomeViewModel with ChangeNotifier {
   void getPosition() async {
     Position currentPosition = await Geolocator.getCurrentPosition();
     _currentPosition = currentPosition;
-    notifyListeners();
   }
 
   void setDistance() {

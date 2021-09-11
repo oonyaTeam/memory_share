@@ -51,17 +51,18 @@ class ReExperiencePage extends StatelessWidget {
                                   reExperienceViewModel.currentMemory.latLng,
                               infoWindow: const InfoWindow(
                                 title: "目的地",
-                                snippet: 'text',
                               ),
                               onTap: () {},
                             ),
-                            ...reExperienceViewModel.currentMemory.episodes
+                            ...reExperienceViewModel.subEpisodeList
                                 .map((episode) => Marker(
                                       markerId: MarkerId(episode.id),
                                       position: episode.latLng,
                                       onTap: () {},
-                                      infoWindow:
-                                          InfoWindow(title: episode.episode),
+                                      infoWindow: InfoWindow(
+                                        title: episode.episode,
+                                        snippet: episode.distance.toString(),
+                                      ),
                                     ))
                                 .toSet(),
                           },
