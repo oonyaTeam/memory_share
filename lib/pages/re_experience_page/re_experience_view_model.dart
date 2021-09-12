@@ -5,18 +5,23 @@ import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:memory_share/models/models.dart';
+import 'package:memory_share/widgets/sub_episode_dialog.dart';
 
 class ReExperienceViewModel with ChangeNotifier {
   ReExperienceViewModel(this._currentMemory, this._context) {
+    // 位置情報を取得するStream
     _positionStream = Geolocator.getPositionStream(
       intervalDuration: const Duration(seconds: 5),
     ).listen((Position position) async {
+      // currentPositionを変更、メインエピソード・サブエピソードとの距離も変更したのち、
+      // 各サブエピソードを表示するかをチェックしている。
       _currentPosition = position;
       await setDistance();
       checkDistance();
       notifyListeners();
     });
 
+    // currentMemoryのサブエピソードを、ReExperienceでの表示のために_subEpisodeListに代入してる。
     _subEpisodeList = _currentMemory.episodes
         .map((episode) => SubEpisode(
               id: episode.id,
@@ -80,6 +85,17 @@ class ReExperienceViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  String sample() {
+    return _mapRepository
+        .getDistance(
+          _subEpisodeList[0].latLng,
+          LatLng(_currentPosition!.latitude, _currentPosition!.longitude),
+        )
+        .toString();
+  }
+
+  /// 各サブエピソードの距離を見て、表示距離以下かつ表示しているダイアログが無ければ、
+  /// サブエピソードのダイアログを表示する。
   void checkDistance() {
     for (SubEpisode subEpisode in _subEpisodeList) {
       if (!subEpisode.isViewed &&
@@ -119,9 +135,7 @@ class ReExperienceViewModel with ChangeNotifier {
     _shouldViewingDialog = true;
     showDialog(
       context: _context,
-      builder: (_) => AlertDialog(
-        title: Text(episode),
-      ),
+      builder: (_) => SubEpisodeDialog(episode),
     ).then((_) {
       // ダイアログが閉じたら、ダイアログを見ているかどうかを保持するbool値を変更。
       _shouldViewingDialog = false;

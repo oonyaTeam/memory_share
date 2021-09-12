@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:memory_share/pages/pages.dart';
-import 'package:memory_share/theme.dart';
 import 'package:memory_share/utils/utils.dart';
 import 'package:memory_share/view_models/app_model/app_model.dart';
 import 'package:provider/provider.dart';

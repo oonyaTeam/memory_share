@@ -18,7 +18,7 @@ class MapService {
       startLatLng.latitude,
       startLatLng.longitude,
       endLatLng.latitude,
-      startLatLng.longitude,
+      endLatLng.longitude,
     ).toInt();
   }
 }
