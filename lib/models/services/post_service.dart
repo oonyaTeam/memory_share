@@ -33,8 +33,6 @@ class PostService {
     // TODO: sampleなので、firebase Authを導入したら変える
     final List<Memory> myMemories = await fetchMyMemories(uuid);
 
-    if (myMemories == null) return [];
-
     return myMemories;
   }
 }

@@ -8,8 +8,6 @@ import 'package:memory_share/models/models.dart';
 
 class ReExperienceViewModel with ChangeNotifier {
   ReExperienceViewModel(this._currentMemory, this._context) {
-    getPosition();
-
     _positionStream = Geolocator.getPositionStream(
       intervalDuration: const Duration(seconds: 5),
     ).listen((Position position) async {
@@ -74,10 +72,12 @@ class ReExperienceViewModel with ChangeNotifier {
 
     for (int i = 0; i < _subEpisodeList.length; i++) {
       _subEpisodeList[i].distance = _mapRepository.getDistance(
-        LatLng(currentPosition.latitude, currentPosition.longitude),
         _subEpisodeList[i].latLng,
+        LatLng(currentPosition.latitude, currentPosition.longitude),
       );
     }
+
+    notifyListeners();
   }
 
   void checkDistance() {
