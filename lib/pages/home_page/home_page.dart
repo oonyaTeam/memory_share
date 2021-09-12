@@ -58,9 +58,31 @@ class HomePage extends StatelessWidget {
                                 homeViewModel
                                   ..setCurrentMemory(memory)
                                   ..setDistance();
-                                _showDetermineDestinationDialog(
+                              onTap: () async {
+                                homeViewModel.setCurrentMemory(memory);
+                                await homeViewModel.setDistance();
+                                showDialog(
                                   context: context,
-                                  model: homeViewModel,
+                                  builder: (BuildContext context) {
+                                    return CustomDialogBox(
+                                      wid: MediaQuery.of(context).size.width,
+                                      descriptions1: "この場所を目的地に\n設定しますか？\n距離は${homeViewModel.distance}mです。",
+                                      tapEvent1: () {
+                                        Navigator.pop(context);
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => ReExperiencePage(
+                                              currentMemory: homeViewModel.currentMemory!,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      tapEvent2: () {
+                                        Navigator.pop(context);
+                                      },
+                                    );
+                                  },
                                 );
                               },
                               infoWindow: InfoWindow(
