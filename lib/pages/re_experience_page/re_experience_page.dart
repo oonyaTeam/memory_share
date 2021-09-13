@@ -19,7 +19,7 @@ class ReExperiencePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => ReExperienceViewModel(currentMemory),
+      create: (_) => ReExperienceViewModel(currentMemory, context),
       child: Consumer<ReExperienceViewModel>(
         builder: (context, reExperienceViewModel, _) {
           return Scaffold(
@@ -39,8 +39,8 @@ class ReExperiencePage extends StatelessWidget {
                           ),
                           onMapCreated: (GoogleMapController controller) {
                             reExperienceViewModel
-                                .setReExperienceMapController(controller);
-                            reExperienceViewModel.changeMapMode(controller);
+                              ..setReExperienceMapController(controller)
+                              ..changeMapMode(controller);
                           },
                           markers: {
                             Marker(
@@ -51,17 +51,18 @@ class ReExperiencePage extends StatelessWidget {
                                   reExperienceViewModel.currentMemory.latLng,
                               infoWindow: const InfoWindow(
                                 title: "目的地",
-                                snippet: 'text',
                               ),
                               onTap: () {},
                             ),
-                            ...reExperienceViewModel.currentMemory.episodes
+                            ...reExperienceViewModel.subEpisodeList
                                 .map((episode) => Marker(
                                       markerId: MarkerId(episode.id),
                                       position: episode.latLng,
                                       onTap: () {},
-                                      infoWindow:
-                                          InfoWindow(title: episode.episode),
+                                      infoWindow: InfoWindow(
+                                        title: episode.episode,
+                                        snippet: episode.distance.toString(),
+                                      ),
                                     ))
                                 .toSet(),
                           },

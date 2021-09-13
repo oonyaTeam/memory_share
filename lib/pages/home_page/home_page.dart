@@ -45,14 +45,19 @@ class HomePage extends StatelessWidget {
                         zoom: 15.0,
                       ),
                       onMapCreated: (GoogleMapController controller) {
-                        homeViewModel.setHomeMapController(controller);
-                        homeViewModel.changeMapMode(controller);
+                        homeViewModel
+                          ..setHomeMapController(controller)
+                          ..changeMapMode(controller);
                       },
                       markers: homeViewModel.memories
                           .map(
                             (memory) => Marker(
                               markerId: MarkerId(memory.latLng.toString()),
                               position: memory.latLng,
+                              onTap: () {
+                                homeViewModel
+                                  ..setCurrentMemory(memory)
+                                  ..setDistance();
                               onTap: () async {
                                 homeViewModel.setCurrentMemory(memory);
                                 await homeViewModel.setDistance();

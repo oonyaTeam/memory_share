@@ -2,18 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:memory_share/widgets/widgets.dart';
 
-class ShowSubEpisode extends StatefulWidget {
-  final String SubEpisode;
-  const ShowSubEpisode({
-    Key key,
-    this.SubEpisode,
-  }) : super(key: key);
-
-  @override
-   ShowSubEpisodeState createState() =>  ShowSubEpisodeState();
-}
-
-class ShowSubEpisodeState extends State <ShowSubEpisode> {
+class SubEpisodeDialog extends StatelessWidget {
+  final String subEpisode;
+  const SubEpisodeDialog(this.subEpisode, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +18,7 @@ class ShowSubEpisodeState extends State <ShowSubEpisode> {
     );
   }
 
-  contentBox(context) {
-    return SubEpisodeWrapper(widget.SubEpisode);
+  Widget contentBox(BuildContext context) {
+    return SubEpisodeWrapper(subEpisode);
   }
 }

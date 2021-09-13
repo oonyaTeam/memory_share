@@ -15,14 +15,19 @@ class MapRepository {
         seenAuthor: ["author1"],
         episodes: [
           Episode(
+            id: 'episode0',
+            episode: 'this is sub episode 0',
+            latLng: const LatLng(34.8510, 136.588),
+          ),
+          Episode(
             id: 'episode1',
             episode: 'this is sub episode 1',
-            latLng: const LatLng(34.8520, 136.580),
+            latLng: const LatLng(34.8529, 136.589),
           ),
           Episode(
             id: 'episode2',
             episode: 'this is sub episode 2',
-            latLng: const LatLng(34.8515, 136.581),
+            latLng: const LatLng(34.8520, 136.5801),
           ),
         ],
         image:
@@ -54,8 +59,12 @@ class MapRepository {
     return [...sampleMemories, ...memories];
   }
 
-  Future<int> getDistance(Memory memory) async {
-    final int distance = await _mapService.getDistance(memory);
+  ///　現在の位置と目的地との距離を返す
+  int getDistance(LatLng startLatLng, LatLng endLatLng) {
+    final int distance = _mapService.getDistance(
+      startLatLng,
+      endLatLng,
+    );
     return distance;
   }
 }
