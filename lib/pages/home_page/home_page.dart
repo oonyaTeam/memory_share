@@ -10,19 +10,6 @@ import 'home_view_model.dart';
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
-  void _showDetermineDestinationDialog({
-    required BuildContext context,
-    required HomeViewModel model,
-  }) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) => determineDestinationDialogBuilder(
-        context: context,
-        model: model,
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -58,22 +45,22 @@ class HomePage extends StatelessWidget {
                                 homeViewModel
                                   ..setCurrentMemory(memory)
                                   ..setDistance();
-                              onTap: () async {
-                                homeViewModel.setCurrentMemory(memory);
-                                await homeViewModel.setDistance();
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
                                     return CustomDialogBox(
                                       wid: MediaQuery.of(context).size.width,
-                                      descriptions1: "この場所を目的地に\n設定しますか？\n距離は${homeViewModel.distance}mです。",
+                                      descriptions1:
+                                          "この場所を目的地に\n設定しますか？\n距離は${homeViewModel.distance}mです。",
                                       tapEvent1: () {
                                         Navigator.pop(context);
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) => ReExperiencePage(
-                                              currentMemory: homeViewModel.currentMemory!,
+                                            builder: (context) =>
+                                                ReExperiencePage(
+                                              currentMemory:
+                                                  homeViewModel.currentMemory!,
                                             ),
                                           ),
                                         );
