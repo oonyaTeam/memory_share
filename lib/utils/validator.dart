@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class Validator {
   static String validate({required kind, required value}) {
     if (kind == Icons.email_outlined) {
-      if (value.indexOf('@') < 1) {
-        return '@がないです';
+      if (RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$").hasMatch(value)) {
+        return 'メールアドレスが正しくないです';
       }
     } else if (kind == Icons.https_outlined) {
       if (value.length < 8) {
