@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:memory_share/models/models.dart';
@@ -6,6 +7,7 @@ import 'package:memory_share/theme.dart';
 import 'package:memory_share/view_models/view_models.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:memory_share/utils/utils.dart';
 
 import 'login_view_model.dart';
 
@@ -32,8 +34,12 @@ class LoginPage extends StatelessWidget {
   }
 
   void _onSubmitLogin(BuildContext context, LoginViewModel model) async {
-    await model.loginWithEmailAndPassword();
-    await _routeNextPage(context);
+    try {
+      await model.loginWithEmailAndPassword();
+      await _routeNextPage(context);
+    } on FirebaseAuthException catch (e) {
+      Validator.firebaseAuthValidate(context: context, message: e.code);
+    }
   }
 
   void _onSubmitGoogleLogin(BuildContext context, LoginViewModel model) async {

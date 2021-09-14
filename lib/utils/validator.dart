@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:memory_share/utils/utils.dart';
 
 class Validator {
   static String validate({required kind, required value}) {
@@ -12,5 +13,17 @@ class Validator {
       }
     }
     return '';
+  }
+
+  static void firebaseAuthValidate({required BuildContext context, required String message}) {
+    if (message == "user-not-found") {
+      showCustomToast(context, 'ユーザーが見つかりません', false);
+    } else if (message == "invalid-email") {
+      showCustomToast(context, 'メールアドレスが間違っています', false);
+    } else if (message == "wrong-password") {
+      showCustomToast(context, 'パスワードが間違っています', false);
+    } else {
+      showCustomToast(context, 'ログイン出来ませんでした', false);
+    }
   }
 }
