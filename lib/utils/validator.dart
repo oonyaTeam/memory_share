@@ -15,7 +15,7 @@ class Validator {
     return '';
   }
 
-  static void firebaseAuthValidate({required BuildContext context, required String message}) {
+  static void firebaseAuthLoginValidate({required BuildContext context, required String message}) {
     if (message == "user-not-found") {
       showCustomToast(context, 'ユーザーが見つかりません', false);
     } else if (message == "invalid-email") {

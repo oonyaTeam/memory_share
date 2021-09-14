@@ -38,7 +38,7 @@ class LoginPage extends StatelessWidget {
       await model.loginWithEmailAndPassword();
       await _routeNextPage(context);
     } on FirebaseAuthException catch (e) {
-      Validator.firebaseAuthValidate(context: context, message: e.code);
+      Validator.firebaseAuthLoginValidate(context: context, message: e.code);
     }
   }
 
