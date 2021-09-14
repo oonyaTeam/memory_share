@@ -24,7 +24,8 @@ class PostService {
       latLng: LatLng(currentPosition.latitude, currentPosition.longitude),
       episodes: subEpisodes,
     );
-    await createMemory(newMemory, http.Client());
+    final String idToken = await AuthService().getIdToken();
+    await createMemory(newMemory, idToken, http.Client());
     return newMemory;
   }
 
