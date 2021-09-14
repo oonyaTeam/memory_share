@@ -28,4 +28,12 @@ class Validator {
       showCustomToast(context, 'ログイン出来ませんでした', false);
     }
   }
+
+  static void firebaseAuthSignUpValidate({required BuildContext context, required String message}) {
+    if (message == "email-already-in-use") {
+      showCustomToast(context, 'このメールアドレスは使用済みです', false);
+    } else {
+      showCustomToast(context, '登録出来ませんでした', false);
+    }
+  }
 }
