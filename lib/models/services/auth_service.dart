@@ -14,6 +14,13 @@ class AuthService {
     redirectURI: 'memory-share://',
   );
 
+  Future<String> getIdToken() async {
+    final User? user = _instance.currentUser;
+    if (user == null) throw Error();
+
+    return await user.getIdToken();
+  }
+
   /// EmailとPasswordを使ってユーザ登録を行い、登録したユーザーを返す。
   Future<User?> signUpWithEmailAndPassword(
       String email, String password) async {
