@@ -20,11 +20,11 @@ dependencies:
 
   google_maps_flutter: ^2.0.6
 
-  flutter_compass: ^0.6.0
+  flutter_compass: ^0.7.0
 
   flutter_config: ^2.0.0
 
-  image_picker: ^0.8.1+1
+  image_picker: ^0.8.4
 
   provider: ^5.0.0
 
