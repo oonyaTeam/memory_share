@@ -36,6 +36,7 @@ class LoginPage extends StatelessWidget {
   void _onSubmitLogin(BuildContext context, LoginViewModel model) async {
     try {
       await model.loginWithEmailAndPassword();
+      showCustomToast(context, 'ログインに成功しました', true);
       await _routeNextPage(context);
     } on FirebaseAuthException catch (e) {
       Validator.firebaseAuthLoginValidate(context: context, message: e.code);
