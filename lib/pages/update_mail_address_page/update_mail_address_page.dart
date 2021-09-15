@@ -46,9 +46,9 @@ class UpdateMailAddressPage extends StatelessWidget {
                   ),
                   Container(
                     margin: const EdgeInsets.only(top: 15),
-                    child: signInUpButton(
-                      '変更する',
-                      () async {
+                    child: SignInUpButton(
+                      label: '変更する',
+                      onPressed: () async {
                         await updateMailAddressViewModel
                             .updateEmail()
                             .then((_) {
@@ -58,7 +58,7 @@ class UpdateMailAddressPage extends StatelessWidget {
                           showCustomToast(context, 'メールアドレスの更新に失敗しました', false);
                         });
                       },
-                      MediaQuery.of(context).size.width,
+                      width: MediaQuery.of(context).size.width,
                     ),
                   ),
                   ElevatedButton(
