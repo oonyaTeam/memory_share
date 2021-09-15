@@ -36,7 +36,8 @@ class ReExperienceViewModel with ChangeNotifier {
   final MapRepository _mapRepository = MapRepository();
   final BuildContext _context;
 
-  // サブエピソードを見ることができる距離の定数値
+  // メイン・サブエピソードを見ることができる距離の定数値
+  static const distancePossibleViewMainEpisodeDialog = 100;
   static const distancePossibleViewSubEpisodeDialog = 100;
 
   Position? _currentPosition;
@@ -44,6 +45,7 @@ class ReExperienceViewModel with ChangeNotifier {
   final Completer<GoogleMapController> _reExperienceMapController = Completer();
   final Memory _currentMemory;
   List<SubEpisode> _subEpisodeList = [];
+  bool _isViewedMainEpisodeDialog = false;
   bool _shouldViewingDialog = false;
 
   StreamSubscription<Position>? _positionStream;
@@ -61,53 +63,52 @@ class ReExperienceViewModel with ChangeNotifier {
 
   bool get shouldViewingDialog => _shouldViewingDialog;
 
+  bool get isViewedMainEpisodeDialog => _isViewedMainEpisodeDialog;
+
+  /// ユーザの現在地を取得
   void getPosition() async {
     final Position currentPosition = await Geolocator.getCurrentPosition();
     _currentPosition = currentPosition;
     notifyListeners();
   }
 
+  /// メイン・サブエピソードとの距離を設定
   Future<void> setDistance() async {
     if (_currentPosition == null) return;
 
     final Position currentPosition = await Geolocator.getCurrentPosition();
 
+    // メインエピソードとの距離を変更
     _distance = _mapRepository.getDistance(
       _currentMemory.latLng,
       LatLng(currentPosition.latitude, currentPosition.longitude),
     );
 
+    // 各サブエピソードとの距離を変更
     for (int i = 0; i < _subEpisodeList.length; i++) {
       _subEpisodeList[i].distance = _mapRepository.getDistance(
         _subEpisodeList[i].latLng,
         LatLng(currentPosition.latitude, currentPosition.longitude),
       );
     }
-
     notifyListeners();
   }
 
-  String sample() {
-    return _mapRepository
-        .getDistance(
-          _subEpisodeList[0].latLng,
-          LatLng(_currentPosition!.latitude, _currentPosition!.longitude),
-        )
-        .toString();
-  }
-
-  /// 各サブエピソードの距離を見て、表示距離以下かつ表示しているダイアログが無ければ、
-  /// サブエピソードのダイアログを表示する。
+  /// メイン・サブエピソードとの距離などの条件をチェックし、ダイアログなどを表示する。
   void checkDistance() {
-    if (_distance <= distancePossibleViewSubEpisodeDialog &&
-        !_shouldViewingDialog) {
+    if (_shouldViewingDialog) return;
+
+    if (_distance <= distancePossibleViewMainEpisodeDialog &&
+        !_isViewedMainEpisodeDialog) {
       showMainEpisodeDialog();
+      _isViewedMainEpisodeDialog = true;
     }
 
+    // 各サブエピソードの距離を見て、表示距離以下かつ表示しているダイアログが無ければ、
+    // サブエピソードのダイアログを表示する。
     for (SubEpisode subEpisode in _subEpisodeList) {
       if (!subEpisode.isViewed &&
-          subEpisode.distance <= distancePossibleViewSubEpisodeDialog &&
-          !_shouldViewingDialog) {
+          subEpisode.distance <= distancePossibleViewSubEpisodeDialog) {
         viewSubEpisode(subEpisode.id);
         showSubEpisodeDialog(subEpisode.episode);
       }
@@ -119,6 +120,7 @@ class ReExperienceViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  /// マップモードを変更する
   changeMapMode(GoogleMapController controller) {
     getMapStyleJsonFile("assets/Light.json")
         .then((res) => controller.setMapStyle(res));
@@ -137,6 +139,7 @@ class ReExperienceViewModel with ChangeNotifier {
     return LatLng(latitude, longitude);
   }
 
+  /// EpisodeViewPageに遷移するダイアログを表示する。
   void showMainEpisodeDialog() {
     _shouldViewingDialog = true;
     showDialog(
@@ -145,6 +148,7 @@ class ReExperienceViewModel with ChangeNotifier {
         descriptions1: "目的地の周辺です。\nカメラに切り替えます。",
         wid: MediaQuery.of(_context).size.width,
         tapEvent1: () {
+          Navigator.pop(_context);
           Navigator.of(_context).push(MaterialPageRoute(
             builder: (_) => const EpisodeViewPage(),
           ));
