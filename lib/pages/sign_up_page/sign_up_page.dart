@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:memory_share/models/models.dart';
@@ -5,6 +6,7 @@ import 'package:memory_share/pages/pages.dart';
 import 'package:memory_share/view_models/view_models.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:memory_share/utils/utils.dart';
 
 import '../../theme.dart';
 import 'sign_up_view_model.dart';
@@ -13,8 +15,13 @@ class SignUpPage extends StatelessWidget {
   const SignUpPage({Key? key}) : super(key: key);
 
   void _onSubmitSignUp(BuildContext context, SignUpViewModel model) async {
-    await model.signUpWithEmailAndPassword();
-    await _routeNextPage(context);
+    try {
+      await model.signUpWithEmailAndPassword();
+      showCustomToast(context, '登録に成功しました', true);
+      await _routeNextPage(context);
+    } on FirebaseAuthException catch (e) {
+      Validator.firebaseAuthSignUpValidate(context: context, message: e.code);
+    }
   }
 
   void _onSubmitGoogleLogin(BuildContext context, SignUpViewModel model) async {

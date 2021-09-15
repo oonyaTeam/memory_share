@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:memory_share/utils/utils.dart';
 
 class Validator {
   static String validate({required kind, required value}) {
     if (kind == Icons.email_outlined) {
-      if (!(RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$").hasMatch(value))) {
+      if (!(RegExp(
+              r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$")
+          .hasMatch(value))) {
         return 'メールアドレスが正しくないです';
       }
     } else if (kind == Icons.https_outlined) {
@@ -12,5 +15,25 @@ class Validator {
       }
     }
     return '';
+  }
+
+  static void firebaseAuthLoginValidate({required BuildContext context, required String message}) {
+    if (message == "user-not-found") {
+      showCustomToast(context, 'ユーザーが見つかりません', false);
+    } else if (message == "invalid-email") {
+      showCustomToast(context, 'メールアドレスが間違っています', false);
+    } else if (message == "wrong-password") {
+      showCustomToast(context, 'パスワードが間違っています', false);
+    } else {
+      showCustomToast(context, 'ログイン出来ませんでした', false);
+    }
+  }
+
+  static void firebaseAuthSignUpValidate({required BuildContext context, required String message}) {
+    if (message == "email-already-in-use") {
+      showCustomToast(context, 'このメールアドレスは使用済みです', false);
+    } else {
+      showCustomToast(context, '登録出来ませんでした', false);
+    }
   }
 }
