@@ -15,7 +15,6 @@ class EpisodeViewPage extends StatelessWidget {
         create: (_) => EpisodeViewModel(),
         child: Consumer<EpisodeViewModel>(
           builder: (context, episodeViewModel, _) => Scaffold(
-            appBar: appBarComponent("EpisodeView Page"),
             body: Stack(
               children: [
                 RotatedBox(
@@ -50,7 +49,7 @@ class EpisodeViewPage extends StatelessWidget {
                 Align(
                   alignment: Alignment.topCenter,
                   child: episodeViewModel.showDialogFlag
-                      ? episodePreview("えもいねぇ")
+                      ? const EpisodePreview("えもいねぇ")
                       : Container(),
                 ),
               ],

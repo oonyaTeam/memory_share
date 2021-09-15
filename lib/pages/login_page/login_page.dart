@@ -108,10 +108,11 @@ class LoginPage extends StatelessWidget {
                       ),
                       // margin取るためにラップ sign inボタン
                       Container(
-                        child: signInUpButton(
-                          "Sign in",
-                          () => _onSubmitLogin(context, loginViewModel),
-                          MediaQuery.of(context).size.width,
+                        child: SignInUpButton(
+                          label: "Sign in",
+                          onPressed: () =>
+                              _onSubmitLogin(context, loginViewModel),
+                          width: MediaQuery.of(context).size.width,
                         ),
                         margin: const EdgeInsets.only(top: 32, bottom: 32),
                       ),
@@ -130,21 +131,21 @@ class LoginPage extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            googleTwitterButton(
-                              'Sign  in  with\n     Google',
-                              () =>
+                            GoogleTwitterButton(
+                              label: 'Sign  in  with\n     Google',
+                              assetName: 'assets/google.svg',
+                              onPressed: () =>
                                   _onSubmitGoogleLogin(context, loginViewModel),
-                              CustomColors.googleRed,
-                              'assets/google.svg',
-                              MediaQuery.of(context).size.width,
+                              screenWidth: MediaQuery.of(context).size.width,
+                              color: CustomColors.googleRed,
                             ),
-                            googleTwitterButton(
-                              'Sign  in  with\n     Twitter',
-                              () => _onSubmitTwitterLogin(
+                            GoogleTwitterButton(
+                              label: 'Sign  in  with\n     Twitter',
+                              assetName: 'assets/twitter.svg',
+                              onPressed: () => _onSubmitTwitterLogin(
                                   context, loginViewModel),
-                              CustomColors.twitterBlue,
-                              'assets/twitter.svg',
-                              MediaQuery.of(context).size.width,
+                              screenWidth: MediaQuery.of(context).size.width,
+                              color: CustomColors.twitterBlue,
                             ),
                           ],
                         ),

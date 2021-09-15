@@ -152,16 +152,19 @@ class SubEpisodePage extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: Container(
                 margin: const EdgeInsets.only(bottom: 89),
-                child: longButton("エピソードを追加する", () => onTapAddButton(context)),
+                child: LongButton(
+                  label: "エピソードを追加する",
+                  onPressed: () => onTapAddButton(context),
+                ),
               ),
             ),
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
                 margin: const EdgeInsets.only(bottom: 22),
-                child: longButtonBorderPrimary(
-                  "目的地に到着",
-                  () => onTapArriveButton(context),
+                child: LongButtonBorderPrimary(
+                  label: "目的地に到着",
+                  onPressed: () => onTapArriveButton(context),
                 ),
               ),
             ),
