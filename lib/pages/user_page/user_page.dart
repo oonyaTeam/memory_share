@@ -22,7 +22,7 @@ class UserPage extends StatelessWidget {
             slivers: [
               CustomSliverAppBar(
                 controller: model.controller,
-                title: "",
+                title: "これまでの投稿",
                 actions: <Widget>[
                   IconButton(
                     icon: const Icon(Icons.settings),
