@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:memory_share/pages/pages.dart';
 import 'package:memory_share/pages/post_detail_page/post_detail_page.dart';
+import 'package:memory_share/pages/user_page/user_page_view_model.dart';
 import 'package:memory_share/theme.dart';
 import 'package:memory_share/view_models/view_models.dart';
 import 'package:provider/provider.dart';
@@ -11,85 +12,97 @@ class UserPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userModel = context.watch<UserModel>();
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            expandedHeight: 128.0,
-            backgroundColor: Colors.white,
-            foregroundColor: CustomColors.primary,
-            iconTheme: const IconThemeData(color: CustomColors.primary),
-            pinned: true,
-            snap: false,
-            floating: true,
-            flexibleSpace: const FlexibleSpaceBar(
-              title: Text(
-                'これまでの投稿',
-                style: TextStyle(
-                  color: CustomColors.primary,
-                  fontSize: 24.0,
-                  fontWeight: FontWeight.bold,
-                ),
-                textScaleFactor: 1.0,
-              ),
-            ),
-            actions: <Widget>[
-              IconButton(
-                icon: const Icon(Icons.settings),
-                iconSize: 36,
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const SettingPage(),
+    return ChangeNotifierProvider(
+      create: (_) => UserPageViewModel(),
+      child: Consumer<UserPageViewModel>(
+        builder: (context, model, _) => Scaffold(
+          body: CustomScrollView(
+            controller: model.controller,
+            slivers: [
+              SliverAppBar(
+                expandedHeight: 112.0,
+                backgroundColor: Colors.white,
+                foregroundColor: CustomColors.primary,
+                iconTheme: const IconThemeData(color: CustomColors.primary),
+                pinned: true,
+                snap: false,
+                floating: true,
+                flexibleSpace: FlexibleSpaceBar.createSettings(
+                  currentExtent: 0,
+                  child: FlexibleSpaceBar(
+                    titlePadding: EdgeInsetsDirectional.only(
+                      start: model.titleStartPadding,
+                      bottom: 12,
                     ),
-                  );
-                },
+                    title: const Text(
+                      'これまでの投稿',
+                      style: TextStyle(
+                        color: CustomColors.primary,
+                        fontSize: 24.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                actions: <Widget>[
+                  IconButton(
+                    icon: const Icon(Icons.settings),
+                    iconSize: 36,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SettingPage(),
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
+              SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) {
+                    final item = userModel.myMemories[index];
+                    return GestureDetector(
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_) => PostDetailPage(item)),
+                      ),
+                      child: Column(
+                        children: [
+                          Image.network(item.image),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: const [
+                                Text(
+                                  "2021/08/16", // TODO: APIができ次第ここも変える
+                                  style: TextStyle(
+                                    fontSize: 16.0,
+                                    color: CustomColors.middle,
+                                  ),
+                                ),
+                                Text(
+                                  "東京都渋谷区",
+                                  style: TextStyle(
+                                    fontSize: 16.0,
+                                    color: CustomColors.middle,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 16.0),
+                        ],
+                      ),
+                    );
+                  },
+                  childCount: userModel.myMemories.length,
+                ),
               ),
             ],
           ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                final item = userModel.myMemories[index];
-                return GestureDetector(
-                  onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => PostDetailPage(item)),
-                  ),
-                  child: Column(
-                    children: [
-                      Image.network(item.image),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
-                            Text(
-                              "2021/08/16", // TODO: APIができ次第ここも変える
-                              style: TextStyle(
-                                fontSize: 16.0,
-                                color: CustomColors.middle,
-                              ),
-                            ),
-                            Text(
-                              "東京都渋谷区",
-                              style: TextStyle(
-                                fontSize: 16.0,
-                                color: CustomColors.middle,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 16.0),
-                    ],
-                  ),
-                );
-              },
-              childCount: userModel.myMemories.length,
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
