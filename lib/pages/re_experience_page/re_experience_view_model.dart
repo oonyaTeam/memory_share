@@ -42,6 +42,7 @@ class ReExperienceViewModel with ChangeNotifier {
 
   Position? _currentPosition;
   num _distance = double.infinity;
+  num _sigma = double.infinity;
   final Completer<GoogleMapController> _reExperienceMapController = Completer();
   final Memory _currentMemory;
   List<SubEpisode> _subEpisodeList = [];
@@ -53,6 +54,8 @@ class ReExperienceViewModel with ChangeNotifier {
   Position? get currentPosition => _currentPosition;
 
   num get distance => _distance;
+
+  num get sigma => _sigma;
 
   Completer<GoogleMapController> get reExperienceMapController =>
       _reExperienceMapController;
@@ -83,6 +86,12 @@ class ReExperienceViewModel with ChangeNotifier {
       _currentMemory.latLng,
       LatLng(currentPosition.latitude, currentPosition.longitude),
     );
+
+    if (_distance / 100 >= 10) {
+      _sigma = 100;
+    } else {
+      _sigma = _distance / 100;
+    }
 
     // 各サブエピソードとの距離を変更
     for (int i = 0; i < _subEpisodeList.length; i++) {

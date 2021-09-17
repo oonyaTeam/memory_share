@@ -127,10 +127,8 @@ class ReExperiencePage extends StatelessWidget {
                                   child: Image.network(reExperienceViewModel
                                       .currentMemory.image),
                                   imageFilter: ImageFilter.blur(
-                                    sigmaX:
-                                        reExperienceViewModel.distance / 100,
-                                    sigmaY:
-                                        reExperienceViewModel.distance / 100,
+                                    sigmaX: reExperienceViewModel.sigma / 10,
+                                    sigmaY: reExperienceViewModel.sigma / 10,
                                   ),
                                 ),
                               ),
