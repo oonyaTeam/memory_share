@@ -6,8 +6,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:memory_share/pages/pages.dart';
 import 'package:memory_share/theme.dart';
 import 'package:memory_share/view_models/view_models.dart';
+import 'package:memory_share/widgets/custom_sliver_app_bar.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
+
+import 'sub_episode_view_model.dart';
 
 class SubEpisodePage extends StatelessWidget {
   SubEpisodePage({Key? key}) : super(key: key);
@@ -72,104 +75,107 @@ class SubEpisodePage extends StatelessWidget {
           return true;
         }
       },
-      child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text(
-            '思い出投稿',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-        backgroundColor: Colors.white,
-        body: Stack(
-          children: [
-            postViewModel.subEpisodeList.isEmpty
-                ? Center(
-                    child: Container(
-                      margin: const EdgeInsets.only(
-                        left: 24.0,
-                        right: 24.0,
-                        top: 24.0,
-                      ),
-                      child: Column(
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.only(bottom: 24.0),
-                            child: SvgPicture.asset(
-                              'assets/normal.svg',
-                              height: 180.0,
-                              width: 180.0,
-                            ),
-                          ),
-                          const Text(
-                            "思い出の場所へ到着するまでに\n思い出したエピソードを書きましょう。\n到着したら、思い出の場所の写真を撮ります。",
-                            style: TextStyle(
-                              color: CustomColors.primary,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18.0,
-                              height: 1.15,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
+      child: ChangeNotifierProvider(
+        create: (_) => SubEpisodeViewModel(),
+        child: Consumer<SubEpisodeViewModel>(builder: (context, model, _) {
+          return Scaffold(
+            backgroundColor: Colors.white,
+            body: Stack(
+              children: [
+                CustomScrollView(
+                  slivers: [
+                    CustomSliverAppBar(
+                      controller: model.controller,
+                      title: "思い出を投稿",
                     ),
-                  )
-                : ListView.builder(
-                    padding: const EdgeInsets.only(
-                      left: 24.0,
-                      right: 24.0,
-                      top: 16.0,
-                    ),
-                    itemCount: postViewModel.subEpisodeList.length,
-                    itemBuilder: (context, index) {
-                      final item = postViewModel.subEpisodeList[index];
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SubEpisodeWrapper(item.episode),
-                          Container(
-                            margin: const EdgeInsets.only(
-                              top: 8.0,
-                              bottom: 8.0,
+                    postViewModel.subEpisodeList.isEmpty
+                        ? Center(
+                            child: Container(
+                              margin: const EdgeInsets.only(
+                                left: 24.0,
+                                right: 24.0,
+                                top: 24.0,
+                              ),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.only(bottom: 24.0),
+                                    child: SvgPicture.asset(
+                                      'assets/normal.svg',
+                                      height: 180.0,
+                                      width: 180.0,
+                                    ),
+                                  ),
+                                  const Text(
+                                    "思い出の場所へ到着するまでに\n思い出したエピソードを書きましょう。\n到着したら、思い出の場所の写真を撮ります。",
+                                    style: TextStyle(
+                                      color: CustomColors.primary,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18.0,
+                                      height: 1.15,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )
+                        : ListView.builder(
+                            padding: const EdgeInsets.only(
                               left: 24.0,
+                              right: 24.0,
+                              top: 16.0,
                             ),
-                            child: SvgPicture.asset(
-                              'assets/foot_prints.svg',
-                              height: 80.0,
-                              width: 40.0,
-                              color: CustomColors.pale,
-                            ),
+                            itemCount: postViewModel.subEpisodeList.length,
+                            itemBuilder: (context, index) {
+                              final item = postViewModel.subEpisodeList[index];
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SubEpisodeWrapper(item.episode),
+                                  Container(
+                                    margin: const EdgeInsets.only(
+                                      top: 8.0,
+                                      bottom: 8.0,
+                                      left: 24.0,
+                                    ),
+                                    child: SvgPicture.asset(
+                                      'assets/foot_prints.svg',
+                                      height: 80.0,
+                                      width: 40.0,
+                                      color: CustomColors.pale,
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
                           ),
-                        ],
-                      );
-                    },
+                  ],
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    margin: const EdgeInsets.only(bottom: 89),
+                    child: LongButton(
+                      label: "エピソードを追加する",
+                      onPressed: () => onTapAddButton(context),
+                    ),
                   ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                margin: const EdgeInsets.only(bottom: 89),
-                child: LongButton(
-                  label: "エピソードを追加する",
-                  onPressed: () => onTapAddButton(context),
                 ),
-              ),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                margin: const EdgeInsets.only(bottom: 22),
-                child: LongButtonBorderPrimary(
-                  label: "目的地に到着",
-                  onPressed: () => onTapArriveButton(context),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    margin: const EdgeInsets.only(bottom: 22),
+                    child: LongButtonBorderPrimary(
+                      label: "目的地に到着",
+                      onPressed: () => onTapArriveButton(context),
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
+          );
+        }),
       ),
     );
   }
