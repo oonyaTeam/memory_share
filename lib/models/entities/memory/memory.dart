@@ -3,7 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 /// サブエピソードの型です、APIで受け取ったサブエピソードなど、主に閲覧の方で使用します。
 /// 投稿のほうでは、一時的に[SubEpisode]を使います。（今後修正の余地あり）
 class Episode {
-  final String id;
+  final int id;
   final String episode;
   final LatLng latLng;
 
@@ -31,42 +31,42 @@ class Episode {
 
 /// 投稿全体の型です。メインのエピソードやサブエピソードなどを持ちます。
 class Memory {
+  int id;
   String memory;
   LatLng latLng;
-  List<String> seenAuthor;
   List<Episode> episodes;
   String image;
-  String author;
+  String authorId;
 
   Memory({
+    required this.id,
     required this.memory,
     required this.latLng,
-    required this.seenAuthor,
     required this.episodes,
     required this.image,
-    required this.author,
+    required this.authorId,
   });
 
   factory Memory.fromJson(Map<String, dynamic> json) {
     return Memory(
+      id: json['id'],
       memory: json['memory'],
       latLng: LatLng(json['latitude'], json['longitude']),
-      seenAuthor: json['seen_author'].cast<String>() as List<String>,
       episodes: List<Episode>.from(
           json['episodes'].map((value) => Episode.fromJson(value))),
       image: json['image'],
-      author: json['author'],
+      authorId: json['author_id'],
     );
   }
 
   Map<String, dynamic> toJson() => {
+        'id': id,
         'memory': memory,
         'latitude': latLng.latitude,
         'longitude': latLng.longitude,
-        'seen_author': seenAuthor,
         'episodes': episodes.map((episode) => episode.toJson()).toList(),
         'image': image,
-        'author': author,
+        'author_id': authorId,
       };
 }
 

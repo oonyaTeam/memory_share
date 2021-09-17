@@ -19,7 +19,6 @@ class PostService {
     final Memory newMemory = Memory(
       memory: mainEpisode,
       author: "author1",
-      seenAuthor: ["author1"],
       image: imageUrl,
       latLng: LatLng(currentPosition.latitude, currentPosition.longitude),
       episodes: subEpisodes,

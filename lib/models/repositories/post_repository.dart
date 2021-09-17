@@ -20,7 +20,7 @@ class PostRepository {
       mainEpisode: mainEpisode,
       subEpisodes: List<Episode>.from(
         subEpisodeList.asMap().entries.map((entry) => Episode(
-              id: entry.key.toString(),
+              id: entry.key,
               episode: entry.value.episode,
               latLng: entry.value.latLng,
             )),
