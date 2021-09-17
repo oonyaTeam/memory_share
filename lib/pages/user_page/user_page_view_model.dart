@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class PostDetailViewModel with ChangeNotifier {
-  PostDetailViewModel();
+class UserPageViewModel with ChangeNotifier {
+  UserPageViewModel();
 
   final ScrollController _controller = ScrollController();
 
