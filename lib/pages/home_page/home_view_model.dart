@@ -19,6 +19,7 @@ class HomeViewModel with ChangeNotifier {
       if (_currentMemory != null) {
         setDistance();
       }
+      notifyListeners();
     });
   }
 
@@ -65,6 +66,7 @@ class HomeViewModel with ChangeNotifier {
   void getPosition() async {
     Position currentPosition = await Geolocator.getCurrentPosition();
     _currentPosition = currentPosition;
+    notifyListeners();
   }
 
   void setDistance() {
@@ -74,7 +76,6 @@ class HomeViewModel with ChangeNotifier {
       _currentMemory!.latLng,
       LatLng(_currentPosition!.latitude, _currentPosition!.longitude),
     );
-    notifyListeners();
   }
 
   void setHomeMapController(GoogleMapController controller) {
