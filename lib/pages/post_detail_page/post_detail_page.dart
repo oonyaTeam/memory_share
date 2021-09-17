@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:memory_share/models/entities/entities.dart';
 import 'package:memory_share/theme.dart';
+import 'package:memory_share/widgets/custom_sliver_app_bar.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -20,14 +21,16 @@ class PostDetailPage extends StatelessWidget {
         builder: (context, model, _) {
           return Scaffold(
             backgroundColor: Colors.white,
-            appBar: AppBar(
-              title: const Text('PostDetail'),
-            ),
-            body: Container(
-              margin: const EdgeInsets.fromLTRB(24.0, 16.0, 24.0, 16.0),
-              child: CustomScrollView(
-                slivers: [
-                  SliverList(
+            body: CustomScrollView(
+              controller: model.controller,
+              slivers: [
+                CustomSliverAppBar(
+                  controller: model.controller,
+                  title: "投稿詳細", // TODO: ここは、のちのち住所と日付を表示する
+                ),
+                SliverPadding(
+                  padding: const EdgeInsets.fromLTRB(24.0, 16.0, 24.0, 0),
+                  sliver: SliverList(
                     delegate: SliverChildBuilderDelegate(
                       (context, index) {
                         final item = memory.episodes[index];
@@ -51,7 +54,10 @@ class PostDetailPage extends StatelessWidget {
                       childCount: memory.episodes.length,
                     ),
                   ),
-                  SliverToBoxAdapter(
+                ),
+                SliverPadding(
+                  padding: const EdgeInsets.fromLTRB(24.0, 0, 24.0, 16.0),
+                  sliver: SliverToBoxAdapter(
                     child: Container(
                       decoration: const BoxDecoration(
                         color: CustomColors.pale,
@@ -75,15 +81,15 @@ class PostDetailPage extends StatelessWidget {
                             padding: const EdgeInsets.all(16.0),
                             child: Text(
                               memory.memory,
-                              style: const TextStyle(fontSize: 16.0),
+                              style: const TextStyle(fontSize: 18.0),
                             ),
                           ),
                         ],
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           );
         },

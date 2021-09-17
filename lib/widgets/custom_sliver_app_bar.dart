@@ -5,9 +5,12 @@ import 'package:memory_share/theme.dart';
 import 'package:provider/provider.dart';
 
 class CustomSliverAppBar extends StatelessWidget {
-  const CustomSliverAppBar(
-      {required this.controller, required this.title, this.actions, Key? key})
-      : super(key: key);
+  const CustomSliverAppBar({
+    required this.controller,
+    required this.title,
+    this.actions,
+    Key? key,
+  }) : super(key: key);
 
   final String title;
   final ScrollController controller;
@@ -24,9 +27,11 @@ class CustomSliverAppBar extends StatelessWidget {
           backgroundColor: Colors.white,
           foregroundColor: CustomColors.primary,
           iconTheme: const IconThemeData(color: CustomColors.primary),
+          // スクロールしたときに、上に固定表示しておくかどうか
           pinned: true,
           snap: false,
-          floating: true,
+          // 途中で上にスクロールしたときに、AppBarを出現させるかどうか
+          floating: false,
           flexibleSpace: FlexibleSpaceBar.createSettings(
             currentExtent: 0,
             child: FlexibleSpaceBar(
@@ -34,9 +39,9 @@ class CustomSliverAppBar extends StatelessWidget {
                 start: model.titleStartPadding,
                 bottom: 12,
               ),
-              title: const Text(
-                'これまでの投稿',
-                style: TextStyle(
+              title: Text(
+                title,
+                style: const TextStyle(
                   color: CustomColors.primary,
                   fontSize: 24.0,
                   fontWeight: FontWeight.bold,
