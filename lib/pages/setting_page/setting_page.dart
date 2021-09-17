@@ -3,6 +3,7 @@ import 'package:memory_share/pages/pages.dart';
 import 'package:memory_share/utils/utils.dart';
 import 'package:memory_share/view_models/app_model/app_model.dart';
 import 'package:provider/provider.dart';
+import 'package:memory_share/theme.dart';
 
 import 'setting_view_model.dart';
 
@@ -17,62 +18,66 @@ class SettingPage extends StatelessWidget {
       child: Consumer<SettingViewModel>(
         builder: (context, settingViewModel, _) => Scaffold(
           appBar: AppBar(
+            backgroundColor: Colors.white,
+            foregroundColor: CustomColors.primary,
+            iconTheme: const IconThemeData(color: CustomColors.primary),
             centerTitle: true,
-            title: const Text("設定"),
           ),
           body: Column(
             children: [
+              Align(
+                alignment: Alignment.topLeft,
+                child: Container(
+                  margin: const EdgeInsets.only(top:14.0,left:24.0),
+                  child: const Text(
+                      "設定",
+                      style: TextStyle(
+                      color: CustomColors.primary,
+                      fontSize: 24.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
               // Emailでログインしているユーザーの場合、「メールを変更する」を表示してる
               userModel.isEmailUser()
                   ? Container(
-                      decoration: const BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(color: Colors.black),
-                        ),
-                      ),
-                      child: ListTile(
-                        title: const Text('メールアドレスの変更'),
-                        trailing: const Icon(Icons.arrow_forward_ios),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  const UpdateMailAddressPage(),
-                            ),
-                          );
-                        },
-                      ),
-                    )
+                    margin: const EdgeInsets.only(left: 10),
+                    child: ListTile(
+                      title: const Text('メールアドレス変更'),
+                      trailing: const Icon(Icons.arrow_forward_ios),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                const UpdateMailAddressPage(),
+                          ),
+                        );
+                      },
+                    ),
+                  )
                   : Container(),
               // Emailでログインしているユーザーの場合、「パスワードを変更する」を表示してる
               userModel.isEmailUser()
                   ? Container(
-                      decoration: const BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(color: Colors.black),
-                        ),
-                      ),
-                      child: ListTile(
-                        title: const Text('パスワードの変更'),
-                        trailing: const Icon(Icons.arrow_forward_ios),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const UpdatePasswordPage(),
-                            ),
-                          );
-                        },
-                      ),
-                    )
+                    margin: const EdgeInsets.only(left: 10),
+                    child: ListTile(
+                      title: const Text('パスワード変更'),
+                      trailing: const Icon(Icons.arrow_forward_ios),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const UpdatePasswordPage(),
+                          ),
+                        );
+                      },
+                    ),
+                  )
                   : Container(),
               Container(
-                decoration: const BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(color: Colors.black),
-                  ),
-                ),
+                margin: const EdgeInsets.only(left: 10),
                 child: ListTile(
                   title: const Text(
                     'ログアウト',
@@ -82,7 +87,6 @@ class SettingPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  trailing: const Icon(Icons.arrow_forward_ios),
                   onTap: () {
                     settingViewModel.logout().then((_) {
                       //toastの表示
