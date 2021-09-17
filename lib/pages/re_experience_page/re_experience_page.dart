@@ -43,6 +43,7 @@ class ReExperiencePage extends StatelessWidget {
                               ..changeMapMode(controller);
                           },
                           markers: {
+                            // メインエピソードのマーカー
                             Marker(
                               markerId: MarkerId(reExperienceViewModel
                                   .currentMemory.latLng
@@ -52,8 +53,16 @@ class ReExperiencePage extends StatelessWidget {
                               infoWindow: const InfoWindow(
                                 title: "目的地",
                               ),
-                              onTap: () {},
+                              onTap: () {
+                                // 既に一度目的地に到着していたら、
+                                // マーカーをタップしたときにEpisodeViewに遷移するダイアログを表示する
+                                if (reExperienceViewModel
+                                    .isViewedMainEpisodeDialog) {
+                                  reExperienceViewModel.showMainEpisodeDialog();
+                                }
+                              },
                             ),
+                            // サブエピソードのマーカー
                             ...reExperienceViewModel.subEpisodeList
                                 .map((episode) => Marker(
                                       markerId: MarkerId(episode.id),
