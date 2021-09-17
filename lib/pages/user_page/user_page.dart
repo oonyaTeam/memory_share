@@ -4,6 +4,7 @@ import 'package:memory_share/pages/post_detail_page/post_detail_page.dart';
 import 'package:memory_share/pages/user_page/user_page_view_model.dart';
 import 'package:memory_share/theme.dart';
 import 'package:memory_share/view_models/view_models.dart';
+import 'package:memory_share/widgets/custom_sliver_app_bar.dart';
 import 'package:provider/provider.dart';
 
 class UserPage extends StatelessWidget {
@@ -19,31 +20,9 @@ class UserPage extends StatelessWidget {
           body: CustomScrollView(
             controller: model.controller,
             slivers: [
-              SliverAppBar(
-                expandedHeight: 112.0,
-                backgroundColor: Colors.white,
-                foregroundColor: CustomColors.primary,
-                iconTheme: const IconThemeData(color: CustomColors.primary),
-                pinned: true,
-                snap: false,
-                floating: true,
-                flexibleSpace: FlexibleSpaceBar.createSettings(
-                  currentExtent: 0,
-                  child: FlexibleSpaceBar(
-                    titlePadding: EdgeInsetsDirectional.only(
-                      start: model.titleStartPadding,
-                      bottom: 12,
-                    ),
-                    title: const Text(
-                      'これまでの投稿',
-                      style: TextStyle(
-                        color: CustomColors.primary,
-                        fontSize: 24.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
+              CustomSliverAppBar(
+                controller: model.controller,
+                title: "",
                 actions: <Widget>[
                   IconButton(
                     icon: const Icon(Icons.settings),
