@@ -32,7 +32,9 @@ class MapRepository {
         ],
         image:
             "https://pbs.twimg.com/media/E6CYtu1VcAIjMvY?format=jpg&name=large",
-        authorId: "author1",
+        authorId: 1,
+        angle: 30.0,
+        isSeen: false,
       ),
       Memory(
         id: 2,
@@ -52,7 +54,9 @@ class MapRepository {
         ],
         image:
             "https://pbs.twimg.com/media/E6CYtu1VcAIjMvY?format=jpg&name=large",
-        authorId: "author2",
+        authorId: 2,
+        angle: 120.0,
+        isSeen: true,
       ),
     ];
     final List<Memory> memories = await _mapService.getMemories();

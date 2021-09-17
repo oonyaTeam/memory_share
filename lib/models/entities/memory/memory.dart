@@ -36,7 +36,9 @@ class Memory {
   LatLng latLng;
   List<Episode> episodes;
   String image;
-  String authorId;
+  int authorId;
+  double angle;
+  bool isSeen;
 
   Memory({
     required this.id,
@@ -45,6 +47,8 @@ class Memory {
     required this.episodes,
     required this.image,
     required this.authorId,
+    required this.angle,
+    required this.isSeen,
   });
 
   factory Memory.fromJson(Map<String, dynamic> json) {
@@ -56,18 +60,25 @@ class Memory {
           json['episodes'].map((value) => Episode.fromJson(value))),
       image: json['image'],
       authorId: json['author_id'],
+      angle: json['angle'],
+      isSeen: json['seen'],
     );
   }
 
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'memory': memory,
-        'latitude': latLng.latitude,
-        'longitude': latLng.longitude,
-        'episodes': episodes.map((episode) => episode.toJson()).toList(),
-        'image': image,
-        'author_id': authorId,
-      };
+  Map<String, dynamic> toJson() {
+    final episodesJson = episodes.map((episode) => episode.toJson()).toList();
+    return {
+      'id': id,
+      'memory': memory,
+      'latitude': latLng.latitude,
+      'longitude': latLng.longitude,
+      'episodes': episodesJson,
+      'image': image,
+      'author_id': authorId,
+      'angle': angle,
+      'seen': isSeen,
+    };
+  }
 }
 
 /// SubEpisode作成時にのみ使用。APIから取得したサブエピソードは[Episode]である。
