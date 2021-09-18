@@ -88,3 +88,31 @@ class SubEpisode {
 
   SubEpisode({required this.latLng, required this.episode});
 }
+
+class NewMemory {
+  String memory;
+  LatLng latLng;
+  List<Episode> episodes;
+  String image;
+  double angle;
+
+  NewMemory({
+    required this.memory,
+    required this.latLng,
+    required this.episodes,
+    required this.image,
+    required this.angle,
+  });
+
+  Map<String, dynamic> toJson() {
+    final episodesJson = episodes.map((episode) => episode.toJson()).toList();
+    return {
+      'memory': memory,
+      'latitude': latLng.latitude,
+      'longitude': latLng.longitude,
+      'episodes': episodesJson,
+      'image': image,
+      'angle': angle,
+    };
+  }
+}

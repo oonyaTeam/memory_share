@@ -10,13 +10,13 @@ class PostRepository {
 
   /// 投稿を行う処理。撮った画像を[StorageService]でCloudStorageに投げたあと、
   /// そのURLとエピソードなどを[Memory]としてAPIに投げている。
-  Future<Memory> postMemory({
+  Future<void> postMemory({
     required String mainEpisode,
     required List<SubEpisode> subEpisodeList,
     required File photo,
   }) async {
     final String imageUrl = await _storageService.uploadImage(photo);
-    final newMemory = await _postService.postMemory(
+    await _postService.postMemory(
       mainEpisode: mainEpisode,
       subEpisodes: List<Episode>.from(
         subEpisodeList.asMap().entries.map((entry) => Episode(
@@ -27,7 +27,6 @@ class PostRepository {
       ),
       imageUrl: imageUrl,
     );
-    return newMemory;
   }
 
   Future<List<Memory>> getMyMemories(String uuid) async {
