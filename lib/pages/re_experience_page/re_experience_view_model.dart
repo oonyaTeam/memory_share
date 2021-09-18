@@ -181,7 +181,7 @@ class ReExperienceViewModel with ChangeNotifier {
   }
 
   /// サブエピソードを閲覧したときに、その閲覧したという値を変更する関数
-  void viewSubEpisode(String id) {
+  void viewSubEpisode(int id) {
     final int index =
         _subEpisodeList.indexWhere((subEpisode) => subEpisode.id == id);
     _subEpisodeList[index].isViewed = true;
@@ -205,7 +205,7 @@ class SubEpisode {
     this.distance = double.infinity,
   });
 
-  final String id;
+  final int id;
   final String episode;
   final LatLng latLng;
   bool isViewed;

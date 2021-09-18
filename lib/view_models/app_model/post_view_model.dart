@@ -53,14 +53,13 @@ class PostViewModel with ChangeNotifier {
   }
 
   /// [PostRepository]のpostMemoryを呼び出して、入力したデータを投稿する。
-  Future<Memory> postMemory() async {
+  Future<void> postMemory() async {
     if (_photo == null) throw Error();
 
-    final newMemory = await _postRepository.postMemory(
+    await _postRepository.postMemory(
       mainEpisode: _mainEpisode,
       subEpisodeList: _subEpisodeList,
       photo: _photo!,
     );
-    return newMemory;
   }
 }
