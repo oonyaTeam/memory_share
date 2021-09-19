@@ -6,13 +6,18 @@ import 'package:provider/provider.dart';
 import 'episode_view_model.dart';
 
 class EpisodeViewPage extends StatelessWidget {
-  const EpisodeViewPage({Key? key}) : super(key: key);
+  const EpisodeViewPage({
+    Key? key,
+    required this.episodeId
+  }) : super(key: key);
+
+  final int episodeId;
 
   @override
   Widget build(BuildContext context) {
     try {
       return ChangeNotifierProvider(
-        create: (_) => EpisodeViewModel(context: context),
+        create: (_) => EpisodeViewModel(context: context, episodeId: episodeId),
         child: Consumer<EpisodeViewModel>(
           builder: (context, episodeViewModel, _) => Scaffold(
             body: Stack(

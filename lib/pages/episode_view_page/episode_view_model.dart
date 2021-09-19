@@ -39,11 +39,11 @@ class EpisodeViewModel with ChangeNotifier {
 
   double get angle => _angle;
 
-  EpisodeViewModel({required BuildContext context}) {
+  EpisodeViewModel({required BuildContext context, required int episodeId}) {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeLeft, //横固定
     ]);
-    setAngleAndEpisode(context: context, selectIndex: 0);
+    setAngleAndEpisode(context: context, selectIndex: episodeId);
     getCamera();
     getCompass();
   }
