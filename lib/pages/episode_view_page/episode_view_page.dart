@@ -6,10 +6,7 @@ import 'package:provider/provider.dart';
 import 'episode_view_model.dart';
 
 class EpisodeViewPage extends StatelessWidget {
-  const EpisodeViewPage({
-    Key? key,
-    required this.episodeId
-  }) : super(key: key);
+  const EpisodeViewPage({Key? key, required this.episodeId}) : super(key: key);
 
   final int episodeId;
 
@@ -32,13 +29,13 @@ class EpisodeViewPage extends StatelessWidget {
                           quarterTurns: 0,
                           child: Transform.scale(
                             scale:
-                            episodeViewModel.controller!.value.aspectRatio,
+                                episodeViewModel.controller!.value.aspectRatio,
                             child: Center(
                               child: AspectRatio(
                                 aspectRatio: episodeViewModel
                                     .controller!.value.aspectRatio,
                                 child:
-                                CameraPreview(episodeViewModel.controller!),
+                                    CameraPreview(episodeViewModel.controller!),
                               ),
                             ),
                           ),

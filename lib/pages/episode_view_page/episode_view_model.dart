@@ -7,11 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_compass/flutter_compass.dart';
 import 'package:memory_share/view_models/view_models.dart';
 
-enum AngleMode {
-  normal,
-  minOverflow,
-  maxOverflow
-}
+enum AngleMode { normal, minOverflow, maxOverflow }
 
 class EpisodeViewModel with ChangeNotifier {
   List<CameraDescription> cameras = [];
@@ -74,7 +70,8 @@ class EpisodeViewModel with ChangeNotifier {
     });
   }
 
-  void setAngleAndEpisode({required BuildContext context, required int selectIndex}) {
+  void setAngleAndEpisode(
+      {required BuildContext context, required int selectIndex}) {
     final userModel = context.watch<UserModel>();
     final item = userModel.myMemories[selectIndex];
     final angle = item.angle;
@@ -100,7 +97,7 @@ class EpisodeViewModel with ChangeNotifier {
   }
 
   void observeAngle(AngleMode mode) {
-    switch(mode) {
+    switch (mode) {
       case AngleMode.normal:
         if (_angle >= _memoryMinAngle && _angle <= _memoryMaxAngle) {
           _showDialogFlag = true;
