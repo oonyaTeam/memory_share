@@ -6,25 +6,27 @@ import 'package:provider/provider.dart';
 import 'episode_view_model.dart';
 
 class EpisodeViewPage extends StatelessWidget {
-  const EpisodeViewPage({Key? key}) : super(key: key);
+  const EpisodeViewPage({Key? key, required this.episodeId}) : super(key: key);
+
+  final int episodeId;
 
   @override
   Widget build(BuildContext context) {
     try {
       return ChangeNotifierProvider(
-        create: (_) => EpisodeViewModel(),
+        create: (_) => EpisodeViewModel(context: context, episodeId: episodeId),
         child: Consumer<EpisodeViewModel>(
           builder: (context, episodeViewModel, _) => Scaffold(
             body: Stack(
               children: [
                 RotatedBox(
-                  quarterTurns: 3,
+                  quarterTurns: 2,
                   child: FutureBuilder<void>(
                     future: episodeViewModel.initializeCameraController,
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.done) {
                         return RotatedBox(
-                          quarterTurns: 3,
+                          quarterTurns: 0,
                           child: Transform.scale(
                             scale:
                                 episodeViewModel.controller!.value.aspectRatio,
@@ -49,7 +51,7 @@ class EpisodeViewPage extends StatelessWidget {
                 Align(
                   alignment: Alignment.topCenter,
                   child: episodeViewModel.showDialogFlag
-                      ? const EpisodePreview("えもいねぇ")
+                      ? EpisodePreview(episodeViewModel.episodeText)
                       : Container(),
                 ),
               ],

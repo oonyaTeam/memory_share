@@ -6,7 +6,7 @@ import 'package:memory_share/models/models.dart';
 
 /// 作成したMemoryをAPIへ投稿する。
 Future<void> createMemory(
-    Memory memory, String idToken, http.Client client) async {
+    NewMemory memory, String idToken, http.Client client) async {
   final endpoint = FlutterConfig.get("API_ENDPOINT");
   final resp = await client.post(
     Uri.parse(endpoint + 'create-memory'),

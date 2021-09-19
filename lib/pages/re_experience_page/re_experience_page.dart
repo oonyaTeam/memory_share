@@ -65,7 +65,7 @@ class ReExperiencePage extends StatelessWidget {
                             // サブエピソードのマーカー
                             ...reExperienceViewModel.subEpisodeList
                                 .map((episode) => Marker(
-                                      markerId: MarkerId(episode.id),
+                                      markerId: MarkerId(episode.id.toString()),
                                       position: episode.latLng,
                                       onTap: () {},
                                       infoWindow: InfoWindow(
@@ -116,8 +116,9 @@ class ReExperiencePage extends StatelessWidget {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) =>
-                                        const EpisodeViewPage(),
+                                    builder: (context) => EpisodeViewPage(
+                                        episodeId: reExperienceViewModel
+                                            .currentMemory.id),
                                   ),
                                 );
                               },
@@ -127,10 +128,8 @@ class ReExperiencePage extends StatelessWidget {
                                   child: Image.network(reExperienceViewModel
                                       .currentMemory.image),
                                   imageFilter: ImageFilter.blur(
-                                    sigmaX:
-                                        reExperienceViewModel.distance / 100,
-                                    sigmaY:
-                                        reExperienceViewModel.distance / 100,
+                                    sigmaX: reExperienceViewModel.sigma / 10,
+                                    sigmaY: reExperienceViewModel.sigma / 10,
                                   ),
                                 ),
                               ),

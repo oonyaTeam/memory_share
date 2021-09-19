@@ -42,6 +42,7 @@ class ReExperienceViewModel with ChangeNotifier {
 
   Position? _currentPosition;
   num _distance = double.infinity;
+  num _sigma = double.infinity;
   final Completer<GoogleMapController> _reExperienceMapController = Completer();
   final Memory _currentMemory;
   List<SubEpisode> _subEpisodeList = [];
@@ -53,6 +54,8 @@ class ReExperienceViewModel with ChangeNotifier {
   Position? get currentPosition => _currentPosition;
 
   num get distance => _distance;
+
+  num get sigma => _sigma;
 
   Completer<GoogleMapController> get reExperienceMapController =>
       _reExperienceMapController;
@@ -83,6 +86,12 @@ class ReExperienceViewModel with ChangeNotifier {
       _currentMemory.latLng,
       LatLng(currentPosition.latitude, currentPosition.longitude),
     );
+
+    if (_distance / 100 >= 10) {
+      _sigma = 100;
+    } else {
+      _sigma = _distance / 100;
+    }
 
     // 各サブエピソードとの距離を変更
     for (int i = 0; i < _subEpisodeList.length; i++) {
@@ -150,7 +159,7 @@ class ReExperienceViewModel with ChangeNotifier {
         tapEvent1: () {
           Navigator.pop(_context);
           Navigator.of(_context).push(MaterialPageRoute(
-            builder: (_) => const EpisodeViewPage(),
+            builder: (_) => EpisodeViewPage(episodeId: _currentMemory.id),
           ));
         },
       ),
@@ -172,7 +181,7 @@ class ReExperienceViewModel with ChangeNotifier {
   }
 
   /// サブエピソードを閲覧したときに、その閲覧したという値を変更する関数
-  void viewSubEpisode(String id) {
+  void viewSubEpisode(int id) {
     final int index =
         _subEpisodeList.indexWhere((subEpisode) => subEpisode.id == id);
     _subEpisodeList[index].isViewed = true;
@@ -196,7 +205,7 @@ class SubEpisode {
     this.distance = double.infinity,
   });
 
-  final String id;
+  final int id;
   final String episode;
   final LatLng latLng;
   bool isViewed;

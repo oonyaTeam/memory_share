@@ -10,49 +10,53 @@ class MapRepository {
     // サンプルデータ
     final List<Memory> sampleMemories = [
       Memory(
+        id: 1,
         memory: "this is sample memory1",
         latLng: const LatLng(34.8532, 136.5822),
-        seenAuthor: ["author1"],
         episodes: [
           Episode(
-            id: 'episode0',
+            id: 1,
             episode: 'this is sub episode 0',
             latLng: const LatLng(34.8510, 136.588),
           ),
           Episode(
-            id: 'episode1',
+            id: 2,
             episode: 'this is sub episode 1',
             latLng: const LatLng(34.8529, 136.589),
           ),
           Episode(
-            id: 'episode2',
+            id: 3,
             episode: 'this is sub episode 2',
             latLng: const LatLng(34.8520, 136.5801),
           ),
         ],
         image:
             "https://pbs.twimg.com/media/E6CYtu1VcAIjMvY?format=jpg&name=large",
-        author: "author1",
+        authorId: 1,
+        angle: 30.0,
+        isSeen: false,
       ),
       Memory(
+        id: 2,
         memory: "this is sample memory2",
         latLng: const LatLng(34.8480, 136.5756),
-        seenAuthor: ["author2"],
         episodes: [
           Episode(
-            id: 'episode1',
+            id: 1,
             episode: 'this is sub episode 1',
             latLng: const LatLng(34.8520, 136.580),
           ),
           Episode(
-            id: 'episode2',
+            id: 2,
             episode: 'this is sub episode 2',
             latLng: const LatLng(34.8515, 136.581),
           ),
         ],
         image:
             "https://pbs.twimg.com/media/E6CYtu1VcAIjMvY?format=jpg&name=large",
-        author: "author2",
+        authorId: 2,
+        angle: 120.0,
+        isSeen: true,
       ),
     ];
     final List<Memory> memories = await _mapService.getMemories();
