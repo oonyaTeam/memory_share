@@ -12,28 +12,28 @@ class EpisodeViewPage extends StatelessWidget {
   Widget build(BuildContext context) {
     try {
       return ChangeNotifierProvider(
-        create: (_) => EpisodeViewModel(),
+        create: (_) => EpisodeViewModel(context: context),
         child: Consumer<EpisodeViewModel>(
           builder: (context, episodeViewModel, _) => Scaffold(
             body: Stack(
               children: [
                 RotatedBox(
-                  quarterTurns: 3,
+                  quarterTurns: 2,
                   child: FutureBuilder<void>(
                     future: episodeViewModel.initializeCameraController,
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.done) {
                         return RotatedBox(
-                          quarterTurns: 3,
+                          quarterTurns: 0,
                           child: Transform.scale(
                             scale:
-                                episodeViewModel.controller!.value.aspectRatio,
+                            episodeViewModel.controller!.value.aspectRatio,
                             child: Center(
                               child: AspectRatio(
                                 aspectRatio: episodeViewModel
                                     .controller!.value.aspectRatio,
                                 child:
-                                    CameraPreview(episodeViewModel.controller!),
+                                CameraPreview(episodeViewModel.controller!),
                               ),
                             ),
                           ),
@@ -49,7 +49,7 @@ class EpisodeViewPage extends StatelessWidget {
                 Align(
                   alignment: Alignment.topCenter,
                   child: episodeViewModel.showDialogFlag
-                      ? const EpisodePreview("えもいねぇ")
+                      ? EpisodePreview(episodeViewModel.episodeText)
                       : Container(),
                 ),
               ],
