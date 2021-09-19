@@ -116,8 +116,9 @@ class ReExperiencePage extends StatelessWidget {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) =>
-                                        const EpisodeViewPage(),
+                                    builder: (context) => EpisodeViewPage(
+                                        episodeId: reExperienceViewModel
+                                            .currentMemory.id),
                                   ),
                                 );
                               },
