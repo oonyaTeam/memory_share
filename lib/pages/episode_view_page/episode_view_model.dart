@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_compass/flutter_compass.dart';
 import 'package:memory_share/view_models/view_models.dart';
+import 'package:memory_share/models/entities/entities.dart';
 
 enum AngleMode { normal, minOverflow, maxOverflow }
 
@@ -35,11 +36,11 @@ class EpisodeViewModel with ChangeNotifier {
 
   double get angle => _angle;
 
-  EpisodeViewModel({required BuildContext context, required int episodeId}) {
+  EpisodeViewModel({required BuildContext context, required Memory currentMemory}) {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeLeft, //横固定
     ]);
-    setAngleAndEpisode(context: context, selectIndex: episodeId);
+    setAngleAndEpisode(context: context, episodeText: currentMemory.memory, setAngle: currentMemory.angle);
     getCamera();
     getCompass();
   }
@@ -70,13 +71,9 @@ class EpisodeViewModel with ChangeNotifier {
     });
   }
 
-  void setAngleAndEpisode(
-      {required BuildContext context, required int selectIndex}) {
-    final userModel = context.watch<UserModel>();
-    final item = userModel.myMemories[selectIndex];
-    final angle = item.angle;
-
-    _episodeText = item.memory;
+  void setAngleAndEpisode({required BuildContext context, required String episodeText, required double setAngle}) {
+    final angle = setAngle;
+    _episodeText = episodeText;
 
     //angleの範囲が0〜360なのでそれに対応するための処理
     if (angle - 30 < 0) {

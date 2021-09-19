@@ -1,20 +1,21 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_share/widgets/widgets.dart';
+import 'package:memory_share/models/entities/entities.dart';
 import 'package:provider/provider.dart';
 
 import 'episode_view_model.dart';
 
 class EpisodeViewPage extends StatelessWidget {
-  const EpisodeViewPage({Key? key, required this.episodeId}) : super(key: key);
+  const EpisodeViewPage({Key? key, required this.currentMemory}) : super(key: key);
 
-  final int episodeId;
+  final Memory currentMemory;
 
   @override
   Widget build(BuildContext context) {
     try {
       return ChangeNotifierProvider(
-        create: (_) => EpisodeViewModel(context: context, episodeId: episodeId),
+        create: (_) => EpisodeViewModel(context: context, currentMemory: currentMemory),
         child: Consumer<EpisodeViewModel>(
           builder: (context, episodeViewModel, _) => Scaffold(
             body: Stack(
