@@ -10,19 +10,18 @@ import 'create_memory_test.mocks.dart';
 
 @GenerateMocks([http.Client])
 void main() {
-  final Memory sampleMemory = Memory(
+  final NewMemory sampleMemory = NewMemory(
     memory: "this is sample main episode",
     latLng: const LatLng(34.8532, 136.5822),
-    seenAuthor: ["author1"],
     episodes: [
       Episode(
-        id: "episodeId1",
+        id: 0,
         episode: "This is sample sub episode",
         latLng: const LatLng(34.8528, 136.5817),
       ),
     ],
     image: "https://pbs.twimg.com/media/E6CYtu1VcAIjMvY?format=jpg&name=large",
-    author: "author1",
+    angle: 30,
   );
 
   const apiEndpoint = 'http://example.com/'; // サンプルエンドポイント
