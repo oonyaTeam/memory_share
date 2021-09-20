@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_config/flutter_config.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:memory_share/utils/utils.dart';
 import 'package:twitter_login/entity/auth_result.dart';
 import 'package:twitter_login/twitter_login.dart';
 
@@ -14,6 +15,7 @@ class AuthService {
     redirectURI: 'memory-share://',
   );
 
+  /// idToken(
   Future<String> getIdToken() async {
     final User? user = _instance.currentUser;
     if (user == null) throw Error();
@@ -123,5 +125,11 @@ class AuthService {
   }) async {
     final UserCredential userCredential = await _reAuthentication(oldPassword);
     await userCredential.user!.updatePassword(newPassword);
+  }
+
+  /// ユーザが追加されたときに、サーバーに投げる
+  Future<void> postAuthor() async {
+    final idToken = await getIdToken();
+    await postAuthorRequest(idToken);
   }
 }
