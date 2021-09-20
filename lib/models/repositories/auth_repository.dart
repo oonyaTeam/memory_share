@@ -10,6 +10,7 @@ class AuthRepository {
       _authService.loginWithEmailAndPassword(email, password);
 
   /// EmailとパスワードでSignUpを行う。
+  /// ユーザの作成ができたときは、サーバーにauthorをポストするリクエストも投げる。
   Future<User?> signUp(String email, String password) async {
     final User? user =
         await _authService.signUpWithEmailAndPassword(email, password);
@@ -20,10 +21,26 @@ class AuthRepository {
   }
 
   /// Googleでログインを行う。
-  Future<User?> loginWithGoogle() => _authService.loginWithGoogle();
+  /// ユーザの作成ができたときは、サーバーにauthorをポストするリクエストも投げる。
+  Future<User?> loginWithGoogle() async {
+    final User? user = await _authService.loginWithGoogle();
+
+    if (user != null) {
+      await _authService.postAuthor();
+    }
+    return user;
+  }
 
   /// Twitterでログインを行う。
-  Future<User?> loginWithTwitter() => _authService.loginWithTwitter();
+  /// ユーザの作成ができたときは、サーバーにauthorをポストするリクエストも投げる。
+  Future<User?> loginWithTwitter() async {
+    final User? user = await _authService.loginWithTwitter();
+
+    if (user != null) {
+      await _authService.postAuthor();
+    }
+    return user;
+  }
 
   /// ログアウトする。
   Future<void> logout() async {
