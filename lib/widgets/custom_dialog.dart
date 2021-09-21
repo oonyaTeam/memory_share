@@ -75,53 +75,55 @@ class CustomDialogBox extends StatelessWidget {
                 ),
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    height: 64,
-                    width: 170,
-                    decoration: const BoxDecoration(
-                      border: Border(
-                        top: BorderSide(
-                          color: CustomColors.light,
-                          width: 1,
+                  Expanded(
+                    child: Container(
+                      height: 64,
+                      decoration: const BoxDecoration(
+                        border: Border(
+                          top: BorderSide(
+                            color: CustomColors.light,
+                            width: 1,
+                          ),
                         ),
                       ),
-                    ),
-                    child: TextButton(
-                      onPressed: () => tapEvent2(),
-                      child: const Text(
-                        "いいえ",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 24,
-                          color: CustomColors.deep,
+                      child: TextButton(
+                        onPressed: () => tapEvent2(),
+                        child: const Text(
+                          "いいえ",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 24,
+                            color: CustomColors.deep,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                  Container(
-                    height: 64,
-                    width: 170,
-                    decoration: const BoxDecoration(
-                      border: Border(
-                        top: BorderSide(
-                          color: CustomColors.light,
-                          width: 1,
-                        ),
-                        left: BorderSide(
-                          color: CustomColors.light,
-                          width: 1,
+                  Expanded(
+                    child: Container(
+                      height: 64,
+                      decoration: const BoxDecoration(
+                        border: Border(
+                          top: BorderSide(
+                            color: CustomColors.light,
+                            width: 1,
+                          ),
+                          left: BorderSide(
+                            color: CustomColors.light,
+                            width: 1,
+                          ),
                         ),
                       ),
-                    ),
-                    child: TextButton(
-                      onPressed: () => tapEvent1(),
-                      child: const Text(
-                        "はい",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 24,
+                      child: TextButton(
+                        onPressed: () => tapEvent1(),
+                        child: const Text(
+                          "はい",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 24,
+                          ),
                         ),
                       ),
                     ),
