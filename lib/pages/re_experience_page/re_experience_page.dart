@@ -111,12 +111,15 @@ class ReExperiencePage extends StatelessWidget {
                                 ),
                               ),
                             ),
+                            // TODO: デバック用にいつでもEpisodeViewPageに遷移できるようにしてあるが、リリース時には削除する。
                             GestureDetector(
                               onTap: () {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => EpisodeViewPage(currentMemory: reExperienceViewModel.currentMemory),
+                                    builder: (context) => EpisodeViewPage(
+                                      reExperienceViewModel.currentMemory,
+                                    ),
                                   ),
                                 );
                               },

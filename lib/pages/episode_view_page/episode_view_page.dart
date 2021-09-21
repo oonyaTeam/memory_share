@@ -1,13 +1,13 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:memory_share/widgets/widgets.dart';
 import 'package:memory_share/models/entities/entities.dart';
+import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 import 'episode_view_model.dart';
 
 class EpisodeViewPage extends StatelessWidget {
-  const EpisodeViewPage({Key? key, required this.currentMemory}) : super(key: key);
+  const EpisodeViewPage(this.currentMemory, {Key? key}) : super(key: key);
 
   final Memory currentMemory;
 
@@ -15,7 +15,8 @@ class EpisodeViewPage extends StatelessWidget {
   Widget build(BuildContext context) {
     try {
       return ChangeNotifierProvider(
-        create: (_) => EpisodeViewModel(context: context, currentMemory: currentMemory),
+        create: (_) =>
+            EpisodeViewModel(context: context, currentMemory: currentMemory),
         child: Consumer<EpisodeViewModel>(
           builder: (context, episodeViewModel, _) => Scaffold(
             body: Stack(
@@ -25,27 +26,25 @@ class EpisodeViewPage extends StatelessWidget {
                   child: FutureBuilder<void>(
                     future: episodeViewModel.initializeCameraController,
                     builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.done) {
-                        return RotatedBox(
-                          quarterTurns: 0,
-                          child: Transform.scale(
-                            scale:
-                                episodeViewModel.controller!.value.aspectRatio,
-                            child: Center(
-                              child: AspectRatio(
-                                aspectRatio: episodeViewModel
-                                    .controller!.value.aspectRatio,
-                                child:
-                                    CameraPreview(episodeViewModel.controller!),
-                              ),
-                            ),
-                          ),
-                        );
-                      } else {
+                      if (snapshot.connectionState != ConnectionState.done) {
                         return const Center(
                           child: CircularProgressIndicator(),
                         );
                       }
+                      return RotatedBox(
+                        quarterTurns: 0,
+                        child: Transform.scale(
+                          scale: episodeViewModel.controller!.value.aspectRatio,
+                          child: Center(
+                            child: AspectRatio(
+                              aspectRatio: episodeViewModel
+                                  .controller!.value.aspectRatio,
+                              child:
+                                  CameraPreview(episodeViewModel.controller!),
+                            ),
+                          ),
+                        ),
+                      );
                     },
                   ),
                 ),

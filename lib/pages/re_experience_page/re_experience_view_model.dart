@@ -159,7 +159,7 @@ class ReExperienceViewModel with ChangeNotifier {
         tapEvent1: () {
           Navigator.pop(_context);
           Navigator.of(_context).push(MaterialPageRoute(
-            builder: (_) => EpisodeViewPage(currentMemory: _currentMemory)
+            builder: (_) => EpisodeViewPage(_currentMemory),
           ));
         },
       ),
