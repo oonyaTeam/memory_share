@@ -13,7 +13,7 @@ class HomeViewModel with ChangeNotifier {
     getPosition();
 
     BitmapDescriptor.fromAssetImage(
-      const ImageConfiguration(devicePixelRatio: 5),
+      const ImageConfiguration(devicePixelRatio: 2.5),
       'assets/memory_spot_icon.png',
     ).then((value) {
       pinLocationIcon = value;
