@@ -26,9 +26,12 @@ class UserModel with ChangeNotifier {
 
   /// アプリ起動時に行う非同期処理（コンストラクタとは別に置いて、app.dartで呼び出す。
   Future<void> initialize() async {
+    // Local DB(Hive) から、チュートリアルを見たかのデータを取得
     _reExperienceTutorialDone =
         await _userRepository.getReExperienceTutorialDone();
     _postTutorialDone = await _userRepository.getPostTutorialDone();
+
+    // currentUserを代入
     _currentUser = FirebaseAuth.instance.currentUser;
     notifyListeners();
   }
@@ -38,12 +41,13 @@ class UserModel with ChangeNotifier {
   final PostRepository _postRepository = PostRepository();
 
   StreamSubscription<User?>? _userStream;
-
   User? _currentUser;
 
+  // チュートリアルを終えているかという値
   bool? _reExperienceTutorialDone;
   bool? _postTutorialDone;
 
+  // 自分の投稿
   List<Memory> _myMemories = [];
 
   User? get currentUser => _currentUser;

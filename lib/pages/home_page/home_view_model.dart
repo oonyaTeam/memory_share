@@ -12,6 +12,13 @@ class HomeViewModel with ChangeNotifier {
 
     getPosition();
 
+    BitmapDescriptor.fromAssetImage(
+      const ImageConfiguration(devicePixelRatio: 5),
+      'assets/memory_spot_icon.png',
+    ).then((value) {
+      pinLocationIcon = value;
+    });
+
     _positionStream = Geolocator.getPositionStream(
       intervalDuration: const Duration(seconds: 5),
     ).listen((Position position) {
@@ -30,6 +37,8 @@ class HomeViewModel with ChangeNotifier {
   final Completer<GoogleMapController> _homeMapController = Completer();
   final List<Memory> _memories = [];
   Memory? _currentMemory;
+
+  BitmapDescriptor? pinLocationIcon;
 
   StreamSubscription<Position>? _positionStream;
 
@@ -55,7 +64,6 @@ class HomeViewModel with ChangeNotifier {
 
   void addMemories(List<Memory> memories) {
     _memories.addAll(memories);
-    notifyListeners();
   }
 
   void clearMemories() {
