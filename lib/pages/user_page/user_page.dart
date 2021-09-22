@@ -4,7 +4,7 @@ import 'package:memory_share/pages/post_detail_page/post_detail_page.dart';
 import 'package:memory_share/pages/user_page/user_page_view_model.dart';
 import 'package:memory_share/theme.dart';
 import 'package:memory_share/view_models/view_models.dart';
-import 'package:memory_share/widgets/custom_sliver_app_bar.dart';
+import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 class UserPage extends StatelessWidget {
