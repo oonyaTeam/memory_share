@@ -6,11 +6,12 @@ import 'package:memory_share/models/models.dart';
 
 /// 思い出を見終わったら誰がどのmemoryを見たのかをサーバに知らせる。
 Future<void> seenMemory(
-    SeenMemoryId id, String idToken, http.Client client) async {
+    int id, String idToken, http.Client client) async {
+  final SeenMemoryId seenId = SeenMemoryId(id: id);
   final endpoint = FlutterConfig.get("API_ENDPOINT");
   final resp = await client.post(
     Uri.parse(endpoint + 'seen-memory'),
-    body: json.encode(id.toJson()),
+    body: json.encode(seenId.toJson()),
     headers: {
       'Content-Type': 'application/json',
       "Authorization": "Bearer $idToken",
