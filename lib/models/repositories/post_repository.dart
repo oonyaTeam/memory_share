@@ -2,11 +2,13 @@ import 'dart:io';
 
 import 'package:memory_share/models/models.dart';
 import 'package:memory_share/models/services/post_service.dart';
+import 'package:memory_share/models/services/seen_memory_service.dart';
 import 'package:memory_share/models/services/storage_service.dart';
 
 class PostRepository {
   final PostService _postService = PostService();
   final StorageService _storageService = StorageService();
+  final SeenMemoryService _seenMemoryService = SeenMemoryService();
 
   /// 投稿を行う処理。撮った画像を[StorageService]でCloudStorageに投げたあと、
   /// そのURLとエピソードなどを[Memory]としてAPIに投げている。
@@ -27,6 +29,12 @@ class PostRepository {
       ),
       imageUrl: imageUrl,
     );
+  }
+
+  Future<void> seenMemoryId({
+    required int id,
+  }) async {
+    await _seenMemoryService.updateMemoryId(id: id);
   }
 
   Future<List<Memory>> getMyMemories(String uuid) async {
