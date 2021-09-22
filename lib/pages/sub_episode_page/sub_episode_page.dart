@@ -8,6 +8,7 @@ import 'package:memory_share/pages/sub_episode_page/empty_state.dart';
 import 'package:memory_share/theme.dart';
 import 'package:memory_share/view_models/view_models.dart';
 import 'package:memory_share/widgets/custom_sliver_app_bar.dart';
+import 'package:flutter_compass/flutter_compass.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -26,10 +27,13 @@ class SubEpisodePage extends StatelessWidget {
 
   Future onTapArriveButton(BuildContext context) async {
     final takenPhoto = await picker.pickImage(source: ImageSource.camera);
+    final CompassEvent compassData = await FlutterCompass.events!.first;
+    final double angle = double.parse(compassData.heading.toString());
 
     if (takenPhoto != null) {
       File photoFile = File(takenPhoto.path);
       context.read<PostViewModel>().setPhoto(photoFile);
+      context.read<PostViewModel>().setAngle(angle);
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => const PostPage(),
@@ -130,21 +134,6 @@ class SubEpisodePage extends StatelessWidget {
                                 },
                                 childCount: postViewModel.subEpisodeList.length,
                               ),
-                              // SliverChildListDelegate([
-                              //   ListView.builder(
-                              //     padding: const EdgeInsets.only(
-                              //       left: 24.0,
-                              //       right: 24.0,
-                              //       top: 16.0,
-                              //     ),
-                              //     itemCount: postViewModel.subEpisodeList.length,
-                              //     itemBuilder: (context, index) {
-                              //       final item =
-                              //           postViewModel.subEpisodeList[index];
-
-                              //     },
-                              //   ),
-                              // ]),
                             ),
                           ),
                     // SliverList(delegate: (delegate))
@@ -155,7 +144,7 @@ class SubEpisodePage extends StatelessWidget {
                   child: Container(
                     margin: const EdgeInsets.only(bottom: 89),
                     child: LongButton(
-                      label: "エピソードを追加する",
+                      label: "エピソードを書く",
                       onPressed: () => onTapAddButton(context),
                     ),
                   ),
@@ -165,7 +154,7 @@ class SubEpisodePage extends StatelessWidget {
                   child: Container(
                     margin: const EdgeInsets.only(bottom: 22),
                     child: LongButtonBorderPrimary(
-                      label: "目的地に到着",
+                      label: "写真を撮る",
                       onPressed: () => onTapArriveButton(context),
                     ),
                   ),

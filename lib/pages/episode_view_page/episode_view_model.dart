@@ -4,11 +4,17 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_compass/flutter_compass.dart';
-import 'package:memory_share/models/entities/entities.dart';
+import 'package:memory_share/models/models.dart';
 
-enum AngleMode { normal, minOverflow, maxOverflow }
+enum AngleMode {
+  normal,
+  minOverflow,
+  maxOverflow,
+}
 
 class EpisodeViewModel with ChangeNotifier {
+  final PostRepository _postRepository = PostRepository();
+
   List<CameraDescription> cameras = [];
   Future<void>? _initializeCameraController;
   CameraController? _controller;
@@ -16,6 +22,7 @@ class EpisodeViewModel with ChangeNotifier {
   AngleMode _angleMode = AngleMode.normal;
   String _episodeText = "";
   bool _showDialogFlag = false;
+  int _currentId = 0;
   double _memoryMinAngle = 0;
   double _memoryMaxAngle = 0;
   double _angle = 0;
@@ -34,16 +41,17 @@ class EpisodeViewModel with ChangeNotifier {
 
   double get angle => _angle;
 
-  EpisodeViewModel(
-      {required BuildContext context, required Memory currentMemory}) {
+  EpisodeViewModel({
+    required BuildContext context,
+    required Memory currentMemory,
+  }) {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeLeft, //横固定
     ]);
     setAngleAndEpisode(
-      context: context,
-      episodeText: currentMemory.memory,
-      setAngle: currentMemory.angle,
-    );
+        context: context,
+        currentMemory: currentMemory,
+        setAngle: currentMemory.angle);
     getCamera();
     getCompass();
   }
@@ -76,11 +84,12 @@ class EpisodeViewModel with ChangeNotifier {
 
   void setAngleAndEpisode({
     required BuildContext context,
-    required String episodeText,
+    required Memory currentMemory,
     required double setAngle,
   }) {
     final angle = setAngle;
-    _episodeText = episodeText;
+    _episodeText = currentMemory.memory;
+    _currentId = currentMemory.id;
 
     //angleの範囲が0〜360なのでそれに対応するための処理
     if (angle - 30 < 0) {
@@ -134,12 +143,16 @@ class EpisodeViewModel with ChangeNotifier {
 
   @override
   void dispose() {
-    _controller?.dispose();
-    _compassStream?.cancel();
-    super.dispose();
+    if (_showDialogFlag) {
+      _postRepository.seenMemoryId(id: _currentId);
+    }
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp, //縦固定
     ]);
+
+    _controller?.dispose();
+    _compassStream?.cancel();
+    super.dispose();
   }
 }
