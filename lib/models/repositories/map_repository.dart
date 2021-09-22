@@ -1,3 +1,8 @@
+import 'dart:typed_data';
+import 'dart:ui' as ui;
+
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:memory_share/models/models.dart';
 
@@ -70,5 +75,27 @@ class MapRepository {
       endLatLng,
     );
     return distance;
+  }
+
+  Future<BitmapDescriptor> getMainEpisodeMarkerBitmap() async {
+    return BitmapDescriptor.fromAssetImage(
+      const ImageConfiguration(devicePixelRatio: 2.5),
+      'assets/memory_spot_icon.png',
+    );
+  }
+
+  Future<BitmapDescriptor> getSubEpisodeMarkerBitmap(GlobalKey iconKey) async {
+    Future<Uint8List> _capturePng(GlobalKey iconKey) async {
+      RenderRepaintBoundary boundary =
+          iconKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
+      ui.Image image = await boundary.toImage(pixelRatio: 2.5);
+      ByteData? byteData =
+          await image.toByteData(format: ui.ImageByteFormat.png);
+      var pngBytes = byteData!.buffer.asUint8List();
+      return pngBytes;
+    }
+
+    Uint8List imageData = await _capturePng(iconKey);
+    return BitmapDescriptor.fromBytes(imageData);
   }
 }

@@ -41,7 +41,7 @@ class ReExperiencePage extends StatelessWidget {
                             child: SubEpisodeMarker(index + 1),
                           ),
                           RepaintBoundary(
-                            key: subEpisode.viewedIconKey,
+                            key: subEpisode.invalidIconKey,
                             child: SubEpisodeInvalidMarker(index + 1),
                           ),
                         ],

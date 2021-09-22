@@ -12,13 +12,12 @@ class HomeViewModel with ChangeNotifier {
 
     getPosition();
 
-    BitmapDescriptor.fromAssetImage(
-      const ImageConfiguration(devicePixelRatio: 2.5),
-      'assets/memory_spot_icon.png',
-    ).then((value) {
-      pinLocationIcon = value;
+    // マーカーの画像の取得
+    _mapRepository.getMainEpisodeMarkerBitmap().then((value) {
+      _memoryMarker = value;
     });
 
+    // 位置情報を取得するStreamを定義
     _positionStream = Geolocator.getPositionStream(
       intervalDuration: const Duration(seconds: 5),
     ).listen((Position position) {
@@ -38,7 +37,7 @@ class HomeViewModel with ChangeNotifier {
   final List<Memory> _memories = [];
   Memory? _currentMemory;
 
-  BitmapDescriptor? pinLocationIcon;
+  BitmapDescriptor? _memoryMarker;
 
   StreamSubscription<Position>? _positionStream;
 
@@ -51,6 +50,8 @@ class HomeViewModel with ChangeNotifier {
   List<Memory> get memories => _memories;
 
   Memory? get currentMemory => _currentMemory;
+
+  BitmapDescriptor? get memoryMarker => _memoryMarker;
 
   void setCurrentMemory(Memory memory) {
     _currentMemory = memory;

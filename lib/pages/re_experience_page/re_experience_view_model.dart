@@ -1,9 +1,6 @@
 import 'dart:async';
-import 'dart:typed_data';
-import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -35,8 +32,7 @@ class ReExperienceViewModel with ChangeNotifier {
             ))
         .toList();
 
-    // サブエピソードのマーカー表示のために、GlobalKeyのリストを作成している。
-    // 見る前と見た後でマーカーが変わるので、それぞれ作成している。
+    getMarkerBitmaps();
   }
 
   final MapRepository _mapRepository = MapRepository();
@@ -54,6 +50,7 @@ class ReExperienceViewModel with ChangeNotifier {
   List<SubEpisode> _subEpisodeList = [];
   bool _isViewedMainEpisodeDialog = false;
   bool _shouldViewingDialog = false;
+  BitmapDescriptor? _mainEpisodeMarker;
 
   StreamSubscription<Position>? _positionStream;
 
@@ -73,6 +70,8 @@ class ReExperienceViewModel with ChangeNotifier {
   bool get shouldViewingDialog => _shouldViewingDialog;
 
   bool get isViewedMainEpisodeDialog => _isViewedMainEpisodeDialog;
+
+  BitmapDescriptor? get mainEpisodeMarker => _mainEpisodeMarker;
 
   /// ユーザの現在地を取得
   void getPosition() async {
@@ -194,19 +193,36 @@ class ReExperienceViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<BitmapDescriptor> getSubEpisodeMarker(GlobalKey iconKey) async {
-    Future<Uint8List> _capturePng(GlobalKey iconKey) async {
-      RenderRepaintBoundary? boundary =
-          iconKey.currentContext!.findRenderObject() as RenderRepaintBoundary?;
-      ui.Image image = await boundary!.toImage(pixelRatio: 2.5);
-      ByteData? byteData =
-          await image.toByteData(format: ui.ImageByteFormat.png);
-      var pngBytes = byteData!.buffer.asUint8List();
-      return pngBytes;
+  /// メインエピソードとサブエピソードのマーカーの画像を取得する関数
+  void getMarkerBitmaps() async {
+    // メインエピソードのマーカー画像を取得
+    Future<void> _getMainEpisodeMarker() async {
+      final BitmapDescriptor marker =
+          await _mapRepository.getMainEpisodeMarkerBitmap();
+      _mainEpisodeMarker = marker;
     }
 
-    Uint8List imageData = await _capturePng(iconKey);
-    return BitmapDescriptor.fromBytes(imageData);
+    // サブエピソードのマーカー画像（二種類）を取得
+    Future<void> _getSubEpisodeMarker(int index) async {
+      final BitmapDescriptor marker = await _mapRepository
+          .getSubEpisodeMarkerBitmap(_subEpisodeList[index].iconKey);
+      _subEpisodeList[index].iconImage = marker;
+
+      final BitmapDescriptor invalidMarker = await _mapRepository
+          .getSubEpisodeMarkerBitmap(_subEpisodeList[index].invalidIconKey);
+      _subEpisodeList[index].invalidIconImage = invalidMarker;
+    }
+
+    // それぞれの取得処理を futures にまとめ、並行処理している
+    final List<Future<void>> futures = [];
+
+    futures.add(_getMainEpisodeMarker());
+
+    for (int i = 0; i < _subEpisodeList.length; i++) {
+      futures.add(_getSubEpisodeMarker(i));
+    }
+
+    await Future.wait(futures);
   }
 
   @override
@@ -234,5 +250,9 @@ class SubEpisode {
 
   //　マーカー表示のためのGlobalKey
   final GlobalKey iconKey = GlobalKey();
-  final GlobalKey viewedIconKey = GlobalKey();
+  final GlobalKey invalidIconKey = GlobalKey();
+
+  // マーカーの画像
+  BitmapDescriptor? iconImage;
+  BitmapDescriptor? invalidIconImage;
 }
