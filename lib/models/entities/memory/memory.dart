@@ -116,3 +116,17 @@ class NewMemory {
     };
   }
 }
+
+class SeenMemoryId {
+  int id;
+
+  SeenMemoryId({
+    required this.id
+  });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'memory_id': id,
+    };
+  }
+}
