@@ -88,6 +88,11 @@ class MapRepository {
     Future<Uint8List> _capturePng(GlobalKey iconKey) async {
       RenderRepaintBoundary boundary =
           iconKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
+      if (boundary.debugNeedsPaint) {
+        print("Waiting for boundary to be painted.");
+        await Future.delayed(const Duration(milliseconds: 20));
+        return _capturePng(iconKey);
+      }
       ui.Image image = await boundary.toImage(pixelRatio: 2.5);
       ByteData? byteData =
           await image.toByteData(format: ui.ImageByteFormat.png);

@@ -31,8 +31,6 @@ class ReExperienceViewModel with ChangeNotifier {
               latLng: episode.latLng,
             ))
         .toList();
-
-    getMarkerBitmaps();
   }
 
   final MapRepository _mapRepository = MapRepository();

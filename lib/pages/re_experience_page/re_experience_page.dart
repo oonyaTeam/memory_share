@@ -23,6 +23,9 @@ class ReExperiencePage extends StatelessWidget {
       create: (_) => ReExperienceViewModel(currentMemory, context),
       child: Consumer<ReExperienceViewModel>(
         builder: (context, reExperienceViewModel, _) {
+          WidgetsBinding.instance!.addPostFrameCallback((_) {
+            reExperienceViewModel.getMarkerBitmaps();
+          });
           return Scaffold(
             body: Stack(
               children: [
@@ -80,6 +83,8 @@ class ReExperiencePage extends StatelessWidget {
                                   infoWindow: const InfoWindow(
                                     title: "目的地",
                                   ),
+                                  icon:
+                                      reExperienceViewModel.mainEpisodeMarker!,
                                   onTap: () {
                                     // 既に一度目的地に到着していたら、
                                     // マーカーをタップしたときにEpisodeViewに遷移するダイアログを表示する
@@ -102,6 +107,9 @@ class ReExperiencePage extends StatelessWidget {
                                             snippet:
                                                 episode.distance.toString(),
                                           ),
+                                          icon: episode.isViewed
+                                              ? episode.iconImage!
+                                              : episode.invalidIconImage!,
                                         ))
                                     .toSet(),
                               },
