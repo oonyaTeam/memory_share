@@ -6,7 +6,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_compass/flutter_compass.dart';
 import 'package:memory_share/models/models.dart';
 
-enum AngleMode { normal, minOverflow, maxOverflow }
+enum AngleMode {
+  normal,
+  minOverflow,
+  maxOverflow,
+}
 
 class EpisodeViewModel with ChangeNotifier {
   final PostRepository _postRepository = PostRepository();
@@ -37,11 +41,17 @@ class EpisodeViewModel with ChangeNotifier {
 
   double get angle => _angle;
 
-  EpisodeViewModel({required BuildContext context, required Memory currentMemory}) {
+  EpisodeViewModel({
+    required BuildContext context,
+    required Memory currentMemory,
+  }) {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeLeft, //横固定
     ]);
-    setAngleAndEpisode(context: context, currentMemory: currentMemory, setAngle: currentMemory.angle);
+    setAngleAndEpisode(
+        context: context,
+        currentMemory: currentMemory,
+        setAngle: currentMemory.angle);
     getCamera();
     getCompass();
   }
@@ -72,7 +82,11 @@ class EpisodeViewModel with ChangeNotifier {
     });
   }
 
-  void setAngleAndEpisode({required BuildContext context, required Memory currentMemory, required double setAngle}) {
+  void setAngleAndEpisode({
+    required BuildContext context,
+    required Memory currentMemory,
+    required double setAngle,
+  }) {
     final angle = setAngle;
     _episodeText = currentMemory.memory;
     _currentId = currentMemory.id;
@@ -123,8 +137,6 @@ class EpisodeViewModel with ChangeNotifier {
         }
         break;
     }
-
-
 
     notifyListeners();
   }

@@ -12,6 +12,12 @@ class HomeViewModel with ChangeNotifier {
 
     getPosition();
 
+    // マーカーの画像の取得
+    _mapRepository.getMainEpisodeMarkerBitmap().then((value) {
+      _memoryMarker = value;
+    });
+
+    // 位置情報を取得するStreamを定義
     _positionStream = Geolocator.getPositionStream(
       intervalDuration: const Duration(seconds: 5),
     ).listen((Position position) {
@@ -31,6 +37,8 @@ class HomeViewModel with ChangeNotifier {
   final List<Memory> _memories = [];
   Memory? _currentMemory;
 
+  BitmapDescriptor? _memoryMarker;
+
   StreamSubscription<Position>? _positionStream;
 
   Position? get currentPosition => _currentPosition;
@@ -42,6 +50,8 @@ class HomeViewModel with ChangeNotifier {
   List<Memory> get memories => _memories;
 
   Memory? get currentMemory => _currentMemory;
+
+  BitmapDescriptor? get memoryMarker => _memoryMarker;
 
   void setCurrentMemory(Memory memory) {
     _currentMemory = memory;
@@ -55,7 +65,6 @@ class HomeViewModel with ChangeNotifier {
 
   void addMemories(List<Memory> memories) {
     _memories.addAll(memories);
-    notifyListeners();
   }
 
   void clearMemories() {

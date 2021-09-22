@@ -40,6 +40,7 @@ class HomePage extends StatelessWidget {
                           .map(
                             (memory) => Marker(
                               markerId: MarkerId(memory.latLng.toString()),
+                              icon: homeViewModel.memoryMarker!,
                               position: memory.latLng,
                               onTap: () {
                                 homeViewModel

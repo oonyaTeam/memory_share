@@ -48,6 +48,7 @@ class ReExperienceViewModel with ChangeNotifier {
   List<SubEpisode> _subEpisodeList = [];
   bool _isViewedMainEpisodeDialog = false;
   bool _shouldViewingDialog = false;
+  BitmapDescriptor? _mainEpisodeMarker;
 
   StreamSubscription<Position>? _positionStream;
 
@@ -67,6 +68,8 @@ class ReExperienceViewModel with ChangeNotifier {
   bool get shouldViewingDialog => _shouldViewingDialog;
 
   bool get isViewedMainEpisodeDialog => _isViewedMainEpisodeDialog;
+
+  BitmapDescriptor? get mainEpisodeMarker => _mainEpisodeMarker;
 
   /// ユーザの現在地を取得
   void getPosition() async {
@@ -159,7 +162,7 @@ class ReExperienceViewModel with ChangeNotifier {
         tapEvent1: () {
           Navigator.pop(_context);
           Navigator.of(_context).push(MaterialPageRoute(
-            builder: (_) => EpisodeViewPage(currentMemory: _currentMemory)
+            builder: (_) => EpisodeViewPage(_currentMemory),
           ));
         },
       ),
@@ -188,6 +191,38 @@ class ReExperienceViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  /// メインエピソードとサブエピソードのマーカーの画像を取得する関数
+  void getMarkerBitmaps() async {
+    // メインエピソードのマーカー画像を取得
+    Future<void> _getMainEpisodeMarker() async {
+      final BitmapDescriptor marker =
+          await _mapRepository.getMainEpisodeMarkerBitmap();
+      _mainEpisodeMarker = marker;
+    }
+
+    // サブエピソードのマーカー画像（二種類）を取得
+    Future<void> _getSubEpisodeMarker(int index) async {
+      final BitmapDescriptor marker = await _mapRepository
+          .getSubEpisodeMarkerBitmap(_subEpisodeList[index].iconKey);
+      _subEpisodeList[index].iconImage = marker;
+
+      final BitmapDescriptor invalidMarker = await _mapRepository
+          .getSubEpisodeMarkerBitmap(_subEpisodeList[index].invalidIconKey);
+      _subEpisodeList[index].invalidIconImage = invalidMarker;
+    }
+
+    // それぞれの取得処理を futures にまとめ、並行処理している
+    final List<Future<void>> futures = [];
+
+    futures.add(_getMainEpisodeMarker());
+
+    for (int i = 0; i < _subEpisodeList.length; i++) {
+      futures.add(_getSubEpisodeMarker(i));
+    }
+
+    await Future.wait(futures);
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -210,4 +245,12 @@ class SubEpisode {
   final LatLng latLng;
   bool isViewed;
   num distance;
+
+  //　マーカー表示のためのGlobalKey
+  final GlobalKey iconKey = GlobalKey();
+  final GlobalKey invalidIconKey = GlobalKey();
+
+  // マーカーの画像
+  BitmapDescriptor? iconImage;
+  BitmapDescriptor? invalidIconImage;
 }
