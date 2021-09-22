@@ -18,7 +18,7 @@ class EpisodeViewModel with ChangeNotifier {
   AngleMode _angleMode = AngleMode.normal;
   String _episodeText = "";
   bool _showDialogFlag = false;
-  int _curentId = 0;
+  int _currentId = 0;
   double _memoryMinAngle = 0;
   double _memoryMaxAngle = 0;
   double _angle = 0;
@@ -75,7 +75,7 @@ class EpisodeViewModel with ChangeNotifier {
   void setAngleAndEpisode({required BuildContext context, required Memory currentMemory, required double setAngle}) {
     final angle = setAngle;
     _episodeText = currentMemory.memory;
-    _curentId = currentMemory.id;
+    _currentId = currentMemory.id;
 
     //angleの範囲が0〜360なのでそれに対応するための処理
     if (angle - 30 < 0) {
@@ -132,7 +132,7 @@ class EpisodeViewModel with ChangeNotifier {
   @override
   void dispose() {
     if (_showDialogFlag) {
-      _postRepository.seenMemoryId(id: _curentId);
+      _postRepository.seenMemoryId(id: _currentId);
     }
 
     SystemChrome.setPreferredOrientations([

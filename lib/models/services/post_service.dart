@@ -10,6 +10,7 @@ class PostService {
     required String mainEpisode,
     required List<Episode> subEpisodes,
     required String imageUrl,
+    required double angle
   }) async {
     final currentPosition = await Geolocator.getCurrentPosition();
 
@@ -20,7 +21,7 @@ class PostService {
       image: imageUrl,
       latLng: LatLng(currentPosition.latitude, currentPosition.longitude),
       episodes: subEpisodes,
-      angle: 30,
+      angle: angle,
     );
     final String idToken = await AuthService().getIdToken();
     await createMemory(newMemory, idToken, http.Client());

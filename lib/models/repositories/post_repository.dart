@@ -16,6 +16,7 @@ class PostRepository {
     required String mainEpisode,
     required List<SubEpisode> subEpisodeList,
     required File photo,
+    required double angle
   }) async {
     final String imageUrl = await _storageService.uploadImage(photo);
     await _postService.postMemory(
@@ -28,6 +29,7 @@ class PostRepository {
             )),
       ),
       imageUrl: imageUrl,
+      angle: angle
     );
   }
 
