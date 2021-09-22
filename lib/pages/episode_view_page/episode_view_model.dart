@@ -48,25 +48,34 @@ class EpisodeViewModel with ChangeNotifier {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeLeft, //横固定
     ]);
+
+    Timer.periodic(const Duration(seconds: 1), (Timer timer) {
+      if (MediaQuery.of(context).orientation == Orientation.landscape) {
+        getCamera(context);
+        getCompass();
+        timer.cancel();
+      }
+    });
+
     setAngleAndEpisode(
         context: context,
         currentMemory: currentMemory,
         setAngle: currentMemory.angle);
-    getCamera();
-    getCompass();
   }
 
-  Future<void> getCamera() async {
-    cameras = await availableCameras();
-    final firstCamera = cameras.first;
+  Future<void> getCamera(BuildContext context) async {
+    if (MediaQuery.of(context).orientation == Orientation.landscape) {
+      cameras = await availableCameras();
+      final firstCamera = cameras.first;
 
-    _controller = CameraController(
-      firstCamera,
-      ResolutionPreset.max,
-      imageFormatGroup: ImageFormatGroup.yuv420,
-    );
+      _controller = CameraController(
+        firstCamera,
+        ResolutionPreset.max,
+        imageFormatGroup: ImageFormatGroup.yuv420,
+      );
 
-    _initializeCameraController = _controller!.initialize();
+      _initializeCameraController = _controller!.initialize();
+    }
     notifyListeners();
   }
 

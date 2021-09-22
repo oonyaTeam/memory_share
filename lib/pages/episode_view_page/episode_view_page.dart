@@ -31,17 +31,13 @@ class EpisodeViewPage extends StatelessWidget {
                           child: CircularProgressIndicator(),
                         );
                       }
-                      return RotatedBox(
-                        quarterTurns: 0,
-                        child: Transform.scale(
-                          scale: episodeViewModel.controller!.value.aspectRatio,
-                          child: Center(
-                            child: AspectRatio(
-                              aspectRatio: episodeViewModel
-                                  .controller!.value.aspectRatio,
-                              child:
-                                  CameraPreview(episodeViewModel.controller!),
-                            ),
+                      return Transform.scale(
+                        scale: episodeViewModel.controller!.value.aspectRatio,
+                        child: Center(
+                          child: AspectRatio(
+                            aspectRatio:
+                                episodeViewModel.controller!.value.aspectRatio,
+                            child: CameraPreview(episodeViewModel.controller!),
                           ),
                         ),
                       );
