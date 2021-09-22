@@ -1,37 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:memory_share/theme.dart';
 
-class SignInUpButton extends StatelessWidget {
-  const SignInUpButton({
+class VariableColorButton extends StatelessWidget {
+  const VariableColorButton({
     required this.label,
     required this.onPressed,
     required this.width,
+    required this.height,
+    required this.primary,
     Key? key,
   }) : super(key: key);
 
   final String label;
   final void Function() onPressed;
   final double width;
+  final double height;
+  final Color primary;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: width - 246,
-      height: 64,
+      width: width,
+      height: height,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(16),
-            ),
-          ),
-          primary: CustomColors.primary,
+          shape: const StadiumBorder(),
+          primary:primary,
           onPrimary: Colors.white,
         ),
         child: Text(
           label,
           style: const TextStyle(
-            fontSize: 24,
+            fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
         ),

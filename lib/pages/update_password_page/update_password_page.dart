@@ -3,6 +3,7 @@ import 'package:memory_share/pages/update_password_page/update_password_view_mod
 import 'package:memory_share/utils/toast.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:memory_share/theme.dart';
 
 class UpdatePasswordPage extends StatelessWidget {
   const UpdatePasswordPage({Key? key}) : super(key: key);
@@ -15,14 +16,30 @@ class UpdatePasswordPage extends StatelessWidget {
         builder: (context, updatePasswordViewModel, _) => Scaffold(
           appBar: AppBar(
             centerTitle: true,
-            title: const Text("メールアドレスの変更"),
+            backgroundColor: Colors.white,
+            foregroundColor: CustomColors.primary,
+            iconTheme: const IconThemeData(color: CustomColors.primary),
           ),
           body: SingleChildScrollView(
             child: Center(
               child: Column(
                 children: [
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Container(
+                      margin: const EdgeInsets.only(top:14.0,left:24.0),
+                      child: const Text(
+                        "パスワードの変更",
+                        style: TextStyle(
+                          color: CustomColors.primary,
+                          fontSize: 24.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
                   const SizedBox(
-                    height: 24,
+                    height: 64,
                   ),
                   EmailPasswordBox(
                     iconData: Icons.https_outlined,
