@@ -130,21 +130,6 @@ class SubEpisodePage extends StatelessWidget {
                                 },
                                 childCount: postViewModel.subEpisodeList.length,
                               ),
-                              // SliverChildListDelegate([
-                              //   ListView.builder(
-                              //     padding: const EdgeInsets.only(
-                              //       left: 24.0,
-                              //       right: 24.0,
-                              //       top: 16.0,
-                              //     ),
-                              //     itemCount: postViewModel.subEpisodeList.length,
-                              //     itemBuilder: (context, index) {
-                              //       final item =
-                              //           postViewModel.subEpisodeList[index];
-
-                              //     },
-                              //   ),
-                              // ]),
                             ),
                           ),
                     // SliverList(delegate: (delegate))
@@ -155,7 +140,7 @@ class SubEpisodePage extends StatelessWidget {
                   child: Container(
                     margin: const EdgeInsets.only(bottom: 89),
                     child: LongButton(
-                      label: "エピソードを追加する",
+                      label: "エピソードを書く",
                       onPressed: () => onTapAddButton(context),
                     ),
                   ),
@@ -165,7 +150,7 @@ class SubEpisodePage extends StatelessWidget {
                   child: Container(
                     margin: const EdgeInsets.only(bottom: 22),
                     child: LongButtonBorderPrimary(
-                      label: "目的地に到着",
+                      label: "写真を撮る",
                       onPressed: () => onTapArriveButton(context),
                     ),
                   ),

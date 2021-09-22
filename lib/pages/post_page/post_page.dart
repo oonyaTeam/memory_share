@@ -3,6 +3,7 @@ import 'package:memory_share/utils/utils.dart';
 import 'package:memory_share/view_models/view_models.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:memory_share/theme.dart';
 
 class PostPage extends StatelessWidget {
   const PostPage({Key? key}) : super(key: key);
@@ -38,6 +39,7 @@ class PostPage extends StatelessWidget {
             );
           },
         ),
+        primary: (postViewModel.mainEpisode == "") ? CustomColors.deep : CustomColors.primary,
       ),
       body: Stack(
         children: [
@@ -64,7 +66,7 @@ class PostPage extends StatelessWidget {
               margin: const EdgeInsets.only(top: 200),
               child: TextField(
                 decoration: const InputDecoration(
-                  hintText: "Insert your message",
+                  hintText: "思い出を書こう",
                 ),
                 scrollPadding: const EdgeInsets.all(20.0),
                 keyboardType: TextInputType.multiline,

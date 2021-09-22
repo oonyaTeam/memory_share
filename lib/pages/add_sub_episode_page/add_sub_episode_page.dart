@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:memory_share/view_models/app_model/app_model.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
-
 import 'add_sub_episode_view_model.dart';
+import 'package:memory_share/utils/toast.dart';
+import 'package:memory_share/theme.dart';
 
 class AddSubEpisodePage extends StatelessWidget {
   const AddSubEpisodePage({Key? key}) : super(key: key);
@@ -18,7 +19,9 @@ class AddSubEpisodePage extends StatelessWidget {
         builder: (context, addSubEpisodeViewModel, _) => Scaffold(
           appBar: EditorAppBar(
             postLabel: "追加する",
-            onPost: () {
+            onPost: (addSubEpisodeViewModel.subEpisode == "") ?
+            (){showCustomToast(context, 'サブエピソードが入力されていません', false);}
+                : () {
               postViewModel.addSubEpisode(addSubEpisodeViewModel.subEpisode);
               Navigator.of(context).pop();
             },
@@ -40,6 +43,7 @@ class AddSubEpisodePage extends StatelessWidget {
                 },
               );
             },
+            primary: (addSubEpisodeViewModel.subEpisode == "") ? CustomColors.deep : CustomColors.primary,
           ),
           body: Center(
             child: SingleChildScrollView(
@@ -48,7 +52,7 @@ class AddSubEpisodePage extends StatelessWidget {
                 children: <Widget>[
                   TextField(
                     decoration: const InputDecoration(
-                      hintText: "Insert your message",
+                      hintText: "思ったことを書こう",
                     ),
                     scrollPadding: const EdgeInsets.all(20.0),
                     keyboardType: TextInputType.multiline,
