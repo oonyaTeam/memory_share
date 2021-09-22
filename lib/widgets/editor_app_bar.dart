@@ -19,6 +19,7 @@ class EditorAppBar extends StatelessWidget with PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       centerTitle: true,
+      elevation: 0.0,
       title: Stack(
         children: [
           Align(
@@ -44,7 +45,7 @@ class EditorAppBar extends StatelessWidget with PreferredSizeWidget {
               onPressed: onPost,
               width: 114.0,
               height: 44.0,
-              primary:primary,
+              primary: primary,
             ),
           ),
         ],

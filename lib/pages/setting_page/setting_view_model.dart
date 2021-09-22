@@ -6,6 +6,10 @@ class SettingViewModel with ChangeNotifier {
 
   final AuthRepository _authRepository = AuthRepository();
 
+  final ScrollController _controller = ScrollController();
+
+  ScrollController get controller => _controller;
+
   Future<void> logout() async {
     await _authRepository.logout();
   }

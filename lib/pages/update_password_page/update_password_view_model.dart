@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:memory_share/models/models.dart';
 
 class UpdatePasswordViewModel with ChangeNotifier {
-
   UpdatePasswordViewModel();
 
   final AuthRepository _authRepository = AuthRepository();
+
+  final ScrollController _controller = ScrollController();
+  ScrollController get controller => _controller;
 
   String _oldPassword = "";
   String _newPassword = "";
@@ -38,5 +40,4 @@ class UpdatePasswordViewModel with ChangeNotifier {
   }
 
   bool validateNewPassword() => true;
-
 }
