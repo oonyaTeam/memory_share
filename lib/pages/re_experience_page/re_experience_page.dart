@@ -31,7 +31,7 @@ class ReExperiencePage extends StatelessWidget {
               children: [
                 /// 画面の外で、サブエピソードを描画している。
                 Transform.translate(
-                  offset: const Offset(-200, -200),
+                  offset: const Offset(-400, 0),
                   child: ListView.builder(
                     itemCount: reExperienceViewModel.subEpisodeList.length,
                     itemBuilder: (_, index) {
