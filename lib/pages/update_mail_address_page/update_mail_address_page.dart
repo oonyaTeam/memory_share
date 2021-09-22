@@ -19,7 +19,7 @@ class UpdateMailAddressPage extends StatelessWidget {
             slivers: [
               CustomSliverAppBar(
                 controller: updateMailAddressViewModel.controller,
-                title: "設定",
+                title: "メールアドレスの変更",
               ),
               SliverList(
                 delegate: SliverChildListDelegate([
