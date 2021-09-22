@@ -1,6 +1,9 @@
 import 'dart:async';
+import 'dart:typed_data';
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -31,6 +34,9 @@ class ReExperienceViewModel with ChangeNotifier {
               latLng: episode.latLng,
             ))
         .toList();
+
+    // サブエピソードのマーカー表示のために、GlobalKeyのリストを作成している。
+    // 見る前と見た後でマーカーが変わるので、それぞれ作成している。
   }
 
   final MapRepository _mapRepository = MapRepository();
@@ -188,6 +194,21 @@ class ReExperienceViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<BitmapDescriptor> getSubEpisodeMarker(GlobalKey iconKey) async {
+    Future<Uint8List> _capturePng(GlobalKey iconKey) async {
+      RenderRepaintBoundary? boundary =
+          iconKey.currentContext!.findRenderObject() as RenderRepaintBoundary?;
+      ui.Image image = await boundary!.toImage(pixelRatio: 2.5);
+      ByteData? byteData =
+          await image.toByteData(format: ui.ImageByteFormat.png);
+      var pngBytes = byteData!.buffer.asUint8List();
+      return pngBytes;
+    }
+
+    Uint8List imageData = await _capturePng(iconKey);
+    return BitmapDescriptor.fromBytes(imageData);
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -210,4 +231,8 @@ class SubEpisode {
   final LatLng latLng;
   bool isViewed;
   num distance;
+
+  //　マーカー表示のためのGlobalKey
+  final GlobalKey iconKey = GlobalKey();
+  final GlobalKey viewedIconKey = GlobalKey();
 }
