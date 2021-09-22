@@ -117,10 +117,10 @@ class NewMemory {
   }
 }
 
-class SeenMemoryId {
+class NewSeenMemory {
   int id;
 
-  SeenMemoryId({
+  NewSeenMemory({
     required this.id
   });
 
