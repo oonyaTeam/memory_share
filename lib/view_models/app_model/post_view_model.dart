@@ -17,11 +17,15 @@ class PostViewModel with ChangeNotifier {
   // メインのエピソード
   String _mainEpisode = "";
 
+  double _angle = 0;
+
   File? get photo => _photo;
 
   List<SubEpisode> get subEpisodeList => _subEpisodeList;
 
   String get mainEpisode => _mainEpisode;
+
+  double get angle => _angle;
 
   void setPhoto(File photo) {
     _photo = photo;
@@ -30,6 +34,11 @@ class PostViewModel with ChangeNotifier {
 
   void setMainEpisode(String mainEpisode) {
     _mainEpisode = mainEpisode;
+    notifyListeners();
+  }
+
+  void setAngle(double angle) {
+    _angle = angle;
     notifyListeners();
   }
 
@@ -60,6 +69,7 @@ class PostViewModel with ChangeNotifier {
       mainEpisode: _mainEpisode,
       subEpisodeList: _subEpisodeList,
       photo: _photo!,
+      angle: _angle
     );
   }
 }
