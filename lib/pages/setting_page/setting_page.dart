@@ -17,87 +17,85 @@ class SettingPage extends StatelessWidget {
       create: (_) => SettingViewModel(),
       child: Consumer<SettingViewModel>(
         builder: (context, settingViewModel, _) => Scaffold(
-          body: NestedScrollView(
+          backgroundColor: Colors.white,
+          body: CustomScrollView(
             controller: settingViewModel.controller,
-            headerSliverBuilder: (context, _) {
-              return [
-                CustomSliverAppBar(
-                  controller: settingViewModel.controller,
-                  title: "設定",
-                ),
-              ];
-            },
-            body: Column(
-              children: [
-                // Emailでログインしているユーザーの場合、「メールを変更する」を表示してる
-                userModel.isEmailUser()
-                    ? Container(
-                        margin: const EdgeInsets.only(left: 10),
-                        child: ListTile(
-                          title: const Text('メールアドレス変更'),
-                          trailing: const Icon(Icons.arrow_forward_ios),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    const UpdateMailAddressPage(),
-                              ),
-                            );
-                          },
-                        ),
-                      )
-                    : Container(),
-                // Emailでログインしているユーザーの場合、「パスワードを変更する」を表示してる
-                userModel.isEmailUser()
-                    ? Container(
-                        margin: const EdgeInsets.only(left: 10),
-                        child: ListTile(
-                          title: const Text('パスワード変更'),
-                          trailing: const Icon(Icons.arrow_forward_ios),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    const UpdatePasswordPage(),
-                              ),
-                            );
-                          },
-                        ),
-                      )
-                    : Container(),
-                Container(
-                  margin: const EdgeInsets.only(left: 10),
-                  child: ListTile(
-                    title: const Text(
-                      'ログアウト',
-                      style: TextStyle(
-                        color: Color(
-                          0xFFFF4848,
+            slivers: [
+              CustomSliverAppBar(
+                controller: settingViewModel.controller,
+                title: "設定",
+              ),
+              SliverList(
+                delegate: SliverChildListDelegate([
+                  userModel.isEmailUser()
+                      ? Container(
+                          margin: const EdgeInsets.only(left: 10),
+                          child: ListTile(
+                            title: const Text('メールアドレス変更'),
+                            trailing: const Icon(Icons.arrow_forward_ios),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => const UpdateMailAddressPage(),
+                                ),
+                              );
+                            },
+                          ),
+                        )
+                      : Container(),
+                  // Emailでログインしているユーザーの場合、「パスワードを変更する」を表示してる
+                  userModel.isEmailUser()
+                      ? Container(
+                          margin: const EdgeInsets.only(left: 10),
+                          child: ListTile(
+                            title: const Text('パスワード変更'),
+                            trailing: const Icon(Icons.arrow_forward_ios),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const UpdatePasswordPage(),
+                                ),
+                              );
+                            },
+                          ),
+                        )
+                      : Container(),
+                  Container(
+                    margin: const EdgeInsets.only(left: 10),
+                    child: ListTile(
+                      title: const Text(
+                        'ログアウト',
+                        style: TextStyle(
+                          color: Color(
+                            0xFFFF4848,
+                          ),
                         ),
                       ),
+                      onTap: () {
+                        settingViewModel.logout().then((_) {
+                          //toastの表示
+                          showCustomToast(context, 'ログアウトしました', true);
+                          // 全ての画面を破棄し、ログイン画面に遷移
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const LoginPage(),
+                            ),
+                            (_) => false,
+                          );
+                        }).catchError((_) {
+                          showCustomToast(context, 'ログアウトに失敗しました', false);
+                        });
+                      },
                     ),
-                    onTap: () {
-                      settingViewModel.logout().then((_) {
-                        //toastの表示
-                        showCustomToast(context, 'ログアウトしました', true);
-                        // 全ての画面を破棄し、ログイン画面に遷移
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const LoginPage(),
-                          ),
-                          (_) => false,
-                        );
-                      }).catchError((_) {
-                        showCustomToast(context, 'ログアウトに失敗しました', false);
-                      });
-                    },
                   ),
-                ),
-              ],
-            ),
+                ]),
+              ),
+              // Emailでログインしているユーザーの場合、「メールを変更する」を表示してる
+            ],
           ),
         ),
       ),

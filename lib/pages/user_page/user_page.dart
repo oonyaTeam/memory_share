@@ -17,6 +17,7 @@ class UserPage extends StatelessWidget {
       create: (_) => UserPageViewModel(),
       child: Consumer<UserPageViewModel>(
         builder: (context, model, _) => Scaffold(
+          backgroundColor: Colors.white,
           body: CustomScrollView(
             controller: model.controller,
             slivers: [
