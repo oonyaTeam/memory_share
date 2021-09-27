@@ -94,7 +94,6 @@ class SettingPage extends StatelessWidget {
                   ),
                 ]),
               ),
-              // Emailでログインしているユーザーの場合、「メールを変更する」を表示してる
             ],
           ),
         ),

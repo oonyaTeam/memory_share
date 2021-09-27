@@ -8,15 +8,15 @@ import 'package:memory_share/widgets/widgets.dart';
 class CustomDialogBox extends StatelessWidget {
   const CustomDialogBox({
     Key? key,
-    required this.descriptions1,
+    required this.descriptions,
     required this.wid,
-    required this.tapEvent1,
-    required this.tapEvent2,
+    required this.onSubmitted,
+    required this.onCanceled,
   }) : super(key: key);
 
-  final String descriptions1;
+  final String descriptions;
   final double wid;
-  final void Function() tapEvent1, tapEvent2;
+  final void Function() onSubmitted, onCanceled;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +60,7 @@ class CustomDialogBox extends StatelessWidget {
                 width: (wid - 48) * 0.9,
                 margin: const EdgeInsets.only(bottom: 48, top: 64),
                 child: Text(
-                  descriptions1,
+                  descriptions,
                   style: const TextStyle(
                     fontSize: 24,
                   ),
@@ -82,7 +82,7 @@ class CustomDialogBox extends StatelessWidget {
                         ),
                       ),
                       child: TextButton(
-                        onPressed: () => tapEvent2(),
+                        onPressed: () => onCanceled(),
                         child: const Text(
                           "いいえ",
                           style: TextStyle(
@@ -110,7 +110,7 @@ class CustomDialogBox extends StatelessWidget {
                         ),
                       ),
                       child: TextButton(
-                        onPressed: () => tapEvent1(),
+                        onPressed: () => onSubmitted(),
                         child: const Text(
                           "はい",
                           style: TextStyle(

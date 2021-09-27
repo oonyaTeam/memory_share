@@ -51,9 +51,9 @@ class HomePage extends StatelessWidget {
                                   builder: (BuildContext context) {
                                     return CustomDialogBox(
                                       wid: MediaQuery.of(context).size.width,
-                                      descriptions1:
+                                      descriptions:
                                           "この場所を目的地に\n設定しますか？\n距離は${homeViewModel.distance}mです。",
-                                      tapEvent1: () {
+                                      onSubmitted: () {
                                         Navigator.pop(context);
                                         Navigator.push(
                                           context,
@@ -66,7 +66,7 @@ class HomePage extends StatelessWidget {
                                           ),
                                         );
                                       },
-                                      tapEvent2: () {
+                                      onCanceled: () {
                                         Navigator.pop(context);
                                       },
                                     );

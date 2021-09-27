@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_compass/flutter_compass.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:memory_share/pages/pages.dart';
@@ -8,7 +9,6 @@ import 'package:memory_share/pages/sub_episode_page/empty_state.dart';
 import 'package:memory_share/theme.dart';
 import 'package:memory_share/view_models/view_models.dart';
 import 'package:memory_share/widgets/custom_sliver_app_bar.dart';
-import 'package:flutter_compass/flutter_compass.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -64,13 +64,13 @@ class SubEpisodePage extends StatelessWidget {
               builder: (BuildContext context) {
                 return CustomDialogBox(
                   wid: MediaQuery.of(context).size.width,
-                  descriptions1: "エピソードが\n全て削除されますが\nよろしいですか？",
-                  tapEvent1: () {
+                  descriptions: "エピソードが\n全て削除されますが\nよろしいですか？",
+                  onSubmitted: () {
                     Navigator.pop(context);
                     Navigator.pop(context);
                     postViewModel.clearSubEpisode();
                   },
-                  tapEvent2: () {
+                  onCanceled: () {
                     Navigator.pop(context);
                   },
                 );

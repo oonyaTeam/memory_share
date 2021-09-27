@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:memory_share/theme.dart';
 import 'package:memory_share/utils/utils.dart';
 import 'package:memory_share/view_models/view_models.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:memory_share/theme.dart';
 
 class PostPage extends StatelessWidget {
   const PostPage({Key? key}) : super(key: key);
@@ -28,18 +28,20 @@ class PostPage extends StatelessWidget {
           builder: (BuildContext context) {
             return CustomDialogBox(
               wid: MediaQuery.of(context).size.width,
-              descriptions1: "写真とエピソードが\n削除されますが\nよろしいですか？",
-              tapEvent1: () {
+              descriptions: "写真とエピソードが\n削除されますが\nよろしいですか？",
+              onSubmitted: () {
                 Navigator.pop(context);
                 Navigator.pop(context);
               },
-              tapEvent2: () {
+              onCanceled: () {
                 Navigator.pop(context);
               },
             );
           },
         ),
-        primary: (postViewModel.mainEpisode == "") ? CustomColors.deep : CustomColors.primary,
+        primary: (postViewModel.mainEpisode == "")
+            ? CustomColors.deep
+            : CustomColors.primary,
       ),
       body: Stack(
         children: [
