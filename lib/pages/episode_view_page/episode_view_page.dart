@@ -44,12 +44,11 @@ class EpisodeViewPage extends StatelessWidget {
                     },
                   ),
                 ),
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: episodeViewModel.showDialogFlag
-                      ? EpisodePreview(episodeViewModel.episodeText)
-                      : Container(),
-                ),
+                if (episodeViewModel.showDialogFlag)
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: EpisodePreview(episodeViewModel.episodeText),
+                  ),
               ],
             ),
           ),

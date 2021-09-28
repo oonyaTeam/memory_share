@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:memory_share/pages/pages.dart';
 import 'package:memory_share/utils/utils.dart';
-import 'package:memory_share/view_models/app_model/app_model.dart';
+import 'package:memory_share/view_models/view_models.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -27,42 +27,40 @@ class SettingPage extends StatelessWidget {
               ),
               SliverList(
                 delegate: SliverChildListDelegate([
-                  userModel.isEmailUser()
-                      ? Container(
-                          margin: const EdgeInsets.only(left: 10),
-                          child: ListTile(
-                            title: const Text('メールアドレス変更'),
-                            trailing: const Icon(Icons.arrow_forward_ios),
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (_) => const UpdateMailAddressPage(),
-                                ),
-                              );
-                            },
-                          ),
-                        )
-                      : Container(),
-                  // Emailでログインしているユーザーの場合、「パスワードを変更する」を表示してる
-                  userModel.isEmailUser()
-                      ? Container(
-                          margin: const EdgeInsets.only(left: 10),
-                          child: ListTile(
-                            title: const Text('パスワード変更'),
-                            trailing: const Icon(Icons.arrow_forward_ios),
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const UpdatePasswordPage(),
-                                ),
-                              );
-                            },
-                          ),
-                        )
-                      : Container(),
+                  // Emailでログインしているユーザーの場合、「メールアドレスを変更する」「パスワードを変更する」を表示してる
+                  // 配列と、スプレッド演算子を用いている
+                  if (userModel.isEmailUser()) ...[
+                    Container(
+                      margin: const EdgeInsets.only(left: 10),
+                      child: ListTile(
+                        title: const Text('メールアドレス変更'),
+                        trailing: const Icon(Icons.arrow_forward_ios),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const UpdateMailAddressPage(),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(left: 10),
+                      child: ListTile(
+                        title: const Text('パスワード変更'),
+                        trailing: const Icon(Icons.arrow_forward_ios),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const UpdatePasswordPage(),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
                   Container(
                     margin: const EdgeInsets.only(left: 10),
                     child: ListTile(
@@ -94,7 +92,6 @@ class SettingPage extends StatelessWidget {
                   ),
                 ]),
               ),
-              // Emailでログインしているユーザーの場合、「メールを変更する」を表示してる
             ],
           ),
         ),
