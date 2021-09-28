@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:memory_share/models/entities/entities.dart';
 import 'package:memory_share/pages/pages.dart';
-import 'package:memory_share/widgets/sub_episode_marker.dart';
+import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 import 're_experience_view_model.dart';

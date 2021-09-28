@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:memory_share/pages/update_mail_address_page/update_mail_address_view_model.dart';
 import 'package:memory_share/utils/toast.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
+
+import 'update_mail_address_view_model.dart';
 
 class UpdateMailAddressPage extends StatelessWidget {
   const UpdateMailAddressPage({Key? key}) : super(key: key);

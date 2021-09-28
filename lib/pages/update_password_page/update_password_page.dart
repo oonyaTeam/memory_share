@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:memory_share/pages/update_password_page/update_password_view_model.dart';
 import 'package:memory_share/utils/toast.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
+
+import 'update_password_view_model.dart';
 
 class UpdatePasswordPage extends StatelessWidget {
   const UpdatePasswordPage({Key? key}) : super(key: key);

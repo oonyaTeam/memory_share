@@ -126,7 +126,7 @@ class HomePage extends StatelessWidget {
                     color: Color.fromRGBO(0, 0, 0, 0.25),
                     blurRadius: 20,
                     spreadRadius: 1,
-                  )
+                  ),
                 ],
               ),
               child: FloatingActionButton(

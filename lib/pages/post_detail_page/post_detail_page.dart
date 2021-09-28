@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:memory_share/models/entities/entities.dart';
 import 'package:memory_share/theme.dart';
-import 'package:memory_share/widgets/custom_sliver_app_bar.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
