@@ -4,10 +4,9 @@ Future<String> getAddressFromLatLng({
   required double latitude,
   required double longitude,
 }) async {
-  final List<Placemark> placemarkList = await placemarkFromCoordinates(
+  final List<Placemark> placeMarkList = await placemarkFromCoordinates(
     latitude,
     longitude,
-    localeIdentifier: 'ja',
   );
-  return placemarkList.map((placemark) => placemark.name ?? "").join(' ');
+  return placeMarkList.map((placeMark) => placeMark.name ?? "").join(' ');
 }

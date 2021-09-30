@@ -39,6 +39,7 @@ class Memory {
   int authorId;
   double angle;
   bool isSeen;
+  String? address;
 
   Memory({
     required this.id,
@@ -120,9 +121,7 @@ class NewMemory {
 class NewSeenMemory {
   int id;
 
-  NewSeenMemory({
-    required this.id
-  });
+  NewSeenMemory({required this.id});
 
   Map<String, dynamic> toJson() {
     return {
