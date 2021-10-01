@@ -18,26 +18,32 @@ class SubEpisodePage extends StatelessWidget {
 
   final picker = ImagePicker();
 
+  /// サブエピソードを追加するボタンをタップしたときの処理
   Future onTapAddButton(BuildContext context) async {
     Navigator.of(context).push(
       MaterialPageRoute(builder: (context) => const AddSubEpisodePage()),
     );
   }
 
+  /// 到着したときの処理
   Future onTapArriveButton(BuildContext context) async {
-    final takenPhoto = await picker.pickImage(source: ImageSource.camera);
+    context.read<SubEpisodeViewModel>().isLoading = true;
+    final XFile? takenPhoto =
+        await picker.pickImage(source: ImageSource.camera);
     final CompassEvent compassData = await FlutterCompass.events!.first;
     final double angle = double.parse(compassData.heading.toString());
 
     if (takenPhoto != null) {
       File photoFile = File(takenPhoto.path);
-      context.read<PostViewModel>().setPhoto(photoFile);
-      context.read<PostViewModel>().setAngle(angle);
-      Navigator.of(context).push(
+      context.read<PostViewModel>()
+        ..setPhoto(photoFile)
+        ..setAngle(angle);
+      await Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => const PostPage(),
         ),
       );
+      context.read<SubEpisodeViewModel>().isLoading = false;
     }
   }
 
@@ -84,82 +90,87 @@ class SubEpisodePage extends StatelessWidget {
         child: Consumer<SubEpisodeViewModel>(builder: (context, model, _) {
           return Scaffold(
             backgroundColor: Colors.white,
-            body: Stack(
-              children: [
-                CustomScrollView(
-                  controller: model.controller,
-                  slivers: [
-                    CustomSliverAppBar(
-                      controller: model.controller,
-                      title: "思い出を投稿",
-                    ),
-                    postViewModel.subEpisodeList.isEmpty
-                        ? SliverList(
-                            delegate: SliverChildListDelegate([
-                              const EmptyState(),
-                            ]),
-                          )
-                        : SliverPadding(
-                            padding: const EdgeInsets.only(
-                              top: 16.0,
-                              left: 24.0,
-                              right: 24.0,
-                            ),
-                            sliver: SliverList(
-                              delegate: SliverChildBuilderDelegate(
-                                (context, index) {
-                                  final item =
-                                      postViewModel.subEpisodeList[index];
-                                  return Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      SubEpisodeWrapper(item.episode),
-                                      Container(
-                                        margin: const EdgeInsets.only(
-                                          top: 8.0,
-                                          bottom: 8.0,
-                                          left: 24.0,
-                                        ),
-                                        child: SvgPicture.asset(
-                                          'assets/foot_prints.svg',
-                                          height: 80.0,
-                                          width: 40.0,
-                                          color: CustomColors.pale,
-                                        ),
-                                      ),
-                                    ],
-                                  );
-                                },
-                                childCount: postViewModel.subEpisodeList.length,
-                              ),
-                            ),
+            body: model.isLoading
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : Stack(
+                    children: [
+                      CustomScrollView(
+                        controller: model.controller,
+                        slivers: [
+                          CustomSliverAppBar(
+                            controller: model.controller,
+                            title: "思い出を投稿",
                           ),
-                    // SliverList(delegate: (delegate))
-                  ],
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    margin: const EdgeInsets.only(bottom: 89),
-                    child: LongButton(
-                      label: "エピソードを書く",
-                      onPressed: () => onTapAddButton(context),
-                    ),
+                          postViewModel.subEpisodeList.isEmpty
+                              ? SliverList(
+                                  delegate: SliverChildListDelegate([
+                                    const EmptyState(),
+                                  ]),
+                                )
+                              : SliverPadding(
+                                  padding: const EdgeInsets.only(
+                                    top: 16.0,
+                                    left: 24.0,
+                                    right: 24.0,
+                                  ),
+                                  sliver: SliverList(
+                                    delegate: SliverChildBuilderDelegate(
+                                      (context, index) {
+                                        final item =
+                                            postViewModel.subEpisodeList[index];
+                                        return Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            SubEpisodeWrapper(item.episode),
+                                            Container(
+                                              margin: const EdgeInsets.only(
+                                                top: 8.0,
+                                                bottom: 8.0,
+                                                left: 24.0,
+                                              ),
+                                              child: SvgPicture.asset(
+                                                'assets/foot_prints.svg',
+                                                height: 80.0,
+                                                width: 40.0,
+                                                color: CustomColors.pale,
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                      childCount:
+                                          postViewModel.subEpisodeList.length,
+                                    ),
+                                  ),
+                                ),
+                          // SliverList(delegate: (delegate))
+                        ],
+                      ),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Container(
+                          margin: const EdgeInsets.only(bottom: 89),
+                          child: LongButton(
+                            label: "エピソードを書く",
+                            onPressed: () => onTapAddButton(context),
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Container(
+                          margin: const EdgeInsets.only(bottom: 22),
+                          child: LongButtonBorderPrimary(
+                            label: "写真を撮る",
+                            onPressed: () => onTapArriveButton(context),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    margin: const EdgeInsets.only(bottom: 22),
-                    child: LongButtonBorderPrimary(
-                      label: "写真を撮る",
-                      onPressed: () => onTapArriveButton(context),
-                    ),
-                  ),
-                ),
-              ],
-            ),
           );
         }),
       ),
