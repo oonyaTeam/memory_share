@@ -26,25 +26,27 @@ class SubEpisodePage extends StatelessWidget {
   }
 
   /// 到着したときの処理
-  Future onTapArriveButton(BuildContext context) async {
+  Future<void> onTapArriveButton(BuildContext context) async {
     context.read<SubEpisodeViewModel>().isLoading = true;
     final XFile? takenPhoto =
         await picker.pickImage(source: ImageSource.camera);
+    if (takenPhoto == null) {
+      context.read<SubEpisodeViewModel>().isLoading = false;
+      return;
+    }
     final CompassEvent compassData = await FlutterCompass.events!.first;
     final double angle = double.parse(compassData.heading.toString());
 
-    if (takenPhoto != null) {
-      File photoFile = File(takenPhoto.path);
-      context.read<PostViewModel>()
-        ..setPhoto(photoFile)
-        ..setAngle(angle);
-      await Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => const PostPage(),
-        ),
-      );
-      context.read<SubEpisodeViewModel>().isLoading = false;
-    }
+    File photoFile = File(takenPhoto.path);
+    context.read<PostViewModel>()
+      ..setPhoto(photoFile)
+      ..setAngle(angle);
+    await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const PostPage(),
+      ),
+    );
+    context.read<SubEpisodeViewModel>().isLoading = false;
   }
 
   void _showTutorial(BuildContext context) {
