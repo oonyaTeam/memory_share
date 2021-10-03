@@ -20,16 +20,16 @@ class AddSubEpisodePage extends StatelessWidget {
         builder: (context, addSubEpisodeViewModel, _) => Scaffold(
           appBar: EditorAppBar(
             postLabel: "追加する",
-            onPost: (addSubEpisodeViewModel.subEpisode == "")
-                ? () {
-                    showCustomToast(context, 'サブエピソードが入力されていません', false);
-                  }
-                : () {
-                    postViewModel
-                        .addSubEpisode(addSubEpisodeViewModel.subEpisode);
-                    Navigator.of(context).pop();
-                  },
+            onPost: () {
+              if (addSubEpisodeViewModel.subEpisode == "") {
+                showCustomToast(context, 'サブエピソードが入力されていません', false);
+              } else {
+                postViewModel.addSubEpisode(addSubEpisodeViewModel.subEpisode);
+                Navigator.of(context).pop();
+              }
+            },
             onCancel: () {
+              addSubEpisodeViewModel.unfocusTextField();
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
@@ -47,7 +47,7 @@ class AddSubEpisodePage extends StatelessWidget {
                 },
               );
             },
-            primary: (addSubEpisodeViewModel.subEpisode == "")
+            primary: addSubEpisodeViewModel.subEpisode == ""
                 ? CustomColors.deep
                 : CustomColors.primary,
           ),
@@ -64,9 +64,10 @@ class AddSubEpisodePage extends StatelessWidget {
                     keyboardType: TextInputType.multiline,
                     maxLines: 99999,
                     autofocus: true,
+                    focusNode: addSubEpisodeViewModel.textFieldFocusNode,
                     controller: addSubEpisodeViewModel.textEditingController,
                     onChanged: (String text) =>
-                        addSubEpisodeViewModel.onChanged(text),
+                        addSubEpisodeViewModel.subEpisode = text,
                   ),
                 ],
               ),
