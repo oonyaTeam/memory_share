@@ -7,6 +7,9 @@ Future<String> getAddressFromLatLng({
   final List<Placemark> placeMarkList = await placemarkFromCoordinates(
     latitude,
     longitude,
+    localeIdentifier: 'ja',
   );
-  return placeMarkList.map((placeMark) => placeMark.name ?? "").join(' ');
+
+  if (placeMarkList[0].street == null) return "";
+  return placeMarkList[0].street!.split(' ')[1];
 }

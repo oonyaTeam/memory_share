@@ -42,6 +42,7 @@ class PostPage extends StatelessWidget {
                     },
                     onCanceled: () {
                       Navigator.pop(context);
+                      model.focusTextField();
                     },
                   );
                 },

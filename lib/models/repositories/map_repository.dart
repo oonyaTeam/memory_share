@@ -9,11 +9,12 @@ import 'package:memory_share/models/models.dart';
 /// マップ（閲覧）に関する処理をまとめたリポジトリ
 class MapRepository {
   final MapService _mapService = MapService();
+  final MemoryService _memoryService = MemoryService();
 
   /// 投稿を取得する処理。現状は、サンプルのデータとAPIから取得したデータを合わせて返している。
   Future<List<Memory>> getMemories() async {
     // サンプルデータ
-    final List<Memory> sampleMemories = [
+    List<Memory> sampleMemories = [
       Memory(
         id: 1,
         memory: "this is sample memory1",
@@ -64,7 +65,8 @@ class MapRepository {
         isSeen: true,
       ),
     ];
-    final List<Memory> memories = await _mapService.getMemories();
+    sampleMemories = await _memoryService.getMemoryAddresses(sampleMemories);
+    List<Memory> memories = await _mapService.getMemories();
     return [...sampleMemories, ...memories];
   }
 

@@ -42,6 +42,7 @@ class AddSubEpisodePage extends StatelessWidget {
                     },
                     onCanceled: () {
                       Navigator.pop(context);
+                      addSubEpisodeViewModel.focusTextField();
                     },
                   );
                 },

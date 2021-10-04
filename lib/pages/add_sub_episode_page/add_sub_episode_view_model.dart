@@ -7,7 +7,7 @@ class AddSubEpisodeViewModel with ChangeNotifier {
   final textFieldFocusNode = FocusNode();
   String subEpisode = '';
 
-  void unfocusTextField() {
-    textFieldFocusNode.unfocus();
-  }
+  void unfocusTextField() => textFieldFocusNode.unfocus();
+
+  void focusTextField() => textFieldFocusNode.requestFocus();
 }

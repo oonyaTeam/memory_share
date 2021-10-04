@@ -5,7 +5,7 @@ class PostPageViewModel with ChangeNotifier {
 
   final textFieldFocusNode = FocusNode();
 
-  void unfocusTextField() {
-    textFieldFocusNode.unfocus();
-  }
+  void unfocusTextField() => textFieldFocusNode.unfocus();
+
+  void focusTextField() => textFieldFocusNode.requestFocus();
 }
