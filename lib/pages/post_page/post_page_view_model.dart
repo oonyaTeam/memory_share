@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 
-class AddSubEpisodeViewModel with ChangeNotifier {
-  AddSubEpisodeViewModel();
+class PostPageViewModel with ChangeNotifier {
+  PostPageViewModel();
 
-  final TextEditingController textEditingController = TextEditingController();
   final textFieldFocusNode = FocusNode();
-  String subEpisode = '';
 
   void unfocusTextField() => textFieldFocusNode.unfocus();
 

@@ -38,7 +38,7 @@ class UserModel with ChangeNotifier {
 
   final UserRepository _userRepository = UserRepository();
 
-  final PostRepository _postRepository = PostRepository();
+  final MemoryRepository _memoryRepository = MemoryRepository();
 
   StreamSubscription<User?>? _userStream;
   User? _currentUser;
@@ -74,7 +74,7 @@ class UserModel with ChangeNotifier {
   /// 自分の投稿の一覧の取得
   void getMyMemories() async {
     if (_currentUser == null) return;
-    _myMemories = await _postRepository.getMyMemories(_currentUser!.uid);
+    _myMemories = await _memoryRepository.getMyMemories(_currentUser!.uid);
     notifyListeners();
   }
 

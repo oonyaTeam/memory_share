@@ -74,7 +74,7 @@ class HomePage extends StatelessWidget {
                                 );
                               },
                               infoWindow: InfoWindow(
-                                title: memory.latLng.toString(),
+                                title: memory.address?.toString(),
                                 snippet: 'text',
                               ),
                             ),
