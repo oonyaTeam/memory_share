@@ -25,7 +25,7 @@ class EpisodeViewModel with ChangeNotifier {
   int _currentId = 0;
   double _memoryMinAngle = 0;
   double _memoryMaxAngle = 0;
-  double _angle = 0;
+  double _currentAngle = 0;
 
   CameraController? get controller => _controller;
 
@@ -39,7 +39,7 @@ class EpisodeViewModel with ChangeNotifier {
 
   double get memoryMaxAngle => _memoryMaxAngle;
 
-  double get angle => _angle;
+  double get angle => _currentAngle;
 
   EpisodeViewModel({
     required BuildContext context,
@@ -83,7 +83,11 @@ class EpisodeViewModel with ChangeNotifier {
     _compassStream = FlutterCompass.events!.listen((value) {
       if (value.heading == null) return;
 
-      _angle = value.heading!;
+      _currentAngle = value.heading!;
+
+      if (_currentAngle < 0) {
+        _currentAngle = 360 + _currentAngle;
+      }
 
       observeAngle(_angleMode);
 
@@ -121,25 +125,25 @@ class EpisodeViewModel with ChangeNotifier {
   void observeAngle(AngleMode mode) {
     switch (mode) {
       case AngleMode.normal:
-        if (_angle >= _memoryMinAngle && _angle <= _memoryMaxAngle) {
+        if (_currentAngle >= _memoryMinAngle && _currentAngle <= _memoryMaxAngle) {
           _showDialogFlag = true;
         } else {
           _showDialogFlag = false;
         }
         break;
       case AngleMode.minOverflow:
-        if (_angle >= 0 && _angle <= _memoryMaxAngle) {
+        if (_currentAngle >= 0 && _currentAngle <= _memoryMaxAngle) {
           _showDialogFlag = true;
-        } else if (_angle >= _memoryMinAngle && _angle <= 360) {
+        } else if (_currentAngle >= _memoryMinAngle && _currentAngle <= 360) {
           _showDialogFlag = true;
         } else {
           _showDialogFlag = false;
         }
         break;
       case AngleMode.maxOverflow:
-        if (_angle >= _memoryMinAngle && _angle <= 360) {
+        if (_currentAngle >= _memoryMinAngle && _currentAngle <= 360) {
           _showDialogFlag = true;
-        } else if (_angle >= 0 && _angle <= _memoryMaxAngle) {
+        } else if (_currentAngle >= 0 && _currentAngle <= _memoryMaxAngle) {
           _showDialogFlag = true;
         } else {
           _showDialogFlag = false;
