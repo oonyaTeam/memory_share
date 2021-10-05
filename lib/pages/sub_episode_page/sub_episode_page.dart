@@ -35,7 +35,12 @@ class SubEpisodePage extends StatelessWidget {
       return;
     }
     final CompassEvent compassData = await FlutterCompass.events!.first;
-    final double angle = double.parse(compassData.heading.toString());
+
+    double angle = double.parse(compassData.heading.toString());
+
+    if (angle < 0) {
+      angle = 360 + angle;
+    }
 
     File photoFile = File(takenPhoto.path);
     context.read<PostViewModel>()
