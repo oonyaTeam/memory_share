@@ -6,7 +6,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -14,26 +14,26 @@ dependencies:
 
   cupertino_icons: ^1.0.2
 
-  arcore_flutter_plugin: ^0.0.10
-
   camera: ^0.8.1+4
 
   geolocator: ^7.2.0+1
 
+  geocoding: ^2.0.1
+
   google_maps_flutter: ^2.0.6
 
-  flutter_compass: ^0.6.0
+  flutter_compass: ^0.7.0
 
   flutter_config: ^2.0.0
 
-  image_picker: ^0.8.1+1
+  image_picker: ^0.8.4
 
   provider: ^5.0.0
 
   http: ^0.13.3
 
-  firebase_core: ^1.4.0
-  firebase_auth: ^3.0.1
+  firebase_core: ^1.6.0
+  firebase_auth: ^3.1.1
   firebase_storage: ^10.0.1
 
   google_sign_in: ^5.0.7
@@ -47,6 +47,8 @@ dependencies:
   google_fonts: ^2.1.0
 
   flutter_sliding_tutorial: ^1.1.0+1
+
+
 
 dev_dependencies:
   flutter_test:
@@ -62,6 +64,8 @@ dev_dependencies:
 
   mockito: ^5.0.15
 
+  flutter_native_splash: ^1.2.1
+
 
 flutter:
   uses-material-design: true
@@ -69,3 +73,12 @@ flutter:
   assets:
     - assets/
     - google_fonts/
+
+
+flutter_native_splash:
+
+  color: "#ffffff"
+
+  image: assets/sample_splash.png
+
+  fullscreen: true

@@ -9,7 +9,7 @@ import 'page/tutorial_2_page.dart';
 import 'post_tutorial_view_model.dart';
 
 class PostTutorialPage extends StatelessWidget {
-  const PostTutorialPage({Key key}) : super(key: key);
+  const PostTutorialPage({Key? key}) : super(key: key);
 
   Widget _getTutorialPage(
       int index, PostTutorialViewModel model, BuildContext context) {

@@ -2,40 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:memory_share/pages/pages.dart';
 import 'package:memory_share/theme.dart';
-import 'package:memory_share/view_models/view_models.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 import 'home_view_model.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key key}) : super(key: key);
-
-  void _showDetermineDestinationDialog({
-    @required BuildContext context,
-    @required HomeViewModel model,
-  }) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) => determineDestinationDialogBuilder(
-        context: context,
-        model: model,
-      ),
-    );
-  }
-
-  void _showTutorial(BuildContext context) {
-    if (context.read<UserModel>().reExperienceTutorialDone) return;
-
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => const ReExperienceTutorialPage()),
-    );
-  }
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) => _showTutorial(context));
-
     return ChangeNotifierProvider(
       create: (_) => HomeViewModel(),
       child: Consumer<HomeViewModel>(
@@ -50,30 +26,55 @@ class HomePage extends StatelessWidget {
                       mapType: MapType.normal,
                       initialCameraPosition: CameraPosition(
                         target: LatLng(
-                          homeViewModel.currentPosition?.latitude,
-                          homeViewModel.currentPosition?.longitude,
+                          homeViewModel.currentPosition!.latitude,
+                          homeViewModel.currentPosition!.longitude,
                         ),
                         zoom: 15.0,
                       ),
                       onMapCreated: (GoogleMapController controller) {
-                        homeViewModel.setHomeMapController(controller);
-                        homeViewModel.changeMapMode(controller);
+                        homeViewModel
+                          ..setHomeMapController(controller)
+                          ..changeMapMode(controller);
                       },
                       markers: homeViewModel.memories
                           .map(
                             (memory) => Marker(
                               markerId: MarkerId(memory.latLng.toString()),
+                              icon: homeViewModel.memoryMarker!,
                               position: memory.latLng,
-                              onTap: () async {
-                                homeViewModel.setCurrentMemory(memory);
-                                await homeViewModel.setDistance();
-                                _showDetermineDestinationDialog(
+                              onTap: () {
+                                homeViewModel
+                                  ..setCurrentMemory(memory)
+                                  ..setDistance();
+                                showDialog(
                                   context: context,
-                                  model: homeViewModel,
+                                  builder: (BuildContext context) {
+                                    return CustomDialogBox(
+                                      wid: MediaQuery.of(context).size.width,
+                                      descriptions:
+                                          "この場所を目的地に\n設定しますか？\n距離は${homeViewModel.distance}mです。",
+                                      onSubmitted: () {
+                                        Navigator.pop(context);
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                ReExperiencePage(
+                                              currentMemory:
+                                                  homeViewModel.currentMemory!,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      onCanceled: () {
+                                        Navigator.pop(context);
+                                      },
+                                    );
+                                  },
                                 );
                               },
                               infoWindow: InfoWindow(
-                                title: memory.latLng.toString(),
+                                title: memory.address?.toString(),
                                 snippet: 'text',
                               ),
                             ),
@@ -125,7 +126,7 @@ class HomePage extends StatelessWidget {
                     color: Color.fromRGBO(0, 0, 0, 0.25),
                     blurRadius: 20,
                     spreadRadius: 1,
-                  )
+                  ),
                 ],
               ),
               child: FloatingActionButton(

@@ -3,20 +3,23 @@ import 'package:memory_share/widgets/widgets.dart';
 
 class EditorAppBar extends StatelessWidget with PreferredSizeWidget {
   const EditorAppBar({
-    Key key,
-    this.postLabel,
-    this.onCancel,
-    this.onPost,
+    Key? key,
+    required this.postLabel,
+    required this.onCancel,
+    required this.onPost,
+    required this.primary,
   }) : super(key: key);
 
   final String postLabel;
   final void Function() onCancel;
   final void Function() onPost;
+  final Color primary;
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       centerTitle: true,
+      elevation: 0.0,
       title: Stack(
         children: [
           Align(
@@ -37,14 +40,12 @@ class EditorAppBar extends StatelessWidget with PreferredSizeWidget {
           ),
           Align(
             alignment: Alignment.centerRight,
-            child: Container(
-              //margin: EdgeInsets.all(0.0),
-              child: variableButton(
-                postLabel,
-                () => onPost(),
-                114.0,
-                44.0,
-              ),
+            child: VariableColorButton(
+              label: postLabel,
+              onPressed: onPost,
+              width: 114.0,
+              height: 44.0,
+              primary: primary,
             ),
           ),
         ],

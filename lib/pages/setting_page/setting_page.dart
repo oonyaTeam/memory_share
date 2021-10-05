@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:memory_share/pages/pages.dart';
 import 'package:memory_share/utils/utils.dart';
-import 'package:memory_share/view_models/app_model/app_model.dart';
+import 'package:memory_share/view_models/view_models.dart';
+import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 import 'setting_view_model.dart';
 
 class SettingPage extends StatelessWidget {
-  const SettingPage({Key key}) : super(key: key);
+  const SettingPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,45 +17,38 @@ class SettingPage extends StatelessWidget {
       create: (_) => SettingViewModel(),
       child: Consumer<SettingViewModel>(
         builder: (context, settingViewModel, _) => Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            title: const Text("設定"),
-          ),
-          body: Column(
-            children: [
-              // Emailでログインしているユーザーの場合、「メールを変更する」を表示してる
-              userModel.isEmailUser()
-                  ? Container(
-                      decoration: const BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(color: Colors.black),
-                        ),
-                      ),
+          backgroundColor: Colors.white,
+          body: CustomScrollView(
+            controller: settingViewModel.controller,
+            slivers: [
+              CustomSliverAppBar(
+                controller: settingViewModel.controller,
+                title: "設定",
+              ),
+              SliverList(
+                delegate: SliverChildListDelegate([
+                  // Emailでログインしているユーザーの場合、「メールアドレスを変更する」「パスワードを変更する」を表示してる
+                  // 配列と、スプレッド演算子を用いている
+                  if (userModel.isEmailUser()) ...[
+                    Container(
+                      margin: const EdgeInsets.only(left: 10),
                       child: ListTile(
-                        title: const Text('メールアドレスの変更'),
+                        title: const Text('メールアドレス変更'),
                         trailing: const Icon(Icons.arrow_forward_ios),
                         onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>
-                                  const UpdateMailAddressPage(),
+                              builder: (_) => const UpdateMailAddressPage(),
                             ),
                           );
                         },
                       ),
-                    )
-                  : Container(),
-              // Emailでログインしているユーザーの場合、「パスワードを変更する」を表示してる
-              userModel.isEmailUser()
-                  ? Container(
-                      decoration: const BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(color: Colors.black),
-                        ),
-                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(left: 10),
                       child: ListTile(
-                        title: const Text('パスワードの変更'),
+                        title: const Text('パスワード変更'),
                         trailing: const Icon(Icons.arrow_forward_ios),
                         onTap: () {
                           Navigator.push(
@@ -65,41 +59,38 @@ class SettingPage extends StatelessWidget {
                           );
                         },
                       ),
-                    )
-                  : Container(),
-              Container(
-                decoration: const BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(color: Colors.black),
-                  ),
-                ),
-                child: ListTile(
-                  title: const Text(
-                    'ログアウト',
-                    style: TextStyle(
-                      color: Color(
-                        0xFFFF4848,
+                    ),
+                  ],
+                  Container(
+                    margin: const EdgeInsets.only(left: 10),
+                    child: ListTile(
+                      title: const Text(
+                        'ログアウト',
+                        style: TextStyle(
+                          color: Color(
+                            0xFFFF4848,
+                          ),
+                        ),
                       ),
+                      onTap: () {
+                        settingViewModel.logout().then((_) {
+                          //toastの表示
+                          showCustomToast(context, 'ログアウトしました', true);
+                          // 全ての画面を破棄し、ログイン画面に遷移
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const LoginPage(),
+                            ),
+                            (_) => false,
+                          );
+                        }).catchError((_) {
+                          showCustomToast(context, 'ログアウトに失敗しました', false);
+                        });
+                      },
                     ),
                   ),
-                  trailing: const Icon(Icons.arrow_forward_ios),
-                  onTap: () {
-                    settingViewModel.logout().then((_) {
-                      //toastの表示
-                      showCustomToast(context, 'ログアウトしました', true);
-                      // 全ての画面を破棄し、ログイン画面に遷移
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const LoginPage(),
-                        ),
-                        (_) => false,
-                      );
-                    }).catchError((_) {
-                      showCustomToast(context, 'ログアウトに失敗しました', false);
-                    });
-                  },
-                ),
+                ]),
               ),
             ],
           ),

@@ -3,15 +3,11 @@ import 'package:flutter/material.dart';
 class AddSubEpisodeViewModel with ChangeNotifier {
   AddSubEpisodeViewModel();
 
-  final TextEditingController _textEditingController = TextEditingController();
-  String _subEpisode = '';
+  final TextEditingController textEditingController = TextEditingController();
+  final textFieldFocusNode = FocusNode();
+  String subEpisode = '';
 
-  TextEditingController get textEditingController => _textEditingController;
+  void unfocusTextField() => textFieldFocusNode.unfocus();
 
-  String get subEpisode => _subEpisode;
-
-  void onChanged(String text) {
-    _subEpisode = text;
-    notifyListeners();
-  }
+  void focusTextField() => textFieldFocusNode.requestFocus();
 }

@@ -11,17 +11,21 @@ class PostViewModel with ChangeNotifier {
   final PostRepository _postRepository = PostRepository();
 
   // 撮影した写真
-  File _photo;
+  File? _photo;
   // サブエピソードのリスト
   final List<SubEpisode> _subEpisodeList = [];
   // メインのエピソード
   String _mainEpisode = "";
 
-  File get photo => _photo;
+  double _angle = 0;
+
+  File? get photo => _photo;
 
   List<SubEpisode> get subEpisodeList => _subEpisodeList;
 
   String get mainEpisode => _mainEpisode;
+
+  double get angle => _angle;
 
   void setPhoto(File photo) {
     _photo = photo;
@@ -30,6 +34,11 @@ class PostViewModel with ChangeNotifier {
 
   void setMainEpisode(String mainEpisode) {
     _mainEpisode = mainEpisode;
+    notifyListeners();
+  }
+
+  void setAngle(double angle) {
+    _angle = angle;
     notifyListeners();
   }
 
@@ -53,12 +62,14 @@ class PostViewModel with ChangeNotifier {
   }
 
   /// [PostRepository]のpostMemoryを呼び出して、入力したデータを投稿する。
-  Future<Memory> postMemory() async {
-    final newMemory = await _postRepository.postMemory(
+  Future<void> postMemory() async {
+    if (_photo == null) throw Error();
+
+    await _postRepository.postMemory(
       mainEpisode: _mainEpisode,
       subEpisodeList: _subEpisodeList,
-      photo: _photo,
+      photo: _photo!,
+      angle: _angle
     );
-    return newMemory;
   }
 }

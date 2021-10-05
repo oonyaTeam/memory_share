@@ -12,6 +12,12 @@ class HomeViewModel with ChangeNotifier {
 
     getPosition();
 
+    // マーカーの画像の取得
+    _mapRepository.getMainEpisodeMarkerBitmap().then((value) {
+      _memoryMarker = value;
+    });
+
+    // 位置情報を取得するStreamを定義
     _positionStream = Geolocator.getPositionStream(
       intervalDuration: const Duration(seconds: 5),
     ).listen((Position position) {
@@ -19,20 +25,23 @@ class HomeViewModel with ChangeNotifier {
       if (_currentMemory != null) {
         setDistance();
       }
+      notifyListeners();
     });
   }
 
   final MapRepository _mapRepository = MapRepository();
 
-  Position _currentPosition;
+  Position? _currentPosition;
   int _distance = 0;
   final Completer<GoogleMapController> _homeMapController = Completer();
   final List<Memory> _memories = [];
-  Memory _currentMemory;
+  Memory? _currentMemory;
 
-  StreamSubscription<Position> _positionStream;
+  BitmapDescriptor? _memoryMarker;
 
-  Position get currentPosition => _currentPosition;
+  StreamSubscription<Position>? _positionStream;
+
+  Position? get currentPosition => _currentPosition;
 
   int get distance => _distance;
 
@@ -40,7 +49,9 @@ class HomeViewModel with ChangeNotifier {
 
   List<Memory> get memories => _memories;
 
-  Memory get currentMemory => _currentMemory;
+  Memory? get currentMemory => _currentMemory;
+
+  BitmapDescriptor? get memoryMarker => _memoryMarker;
 
   void setCurrentMemory(Memory memory) {
     _currentMemory = memory;
@@ -54,7 +65,6 @@ class HomeViewModel with ChangeNotifier {
 
   void addMemories(List<Memory> memories) {
     _memories.addAll(memories);
-    notifyListeners();
   }
 
   void clearMemories() {
@@ -68,11 +78,13 @@ class HomeViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> setDistance() async {
+  void setDistance() {
     if (_currentPosition == null || _currentMemory == null) return;
 
-    _distance = await _mapRepository.getDistance(_currentMemory);
-    notifyListeners();
+    _distance = _mapRepository.getDistance(
+      _currentMemory!.latLng,
+      LatLng(_currentPosition!.latitude, _currentPosition!.longitude),
+    );
   }
 
   void setHomeMapController(GoogleMapController controller) {
@@ -86,20 +98,18 @@ class HomeViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  changeMapMode(GoogleMapController controller){
-    getMapStyleJsonFile("assets/Light.json").then((res) => {
-      controller.setMapStyle(res)
-    });
+  changeMapMode(GoogleMapController controller) {
+    getMapStyleJsonFile("assets/Light.json")
+        .then((res) => {controller.setMapStyle(res)});
   }
 
   Future<String> getMapStyleJsonFile(String path) async {
     return await rootBundle.loadString(path);
   }
 
-
   @override
   void dispose() {
     super.dispose();
-    _positionStream.cancel();
+    _positionStream?.cancel();
   }
 }

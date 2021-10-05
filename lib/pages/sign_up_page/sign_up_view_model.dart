@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:memory_share/models/models.dart';
 
 class SignUpViewModel with ChangeNotifier {
-
   SignUpViewModel(this._authRepository);
 
   final AuthRepository _authRepository;
@@ -28,6 +27,14 @@ class SignUpViewModel with ChangeNotifier {
     if (!validateEmail() || !validatePassword()) return;
 
     await _authRepository.signUp(_email, _password);
+  }
+
+  Future<void> loginWithGoogle() async {
+    await _authRepository.loginWithGoogle();
+  }
+
+  Future<void> loginWithTwitter() async {
+    await _authRepository.loginWithTwitter();
   }
 
   bool validateEmail() => true;

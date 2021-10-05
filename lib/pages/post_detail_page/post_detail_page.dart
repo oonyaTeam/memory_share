@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 import 'post_detail_view_model.dart';
 
 class PostDetailPage extends StatelessWidget {
-  const PostDetailPage(this.memory, {Key key}) : super(key: key);
+  const PostDetailPage(this.memory, {Key? key}) : super(key: key);
 
   final Memory memory;
 
@@ -20,14 +20,16 @@ class PostDetailPage extends StatelessWidget {
         builder: (context, model, _) {
           return Scaffold(
             backgroundColor: Colors.white,
-            appBar: AppBar(
-              title: const Text('PostDetail'),
-            ),
-            body: Container(
-              margin: const EdgeInsets.fromLTRB(24.0, 16.0, 24.0, 16.0),
-              child: CustomScrollView(
-                slivers: [
-                  SliverList(
+            body: CustomScrollView(
+              controller: model.controller,
+              slivers: [
+                CustomSliverAppBar(
+                  controller: model.controller,
+                  title: "投稿詳細", // TODO: ここは、のちのち住所と日付を表示する
+                ),
+                SliverPadding(
+                  padding: const EdgeInsets.fromLTRB(24.0, 16.0, 24.0, 0),
+                  sliver: SliverList(
                     delegate: SliverChildBuilderDelegate(
                       (context, index) {
                         final item = memory.episodes[index];
@@ -51,7 +53,10 @@ class PostDetailPage extends StatelessWidget {
                       childCount: memory.episodes.length,
                     ),
                   ),
-                  SliverToBoxAdapter(
+                ),
+                SliverPadding(
+                  padding: const EdgeInsets.fromLTRB(24.0, 0, 24.0, 16.0),
+                  sliver: SliverToBoxAdapter(
                     child: Container(
                       decoration: const BoxDecoration(
                         color: CustomColors.pale,
@@ -75,15 +80,15 @@ class PostDetailPage extends StatelessWidget {
                             padding: const EdgeInsets.all(16.0),
                             child: Text(
                               memory.memory,
-                              style: const TextStyle(fontSize: 16.0),
+                              style: const TextStyle(fontSize: 18.0),
                             ),
                           ),
                         ],
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           );
         },

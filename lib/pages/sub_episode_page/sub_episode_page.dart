@@ -1,6 +1,7 @@
 import 'dart:io';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_compass/flutter_compass.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:memory_share/pages/pages.dart';
@@ -9,33 +10,52 @@ import 'package:memory_share/view_models/view_models.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
+import 'empty_state.dart';
+import 'sub_episode_view_model.dart';
+
 class SubEpisodePage extends StatelessWidget {
-  SubEpisodePage({Key key}) : super(key: key);
+  SubEpisodePage({Key? key}) : super(key: key);
 
   final picker = ImagePicker();
 
+  /// サブエピソードを追加するボタンをタップしたときの処理
   Future onTapAddButton(BuildContext context) async {
     Navigator.of(context).push(
       MaterialPageRoute(builder: (context) => const AddSubEpisodePage()),
     );
   }
 
-  Future onTapArriveButton(BuildContext context) async {
-    final takenPhoto = await picker.pickImage(source: ImageSource.camera);
-
-    if (takenPhoto != null) {
-      File photoFile = File(takenPhoto.path);
-      context.read<PostViewModel>().setPhoto(photoFile);
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => const PostPage(),
-        ),
-      );
+  /// 到着したときの処理
+  Future<void> onTapArriveButton(BuildContext context) async {
+    context.read<SubEpisodeViewModel>().isLoading = true;
+    final XFile? takenPhoto =
+        await picker.pickImage(source: ImageSource.camera);
+    if (takenPhoto == null) {
+      context.read<SubEpisodeViewModel>().isLoading = false;
+      return;
     }
+    final CompassEvent compassData = await FlutterCompass.events!.first;
+
+    double angle = double.parse(compassData.heading.toString());
+
+    if (angle < 0) {
+      angle = 360 + angle;
+    }
+
+    File photoFile = File(takenPhoto.path);
+    context.read<PostViewModel>()
+      ..setPhoto(photoFile)
+      ..setAngle(angle);
+    await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const PostPage(),
+      ),
+    );
+    context.read<SubEpisodeViewModel>().isLoading = false;
   }
 
   void _showTutorial(BuildContext context) {
-    if (context.read<UserModel>().postTutorialDone) return;
+    if (context.read<UserModel>().postTutorialDone!) return;
 
     Navigator.of(context).push(
       MaterialPageRoute(builder: (_) => const PostTutorialPage()),
@@ -45,138 +65,121 @@ class SubEpisodePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final postViewModel = context.watch<PostViewModel>();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _showTutorial(context));
+    WidgetsBinding.instance!
+        .addPostFrameCallback((_) => _showTutorial(context));
 
     return WillPopScope(
       onWillPop: () async {
         if (postViewModel.subEpisodeList.isNotEmpty) {
           showDialog(
               context: context,
-              builder: (BuildContext context){
+              builder: (BuildContext context) {
                 return CustomDialogBox(
                   wid: MediaQuery.of(context).size.width,
-                  descriptions1: "エピソードが\n全て削除されますが\nよろしいですか？",
-                  tapEvent1: (){
+                  descriptions: "エピソードが\n全て削除されますが\nよろしいですか？",
+                  onSubmitted: () {
                     Navigator.pop(context);
                     Navigator.pop(context);
                     postViewModel.clearSubEpisode();
                   },
-                  tapEvent2: (){
+                  onCanceled: () {
                     Navigator.pop(context);
                   },
                 );
-              }
-          );
+              });
           return false;
         } else {
           return true;
         }
       },
-      child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text(
-            '思い出投稿',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-        backgroundColor: Colors.white,
-        body: Stack(
-          children: [
-            postViewModel.subEpisodeList.isEmpty
-                ? Center(
-                    child: Container(
-                      margin: const EdgeInsets.only(
-                        left: 24.0,
-                        right: 24.0,
-                        top: 24.0,
-                      ),
-                      child: Column(
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.only(bottom: 24.0),
-                            child: SvgPicture.asset(
-                              'assets/normal.svg',
-                              height: 180.0,
-                              width: 180.0,
-                            ),
-                          ),
-                          const Text(
-                            "思い出の場所へ到着するまでに\n思い出したエピソードを書きましょう。\n到着したら、思い出の場所の写真を撮ります。",
-                            style: TextStyle(
-                              color: CustomColors.primary,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18.0,
-                              height: 1.15,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
-                    ),
+      child: ChangeNotifierProvider(
+        create: (_) => SubEpisodeViewModel(),
+        child: Consumer<SubEpisodeViewModel>(builder: (context, model, _) {
+          return Scaffold(
+            backgroundColor: Colors.white,
+            body: model.isLoading
+                ? const Center(
+                    child: CircularProgressIndicator(),
                   )
-                : ListView.builder(
-                    padding: const EdgeInsets.only(
-                      left: 24.0,
-                      right: 24.0,
-                      top: 16.0,
-                    ),
-                    itemCount: postViewModel.subEpisodeList.length,
-                    itemBuilder: (context, index) {
-                      final item = postViewModel.subEpisodeList[index];
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SubEpisodeWrapper(item.episode),
-                          Container(
-                            margin: const EdgeInsets.only(
-                              top: 8.0,
-                              bottom: 8.0,
-                              left: 24.0,
-                            ),
-                            child: SvgPicture.asset(
-                              'assets/foot_prints.svg',
-                              height: 80.0,
-                              width: 40.0,
-                              color: CustomColors.pale,
-                            ),
+                : Stack(
+                    children: [
+                      CustomScrollView(
+                        controller: model.controller,
+                        slivers: [
+                          CustomSliverAppBar(
+                            controller: model.controller,
+                            title: "思い出を投稿",
                           ),
+                          postViewModel.subEpisodeList.isEmpty
+                              ? SliverList(
+                                  delegate: SliverChildListDelegate([
+                                    const EmptyState(),
+                                  ]),
+                                )
+                              : SliverPadding(
+                                  padding: const EdgeInsets.only(
+                                    top: 16.0,
+                                    left: 24.0,
+                                    right: 24.0,
+                                  ),
+                                  sliver: SliverList(
+                                    delegate: SliverChildBuilderDelegate(
+                                      (context, index) {
+                                        final item =
+                                            postViewModel.subEpisodeList[index];
+                                        return Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            SubEpisodeWrapper(item.episode),
+                                            Container(
+                                              margin: const EdgeInsets.only(
+                                                top: 8.0,
+                                                bottom: 8.0,
+                                                left: 24.0,
+                                              ),
+                                              child: SvgPicture.asset(
+                                                'assets/foot_prints.svg',
+                                                height: 80.0,
+                                                width: 40.0,
+                                                color: CustomColors.pale,
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                      childCount:
+                                          postViewModel.subEpisodeList.length,
+                                    ),
+                                  ),
+                                ),
+                          // SliverList(delegate: (delegate))
                         ],
-                      );
-                    },
+                      ),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Container(
+                          margin: const EdgeInsets.only(bottom: 89),
+                          child: LongButton(
+                            label: "エピソードを書く",
+                            onPressed: () => onTapAddButton(context),
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Container(
+                          margin: const EdgeInsets.only(bottom: 22),
+                          child: LongButtonBorderPrimary(
+                            label: "写真を撮る",
+                            onPressed: () => onTapArriveButton(context),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                margin: const EdgeInsets.only(bottom: 89),
-                child: longButton(
-                  "エピソードを追加する",
-                  () => onTapAddButton(context),
-                ),
-              ),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                margin: const EdgeInsets.only(bottom: 89),
-                child: longButton("エピソードを追加する", () => onTapAddButton(context)),
-              ),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                margin: const EdgeInsets.only(bottom: 22),
-                child: longButton(
-                  "目的地に到着",
-                  () => onTapArriveButton(context),
-                ),
-              ),
-            ),
-          ],
-        ),
+          );
+        }),
       ),
     );
   }

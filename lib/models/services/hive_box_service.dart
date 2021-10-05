@@ -15,13 +15,20 @@ class HiveBoxService {
   /// 最初はどのチュートリアルも見ていない状態なので、両方falseを入れています。
   Future<UserRecord> _getUserRecord() async {
     final box = await _box;
+
+    /// 本来不要だけど、 Null Safetyの影響でdefaultValueを指定してもnullable型になるので、
+    /// ?? UserRecord() を付けた。
     return box.get(
-      _userRecordKey,
-      defaultValue: UserRecord(
-        postTutorialDone: false,
-        reExperienceTutorialDone: false,
-      ),
-    );
+          _userRecordKey,
+          defaultValue: UserRecord(
+            postTutorialDone: false,
+            reExperienceTutorialDone: false,
+          ),
+        ) ??
+        UserRecord(
+          postTutorialDone: false,
+          reExperienceTutorialDone: false,
+        );
   }
 
   Future<bool> getReExperienceTutorialDone() async {

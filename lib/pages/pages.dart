@@ -1,7 +1,9 @@
 export 'add_sub_episode_page/add_sub_episode_page.dart';
+export 'ask_permission_page/ask_permission_page.dart';
 export 'episode_view_page/episode_view_page.dart';
 export 'home_page/home_page.dart';
 export 'login_page/login_page.dart';
+export 'post_detail_page/post_detail_page.dart';
 export 'post_page/post_page.dart';
 export 'post_tutorial_page/post_tutorial_page.dart';
 export 're_experience_page/re_experience_page.dart';

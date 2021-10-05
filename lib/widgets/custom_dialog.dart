@@ -5,23 +5,19 @@ import 'package:flutter/rendering.dart';
 import 'package:memory_share/theme.dart';
 import 'package:memory_share/widgets/widgets.dart';
 
-class CustomDialogBox extends StatefulWidget {
-  final String descriptions1;
-  final double wid;
-  final Function() tapEvent1, tapEvent2;
+class CustomDialogBox extends StatelessWidget {
   const CustomDialogBox({
-    Key key,
-    this.descriptions1,
-    this.wid,
-    this.tapEvent1,
-    this.tapEvent2,
+    Key? key,
+    required this.descriptions,
+    required this.wid,
+    required this.onSubmitted,
+    required this.onCanceled,
   }) : super(key: key);
 
-  @override
-  _CustomDialogBoxState createState() => _CustomDialogBoxState();
-}
+  final String descriptions;
+  final double wid;
+  final void Function() onSubmitted, onCanceled;
 
-class _CustomDialogBoxState extends State<CustomDialogBox> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -39,19 +35,12 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
       alignment: AlignmentDirectional.center,
       children: <Widget>[
         Container(
-          width: widget.wid - 48, //dialogの横幅
+          width: wid - 48, //dialogの横幅
           margin: const EdgeInsets.only(top: Constants.avatarRadius),
           decoration: BoxDecoration(
             shape: BoxShape.rectangle,
             color: Colors.white,
             borderRadius: BorderRadius.circular(16),
-            boxShadow: const [
-              BoxShadow(
-                color: Colors.black,
-                offset: Offset(0, 10),
-                blurRadius: 10,
-              ),
-            ],
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -68,10 +57,10 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
                 ),
               ),
               Container(
-                width: (widget.wid - 48) * 0.9,
+                width: (wid - 48) * 0.9,
                 margin: const EdgeInsets.only(bottom: 48, top: 64),
                 child: Text(
-                  widget.descriptions1,
+                  descriptions,
                   style: const TextStyle(
                     fontSize: 24,
                   ),
@@ -79,57 +68,55 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
                 ),
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    height: 64,
-                    width: 170,
-                    decoration: const BoxDecoration(
-                      border: Border(
-                        top: BorderSide(
-                          color: CustomColors.light,
-                          width: 1,
+                  Expanded(
+                    child: Container(
+                      height: 64,
+                      decoration: const BoxDecoration(
+                        border: Border(
+                          top: BorderSide(
+                            color: CustomColors.light,
+                            width: 1,
+                          ),
                         ),
                       ),
-                    ),
-                    child: TextButton(
-                      onPressed: () {
-                        widget.tapEvent2();
-                      },
-                      child: const Text(
-                        "いいえ",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 24,
-                          color: CustomColors.deep,
+                      child: TextButton(
+                        onPressed: () => onCanceled(),
+                        child: const Text(
+                          "いいえ",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 24,
+                            color: CustomColors.deep,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                  Container(
-                    height: 64,
-                    width: 170,
-                    decoration: const BoxDecoration(
-                      border: Border(
-                        top: BorderSide(
-                          color: CustomColors.light,
-                          width: 1,
-                        ),
-                        left: BorderSide(
-                          color: CustomColors.light,
-                          width: 1,
+                  Expanded(
+                    child: Container(
+                      height: 64,
+                      decoration: const BoxDecoration(
+                        border: Border(
+                          top: BorderSide(
+                            color: CustomColors.light,
+                            width: 1,
+                          ),
+                          left: BorderSide(
+                            color: CustomColors.light,
+                            width: 1,
+                          ),
                         ),
                       ),
-                    ),
-                    child: TextButton(
-                      onPressed: () {
-                        widget.tapEvent1();
-                      },
-                      child: const Text(
-                        "はい",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 24,
+                      child: TextButton(
+                        onPressed: () => onSubmitted(),
+                        child: const Text(
+                          "はい",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 24,
+                          ),
                         ),
                       ),
                     ),
