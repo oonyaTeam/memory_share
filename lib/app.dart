@@ -59,13 +59,19 @@ class MyApp extends StatelessWidget {
                 );
               }
 
-              return context.read<UserModel>().currentUser != null
-                  ? context.read<UserModel>().reExperienceTutorialDone!
-                      ? snapshot.data! // 位置情報の権限が許可されているかどうか
-                          ? const HomePage()
-                          : const AskPermissionPage()
-                      : const ReExperienceTutorialPage()
-                  : const LoginPage();
+              if (context.read<UserModel>().currentUser != null) {
+                if (context.read<UserModel>().reExperienceTutorialDone!) {
+                  if (snapshot.data!) {
+                    return const HomePage();
+                  } else {
+                    return const AskPermissionPage();
+                  }
+                } else {
+                  return const ReExperienceTutorialPage();
+                }
+              } else {
+                return const LoginPage();
+              }
             },
           ),
         ),
