@@ -19,10 +19,13 @@ Future<List<Memory>> fetchMyMemories(String uuid, String idToken) async {
   );
 
   if (resp.statusCode == 200) {
-    return List<Memory>.from(json
-        .decode(resp.body)['memories']
-        .map((value) => Memory.fromJson(value))
-        .toList());
+    final memories = json.decode(resp.body)['memories'];
+    if (memories == null) {
+      return [];
+    } else {
+      return List<Memory>.from(
+          memories.map((value) => Memory.fromJson(value)).toList());
+    }
   } else {
     throw Exception(resp.body);
   }
