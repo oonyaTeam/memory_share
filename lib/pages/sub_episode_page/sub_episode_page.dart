@@ -132,18 +132,38 @@ class SubEpisodePage extends StatelessWidget {
                                               CrossAxisAlignment.start,
                                           children: [
                                             SubEpisodeWrapper(item.episode),
-                                            Container(
-                                              margin: const EdgeInsets.only(
-                                                top: 8.0,
-                                                bottom: 8.0,
-                                                left: 24.0,
-                                              ),
-                                              child: SvgPicture.asset(
-                                                'assets/foot_prints.svg',
-                                                height: 80.0,
-                                                width: 40.0,
-                                                color: CustomColors.pale,
-                                              ),
+                                            Row(
+                                              children: [
+                                                Container(
+                                                  margin: const EdgeInsets.only(
+                                                    top: 8.0,
+                                                    bottom: 8.0,
+                                                    left: 24.0,
+                                                  ),
+                                                  child: SvgPicture.asset(
+                                                    'assets/foot_prints.svg',
+                                                    height: 80.0,
+                                                    width: 40.0,
+                                                    color: CustomColors.pale,
+                                                  ),
+                                                ),
+                                                Container(
+                                                  margin: const EdgeInsets.only(
+                                                    bottom: 50.0,
+                                                    left: 250.0,
+                                                  ),
+                                                  child: IconButton(
+                                                      onPressed: (){
+                                                        postViewModel.removeSubEpisode(index);
+                                                      },
+                                                      icon: const Icon(
+                                                        Icons.delete_forever_outlined,
+                                                        color: CustomColors.primary,
+                                                        size: 40.0,
+                                                      )
+                                                  )
+                                                ),
+                                              ],
                                             ),
                                           ],
                                         );
