@@ -48,7 +48,7 @@ class AddSubEpisodePage extends StatelessWidget {
                 },
               );
             },
-            primary: addSubEpisodeViewModel.subEpisode == ""
+            primary: (addSubEpisodeViewModel.subEpisode == "")
                 ? CustomColors.deep
                 : CustomColors.primary,
           ),
