@@ -22,47 +22,51 @@ class UpdateMailAddressPage extends StatelessWidget {
                 controller: updateMailAddressViewModel.controller,
                 title: "メールアドレスの変更",
               ),
-              SliverList(
-                delegate: SliverChildListDelegate([
-                  Center(
-                    child: Column(
-                      children: [
-                        const SizedBox(
-                          height: 48,
-                        ),
-                        EmailPasswordBox(
-                          iconData: Icons.email_outlined,
-                          topText: "新しいメールアドレス",
-                          onChanged: (String email) =>
-                              updateMailAddressViewModel.changeNewEmail(email),
-                          width: MediaQuery.of(context).size.width,
-                        ),
-                        const SizedBox(
-                          height: 32,
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(top: 15),
-                          child: SignInUpButton(
-                            label: '変更する',
-                            onPressed: () async {
-                              await updateMailAddressViewModel
-                                  .updateEmail()
-                                  .then((_) {
-                                showCustomToast(
-                                    context, 'メールアドレスを変更しました', true);
-                                Navigator.pop(context);
-                              }).catchError((e) {
-                                showCustomToast(
-                                    context, 'メールアドレスの更新に失敗しました', false);
-                              });
-                            },
+              SliverPadding(
+                padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+                sliver: SliverList(
+                  delegate: SliverChildListDelegate([
+                    Center(
+                      child: Column(
+                        children: [
+                          const SizedBox(
+                            height: 48,
+                          ),
+                          UpdateEmailPasswordBox(
+                            iconData: Icons.email_outlined,
+                            label: "新しいメールアドレス",
+                            onChanged: (String email) =>
+                                updateMailAddressViewModel
+                                    .changeNewEmail(email),
                             width: MediaQuery.of(context).size.width,
                           ),
-                        ),
-                      ],
+                          const SizedBox(
+                            height: 32,
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(top: 15),
+                            child: SignInUpButton(
+                              label: '変更する',
+                              onPressed: () async {
+                                await updateMailAddressViewModel
+                                    .updateEmail()
+                                    .then((_) {
+                                  showCustomToast(
+                                      context, 'メールアドレスを変更しました', true);
+                                  Navigator.pop(context);
+                                }).catchError((e) {
+                                  showCustomToast(
+                                      context, 'メールアドレスの更新に失敗しました', false);
+                                });
+                              },
+                              width: MediaQuery.of(context).size.width,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ]),
+                  ]),
+                ),
               ),
             ],
           ),

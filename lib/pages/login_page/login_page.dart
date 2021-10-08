@@ -4,10 +4,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:memory_share/models/models.dart';
 import 'package:memory_share/pages/pages.dart';
 import 'package:memory_share/theme.dart';
+import 'package:memory_share/utils/utils.dart';
 import 'package:memory_share/view_models/view_models.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:memory_share/utils/utils.dart';
 
 import 'login_view_model.dart';
 
@@ -84,6 +84,7 @@ class LoginPage extends StatelessWidget {
                 ),
                 // そっから下のところ全部をラップ
                 Container(
+                  padding: const EdgeInsets.only(left: 24, right: 24),
                   decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
@@ -97,7 +98,7 @@ class LoginPage extends StatelessWidget {
                       Container(
                         child: EmailPasswordBox(
                           iconData: Icons.email_outlined,
-                          topText: "Email",
+                          label: "Email",
                           onChanged: loginViewModel.changeEmail,
                           width: MediaQuery.of(context).size.width,
                         ),
@@ -107,7 +108,7 @@ class LoginPage extends StatelessWidget {
                       Container(
                         child: EmailPasswordBox(
                           iconData: Icons.https_outlined,
-                          topText: "Password",
+                          label: "Password",
                           onChanged: loginViewModel.changePassword,
                           width: MediaQuery.of(context).size.width,
                         ),

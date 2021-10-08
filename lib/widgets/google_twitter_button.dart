@@ -38,8 +38,8 @@ class GoogleTwitterButton extends StatelessWidget {
           padding: const EdgeInsets.only(right: 18),
           child: SvgPicture.asset(
             assetName,
-            width: 18,
-            height: 18,
+            width: 24,
+            height: 24,
             color: Colors.white,
           ),
         ),
