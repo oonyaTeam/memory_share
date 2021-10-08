@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:memory_share/theme.dart';
 import 'package:memory_share/utils/utils.dart';
 
+// for alphabet label
 class EmailPasswordBox extends StatelessWidget {
   const EmailPasswordBox({
     Key? key,
@@ -22,7 +23,7 @@ class EmailPasswordBox extends StatelessWidget {
       children: <Widget>[
         // email, passwordという文字の部分
         SizedBox(
-          width: width - 24,
+          width: width,
           child: Container(
             margin: const EdgeInsets.only(bottom: 4),
             child: Text(
@@ -31,6 +32,52 @@ class EmailPasswordBox extends StatelessWidget {
                 color: CustomColors.deep,
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
+                height: 1.0,
+              ),
+            ),
+          ),
+        ),
+        // メールアドレス、パスワードを入力する部分
+        EmailPasswordForm(
+          iconData: iconData,
+          onChanged: onChanged,
+          width: width,
+        ),
+      ],
+    );
+  }
+}
+
+// for japanese label
+class UpdateEmailPasswordBox extends StatelessWidget {
+  const UpdateEmailPasswordBox({
+    Key? key,
+    required this.iconData,
+    required this.label,
+    required this.onChanged,
+    required this.width,
+  }) : super(key: key);
+
+  final IconData iconData;
+  final String label;
+  final Function onChanged;
+  final double width;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        // email, passwordという文字の部分
+        SizedBox(
+          width: width,
+          child: Container(
+            margin: const EdgeInsets.only(bottom: 4),
+            child: Text(
+              label,
+              style: const TextStyle(
+                color: Colors.black,
+                fontSize: 14,
+                fontWeight: FontWeight.normal,
                 height: 1.0,
               ),
             ),
@@ -62,7 +109,7 @@ class EmailPasswordForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: width - 24,
+      width: width,
       height: 48,
       child: Form(
         autovalidateMode: AutovalidateMode.onUserInteraction,
