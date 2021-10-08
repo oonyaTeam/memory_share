@@ -20,7 +20,7 @@ class UpdatePasswordPage extends StatelessWidget {
             slivers: [
               CustomSliverAppBar(
                 controller: updatePasswordViewModel.controller,
-                title: "メールアドレスの変更",
+                title: "パスワードの変更",
               ),
               SliverList(
                 delegate: SliverChildListDelegate([
@@ -29,7 +29,7 @@ class UpdatePasswordPage extends StatelessWidget {
                   ),
                   EmailPasswordBox(
                     iconData: Icons.https_outlined,
-                    topText: "現在のパスワード",
+                    label: "現在のパスワード",
                     onChanged: (String password) =>
                         updatePasswordViewModel.changeOldPassword(password),
                     width: MediaQuery.of(context).size.width,
@@ -39,7 +39,7 @@ class UpdatePasswordPage extends StatelessWidget {
                   ),
                   EmailPasswordBox(
                     iconData: Icons.https_outlined,
-                    topText: "新しいパスワード",
+                    label: "新しいパスワード",
                     onChanged: (String password) =>
                         updatePasswordViewModel.changeNewPassword(password),
                     width: MediaQuery.of(context).size.width,
@@ -49,7 +49,7 @@ class UpdatePasswordPage extends StatelessWidget {
                   ),
                   EmailPasswordBox(
                     iconData: Icons.https_outlined,
-                    topText: "新しいパスワード（確認）",
+                    label: "新しいパスワード（確認）",
                     onChanged: (String password) => updatePasswordViewModel
                         .changeNewPasswordForConfirmation(password),
                     width: MediaQuery.of(context).size.width,
@@ -65,11 +65,7 @@ class UpdatePasswordPage extends StatelessWidget {
                         await updatePasswordViewModel
                             .updatePassword()
                             .then((_) {
-                          showCustomToast(
-                            context,
-                            'パスワードを更新しました',
-                            true,
-                          );
+                          showCustomToast(context, 'パスワードを更新しました', true);
                           Navigator.pop(context);
                         }).catchError((e) {
                           showCustomToast(context, 'パスワードの更新に失敗しました。', false);

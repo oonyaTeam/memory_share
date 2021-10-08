@@ -97,7 +97,7 @@ class LoginPage extends StatelessWidget {
                       Container(
                         child: EmailPasswordBox(
                           iconData: Icons.email_outlined,
-                          topText: "Email",
+                          label: "Email",
                           onChanged: loginViewModel.changeEmail,
                           width: MediaQuery.of(context).size.width,
                         ),
@@ -107,7 +107,7 @@ class LoginPage extends StatelessWidget {
                       Container(
                         child: EmailPasswordBox(
                           iconData: Icons.https_outlined,
-                          topText: "Password",
+                          label: "Password",
                           onChanged: loginViewModel.changePassword,
                           width: MediaQuery.of(context).size.width,
                         ),

@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:memory_share/models/models.dart';
 import 'package:memory_share/pages/pages.dart';
+import 'package:memory_share/utils/utils.dart';
 import 'package:memory_share/view_models/view_models.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:memory_share/utils/utils.dart';
 
 import '../../theme.dart';
 import 'sign_up_view_model.dart';
@@ -100,7 +100,7 @@ class SignUpPage extends StatelessWidget {
                         Container(
                           child: EmailPasswordBox(
                             iconData: Icons.email_outlined,
-                            topText: "Email",
+                            label: "Email",
                             onChanged: signUpViewModel.changeEmail,
                             width: MediaQuery.of(context).size.width,
                           ),
@@ -110,7 +110,7 @@ class SignUpPage extends StatelessWidget {
                         Container(
                           child: EmailPasswordBox(
                             iconData: Icons.https_outlined,
-                            topText: "Password",
+                            label: "Password",
                             onChanged: signUpViewModel.changePassword,
                             width: MediaQuery.of(context).size.width,
                           ),

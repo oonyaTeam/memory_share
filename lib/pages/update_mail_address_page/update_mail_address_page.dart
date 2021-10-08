@@ -26,13 +26,14 @@ class UpdateMailAddressPage extends StatelessWidget {
                 delegate: SliverChildListDelegate([
                   Center(
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const SizedBox(
                           height: 48,
                         ),
                         EmailPasswordBox(
                           iconData: Icons.email_outlined,
-                          topText: "新しいメールアドレス",
+                          label: "新しいメールアドレス",
                           onChanged: (String email) =>
                               updateMailAddressViewModel.changeNewEmail(email),
                           width: MediaQuery.of(context).size.width,
