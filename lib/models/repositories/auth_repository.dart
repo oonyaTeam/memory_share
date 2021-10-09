@@ -6,8 +6,14 @@ class AuthRepository {
   final AuthService _authService = AuthService();
 
   /// Emailとパスワードでログインを行う。
-  Future<User?> login(String email, String password) =>
-      _authService.loginWithEmailAndPassword(email, password);
+  Future<User?> login(String email, String password) async {
+    final User? user =
+        await _authService.loginWithEmailAndPassword(email, password);
+    if (user != null) {
+      await _authService.postAuthor();
+    }
+    return user;
+  }
 
   /// EmailとパスワードでSignUpを行う。
   /// ユーザの作成ができたときは、サーバーにauthorをポストするリクエストも投げる。
