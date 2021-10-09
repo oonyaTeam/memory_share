@@ -10,6 +10,18 @@ import 'post_page_view_model.dart';
 class PostPage extends StatelessWidget {
   const PostPage({Key? key}) : super(key: key);
 
+  void onSubmit({
+    required BuildContext context,
+    required PostViewModel model,
+  }) async {
+    await model.postMemory().then((_) {
+      showCustomToast(context, '投稿しました', true);
+      Navigator.of(context).popUntil((route) => route.isFirst);
+    }).catchError((e) {
+      showCustomToast(context, '投稿に失敗しました', false);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final postViewModel = context.watch<PostViewModel>();
@@ -52,30 +64,45 @@ class PostPage extends StatelessWidget {
                 ? CustomColors.deep
                 : CustomColors.primary,
           ),
-          body: Stack(
-            children: [
-              Align(
-                alignment: Alignment.topCenter,
-                child: Container(
-                  margin: const EdgeInsets.only(bottom: 5),
-                  child: Container(
-                    width: 375,
-                    height: 188,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.rectangle,
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: FileImage(postViewModel.photo!),
+          body: CustomScrollView(
+            controller: model.controller,
+            slivers: [
+              CustomSliverAppBar(
+                controller: model.controller,
+                title: '思い出を投稿',
+                actions: [
+                  VariableColorButton(
+                    label: '投稿する',
+                    onPressed: postViewModel.mainEpisode == ''
+                        ? null
+                        : () => onSubmit(
+                              context: context,
+                              model: postViewModel,
+                            ),
+                    width: 114.0,
+                    height: 44.0,
+                    primary: CustomColors.primary,
+                  ),
+                ],
+              ),
+              SliverList(
+                delegate: SliverChildListDelegate([
+                  GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      width: 375,
+                      height: 188,
+                      margin: const EdgeInsets.only(bottom: 5),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.rectangle,
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: FileImage(postViewModel.photo!),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ),
-              Align(
-                alignment: Alignment.topCenter,
-                child: Container(
-                  margin: const EdgeInsets.only(top: 200),
-                  child: TextField(
+                  TextField(
                     decoration: const InputDecoration(
                       hintText: "思い出を書こう",
                     ),
@@ -87,7 +114,7 @@ class PostPage extends StatelessWidget {
                     onChanged: (String mainEpisode) =>
                         postViewModel.setMainEpisode(mainEpisode),
                   ),
-                ),
+                ]),
               ),
             ],
           ),
