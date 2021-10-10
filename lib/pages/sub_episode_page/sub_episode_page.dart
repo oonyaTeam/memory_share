@@ -14,9 +14,7 @@ import 'empty_state.dart';
 import 'sub_episode_view_model.dart';
 
 class SubEpisodePage extends StatelessWidget {
-  SubEpisodePage({Key? key}) : super(key: key);
-
-  final picker = ImagePicker();
+  const SubEpisodePage({Key? key}) : super(key: key);
 
   /// サブエピソードを追加するボタンをタップしたときの処理
   Future onTapAddButton(BuildContext context) async {
@@ -27,6 +25,8 @@ class SubEpisodePage extends StatelessWidget {
 
   /// 到着したときの処理
   Future<void> onTapArriveButton(BuildContext context) async {
+    final picker = ImagePicker();
+
     context.read<SubEpisodeViewModel>().isLoading = true;
     final XFile? takenPhoto =
         await picker.pickImage(source: ImageSource.camera);

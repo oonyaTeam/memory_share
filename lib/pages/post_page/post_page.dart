@@ -1,7 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_compass/flutter_compass.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:memory_share/theme.dart';
 import 'package:memory_share/utils/utils.dart';
 import 'package:memory_share/view_models/view_models.dart';
+import 'package:memory_share/widgets/change_image_dialog.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -10,7 +15,7 @@ import 'post_page_view_model.dart';
 class PostPage extends StatelessWidget {
   const PostPage({Key? key}) : super(key: key);
 
-  void onSubmit({
+  void _onSubmit({
     required BuildContext context,
     required PostViewModel model,
   }) async {
@@ -20,6 +25,46 @@ class PostPage extends StatelessWidget {
     }).catchError((e) {
       showCustomToast(context, '投稿に失敗しました', false);
     });
+  }
+
+  void _showChangeImageDialog({
+    required BuildContext context,
+    required PostViewModel model,
+  }) {
+    showDialog(
+      context: context,
+      builder: (context) => ChangeImageDialog(
+        imageFile: model.photo!,
+        onSubmitted: () {
+          _reTakeImage(context: context, model: model);
+          Navigator.pop(context);
+        },
+        onCanceled: () => Navigator.pop(context),
+      ),
+    );
+  }
+
+  void _reTakeImage({
+    required BuildContext context,
+    required PostViewModel model,
+  }) async {
+    final picker = ImagePicker();
+    final XFile? takenPhoto =
+        await picker.pickImage(source: ImageSource.camera);
+
+    if (takenPhoto == null) return;
+
+    final CompassEvent compassData = await FlutterCompass.events!.first;
+    double angle = double.parse(compassData.heading.toString());
+
+    if (angle < 0) {
+      angle = 360 + angle;
+    }
+
+    File photoFile = File(takenPhoto.path);
+    model
+      ..setPhoto(photoFile)
+      ..setAngle(angle);
   }
 
   @override
@@ -64,7 +109,7 @@ class PostPage extends StatelessWidget {
                         label: '投稿する',
                         onPressed: postViewModel.mainEpisode == ''
                             ? null
-                            : () => onSubmit(
+                            : () => _onSubmit(
                                   context: context,
                                   model: postViewModel,
                                 ),
@@ -78,7 +123,10 @@ class PostPage extends StatelessWidget {
                 SliverList(
                   delegate: SliverChildListDelegate([
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () => _showChangeImageDialog(
+                        context: context,
+                        model: postViewModel,
+                      ),
                       child: Container(
                         width: 375,
                         height: 188,
