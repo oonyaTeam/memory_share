@@ -32,7 +32,7 @@ class PostViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  void setMainEpisode(String mainEpisode) {
+  set mainEpisode(String mainEpisode) {
     _mainEpisode = mainEpisode;
     notifyListeners();
   }
@@ -66,10 +66,9 @@ class PostViewModel with ChangeNotifier {
     if (_photo == null) throw Error();
 
     await _postRepository.postMemory(
-      mainEpisode: _mainEpisode,
-      subEpisodeList: _subEpisodeList,
-      photo: _photo!,
-      angle: _angle
-    );
+        mainEpisode: _mainEpisode,
+        subEpisodeList: _subEpisodeList,
+        photo: _photo!,
+        angle: _angle);
   }
 }
