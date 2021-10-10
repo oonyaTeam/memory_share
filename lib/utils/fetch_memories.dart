@@ -14,8 +14,7 @@ Future<List<Memory>> fetchMemories({
   required http.Client client,
 }) async {
   final endpoint = FlutterConfig.get("API_ENDPOINT");
-  final url =
-      '${endpoint}memories?lowerLeft=$lowerLeft&lowerRight=$lowerRight&upperLeft=$upperLeft&upperRight=$upperRight';
+  final url = '${endpoint}memories';
   final resp = await client.get(
     Uri.parse(url),
     headers: {

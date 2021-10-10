@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class VariableColorButton extends StatelessWidget {
   const VariableColorButton({
     required this.label,
-    required this.onPressed,
+    this.onPressed,
     required this.width,
     required this.height,
     required this.primary,
@@ -11,7 +11,7 @@ class VariableColorButton extends StatelessWidget {
   }) : super(key: key);
 
   final String label;
-  final void Function() onPressed;
+  final void Function()? onPressed;
   final double width;
   final double height;
   final Color primary;
@@ -24,7 +24,7 @@ class VariableColorButton extends StatelessWidget {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           shape: const StadiumBorder(),
-          primary:primary,
+          primary: primary,
           onPrimary: Colors.white,
         ),
         child: Text(

@@ -14,9 +14,7 @@ import 'empty_state.dart';
 import 'sub_episode_view_model.dart';
 
 class SubEpisodePage extends StatelessWidget {
-  SubEpisodePage({Key? key}) : super(key: key);
-
-  final picker = ImagePicker();
+  const SubEpisodePage({Key? key}) : super(key: key);
 
   /// サブエピソードを追加するボタンをタップしたときの処理
   Future onTapAddButton(BuildContext context) async {
@@ -27,6 +25,8 @@ class SubEpisodePage extends StatelessWidget {
 
   /// 到着したときの処理
   Future<void> onTapArriveButton(BuildContext context) async {
+    final picker = ImagePicker();
+
     context.read<SubEpisodeViewModel>().isLoading = true;
     final XFile? takenPhoto =
         await picker.pickImage(source: ImageSource.camera);
@@ -72,21 +72,22 @@ class SubEpisodePage extends StatelessWidget {
       onWillPop: () async {
         if (postViewModel.subEpisodeList.isNotEmpty) {
           showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return CustomDialogBox(
-                  wid: MediaQuery.of(context).size.width,
-                  descriptions: "エピソードが\n全て削除されますが\nよろしいですか？",
-                  onSubmitted: () {
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                    postViewModel.clearSubEpisode();
-                  },
-                  onCanceled: () {
-                    Navigator.pop(context);
-                  },
-                );
-              });
+            context: context,
+            builder: (BuildContext context) {
+              return CustomDialogBox(
+                wid: MediaQuery.of(context).size.width,
+                descriptions: "エピソードが\n全て削除されますが\nよろしいですか？",
+                onSubmitted: () {
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                  postViewModel.clearSubEpisode();
+                },
+                onCanceled: () {
+                  Navigator.pop(context);
+                },
+              );
+            },
+          );
           return false;
         } else {
           return true;
@@ -110,69 +111,71 @@ class SubEpisodePage extends StatelessWidget {
                             controller: model.controller,
                             title: "思い出を投稿",
                           ),
-                          postViewModel.subEpisodeList.isEmpty
-                              ? SliverList(
-                                  delegate: SliverChildListDelegate([
-                                    const EmptyState(),
-                                  ]),
-                                )
-                              : SliverPadding(
-                                  padding: const EdgeInsets.only(
-                                    top: 16.0,
-                                    left: 24.0,
-                                    right: 24.0,
-                                  ),
-                                  sliver: SliverList(
-                                    delegate: SliverChildBuilderDelegate(
-                                      (context, index) {
-                                        final item =
-                                            postViewModel.subEpisodeList[index];
-                                        return Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                          if (postViewModel.subEpisodeList.isEmpty)
+                            SliverList(
+                              delegate: SliverChildListDelegate([
+                                const EmptyState(),
+                              ]),
+                            )
+                          else
+                            SliverPadding(
+                              padding: const EdgeInsets.only(
+                                top: 16.0,
+                                left: 24.0,
+                                right: 24.0,
+                              ),
+                              sliver: SliverList(
+                                delegate: SliverChildBuilderDelegate(
+                                  (context, index) {
+                                    final item =
+                                        postViewModel.subEpisodeList[index];
+                                    return Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        SubEpisodeWrapper(item.episode),
+                                        Row(
                                           children: [
-                                            SubEpisodeWrapper(item.episode),
-                                            Row(
-                                              children: [
-                                                Container(
-                                                  margin: const EdgeInsets.only(
-                                                    top: 8.0,
-                                                    bottom: 8.0,
-                                                    left: 24.0,
-                                                  ),
-                                                  child: SvgPicture.asset(
-                                                    'assets/foot_prints.svg',
-                                                    height: 80.0,
-                                                    width: 40.0,
-                                                    color: CustomColors.pale,
-                                                  ),
+                                            Container(
+                                              margin: const EdgeInsets.only(
+                                                top: 8.0,
+                                                bottom: 8.0,
+                                                left: 24.0,
+                                              ),
+                                              child: SvgPicture.asset(
+                                                'assets/foot_prints.svg',
+                                                height: 80.0,
+                                                width: 40.0,
+                                                color: CustomColors.pale,
+                                              ),
+                                            ),
+                                            Container(
+                                              margin: const EdgeInsets.only(
+                                                bottom: 50.0,
+                                                left: 250.0,
+                                              ),
+                                              child: IconButton(
+                                                onPressed: () {
+                                                  postViewModel
+                                                      .removeSubEpisode(index);
+                                                },
+                                                icon: const Icon(
+                                                  Icons.delete_forever_outlined,
+                                                  color: CustomColors.primary,
+                                                  size: 40.0,
                                                 ),
-                                                Container(
-                                                  margin: const EdgeInsets.only(
-                                                    bottom: 50.0,
-                                                    left: 250.0,
-                                                  ),
-                                                  child: IconButton(
-                                                      onPressed: (){
-                                                        postViewModel.removeSubEpisode(index);
-                                                      },
-                                                      icon: const Icon(
-                                                        Icons.delete_forever_outlined,
-                                                        color: CustomColors.primary,
-                                                        size: 40.0,
-                                                      )
-                                                  )
-                                                ),
-                                              ],
+                                              ),
                                             ),
                                           ],
-                                        );
-                                      },
-                                      childCount:
-                                          postViewModel.subEpisodeList.length,
-                                    ),
-                                  ),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                  childCount:
+                                      postViewModel.subEpisodeList.length,
                                 ),
+                              ),
+                            ),
                           // SliverList(delegate: (delegate))
                         ],
                       ),

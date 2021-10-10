@@ -63,7 +63,7 @@ class AddSubEpisodePage extends StatelessWidget {
                     ),
                     scrollPadding: const EdgeInsets.all(20.0),
                     keyboardType: TextInputType.multiline,
-                    maxLines: 99999,
+                    maxLines: 10,
                     autofocus: true,
                     focusNode: addSubEpisodeViewModel.textFieldFocusNode,
                     controller: addSubEpisodeViewModel.textEditingController,
