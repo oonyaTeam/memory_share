@@ -18,6 +18,8 @@ class PostPage extends StatelessWidget {
     await model.postMemory().then((_) {
       showCustomToast(context, '投稿しました', true);
       Navigator.of(context).popUntil((route) => route.isFirst);
+      model.clearMainEpisode();
+      model.clearSubEpisode();
     }).catchError((e) {
       showCustomToast(context, '投稿に失敗しました', false);
     });
@@ -62,6 +64,7 @@ class PostPage extends StatelessWidget {
                   descriptions: "写真とエピソードが\n削除されますが\nよろしいですか？",
                   onSubmitted: () {
                     Navigator.pop(context, true);
+                    postViewModel.clearMainEpisode();
                   },
                   onCanceled: () {
                     Navigator.pop(context, false);
