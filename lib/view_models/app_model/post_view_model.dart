@@ -71,4 +71,14 @@ class PostViewModel with ChangeNotifier {
         photo: _photo!,
         angle: _angle);
   }
+
+  Future<void> takeMainEpisodeImage() async {
+    final imageWithAngle = await _postRepository.takeMainEpisodeImage();
+    if (imageWithAngle.image == null || imageWithAngle.angle == null) {
+      throw Error();
+    }
+
+    setPhoto(imageWithAngle.image!);
+    setAngle(imageWithAngle.angle!);
+  }
 }

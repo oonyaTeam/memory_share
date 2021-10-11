@@ -1,8 +1,4 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_compass/flutter_compass.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:memory_share/theme.dart';
 import 'package:memory_share/utils/utils.dart';
 import 'package:memory_share/view_models/view_models.dart';
@@ -46,18 +42,8 @@ class PostPage extends StatelessWidget {
 
   void _reTakeImage({
     required PostViewModel model,
-  }) async {
-    final CompassEvent compassData = await FlutterCompass.events!.first;
-    double angle = double.parse(compassData.heading.toString());
-
-    if (angle < 0) {
-      angle = 360 + angle;
-    }
-
-    model
-      ..setPhoto(photoFile)
-      ..setAngle(angle);
-  }
+  }) async =>
+      await model.takeMainEpisodeImage();
 
   @override
   Widget build(BuildContext context) {
