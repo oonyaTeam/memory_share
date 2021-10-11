@@ -36,7 +36,7 @@ class PostPage extends StatelessWidget {
       builder: (context) => ChangeImageDialog(
         imageFile: model.photo!,
         onSubmitted: () {
-          _reTakeImage(context: context, model: model);
+          _reTakeImage(model: model);
           Navigator.pop(context);
         },
         onCanceled: () => Navigator.pop(context),
@@ -45,15 +45,8 @@ class PostPage extends StatelessWidget {
   }
 
   void _reTakeImage({
-    required BuildContext context,
     required PostViewModel model,
   }) async {
-    final picker = ImagePicker();
-    final XFile? takenPhoto =
-        await picker.pickImage(source: ImageSource.camera);
-
-    if (takenPhoto == null) return;
-
     final CompassEvent compassData = await FlutterCompass.events!.first;
     double angle = double.parse(compassData.heading.toString());
 
@@ -61,7 +54,6 @@ class PostPage extends StatelessWidget {
       angle = 360 + angle;
     }
 
-    File photoFile = File(takenPhoto.path);
     model
       ..setPhoto(photoFile)
       ..setAngle(angle);
