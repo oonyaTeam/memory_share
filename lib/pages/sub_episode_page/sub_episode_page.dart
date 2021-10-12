@@ -1,9 +1,5 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_compass/flutter_compass.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:memory_share/pages/pages.dart';
 import 'package:memory_share/theme.dart';
 import 'package:memory_share/view_models/view_models.dart';
@@ -25,27 +21,15 @@ class SubEpisodePage extends StatelessWidget {
 
   /// 到着したときの処理
   Future<void> onTapArriveButton(BuildContext context) async {
-    final picker = ImagePicker();
-
     context.read<SubEpisodeViewModel>().isLoading = true;
-    final XFile? takenPhoto =
-        await picker.pickImage(source: ImageSource.camera);
-    if (takenPhoto == null) {
+
+    try {
+      await context.read<PostViewModel>().takeMainEpisodeImage();
+    } catch (e) {
       context.read<SubEpisodeViewModel>().isLoading = false;
       return;
     }
-    final CompassEvent compassData = await FlutterCompass.events!.first;
 
-    double angle = double.parse(compassData.heading.toString());
-
-    if (angle < 0) {
-      angle = 360 + angle;
-    }
-
-    File photoFile = File(takenPhoto.path);
-    context.read<PostViewModel>()
-      ..setPhoto(photoFile)
-      ..setAngle(angle);
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => const PostPage(),

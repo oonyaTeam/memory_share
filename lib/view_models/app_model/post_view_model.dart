@@ -61,6 +61,11 @@ class PostViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  void clearMainEpisode() {
+    _mainEpisode = '';
+    notifyListeners();
+  }
+
   /// [PostRepository]のpostMemoryを呼び出して、入力したデータを投稿する。
   Future<void> postMemory() async {
     if (_photo == null) throw Error();
@@ -70,5 +75,15 @@ class PostViewModel with ChangeNotifier {
         subEpisodeList: _subEpisodeList,
         photo: _photo!,
         angle: _angle);
+  }
+
+  Future<void> takeMainEpisodeImage() async {
+    final imageWithAngle = await _postRepository.takeMainEpisodeImage();
+    if (imageWithAngle.image == null || imageWithAngle.angle == null) {
+      throw Error();
+    }
+
+    setPhoto(imageWithAngle.image!);
+    setAngle(imageWithAngle.angle!);
   }
 }
