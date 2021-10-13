@@ -13,8 +13,6 @@ class PostService {
       required double angle}) async {
     final currentPosition = await Geolocator.getCurrentPosition();
 
-    // TODO: サンプルデータを変更。投稿で投げるjsonは違うので、それも変更
-    // episode: idにindexを入れたいので、一度Mapにして、展開している。idに入れる値は後々検討すべき？
     final NewMemory newMemory = NewMemory(
       memory: mainEpisode,
       image: imageUrl,
