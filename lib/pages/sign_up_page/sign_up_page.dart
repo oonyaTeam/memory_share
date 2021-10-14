@@ -87,6 +87,7 @@ class SignUpPage extends StatelessWidget {
                   ),
                   // そっから下のところ全部をラップ(白いところ)
                   Container(
+                    padding: const EdgeInsets.only(left: 24, right: 24),
                     decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
