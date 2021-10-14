@@ -87,6 +87,7 @@ class SignUpPage extends StatelessWidget {
                   ),
                   // そっから下のところ全部をラップ(白いところ)
                   Container(
+                    padding: const EdgeInsets.only(left: 24, right: 24),
                     decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
@@ -186,7 +187,7 @@ class SignUpPage extends StatelessWidget {
                                   ),
                                 ),
                                 child: const Text(
-                                  "SignUp",
+                                  "Sign in",
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: CustomColors.primary,
