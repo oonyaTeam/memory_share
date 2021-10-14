@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:memory_share/utils/toast.dart';
+import 'package:memory_share/utils/utils.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -31,6 +32,7 @@ class UpdatePasswordPage extends StatelessWidget {
                     ),
                     UpdateEmailPasswordBox(
                       iconData: Icons.https_outlined,
+                      type: ValidatorType.password,
                       label: "現在のパスワード",
                       onChanged: (String password) =>
                           updatePasswordViewModel.changeOldPassword(password),
@@ -41,6 +43,7 @@ class UpdatePasswordPage extends StatelessWidget {
                     ),
                     UpdateEmailPasswordBox(
                       iconData: Icons.https_outlined,
+                      type: ValidatorType.password,
                       label: "新しいパスワード",
                       onChanged: (String password) =>
                           updatePasswordViewModel.changeNewPassword(password),
@@ -51,6 +54,7 @@ class UpdatePasswordPage extends StatelessWidget {
                     ),
                     UpdateEmailPasswordBox(
                       iconData: Icons.https_outlined,
+                      type: ValidatorType.password,
                       label: "新しいパスワード（確認）",
                       onChanged: (String password) => updatePasswordViewModel
                           .changeNewPasswordForConfirmation(password),
