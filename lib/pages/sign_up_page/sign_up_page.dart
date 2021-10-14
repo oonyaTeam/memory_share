@@ -182,7 +182,7 @@ class SignUpPage extends StatelessWidget {
                                   ),
                                 ),
                                 child: const Text(
-                                  "SignUp",
+                                  "Sign in",
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: CustomColors.primary,
