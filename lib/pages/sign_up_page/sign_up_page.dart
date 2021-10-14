@@ -100,6 +100,7 @@ class SignUpPage extends StatelessWidget {
                         Container(
                           child: EmailPasswordBox(
                             iconData: Icons.email_outlined,
+                            type: ValidatorType.email,
                             label: "Email",
                             onChanged: signUpViewModel.changeEmail,
                             width: MediaQuery.of(context).size.width,
@@ -110,6 +111,7 @@ class SignUpPage extends StatelessWidget {
                         Container(
                           child: EmailPasswordBox(
                             iconData: Icons.https_outlined,
+                            type: ValidatorType.password,
                             label: "Password",
                             onChanged: signUpViewModel.changePassword,
                             width: MediaQuery.of(context).size.width,
