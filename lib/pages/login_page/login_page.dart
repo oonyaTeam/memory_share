@@ -40,6 +40,8 @@ class LoginPage extends StatelessWidget {
       await _routeNextPage(context);
     } on FirebaseAuthException catch (e) {
       Validator.firebaseAuthLoginValidate(context: context, message: e.code);
+    } catch (e) {
+      showCustomToast(context, 'Emailかパスワードが正しくありません', false);
     }
   }
 

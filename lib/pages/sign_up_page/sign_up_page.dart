@@ -102,7 +102,8 @@ class SignUpPage extends StatelessWidget {
                             iconData: Icons.email_outlined,
                             type: ValidatorType.email,
                             label: "Email",
-                            onChanged: signUpViewModel.changeEmail,
+                            onChanged: (newValue) =>
+                                signUpViewModel.email = newValue,
                             width: MediaQuery.of(context).size.width,
                           ),
                           margin: const EdgeInsets.only(top: 24),
@@ -113,7 +114,8 @@ class SignUpPage extends StatelessWidget {
                             iconData: Icons.https_outlined,
                             type: ValidatorType.password,
                             label: "Password",
-                            onChanged: signUpViewModel.changePassword,
+                            onChanged: (newValue) =>
+                                signUpViewModel.password = newValue,
                             width: MediaQuery.of(context).size.width,
                           ),
                           margin: const EdgeInsets.only(top: 16),
