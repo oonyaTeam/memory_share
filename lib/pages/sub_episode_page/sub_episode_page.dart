@@ -82,109 +82,113 @@ class SubEpisodePage extends StatelessWidget {
         child: Consumer<SubEpisodeViewModel>(builder: (context, model, _) {
           return Scaffold(
             backgroundColor: Colors.white,
-            body: model.isLoading
-                ? const Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : Stack(
-                    children: [
-                      CustomScrollView(
+            body: Builder(builder: (context) {
+              if (model.isLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              return Stack(
+                children: [
+                  CustomScrollView(
+                    controller: model.controller,
+                    slivers: [
+                      CustomSliverAppBar(
                         controller: model.controller,
-                        slivers: [
-                          CustomSliverAppBar(
-                            controller: model.controller,
-                            title: "思い出を投稿",
+                        title: "思い出を投稿",
+                      ),
+                      if (postViewModel.subEpisodeList.isEmpty)
+                        SliverList(
+                          delegate: SliverChildListDelegate([
+                            const EmptyState(),
+                          ]),
+                        )
+                      else
+                        SliverPadding(
+                          padding: const EdgeInsets.only(
+                            top: 16.0,
+                            left: 24.0,
+                            right: 24.0,
                           ),
-                          if (postViewModel.subEpisodeList.isEmpty)
-                            SliverList(
-                              delegate: SliverChildListDelegate([
-                                const EmptyState(),
-                              ]),
-                            )
-                          else
-                            SliverPadding(
-                              padding: const EdgeInsets.only(
-                                top: 16.0,
-                                left: 24.0,
-                                right: 24.0,
-                              ),
-                              sliver: SliverList(
-                                delegate: SliverChildBuilderDelegate(
-                                  (context, index) {
-                                    final item =
-                                        postViewModel.subEpisodeList[index];
-                                    return Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                          sliver: SliverList(
+                            delegate: SliverChildBuilderDelegate(
+                              (context, index) {
+                                // SubEpisodeを逆（新しいものを上）にして表示するために、配列の後ろから表示
+                                final i = postViewModel.subEpisodeList.length -
+                                    index -
+                                    1;
+                                final item = postViewModel.subEpisodeList[i];
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SubEpisodeWrapper(item.episode),
+                                    Row(
                                       children: [
-                                        SubEpisodeWrapper(item.episode),
-                                        Row(
-                                          children: [
-                                            Container(
-                                              margin: const EdgeInsets.only(
-                                                top: 8.0,
-                                                bottom: 8.0,
-                                                left: 24.0,
-                                              ),
-                                              child: SvgPicture.asset(
-                                                'assets/foot_prints.svg',
-                                                height: 80.0,
-                                                width: 40.0,
-                                                color: CustomColors.pale,
-                                              ),
+                                        Container(
+                                          margin: const EdgeInsets.only(
+                                            top: 8.0,
+                                            bottom: 8.0,
+                                            left: 24.0,
+                                          ),
+                                          child: SvgPicture.asset(
+                                            'assets/foot_prints.svg',
+                                            height: 80.0,
+                                            width: 40.0,
+                                            color: CustomColors.pale,
+                                          ),
+                                        ),
+                                        Container(
+                                          margin: const EdgeInsets.only(
+                                            bottom: 50.0,
+                                            left: 250.0,
+                                          ),
+                                          child: IconButton(
+                                            onPressed: () {
+                                              postViewModel
+                                                  .removeSubEpisode(index);
+                                            },
+                                            icon: const Icon(
+                                              Icons.delete_forever_outlined,
+                                              color: CustomColors.primary,
+                                              size: 40.0,
                                             ),
-                                            Container(
-                                              margin: const EdgeInsets.only(
-                                                bottom: 50.0,
-                                                left: 250.0,
-                                              ),
-                                              child: IconButton(
-                                                onPressed: () {
-                                                  postViewModel
-                                                      .removeSubEpisode(index);
-                                                },
-                                                icon: const Icon(
-                                                  Icons.delete_forever_outlined,
-                                                  color: CustomColors.primary,
-                                                  size: 40.0,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
+                                          ),
                                         ),
                                       ],
-                                    );
-                                  },
-                                  childCount:
-                                      postViewModel.subEpisodeList.length,
-                                ),
-                              ),
+                                    ),
+                                  ],
+                                );
+                              },
+                              childCount: postViewModel.subEpisodeList.length,
                             ),
-                          // SliverList(delegate: (delegate))
-                        ],
-                      ),
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Container(
-                          margin: const EdgeInsets.only(bottom: 89),
-                          child: LongButton(
-                            label: "エピソードを書く",
-                            onPressed: () => onTapAddButton(context),
                           ),
                         ),
-                      ),
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Container(
-                          margin: const EdgeInsets.only(bottom: 22),
-                          child: LongButtonBorderPrimary(
-                            label: "写真を撮る",
-                            onPressed: () => onTapArriveButton(context),
-                          ),
-                        ),
-                      ),
+                      // SliverList(delegate: (delegate))
                     ],
                   ),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      margin: const EdgeInsets.only(bottom: 89),
+                      child: LongButton(
+                        label: "エピソードを書く",
+                        onPressed: () => onTapAddButton(context),
+                      ),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      margin: const EdgeInsets.only(bottom: 22),
+                      child: LongButtonBorderPrimary(
+                        label: "写真を撮る",
+                        onPressed: () => onTapArriveButton(context),
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            }),
           );
         }),
       ),
