@@ -133,7 +133,10 @@ class SubEpisodePage extends StatelessWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        SubEpisodeWrapper(item.episode),
+                                        SubEpisodeWrapper(item.episode,
+                                            onPressed:(){
+                                          postViewModel.removeSubEpisode(index);
+                                        }),
                                         Row(
                                           children: [
                                             Container(
@@ -152,13 +155,9 @@ class SubEpisodePage extends StatelessWidget {
                                             Container(
                                               margin: const EdgeInsets.only(
                                                 bottom: 50.0,
-                                                left: 250.0,
                                               ),
                                               child: IconButton(
-                                                onPressed: () {
-                                                  postViewModel
-                                                      .removeSubEpisode(index);
-                                                },
+                                                onPressed: (){postViewModel.removeSubEpisode(index);},
                                                 icon: const Icon(
                                                   Icons.delete_forever_outlined,
                                                   color: CustomColors.primary,

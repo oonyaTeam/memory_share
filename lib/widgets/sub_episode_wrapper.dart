@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:memory_share/theme.dart';
 
 class SubEpisodeWrapper extends StatelessWidget {
-  const SubEpisodeWrapper(this.subEpisode, {Key? key}) : super(key: key);
+  const SubEpisodeWrapper(this.subEpisode, {required this.onPressed,Key? key}) : super(key: key);
 
   final String subEpisode;
+  final Function onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class SubEpisodeWrapper extends StatelessWidget {
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+        children: <Widget>[
           Container(
             margin: const EdgeInsets.only(right: 16.0),
             child: const Icon(
@@ -29,6 +30,21 @@ class SubEpisodeWrapper extends StatelessWidget {
             child: Text(
               subEpisode,
               style: const TextStyle(fontSize: 18.0),
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.only(
+              bottom: 50.0,
+            ),
+            child: IconButton(
+              onPressed: (){
+                onPressed();
+                },
+              icon: const Icon(
+                Icons.delete_forever_outlined,
+                color: CustomColors.primary,
+                size: 40.0,
+              ),
             ),
           ),
         ],
