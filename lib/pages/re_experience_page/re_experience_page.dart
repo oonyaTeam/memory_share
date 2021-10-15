@@ -80,9 +80,6 @@ class ReExperiencePage extends StatelessWidget {
                                   .toString()),
                               position:
                                   reExperienceViewModel.currentMemory.latLng,
-                              infoWindow: const InfoWindow(
-                                title: "目的地",
-                              ),
                               icon: reExperienceViewModel.mainEpisodeMarker!,
                               onTap: () {
                                 // 既に一度目的地に到着していたら、
@@ -99,10 +96,6 @@ class ReExperiencePage extends StatelessWidget {
                                       markerId: MarkerId(episode.id.toString()),
                                       position: episode.latLng,
                                       onTap: () {},
-                                      infoWindow: InfoWindow(
-                                        title: episode.episode,
-                                        snippet: episode.distance.toString(),
-                                      ),
                                       icon: episode.isViewed
                                           ? episode.iconImage!
                                           : episode.invalidIconImage!,

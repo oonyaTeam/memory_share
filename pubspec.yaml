@@ -1,7 +1,7 @@
 name: memory_share
 description: memory_share mobile app.
 
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 version: 1.0.0+1
 
@@ -17,7 +17,6 @@ dependencies:
   camera: ^0.8.1+4
 
   geolocator: ^7.2.0+1
-
   geocoding: ^2.0.1
 
   google_maps_flutter: ^2.0.6
@@ -49,25 +48,17 @@ dependencies:
   flutter_sliding_tutorial: ^1.1.0+1
 
   dotted_line: ^3.0.1
-
-
+  flutter_svg: ^0.22.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   build_runner: ^2.0.4
-
   hive_generator: ^1.1.0
-
   flutter_lints: ^1.0.4
-
-  flutter_svg: ^0.22.0
-
   mockito: ^5.0.15
-
   flutter_native_splash: ^1.2.1
-
 
 flutter:
   uses-material-design: true
@@ -76,11 +67,7 @@ flutter:
     - assets/
     - google_fonts/
 
-
 flutter_native_splash:
-
   color: "#ffffff"
-
   image: assets/sample_splash.png
-
   fullscreen: true
