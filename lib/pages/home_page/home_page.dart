@@ -73,10 +73,6 @@ class HomePage extends StatelessWidget {
                                   },
                                 );
                               },
-                              infoWindow: InfoWindow(
-                                title: memory.address?.toString(),
-                                snippet: 'text',
-                              ),
                             ),
                           )
                           .toSet(),
