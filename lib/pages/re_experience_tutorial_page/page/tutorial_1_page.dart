@@ -18,25 +18,20 @@ class Tutorial1Page extends StatelessWidget {
     return SlidingPage(
       notifier: notifier,
       page: page,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          TutorialTemplate(
-            content: Stack(
-              children: [
-                Image.asset('assets/circle_map.jpg'),
-                Center(
-                  child: Image.asset(
-                    'assets/memory_spot_icon.png',
-                    height: 96,
-                    width: 96,
-                  ),
-                )
-              ],
+      child: TutorialTemplate(
+        content: Stack(
+          children: [
+            Image.asset('assets/circle_map.jpg'),
+            Center(
+              child: Image.asset(
+                'assets/memory_spot_icon.png',
+                height: 96,
+                width: 96,
+              ),
             ),
-            text: '近くにあるアイコンをタップ！\n目的地に登録したら\nそこへ向かって歩いていく',
-          ),
-        ],
+          ],
+        ),
+        text: '近くにあるアイコンをタップ！\n目的地に登録したら\nそこへ向かって歩いていく',
       ),
     );
   }

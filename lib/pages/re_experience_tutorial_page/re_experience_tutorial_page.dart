@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 
 import 'page/tutorial_1_page.dart';
 import 'page/tutorial_2_page.dart';
+import 'page/tutorial_3_page.dart';
 import 're_experience_tutorial_view_model.dart';
 
 class ReExperienceTutorialPage extends StatelessWidget {
@@ -24,6 +25,11 @@ class ReExperienceTutorialPage extends StatelessWidget {
         return Tutorial1Page(page: index, notifier: model.notifier);
       case 1:
         return Tutorial2Page(
+          page: index,
+          notifier: model.notifier,
+        );
+      case 2:
+        return Tutorial3Page(
           page: index,
           notifier: model.notifier,
           onTap: () => _onFinishTutorial(context),
