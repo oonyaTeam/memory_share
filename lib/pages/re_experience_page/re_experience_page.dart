@@ -136,9 +136,10 @@ class ReExperiencePage extends StatelessWidget {
                                       markerId: MarkerId(episode.id.toString()),
                                       position: episode.latLng,
                                       onTap: () {},
-                                      icon: episode.isViewed
-                                          ? episode.iconImage!
-                                          : episode.invalidIconImage!,
+                                      icon: (episode.isViewed
+                                              ? episode.iconImage
+                                              : episode.invalidIconImage) ??
+                                          BitmapDescriptor.defaultMarker,
                                     ))
                                 .toSet(),
                           },

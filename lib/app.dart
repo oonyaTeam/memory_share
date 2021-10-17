@@ -60,7 +60,8 @@ class MyApp extends StatelessWidget {
               }
 
               if (context.read<UserModel>().currentUser != null) {
-                if (context.read<UserModel>().reExperienceTutorialDone!) {
+                if (!context.read<UserModel>().reExperienceTutorialDone!) {
+                  // TODO: ここの!を消す
                   if (snapshot.data!) {
                     return const HomePage();
                   } else {
