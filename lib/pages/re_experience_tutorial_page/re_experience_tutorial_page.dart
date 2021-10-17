@@ -12,12 +12,14 @@ import 're_experience_tutorial_view_model.dart';
 class ReExperienceTutorialPage extends StatelessWidget {
   const ReExperienceTutorialPage({Key? key}) : super(key: key);
 
+  static const _indicatorIconSize = 12.0;
+
   Widget _getTutorialPage(
     int index,
     ReExperienceTutorialViewModel model,
     BuildContext context,
   ) {
-    switch (index % 2) {
+    switch (index % model.pageCount) {
       case 0:
         return Tutorial1Page(page: index, notifier: model.notifier);
       case 1:
@@ -71,26 +73,28 @@ class ReExperienceTutorialPage extends StatelessWidget {
                     pageCount: model.pageCount,
                   ),
                   Align(
-                    alignment: const Alignment(0, 0.85),
-                    child: Container(
-                      width: double.infinity,
-                      height: 0.5,
-                      color: Colors.white,
-                    ),
-                  ),
-                  Align(
                     alignment: const Alignment(0, 0.94),
                     child: SlidingIndicator(
                       indicatorCount: model.pageCount,
                       notifier: model.notifier,
-                      activeIndicator: const Icon(
-                        Icons.check_circle,
-                        color: CustomColors.pale,
+                      activeIndicator: Container(
+                        height: _indicatorIconSize,
+                        width: _indicatorIconSize,
+                        decoration: const BoxDecoration(
+                          color: CustomColors.primary,
+                          shape: BoxShape.circle,
+                        ),
                       ),
-                      inActiveIndicator: const Icon(
-                        Icons.check_circle,
-                        color: Colors.black,
+                      inActiveIndicator: Container(
+                        height: _indicatorIconSize,
+                        width: _indicatorIconSize,
+                        decoration: const BoxDecoration(
+                          color: CustomColors.light,
+                          shape: BoxShape.circle,
+                        ),
                       ),
+                      activeIndicatorSize: _indicatorIconSize,
+                      inactiveIndicatorSize: _indicatorIconSize,
                     ),
                   ),
                 ],
