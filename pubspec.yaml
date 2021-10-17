@@ -14,22 +14,17 @@ dependencies:
 
   cupertino_icons: ^1.0.2
 
-  camera: ^0.8.1+4
+  flutter_config: ^2.0.0
+  provider: ^5.0.0
+  http: ^0.13.3
 
   geolocator: ^7.2.0+1
   geocoding: ^2.0.1
-
   google_maps_flutter: ^2.0.6
-
   flutter_compass: ^0.7.0
 
-  flutter_config: ^2.0.0
-
+  camera: ^0.8.1+4
   image_picker: ^0.8.4
-
-  provider: ^5.0.0
-
-  http: ^0.13.3
 
   firebase_core: ^1.7.0
   firebase_auth: ^3.1.1
@@ -42,13 +37,11 @@ dependencies:
   hive_flutter: ^1.1.0
 
   fluttertoast: ^8.0.8
-
   google_fonts: ^2.1.0
-
   flutter_sliding_tutorial: ^1.1.0+1
-
   dotted_line: ^3.0.1
   flutter_svg: ^0.22.0
+  vibration: ^1.7.4-nullsafety.0
 
 dev_dependencies:
   flutter_test:

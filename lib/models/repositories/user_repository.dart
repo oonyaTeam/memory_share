@@ -1,3 +1,4 @@
+import 'package:memory_share/models/services/core_service.dart';
 import 'package:memory_share/models/services/services.dart';
 
 /// Userに関する処理をまとめたRepository
@@ -5,6 +6,8 @@ class UserRepository {
   UserRepository();
 
   final HiveBoxService _hiveBoxService = HiveBoxService();
+
+  final CoreService _coreService = CoreService();
 
   Future<bool> getReExperienceTutorialDone() async =>
       await _hiveBoxService.getReExperienceTutorialDone();
@@ -19,4 +22,6 @@ class UserRepository {
   Future<void> postTutorialIsFinished() async {
     await _hiveBoxService.putPostTutorialDone();
   }
+
+  Future<void> viblate() async => await _coreService.viblate();
 }

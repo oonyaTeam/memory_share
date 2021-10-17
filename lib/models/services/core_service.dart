@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:flutter_compass/flutter_compass.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:vibration/vibration.dart';
 
 /// 写真、方角などのコア機能をまとめたService
 class CoreService {
@@ -42,5 +43,12 @@ class CoreService {
       angle = 360 + angle;
     }
     return angle;
+  }
+
+  /// バイブレーションを実行する（1秒間）
+  Future<void> viblate() async {
+    if (await Vibration.hasVibrator() ?? false) {
+      Vibration.vibrate();
+    }
   }
 }
