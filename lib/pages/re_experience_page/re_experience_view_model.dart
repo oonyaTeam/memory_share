@@ -118,6 +118,8 @@ class ReExperienceViewModel with ChangeNotifier {
       _isViewedMainEpisodeDialog = true;
     }
 
+    if (_shouldViewingDialog) return;
+
     // 各サブエピソードの距離を見て、表示距離以下かつ表示しているダイアログが無ければ、
     // サブエピソードのダイアログを表示する。
     for (SubEpisode subEpisode in _subEpisodeList) {
