@@ -37,8 +37,8 @@ class ReExperienceViewModel with ChangeNotifier {
   final BuildContext _context;
 
   // メイン・サブエピソードを見ることができる距離の定数値
-  static const distancePossibleViewMainEpisodeDialog = 100;
-  static const distancePossibleViewSubEpisodeDialog = 100;
+  static const distancePossibleViewMainEpisodeDialog = 10;
+  static const distancePossibleViewSubEpisodeDialog = 10;
 
   Position? _currentPosition;
   num _distance = double.infinity;
