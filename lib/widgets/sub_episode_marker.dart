@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SubEpisodeMarker extends StatelessWidget {
@@ -8,8 +9,8 @@ class SubEpisodeMarker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 48.0,
-      width: 48.0,
+      height: 72.0,
+      width: 72.0,
       child: Stack(
         children: [
           Image.asset(
@@ -22,6 +23,7 @@ class SubEpisodeMarker extends StatelessWidget {
               child: Text(
                 number.toString(),
                 style: const TextStyle(
+                  fontWeight: FontWeight.bold,
                   color: Colors.white,
                   fontSize: 18.0,
                 ),

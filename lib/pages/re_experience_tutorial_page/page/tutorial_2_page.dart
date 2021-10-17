@@ -30,10 +30,11 @@ class Tutorial2Page extends StatelessWidget {
               ),
             ),
             const Align(
-              alignment: Alignment.topCenter,
+              alignment: Alignment(0.25, -0.7),
               child: SubEpisodeMarker(1),
             ),
             Align(
+              alignment: const Alignment(0, -0.35),
               child: SvgPicture.asset(
                 'assets/current_position.svg',
                 height: 20.0,
