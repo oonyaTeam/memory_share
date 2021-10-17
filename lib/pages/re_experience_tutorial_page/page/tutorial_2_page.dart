@@ -42,7 +42,7 @@ class Tutorial2Page extends StatelessWidget {
               ),
             ),
             const Align(
-              alignment: Alignment.bottomCenter,
+              alignment: Alignment(0, 0.5),
               child: Padding(
                 padding: EdgeInsets.all(24.0),
                 child: SubEpisodeWrapper('そういえばブランコに乗ってよく幼馴染と話してたなあ'),
