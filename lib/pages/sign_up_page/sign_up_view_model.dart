@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:memory_share/models/models.dart';
+import 'package:memory_share/utils/utils.dart';
 
 class SignUpViewModel with ChangeNotifier {
   SignUpViewModel(this._authRepository);
@@ -13,18 +14,18 @@ class SignUpViewModel with ChangeNotifier {
 
   String get password => _password;
 
-  void changeEmail(String email) {
+  set email(String email) {
     _email = email;
     notifyListeners();
   }
 
-  void changePassword(String password) {
+  set password(String password) {
     _password = password;
     notifyListeners();
   }
 
   Future<void> signUpWithEmailAndPassword() async {
-    if (!validateEmail() || !validatePassword()) return;
+    if (!validateEmail() || !validatePassword()) throw Error();
 
     await _authRepository.signUp(_email, _password);
   }
@@ -37,7 +38,9 @@ class SignUpViewModel with ChangeNotifier {
     await _authRepository.loginWithTwitter();
   }
 
-  bool validateEmail() => true;
+  bool validateEmail() =>
+      Validator.validate(type: ValidatorType.email, value: _email) == '';
 
-  bool validatePassword() => true;
+  bool validatePassword() =>
+      Validator.validate(type: ValidatorType.password, value: _password) == '';
 }

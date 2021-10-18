@@ -7,10 +7,11 @@ class ReExperienceTutorialViewModel with ChangeNotifier {
     pageController.addListener(_onScroll);
   }
 
-  final int pageCount = 2;
+  final int pageCount = 3;
   final List<Color> colors = [
-    Colors.red,
-    Colors.blue,
+    Colors.white,
+    Colors.white,
+    Colors.white,
   ];
 
   final PageController pageController = PageController(initialPage: 0);

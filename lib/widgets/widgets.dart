@@ -13,6 +13,7 @@ export 'sub_episode_dialog.dart';
 export 'sub_episode_marker.dart';
 export 'sub_episode_wrapper.dart';
 export 'toast.dart';
+export 'tutorial_template.dart';
 export 'variable_button.dart';
 export 'variable_color_button.dart';
 export 'yes_only_dialog.dart';

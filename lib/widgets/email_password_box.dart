@@ -7,14 +7,16 @@ class EmailPasswordBox extends StatelessWidget {
   const EmailPasswordBox({
     Key? key,
     required this.iconData,
+    required this.type,
     required this.label,
     required this.onChanged,
     required this.width,
   }) : super(key: key);
 
   final IconData iconData;
+  final ValidatorType type;
   final String label;
-  final Function onChanged;
+  final void Function(String) onChanged;
   final double width;
 
   @override
@@ -40,6 +42,7 @@ class EmailPasswordBox extends StatelessWidget {
         // メールアドレス、パスワードを入力する部分
         EmailPasswordForm(
           iconData: iconData,
+          type: type,
           onChanged: onChanged,
           width: width,
         ),
@@ -53,14 +56,16 @@ class UpdateEmailPasswordBox extends StatelessWidget {
   const UpdateEmailPasswordBox({
     Key? key,
     required this.iconData,
+    required this.type,
     required this.label,
     required this.onChanged,
     required this.width,
   }) : super(key: key);
 
   final IconData iconData;
+  final ValidatorType type;
   final String label;
-  final Function onChanged;
+  final void Function(String) onChanged;
   final double width;
 
   @override
@@ -86,6 +91,7 @@ class UpdateEmailPasswordBox extends StatelessWidget {
         // メールアドレス、パスワードを入力する部分
         EmailPasswordForm(
           iconData: iconData,
+          type: type,
           onChanged: onChanged,
           width: width,
         ),
@@ -98,12 +104,14 @@ class EmailPasswordForm extends StatelessWidget {
   const EmailPasswordForm({
     Key? key,
     required this.iconData,
+    required this.type,
     required this.onChanged,
     required this.width,
   }) : super(key: key);
 
   final IconData iconData;
-  final Function onChanged;
+  final ValidatorType type;
+  final void Function(String) onChanged;
   final double width;
 
   @override
@@ -124,7 +132,7 @@ class EmailPasswordForm extends StatelessWidget {
             fillColor: Color.alphaBlend(CustomColors.primaryPale, Colors.white),
           ),
           validator: (value) {
-            return Validator.validate(kind: iconData, value: value);
+            return Validator.validate(type: type, value: value);
           },
           obscureText: iconData == Icons.https_outlined,
           onChanged: (text) => onChanged(text),

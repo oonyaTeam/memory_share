@@ -5,7 +5,6 @@ class MemoryService {
   /// ユーザの投稿を取得
   Future<List<Memory>> getMyMemories(String uuid) async {
     final String idToken = await AuthService().getIdToken();
-    // TODO: sampleなので、firebase Authを導入したら変える
     final List<Memory> myMemories = await fetchMyMemories(uuid, idToken);
 
     return myMemories;
