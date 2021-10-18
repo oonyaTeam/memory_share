@@ -152,19 +152,6 @@ class SubEpisodePage extends StatelessWidget {
                                                 color: CustomColors.pale,
                                               ),
                                             ),
-                                            Container(
-                                              margin: const EdgeInsets.only(
-                                                bottom: 50.0,
-                                              ),
-                                              child: IconButton(
-                                                onPressed: (){postViewModel.removeSubEpisode(index);},
-                                                icon: const Icon(
-                                                  Icons.delete_forever_outlined,
-                                                  color: CustomColors.primary,
-                                                  size: 40.0,
-                                                ),
-                                              ),
-                                            ),
                                           ],
                                         ),
                                       ],

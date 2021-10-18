@@ -19,6 +19,6 @@ class SubEpisodeDialog extends StatelessWidget {
   }
 
   Widget contentBox(BuildContext context) {
-    return SubEpisodeWrapper(subEpisode);
+    return SubEpisodeWrapper(subEpisode,onPressed: (){});
   }
 }

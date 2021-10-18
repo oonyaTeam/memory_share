@@ -15,37 +15,41 @@ class SubEpisodeWrapper extends StatelessWidget {
         color: CustomColors.pale,
         borderRadius: BorderRadius.all(Radius.circular(16.0)),
       ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            margin: const EdgeInsets.only(right: 16.0),
-            child: const Icon(
-              Icons.sticky_note_2_outlined,
-              size: 40.0,
-              color: CustomColors.primary,
-            ),
-          ),
-          Flexible(
-            child: Text(
-              subEpisode,
-              style: const TextStyle(fontSize: 18.0),
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.only(
-              bottom: 50.0,
-            ),
-            child: IconButton(
-              onPressed: (){
-                onPressed();
-                },
-              icon: const Icon(
-                Icons.delete_forever_outlined,
-                color: CustomColors.primary,
-                size: 40.0,
+      child: Column(
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                margin: const EdgeInsets.only(right: 16.0),
+                child: const Icon(
+                  Icons.sticky_note_2_outlined,
+                  size: 40.0,
+                  color: CustomColors.primary,
+                ),
               ),
-            ),
+              Flexible(
+                child: Text(
+                  subEpisode,
+                  style: const TextStyle(fontSize: 18.0),
+                ),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              IconButton(
+                onPressed: (){
+                  onPressed();
+                },
+                icon: const Icon(
+                  Icons.delete_forever_outlined,
+                  color: CustomColors.primary,
+                  size: 40.0,
+                ),
+              ),
+            ],
           ),
         ],
       ),
