@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sliding_tutorial/flutter_sliding_tutorial.dart';
 import 'package:memory_share/widgets/widgets.dart';
 
-class Tutorial2Page extends StatelessWidget {
-  const Tutorial2Page({
+class Tutorial4Page extends StatelessWidget {
+  const Tutorial4Page({
     required this.page,
     required this.notifier,
+    required this.onTap,
     Key? key,
   }) : super(key: key);
 
   final int page;
   final ValueNotifier<double> notifier;
+  final void Function() onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,8 @@ class Tutorial2Page extends StatelessWidget {
       page: page,
       child: TutorialTemplate(
         content: Container(),
-        text: '思い出の場所に向かう途中で\n思い出したことがあれば\nサブエピソードに記録します',
+        text: 'その場所であった出来事や\n思い出を記録しましょう',
+        onPressed: onTap,
       ),
     );
   }

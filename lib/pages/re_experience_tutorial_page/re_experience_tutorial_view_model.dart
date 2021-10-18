@@ -8,11 +8,7 @@ class ReExperienceTutorialViewModel with ChangeNotifier {
   }
 
   final int pageCount = 3;
-  final List<Color> colors = [
-    Colors.white,
-    Colors.white,
-    Colors.white,
-  ];
+  late List<Color> colors = List.filled(pageCount, Colors.white);
 
   final PageController pageController = PageController(initialPage: 0);
 
