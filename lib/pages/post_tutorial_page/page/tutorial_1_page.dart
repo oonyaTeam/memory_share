@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sliding_tutorial/flutter_sliding_tutorial.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:memory_share/widgets/widgets.dart';
 
 class Tutorial1Page extends StatelessWidget {
   const Tutorial1Page({
@@ -16,7 +18,14 @@ class Tutorial1Page extends StatelessWidget {
     return SlidingPage(
       notifier: notifier,
       page: page,
-      child: Container(),
+      child: TutorialTemplate(
+        content: SvgPicture.asset(
+          'assets/normal.svg',
+          height: 180.0,
+          width: 180.0,
+        ),
+        text: '自分の思い出の場所に向かいます',
+      ),
     );
   }
 }

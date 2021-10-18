@@ -39,7 +39,7 @@ class SubEpisodePage extends StatelessWidget {
   }
 
   void _showTutorial(BuildContext context) {
-    // if (context.read<UserModel>().postTutorialDone!) return;
+    if (context.read<UserModel>().postTutorialDone!) return;
 
     Navigator.of(context).push(
       MaterialPageRoute(builder: (_) => const PostTutorialPage()),
