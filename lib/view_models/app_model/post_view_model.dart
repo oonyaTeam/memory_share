@@ -27,7 +27,7 @@ class PostViewModel with ChangeNotifier {
 
   double get angle => _angle;
 
-  void setPhoto(File photo) {
+  set photo(File? photo) {
     _photo = photo;
     notifyListeners();
   }
@@ -37,7 +37,7 @@ class PostViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  void setAngle(double angle) {
+  set angle(double angle) {
     _angle = angle;
     notifyListeners();
   }
@@ -66,6 +66,14 @@ class PostViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  void clearNewPost() {
+    _mainEpisode = '';
+    _photo = null;
+    _subEpisodeList.clear();
+    _angle = 0;
+    notifyListeners();
+  }
+
   /// [PostRepository]のpostMemoryを呼び出して、入力したデータを投稿する。
   Future<void> postMemory() async {
     if (_photo == null) throw Error();
@@ -83,7 +91,7 @@ class PostViewModel with ChangeNotifier {
       throw Error();
     }
 
-    setPhoto(imageWithAngle.image!);
-    setAngle(imageWithAngle.angle!);
+    photo = imageWithAngle.image!;
+    angle = imageWithAngle.angle!;
   }
 }
