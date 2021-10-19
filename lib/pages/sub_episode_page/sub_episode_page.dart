@@ -121,7 +121,12 @@ class SubEpisodePage extends StatelessWidget {
                                 return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    SubEpisodeWrapper(item.episode),
+                                    SubEpisodeWrapper(
+                                      item.episode,
+                                      onPressed:(){
+                                        postViewModel.removeSubEpisode(index);
+                                      }
+                                    ),
                                     Row(
                                       children: [
                                         Container(
@@ -135,23 +140,6 @@ class SubEpisodePage extends StatelessWidget {
                                             height: 80.0,
                                             width: 40.0,
                                             color: CustomColors.pale,
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: const EdgeInsets.only(
-                                            bottom: 50.0,
-                                            left: 250.0,
-                                          ),
-                                          child: IconButton(
-                                            onPressed: () {
-                                              postViewModel
-                                                  .removeSubEpisode(index);
-                                            },
-                                            icon: const Icon(
-                                              Icons.delete_forever_outlined,
-                                              color: CustomColors.primary,
-                                              size: 40.0,
-                                            ),
                                           ),
                                         ),
                                       ],
