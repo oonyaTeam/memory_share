@@ -1,23 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:memory_share/utils/utils.dart';
 
-class Validator {
-  static String errorName = "";
+enum ValidatorType {
+  email,
+  password,
+}
 
-  static String validate({required kind, required value}) {
-    if (kind == Icons.email_outlined) {
-      if (!(RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$").hasMatch(value))) {
-        return 'メールアドレスが正しくないです';
-      }
-    } else if (kind == Icons.https_outlined) {
-      if (value.length < 8) {
-        return '8文字以上にしてください';
-      }
+class Validator {
+  static String validate({required ValidatorType type, required value}) {
+    switch (type) {
+      case ValidatorType.email:
+        if (!RegExp(
+                r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$")
+            .hasMatch(value)) {
+          return 'メールアドレスが正しくないです';
+        }
+        break;
+      case ValidatorType.password:
+        if (value.length < 8) {
+          return '8文字以上にしてください';
+        }
+        break;
     }
+
     return '';
   }
 
-  static void firebaseAuthLoginValidate({required BuildContext context, required String message}) {
+  static void firebaseAuthLoginValidate({
+    required BuildContext context,
+    required String message,
+  }) {
     switch (message) {
       case "user-not-found":
         showCustomToast(context, 'ユーザーが見つかりません', false);
@@ -34,7 +46,10 @@ class Validator {
     }
   }
 
-  static void firebaseAuthSignUpValidate({required BuildContext context, required String message}) {
+  static void firebaseAuthSignUpValidate({
+    required BuildContext context,
+    required String message,
+  }) {
     switch (message) {
       case "email-already-in-use":
         showCustomToast(context, 'このメールアドレスは使用済みです', false);

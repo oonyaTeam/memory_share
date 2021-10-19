@@ -73,10 +73,6 @@ class HomePage extends StatelessWidget {
                                   },
                                 );
                               },
-                              infoWindow: InfoWindow(
-                                title: memory.address?.toString(),
-                                snippet: 'text',
-                              ),
                             ),
                           )
                           .toSet(),
@@ -134,7 +130,7 @@ class HomePage extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => SubEpisodePage(),
+                      builder: (context) => const SubEpisodePage(),
                     ),
                   );
                 },

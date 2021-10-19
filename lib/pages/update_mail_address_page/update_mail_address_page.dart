@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:memory_share/utils/toast.dart';
+import 'package:memory_share/utils/utils.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -34,6 +35,7 @@ class UpdateMailAddressPage extends StatelessWidget {
                           ),
                           UpdateEmailPasswordBox(
                             iconData: Icons.email_outlined,
+                            type: ValidatorType.email,
                             label: "新しいメールアドレス",
                             onChanged: (String email) =>
                                 updateMailAddressViewModel

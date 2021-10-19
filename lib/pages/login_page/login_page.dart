@@ -40,6 +40,8 @@ class LoginPage extends StatelessWidget {
       await _routeNextPage(context);
     } on FirebaseAuthException catch (e) {
       Validator.firebaseAuthLoginValidate(context: context, message: e.code);
+    } catch (e) {
+      showCustomToast(context, 'Emailかパスワードが正しくありません', false);
     }
   }
 
@@ -98,8 +100,10 @@ class LoginPage extends StatelessWidget {
                       Container(
                         child: EmailPasswordBox(
                           iconData: Icons.email_outlined,
+                          type: ValidatorType.email,
                           label: "Email",
-                          onChanged: loginViewModel.changeEmail,
+                          onChanged: (newValue) =>
+                              loginViewModel.email = newValue,
                           width: MediaQuery.of(context).size.width,
                         ),
                         margin: const EdgeInsets.only(top: 24),
@@ -108,8 +112,10 @@ class LoginPage extends StatelessWidget {
                       Container(
                         child: EmailPasswordBox(
                           iconData: Icons.https_outlined,
+                          type: ValidatorType.password,
                           label: "Password",
-                          onChanged: loginViewModel.changePassword,
+                          onChanged: (newValue) =>
+                              loginViewModel.password = newValue,
                           width: MediaQuery.of(context).size.width,
                         ),
                         margin: const EdgeInsets.only(top: 16),
@@ -180,7 +186,7 @@ class LoginPage extends StatelessWidget {
                                 ),
                               ),
                               child: const Text(
-                                "SignUp",
+                                "Sign up",
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: CustomColors.primary,

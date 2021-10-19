@@ -34,11 +34,12 @@ class ReExperienceViewModel with ChangeNotifier {
   }
 
   final MapRepository _mapRepository = MapRepository();
+  final UserRepository _userRepository = UserRepository();
   final BuildContext _context;
 
   // メイン・サブエピソードを見ることができる距離の定数値
-  static const distancePossibleViewMainEpisodeDialog = 100;
-  static const distancePossibleViewSubEpisodeDialog = 100;
+  static const distancePossibleViewMainEpisodeDialog = 10;
+  static const distancePossibleViewSubEpisodeDialog = 10;
 
   Position? _currentPosition;
   num _distance = double.infinity;
@@ -112,9 +113,12 @@ class ReExperienceViewModel with ChangeNotifier {
 
     if (_distance <= distancePossibleViewMainEpisodeDialog &&
         !_isViewedMainEpisodeDialog) {
+      _userRepository.viblate();
       showMainEpisodeDialog();
       _isViewedMainEpisodeDialog = true;
     }
+
+    if (_shouldViewingDialog) return;
 
     // 各サブエピソードの距離を見て、表示距離以下かつ表示しているダイアログが無ければ、
     // サブエピソードのダイアログを表示する。
@@ -122,6 +126,7 @@ class ReExperienceViewModel with ChangeNotifier {
       if (!subEpisode.isViewed &&
           subEpisode.distance <= distancePossibleViewSubEpisodeDialog) {
         viewSubEpisode(subEpisode.id);
+        _userRepository.viblate();
         showSubEpisodeDialog(subEpisode.episode);
       }
     }

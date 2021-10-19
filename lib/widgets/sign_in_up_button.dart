@@ -16,7 +16,7 @@ class SignInUpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: width - 246,
+      width: width - 48,
       height: 64,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(

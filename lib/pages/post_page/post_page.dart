@@ -1,8 +1,4 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_compass/flutter_compass.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:memory_share/theme.dart';
 import 'package:memory_share/utils/utils.dart';
 import 'package:memory_share/view_models/view_models.dart';
@@ -22,6 +18,8 @@ class PostPage extends StatelessWidget {
     await model.postMemory().then((_) {
       showCustomToast(context, '投稿しました', true);
       Navigator.of(context).popUntil((route) => route.isFirst);
+      model.clearMainEpisode();
+      model.clearSubEpisode();
     }).catchError((e) {
       showCustomToast(context, '投稿に失敗しました', false);
     });
@@ -36,7 +34,7 @@ class PostPage extends StatelessWidget {
       builder: (context) => ChangeImageDialog(
         imageFile: model.photo!,
         onSubmitted: () {
-          _reTakeImage(context: context, model: model);
+          _reTakeImage(model: model);
           Navigator.pop(context);
         },
         onCanceled: () => Navigator.pop(context),
@@ -45,27 +43,9 @@ class PostPage extends StatelessWidget {
   }
 
   void _reTakeImage({
-    required BuildContext context,
     required PostViewModel model,
-  }) async {
-    final picker = ImagePicker();
-    final XFile? takenPhoto =
-        await picker.pickImage(source: ImageSource.camera);
-
-    if (takenPhoto == null) return;
-
-    final CompassEvent compassData = await FlutterCompass.events!.first;
-    double angle = double.parse(compassData.heading.toString());
-
-    if (angle < 0) {
-      angle = 360 + angle;
-    }
-
-    File photoFile = File(takenPhoto.path);
-    model
-      ..setPhoto(photoFile)
-      ..setAngle(angle);
-  }
+  }) async =>
+      await model.takeMainEpisodeImage();
 
   @override
   Widget build(BuildContext context) {
@@ -84,6 +64,7 @@ class PostPage extends StatelessWidget {
                   descriptions: "写真とエピソードが\n削除されますが\nよろしいですか？",
                   onSubmitted: () {
                     Navigator.pop(context, true);
+                    postViewModel.clearMainEpisode();
                   },
                   onCanceled: () {
                     Navigator.pop(context, false);

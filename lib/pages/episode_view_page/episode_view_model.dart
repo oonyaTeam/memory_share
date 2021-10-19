@@ -58,9 +58,10 @@ class EpisodeViewModel with ChangeNotifier {
     });
 
     setAngleAndEpisode(
-        context: context,
-        currentMemory: currentMemory,
-        setAngle: currentMemory.angle);
+      context: context,
+      currentMemory: currentMemory,
+      setAngle: currentMemory.angle,
+    );
   }
 
   Future<void> getCamera(BuildContext context) async {
@@ -125,7 +126,8 @@ class EpisodeViewModel with ChangeNotifier {
   void observeAngle(AngleMode mode) {
     switch (mode) {
       case AngleMode.normal:
-        if (_currentAngle >= _memoryMinAngle && _currentAngle <= _memoryMaxAngle) {
+        if (_currentAngle >= _memoryMinAngle &&
+            _currentAngle <= _memoryMaxAngle) {
           _showDialogFlag = true;
         } else {
           _showDialogFlag = false;

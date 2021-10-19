@@ -87,6 +87,7 @@ class SignUpPage extends StatelessWidget {
                   ),
                   // そっから下のところ全部をラップ(白いところ)
                   Container(
+                    padding: const EdgeInsets.only(left: 24, right: 24),
                     decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
@@ -100,8 +101,10 @@ class SignUpPage extends StatelessWidget {
                         Container(
                           child: EmailPasswordBox(
                             iconData: Icons.email_outlined,
+                            type: ValidatorType.email,
                             label: "Email",
-                            onChanged: signUpViewModel.changeEmail,
+                            onChanged: (newValue) =>
+                                signUpViewModel.email = newValue,
                             width: MediaQuery.of(context).size.width,
                           ),
                           margin: const EdgeInsets.only(top: 24),
@@ -110,8 +113,10 @@ class SignUpPage extends StatelessWidget {
                         Container(
                           child: EmailPasswordBox(
                             iconData: Icons.https_outlined,
+                            type: ValidatorType.password,
                             label: "Password",
-                            onChanged: signUpViewModel.changePassword,
+                            onChanged: (newValue) =>
+                                signUpViewModel.password = newValue,
                             width: MediaQuery.of(context).size.width,
                           ),
                           margin: const EdgeInsets.only(top: 16),
@@ -182,7 +187,7 @@ class SignUpPage extends StatelessWidget {
                                   ),
                                 ),
                                 child: const Text(
-                                  "SignUp",
+                                  "Sign in",
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: CustomColors.primary,
