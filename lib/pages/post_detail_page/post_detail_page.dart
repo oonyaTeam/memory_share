@@ -25,7 +25,7 @@ class PostDetailPage extends StatelessWidget {
               slivers: [
                 CustomSliverAppBar(
                   controller: model.controller,
-                  title: "投稿詳細", // TODO: ここは、のちのち住所と日付を表示する
+                  title: memory.address ?? "",
                 ),
                 SliverPadding(
                   padding: const EdgeInsets.fromLTRB(24.0, 16.0, 24.0, 0),

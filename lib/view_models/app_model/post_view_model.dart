@@ -27,7 +27,7 @@ class PostViewModel with ChangeNotifier {
 
   double get angle => _angle;
 
-  void setPhoto(File photo) {
+  set photo(File? photo) {
     _photo = photo;
     notifyListeners();
   }
@@ -37,11 +37,12 @@ class PostViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  void setAngle(double angle) {
+  set angle(double angle) {
     _angle = angle;
     notifyListeners();
   }
 
+  /// サブエピソードを追加する
   void addSubEpisode(String subEpisode) async {
     final position = await Geolocator.getCurrentPosition();
     _subEpisodeList.add(SubEpisode(
@@ -51,18 +52,30 @@ class PostViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  /// 特定のサブエピソードを削除する
   void removeSubEpisode(int index) {
     _subEpisodeList.removeAt(index);
     notifyListeners();
   }
 
+  /// サブエピソードをすべて削除する
   void clearSubEpisode() {
     _subEpisodeList.clear();
     notifyListeners();
   }
 
+  /// MainEpisodeを削除する
   void clearMainEpisode() {
     _mainEpisode = '';
+    notifyListeners();
+  }
+
+  /// 新規投稿のデータを削除する
+  void clearNewPost() {
+    _mainEpisode = '';
+    _photo = null;
+    _subEpisodeList.clear();
+    _angle = 0;
     notifyListeners();
   }
 
@@ -77,13 +90,14 @@ class PostViewModel with ChangeNotifier {
         angle: _angle);
   }
 
+  /// MainEpisodeの写真を取り、その写真と撮影した方角を保持する。
   Future<void> takeMainEpisodeImage() async {
     final imageWithAngle = await _postRepository.takeMainEpisodeImage();
     if (imageWithAngle.image == null || imageWithAngle.angle == null) {
       throw Error();
     }
 
-    setPhoto(imageWithAngle.image!);
-    setAngle(imageWithAngle.angle!);
+    photo = imageWithAngle.image!;
+    angle = imageWithAngle.angle!;
   }
 }

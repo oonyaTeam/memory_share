@@ -11,6 +11,8 @@ import 'post_page_view_model.dart';
 class PostPage extends StatelessWidget {
   const PostPage({Key? key}) : super(key: key);
 
+  /// 投稿するをタップすると、投稿を行う。投稿に成功すると、Toastを表示してhomeに戻る
+  /// 失敗したら、Toastを表示する。
   void _onSubmit({
     required BuildContext context,
     required PostViewModel model,
@@ -18,13 +20,13 @@ class PostPage extends StatelessWidget {
     await model.postMemory().then((_) {
       showCustomToast(context, '投稿しました', true);
       Navigator.of(context).popUntil((route) => route.isFirst);
-      model.clearMainEpisode();
-      model.clearSubEpisode();
+      model.clearNewPost();
     }).catchError((e) {
       showCustomToast(context, '投稿に失敗しました', false);
     });
   }
 
+  /// 画像を変更するダイアログを表示する
   void _showChangeImageDialog({
     required BuildContext context,
     required PostViewModel model,
@@ -42,6 +44,7 @@ class PostPage extends StatelessWidget {
     );
   }
 
+  /// 写真を取り直す
   void _reTakeImage({
     required PostViewModel model,
   }) async =>
