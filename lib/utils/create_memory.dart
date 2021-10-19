@@ -9,7 +9,7 @@ Future<void> createMemory(
     NewMemory memory, String idToken, http.Client client) async {
   final endpoint = FlutterConfig.get("API_ENDPOINT");
   final resp = await client.post(
-    Uri.parse(endpoint + 'create-memory'),
+    Uri.parse('${endpoint}memories'),
     body: json.encode(memory.toJson()),
     headers: {
       'Content-Type': 'application/json',

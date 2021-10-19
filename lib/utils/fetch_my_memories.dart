@@ -8,9 +8,10 @@ import 'package:memory_share/models/models.dart';
 Future<List<Memory>> fetchMyMemories(String uuid, String idToken) async {
   // 環境変数にアクセス
   final endpoint = FlutterConfig.get("API_ENDPOINT");
+  final uri = '${endpoint}memories/me';
 
   final resp = await http.get(
-    Uri.parse(endpoint),
+    Uri.parse(uri),
     headers: {
       'Content-Type': 'application/json',
       "Authorization": "Bearer $idToken",
