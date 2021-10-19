@@ -6,11 +6,8 @@ class PostTutorialViewModel with ChangeNotifier {
     pageController.addListener(_onScroll);
   }
 
-  final int pageCount = 2;
-  final List<Color> colors = [
-    Colors.red,
-    Colors.blue,
-  ];
+  final int pageCount = 4;
+  late List<Color> colors = List.filled(pageCount, Colors.white);
 
   final PageController pageController = PageController(initialPage: 0);
 

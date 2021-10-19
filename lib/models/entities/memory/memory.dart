@@ -37,7 +37,7 @@ class Memory {
   List<Episode> episodes;
   String image;
   int authorId;
-  double angle;
+  num angle;
   bool isSeen;
   String? address;
 

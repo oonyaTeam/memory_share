@@ -99,7 +99,7 @@ class EpisodeViewModel with ChangeNotifier {
   void setAngleAndEpisode({
     required BuildContext context,
     required Memory currentMemory,
-    required double setAngle,
+    required num setAngle,
   }) {
     final angle = setAngle;
     _episodeText = currentMemory.memory;
