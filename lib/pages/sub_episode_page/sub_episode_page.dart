@@ -133,26 +133,25 @@ class SubEpisodePage extends StatelessWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        SubEpisodeWrapper(item.episode,
+                                        SubEpisodeWrapper(
+                                          item.episode,
                                             onPressed:(){
-                                          postViewModel.removeSubEpisode(index);
-                                        }),
-                                        Row(
-                                          children: [
-                                            Container(
-                                              margin: const EdgeInsets.only(
-                                                top: 8.0,
-                                                bottom: 8.0,
-                                                left: 24.0,
-                                              ),
-                                              child: SvgPicture.asset(
-                                                'assets/foot_prints.svg',
-                                                height: 80.0,
-                                                width: 40.0,
-                                                color: CustomColors.pale,
-                                              ),
-                                            ),
-                                          ],
+                                              postViewModel.removeSubEpisode(index);
+                                            },
+                                          frag: 1,
+                                        ),
+                                        Container(
+                                          margin: const EdgeInsets.only(
+                                            top: 8.0,
+                                            bottom: 8.0,
+                                            left: 24.0,
+                                          ),
+                                          child: SvgPicture.asset(
+                                            'assets/foot_prints.svg',
+                                            height: 80.0,
+                                            width: 40.0,
+                                            color: CustomColors.pale,
+                                          ),
                                         ),
                                       ],
                                     );
