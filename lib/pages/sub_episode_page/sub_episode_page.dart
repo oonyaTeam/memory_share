@@ -121,16 +121,14 @@ class SubEpisodePage extends StatelessWidget {
                                 return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    SubEpisodeWrapper(item.episode),
+                                    SubEpisodeWrapper(
+                                      item.episode,
+                                      onPressed:(){
+                                        postViewModel.removeSubEpisode(index);
+                                      }
+                                    ),
                                     Row(
                                       children: [
-                                        SubEpisodeWrapper(
-                                          item.episode,
-                                            onPressed:(){
-                                              postViewModel.removeSubEpisode(index);
-                                            },
-                                          frag: 1,
-                                        ),
                                         Container(
                                           margin: const EdgeInsets.only(
                                             top: 8.0,

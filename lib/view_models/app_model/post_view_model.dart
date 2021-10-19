@@ -52,7 +52,7 @@ class PostViewModel with ChangeNotifier {
   }
 
   void removeSubEpisode(int index) {
-    _subEpisodeList.removeAt(index);
+    _subEpisodeList.removeAt(_subEpisodeList.length - index - 1);
     notifyListeners();
   }
 
