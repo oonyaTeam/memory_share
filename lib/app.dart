@@ -49,10 +49,6 @@ class MyApp extends StatelessWidget {
           builder: (context) => FutureBuilder(
             future: initialize(context),
             builder: (context, AsyncSnapshot<bool> snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Splash();
-              }
-
               if (!snapshot.hasData) {
                 return const Scaffold(
                   body: Text("snapshot don't has Data"),
@@ -81,16 +77,4 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class Splash extends StatelessWidget {
-  const Splash({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Center(
-        child: Image.asset("assets/sample_splash.png"),
-      ),
-    );
-  }
-}
