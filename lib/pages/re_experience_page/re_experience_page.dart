@@ -144,6 +144,7 @@ class ReExperiencePage extends StatelessWidget {
                                 .toSet(),
                           },
                           myLocationEnabled: true,
+                          myLocationButtonEnabled: false,
                           zoomControlsEnabled: false,
                         ),
                       ),

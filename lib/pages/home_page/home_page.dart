@@ -77,6 +77,7 @@ class HomePage extends StatelessWidget {
                           )
                           .toSet(),
                       myLocationEnabled: true,
+                      myLocationButtonEnabled: false,
                       zoomControlsEnabled: false,
                     ),
                     Align(
