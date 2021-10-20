@@ -5,6 +5,6 @@ class MemoryRepository {
 
   Future<List<Memory>> getMyMemories(String uuid) async {
     final myMemories = await _memoryService.getMyMemories(uuid);
-    return _memoryService.getMemoryAddresses(myMemories);
+    return await _memoryService.getMemoryAddresses(myMemories);
   }
 }

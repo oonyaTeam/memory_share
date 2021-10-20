@@ -11,5 +11,10 @@ Future<String> getAddressFromLatLng({
   );
 
   if (placeMarkList[0].street == null) return "";
-  return placeMarkList[0].street!.split(' ')[1];
+
+  // ex: 'XX県XX市
+  return (placeMarkList[0].administrativeArea ?? "") +
+      (placeMarkList[0].locality ?? "");
+  // ex: 'XX県XX市XX町0-0-0'
+  // return placeMarkList[0].street!.split(' ')[1];
 }
