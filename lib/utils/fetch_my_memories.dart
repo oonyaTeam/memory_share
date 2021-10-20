@@ -19,6 +19,7 @@ Future<List<Memory>> fetchMyMemories(String uuid, String idToken) async {
   );
 
   if (resp.statusCode == 200) {
+    print(json.decode(resp.body));
     final memories = json.decode(resp.body)['memories'];
     if (memories == null) {
       return [];

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:memory_share/models/entities/entities.dart';
@@ -36,15 +38,21 @@ class PostDetailPage extends StatelessWidget {
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SubEpisodeWrapper(item.episode,onPressed: (){}),
+                            SubEpisodeWrapper(item.episode),
                             Container(
                               margin: const EdgeInsets.only(
-                                  top: 8.0, bottom: 8.0, left: 24.0),
-                              child: SvgPicture.asset(
-                                'assets/foot_prints.svg',
-                                height: 80.0,
-                                width: 40.0,
-                                color: CustomColors.pale,
+                                top: 8.0,
+                                bottom: 8.0,
+                                left: 24.0,
+                              ),
+                              child: Transform.rotate(
+                                angle: pi,
+                                child: SvgPicture.asset(
+                                  'assets/foot_prints.svg',
+                                  height: 80.0,
+                                  width: 40.0,
+                                  color: CustomColors.pale,
+                                ),
                               ),
                             ),
                           ],
@@ -65,6 +73,7 @@ class PostDetailPage extends StatelessWidget {
                         ),
                       ),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           ClipRRect(
                             borderRadius: const BorderRadius.only(

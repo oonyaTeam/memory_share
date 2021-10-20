@@ -54,17 +54,17 @@ class UserPage extends StatelessWidget {
                             padding: const EdgeInsets.all(8.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: const [
-                                Text(
-                                  "2021/08/16", // TODO: APIができ次第ここも変える
+                              children: [
+                                const Text(
+                                  "2021/08/16",
                                   style: TextStyle(
                                     fontSize: 16.0,
                                     color: CustomColors.middle,
                                   ),
                                 ),
                                 Text(
-                                  "東京都渋谷区",
-                                  style: TextStyle(
+                                  item.address ?? "",
+                                  style: const TextStyle(
                                     fontSize: 16.0,
                                     color: CustomColors.middle,
                                   ),
