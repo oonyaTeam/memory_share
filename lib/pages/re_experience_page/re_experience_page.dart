@@ -1,8 +1,10 @@
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:memory_share/models/entities/entities.dart';
+import 'package:memory_share/theme.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -50,7 +52,16 @@ class ReExperiencePage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 20),
               child: ImageFiltered(
-                child: Image.network(model.currentMemory.image),
+                child: CachedNetworkImage(
+                  height: 256,
+                  placeholder: (context, url) => Container(
+                    height: 256,
+                    width: MediaQuery.of(context).size.width,
+                    color: CustomColors.middle,
+                  ),
+                  imageUrl: model.currentMemory.image,
+                  fit: BoxFit.fill,
+                ),
                 imageFilter: ImageFilter.blur(
                   sigmaX: model.sigma / 10,
                   sigmaY: model.sigma / 10,

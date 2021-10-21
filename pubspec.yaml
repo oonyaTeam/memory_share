@@ -42,6 +42,7 @@ dependencies:
   dotted_line: ^3.0.1
   flutter_svg: ^0.22.0
   vibration: ^1.7.4-nullsafety.0
+  cached_network_image: ^3.1.0
 
 dev_dependencies:
   flutter_test:

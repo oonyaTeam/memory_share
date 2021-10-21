@@ -20,7 +20,6 @@ class ReExperienceViewModel with ChangeNotifier {
       _currentPosition = position;
       await setDistance();
       checkDistance();
-      notifyListeners();
     });
 
     // currentMemoryのサブエピソードを、ReExperienceでの表示のために_subEpisodeListに代入してる。
