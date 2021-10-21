@@ -80,9 +80,9 @@ class PostDetailPage extends StatelessWidget {
                               topLeft: Radius.circular(16.0),
                               topRight: Radius.circular(16.0),
                             ),
-                            child: Image.network(
-                              memory.image,
-                              fit: BoxFit.fill,
+                            child: MainEpisodeImage(
+                              imageUrl: memory.image,
+                              height: 256,
                             ),
                           ),
                           Container(

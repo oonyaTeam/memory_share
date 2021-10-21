@@ -1,10 +1,8 @@
 import 'dart:ui';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:memory_share/models/entities/entities.dart';
-import 'package:memory_share/theme.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +16,12 @@ class ReExperiencePage extends StatelessWidget {
 
   final Memory currentMemory;
 
-  Widget _buildBottomSheet({required ReExperienceViewModel model}) => Container(
+  Widget _buildBottomSheet({
+    required ReExperienceViewModel model,
+    required BuildContext context,
+  }) =>
+      Container(
+        width: MediaQuery.of(context).size.width,
         decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
@@ -49,18 +52,13 @@ class ReExperiencePage extends StatelessWidget {
                 ),
               ),
             ),
-            Padding(
+            Container(
+              width: MediaQuery.of(context).size.width,
               padding: const EdgeInsets.only(top: 20),
               child: ImageFiltered(
-                child: CachedNetworkImage(
-                  height: 256,
-                  placeholder: (context, url) => Container(
-                    height: 256,
-                    width: MediaQuery.of(context).size.width,
-                    color: CustomColors.middle,
-                  ),
+                child: MainEpisodeImage(
                   imageUrl: model.currentMemory.image,
-                  fit: BoxFit.fill,
+                  height: 256,
                 ),
                 imageFilter: ImageFilter.blur(
                   sigmaX: model.sigma / 10,
@@ -159,7 +157,10 @@ class ReExperiencePage extends StatelessWidget {
                           zoomControlsEnabled: false,
                         ),
                       ),
-                      _buildBottomSheet(model: model),
+                      _buildBottomSheet(
+                        model: model,
+                        context: context,
+                      ),
                     ],
                   ),
               ],
