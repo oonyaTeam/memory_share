@@ -118,12 +118,12 @@ class EmailPasswordForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: width,
-      height: 48,
       child: Form(
         autovalidateMode: AutovalidateMode.onUserInteraction,
         child: TextFormField(
           decoration: InputDecoration(
             prefixIcon: Icon(iconData, color: CustomColors.primary),
+            contentPadding: const EdgeInsets.all(0),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16),
               borderSide: const BorderSide(width: 0, style: BorderStyle.none),
