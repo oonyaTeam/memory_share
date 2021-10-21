@@ -8,6 +8,7 @@ export 'episode_preview.dart';
 export 'google_twitter_button.dart';
 export 'long_button.dart';
 export 'long_button_border_primary.dart';
+export 'main_episode_image.dart';
 export 'sign_in_up_button.dart';
 export 'sub_episode_dialog.dart';
 export 'sub_episode_marker.dart';

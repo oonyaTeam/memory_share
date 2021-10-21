@@ -88,6 +88,10 @@ class MapRepository {
 
   Future<BitmapDescriptor> getSubEpisodeMarkerBitmap(GlobalKey iconKey) async {
     Future<Uint8List> _capturePng(GlobalKey iconKey) async {
+      if (iconKey.currentContext == null) {
+        await Future.delayed(const Duration(milliseconds: 20));
+        return _capturePng(iconKey);
+      }
       RenderRepaintBoundary boundary =
           iconKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
       if (boundary.debugNeedsPaint) {

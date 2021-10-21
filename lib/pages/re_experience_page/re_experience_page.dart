@@ -16,7 +16,12 @@ class ReExperiencePage extends StatelessWidget {
 
   final Memory currentMemory;
 
-  Widget _buildBottomSheet({required ReExperienceViewModel model}) => Container(
+  Widget _buildBottomSheet({
+    required ReExperienceViewModel model,
+    required BuildContext context,
+  }) =>
+      Container(
+        width: MediaQuery.of(context).size.width,
         decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
@@ -47,10 +52,14 @@ class ReExperiencePage extends StatelessWidget {
                 ),
               ),
             ),
-            Padding(
+            Container(
+              width: MediaQuery.of(context).size.width,
               padding: const EdgeInsets.only(top: 20),
               child: ImageFiltered(
-                child: Image.network(model.currentMemory.image),
+                child: MainEpisodeImage(
+                  imageUrl: model.currentMemory.image,
+                  height: 256,
+                ),
                 imageFilter: ImageFilter.blur(
                   sigmaX: model.sigma / 10,
                   sigmaY: model.sigma / 10,
@@ -148,7 +157,10 @@ class ReExperiencePage extends StatelessWidget {
                           zoomControlsEnabled: false,
                         ),
                       ),
-                      _buildBottomSheet(model: model),
+                      _buildBottomSheet(
+                        model: model,
+                        context: context,
+                      ),
                     ],
                   ),
               ],

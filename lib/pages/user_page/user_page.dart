@@ -49,7 +49,10 @@ class UserPage extends StatelessWidget {
                       ),
                       child: Column(
                         children: [
-                          Image.network(item.image),
+                          MainEpisodeImage(
+                            imageUrl: item.image,
+                            height: 256,
+                          ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Row(
