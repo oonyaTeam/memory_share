@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:memory_share/models/entities/entities.dart';
+import 'package:memory_share/view_models/app_model/app_model.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -15,6 +16,36 @@ class ReExperiencePage extends StatelessWidget {
   }) : super(key: key);
 
   final Memory currentMemory;
+
+  /// メインエピソードのマーカー
+  Marker _mainEpisodeMarker(ReExperienceViewModel model) => Marker(
+        markerId: MarkerId(model.currentMemory.latLng.toString()),
+        position: model.currentMemory.latLng,
+        icon: model.mainEpisodeMarker!,
+        anchor: const Offset(0.18, 0.72),
+        onTap: () {
+          // 既に一度目的地に到着していたら、
+          // マーカーをタップしたときにEpisodeViewに遷移するダイアログを表示する
+          if (model.isViewedMainEpisodeDialog) {
+            model.showMainEpisodeDialog();
+          }
+        },
+      );
+
+  /// サブエピソードのマーカー
+  Set<Marker> _subEpisodeMarkers(ReExperienceViewModel model) =>
+      model.subEpisodeList
+          .map((episode) => Marker(
+                markerId: MarkerId(episode.id.toString()),
+                position: episode.latLng,
+                onTap: () {},
+                icon: (episode.isViewed
+                        ? episode.iconImage
+                        : episode.invalidIconImage) ??
+                    BitmapDescriptor.defaultMarker,
+                anchor: const Offset(0.445, 0.7),
+              ))
+          .toSet();
 
   Widget _buildBottomSheet({
     required ReExperienceViewModel model,
@@ -125,34 +156,8 @@ class ReExperiencePage extends StatelessWidget {
                               ..changeMapMode(controller);
                           },
                           markers: {
-                            // メインエピソードのマーカー
-                            Marker(
-                              markerId: MarkerId(
-                                  model.currentMemory.latLng.toString()),
-                              position: model.currentMemory.latLng,
-                              icon: model.mainEpisodeMarker!,
-                              anchor: const Offset(0.18, 0.72),
-                              onTap: () {
-                                // 既に一度目的地に到着していたら、
-                                // マーカーをタップしたときにEpisodeViewに遷移するダイアログを表示する
-                                if (model.isViewedMainEpisodeDialog) {
-                                  model.showMainEpisodeDialog();
-                                }
-                              },
-                            ),
-                            // サブエピソードのマーカー
-                            ...model.subEpisodeList
-                                .map((episode) => Marker(
-                                      markerId: MarkerId(episode.id.toString()),
-                                      position: episode.latLng,
-                                      onTap: () {},
-                                      icon: (episode.isViewed
-                                              ? episode.iconImage
-                                              : episode.invalidIconImage) ??
-                                          BitmapDescriptor.defaultMarker,
-                                      anchor: const Offset(0.445, 0.7),
-                                    ))
-                                .toSet(),
+                            _mainEpisodeMarker(model),
+                            ..._subEpisodeMarkers(model),
                           },
                           myLocationEnabled: true,
                           myLocationButtonEnabled: false,
