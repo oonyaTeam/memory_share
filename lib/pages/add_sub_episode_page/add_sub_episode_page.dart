@@ -52,26 +52,20 @@ class AddSubEpisodePage extends StatelessWidget {
                 ? CustomColors.deep
                 : CustomColors.primary,
           ),
-          body: Center(
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  TextField(
-                    decoration: const InputDecoration(
-                      hintText: "思ったことを書こう",
-                    ),
-                    scrollPadding: const EdgeInsets.all(20.0),
-                    keyboardType: TextInputType.multiline,
-                    maxLines: 10,
-                    autofocus: true,
-                    focusNode: addSubEpisodeViewModel.textFieldFocusNode,
-                    controller: addSubEpisodeViewModel.textEditingController,
-                    onChanged: (String text) =>
-                        addSubEpisodeViewModel.subEpisode = text,
-                  ),
-                ],
+          body: SingleChildScrollView(
+            child: TextField(
+              decoration: const InputDecoration(
+                hintText: "思ったことを書こう",
+                border: InputBorder.none,
               ),
+              scrollPadding: const EdgeInsets.all(20.0),
+              keyboardType: TextInputType.multiline,
+              autofocus: true,
+              maxLines: 10,
+              focusNode: addSubEpisodeViewModel.textFieldFocusNode,
+              controller: addSubEpisodeViewModel.textEditingController,
+              onChanged: (String text) =>
+                  addSubEpisodeViewModel.subEpisode = text,
             ),
           ),
         ),
