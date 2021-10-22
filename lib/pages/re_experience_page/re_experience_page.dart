@@ -131,6 +131,7 @@ class ReExperiencePage extends StatelessWidget {
                                   model.currentMemory.latLng.toString()),
                               position: model.currentMemory.latLng,
                               icon: model.mainEpisodeMarker!,
+                              anchor: const Offset(0.18, 0.72),
                               onTap: () {
                                 // 既に一度目的地に到着していたら、
                                 // マーカーをタップしたときにEpisodeViewに遷移するダイアログを表示する
@@ -149,6 +150,7 @@ class ReExperiencePage extends StatelessWidget {
                                               ? episode.iconImage
                                               : episode.invalidIconImage) ??
                                           BitmapDescriptor.defaultMarker,
+                                      anchor: const Offset(0.445, 0.7),
                                     ))
                                 .toSet(),
                           },
