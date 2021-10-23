@@ -19,36 +19,10 @@ class Tutorial2Page extends StatelessWidget {
       notifier: notifier,
       page: page,
       child: TutorialTemplate(
-        content: Stack(
-          children: [
-            Align(
-              alignment: Alignment.topCenter,
-              child: Image.asset(
-                'assets/circle_map.jpg',
-                height: 295,
-                width: 295,
-              ),
-            ),
-            const Align(
-              alignment: Alignment(0.25, -0.7),
-              child: SubEpisodeMarker(1),
-            ),
-            Align(
-              alignment: const Alignment(0, -0.35),
-              child: SvgPicture.asset(
-                'assets/current_position.svg',
-                height: 20.0,
-                width: 20.0,
-              ),
-            ),
-            const Align(
-              alignment: Alignment(0, 0.5),
-              child: Padding(
-                padding: EdgeInsets.all(24.0),
-                child: SubEpisodeWrapper('そういえばブランコに乗ってよく幼馴染と話してたなあ'),
-              ),
-            ),
-          ],
+        content: SvgPicture.asset(
+          'assets/tutorial/tutorial_reexperience_2.svg',
+          width: 329.0,
+          height: 231.0,
         ),
         text: 'サブエピソードに近づくと\n投稿者がその場所で感じていた思いを\n見ることができる',
       ),

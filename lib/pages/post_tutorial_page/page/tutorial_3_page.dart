@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sliding_tutorial/flutter_sliding_tutorial.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:memory_share/widgets/widgets.dart';
 
 class Tutorial3Page extends StatelessWidget {
@@ -18,7 +19,11 @@ class Tutorial3Page extends StatelessWidget {
       notifier: notifier,
       page: page,
       child: TutorialTemplate(
-        content: Container(),
+        content: SvgPicture.asset(
+          'assets/tutorial/tutorial_post_3.svg',
+          width: 400.0,
+          height: 201.0,
+        ),
         text: '思い出の場所についたら\n思い出の風景を写真に収めます',
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sliding_tutorial/flutter_sliding_tutorial.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:memory_share/widgets/widgets.dart';
 
 class Tutorial4Page extends StatelessWidget {
@@ -20,7 +21,11 @@ class Tutorial4Page extends StatelessWidget {
       notifier: notifier,
       page: page,
       child: TutorialTemplate(
-        content: Container(),
+        content: SvgPicture.asset(
+          'assets/tutorial/tutorial_post_4.svg',
+          width: 354.0,
+          height: 262.0,
+        ),
         text: 'その場所であった出来事や\n思い出を記録しましょう',
         onPressed: onTap,
       ),
