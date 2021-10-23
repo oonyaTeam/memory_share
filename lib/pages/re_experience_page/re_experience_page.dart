@@ -52,9 +52,8 @@ class ReExperiencePage extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
+            SizedBox(
               width: MediaQuery.of(context).size.width,
-              padding: const EdgeInsets.only(top: 20),
               child: ImageFiltered(
                 child: MainEpisodeImage(
                   imageUrl: model.currentMemory.image,
