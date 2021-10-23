@@ -51,6 +51,13 @@ class EpisodeViewPage extends StatelessWidget {
                     visible: episodeViewModel.showDialogFlag,
                   ),
                 ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: FloatingIconButton(
+                    icon: Icons.arrow_back,
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                ),
               ],
             ),
           ),

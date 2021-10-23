@@ -55,24 +55,23 @@ class SubEpisodePage extends StatelessWidget {
     return WillPopScope(
       onWillPop: () async {
         if (postViewModel.subEpisodeList.isNotEmpty) {
-          showDialog(
+          final bool? willPop = await showDialog(
             context: context,
             builder: (BuildContext context) {
               return CustomDialogBox(
                 wid: MediaQuery.of(context).size.width,
                 descriptions: "エピソードが\n全て削除されますが\nよろしいですか？",
                 onSubmitted: () {
-                  Navigator.pop(context);
-                  Navigator.pop(context);
+                  Navigator.pop(context, true);
                   postViewModel.clearSubEpisode();
                 },
                 onCanceled: () {
-                  Navigator.pop(context);
+                  Navigator.pop(context, false);
                 },
               );
             },
           );
-          return false;
+          return willPop ?? false;
         } else {
           return true;
         }
@@ -121,12 +120,10 @@ class SubEpisodePage extends StatelessWidget {
                                 return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    SubEpisodeWrapper(
-                                      item.episode,
-                                      onPressed:(){
-                                        postViewModel.removeSubEpisode(index);
-                                      }
-                                    ),
+                                    SubEpisodeWrapper(item.episode,
+                                        onPressed: () {
+                                      postViewModel.removeSubEpisode(index);
+                                    }),
                                     Row(
                                       children: [
                                         Container(
