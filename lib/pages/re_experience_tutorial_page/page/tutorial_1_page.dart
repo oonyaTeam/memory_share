@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sliding_tutorial/flutter_sliding_tutorial.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:memory_share/widgets/widgets.dart';
 
 class Tutorial1Page extends StatelessWidget {
@@ -19,17 +20,10 @@ class Tutorial1Page extends StatelessWidget {
       notifier: notifier,
       page: page,
       child: TutorialTemplate(
-        content: Stack(
-          children: [
-            Image.asset('assets/circle_map.jpg'),
-            Center(
-              child: Image.asset(
-                'assets/memory_spot_icon.png',
-                height: 96,
-                width: 96,
-              ),
-            ),
-          ],
+        content: SvgPicture.asset(
+          'assets/tutorial/tutorial_reexperience_1.svg',
+          width: 329.0,
+          height: 231.0,
         ),
         text: '近くにあるアイコンをタップ！\n目的地に登録したら\nそこへ向かって歩いていく',
       ),

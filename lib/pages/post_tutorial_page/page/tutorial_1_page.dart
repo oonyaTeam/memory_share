@@ -20,9 +20,9 @@ class Tutorial1Page extends StatelessWidget {
       page: page,
       child: TutorialTemplate(
         content: SvgPicture.asset(
-          'assets/normal.svg',
-          height: 180.0,
-          width: 180.0,
+          'assets/tutorial/tutorial_post_1.svg',
+          width: 289.0,
+          height: 279.0,
         ),
         text: '自分の思い出の場所に向かいます',
       ),
