@@ -60,8 +60,8 @@ class ReExperiencePage extends StatelessWidget {
                   height: 256,
                 ),
                 imageFilter: ImageFilter.blur(
-                  sigmaX: model.sigma / 10,
-                  sigmaY: model.sigma / 10,
+                  sigmaX: model.sigma.toDouble(),
+                  sigmaY: model.sigma.toDouble(),
                 ),
               ),
             ),
