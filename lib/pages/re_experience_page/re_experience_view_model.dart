@@ -91,7 +91,7 @@ class ReExperienceViewModel with ChangeNotifier {
     );
 
     if (_distance / 100 >= 10) {
-      _sigma = 100;
+      _sigma = 10;
     } else {
       _sigma = _distance / 100;
     }
