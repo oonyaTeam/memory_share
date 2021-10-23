@@ -138,37 +138,38 @@ class ReExperiencePage extends StatelessWidget {
                   const Center(
                     child: CircularProgressIndicator(),
                   )
-                else
-                  Column(
-                    children: [
-                      Expanded(
-                        child: GoogleMap(
-                          mapType: MapType.normal,
-                          initialCameraPosition: CameraPosition(
-                            // メインエピソードと自分の位置の中間をカメラ位置に設定してる。
-                            target: model.getCameraPosition(),
-                            zoom: 15.0,
-                          ),
-                          onMapCreated: (GoogleMapController controller) {
-                            model
-                              ..setReExperienceMapController(controller)
-                              ..changeMapMode(controller);
-                          },
-                          markers: {
-                            _mainEpisodeMarker(model),
-                            ..._subEpisodeMarkers(model),
-                          },
-                          myLocationEnabled: true,
-                          myLocationButtonEnabled: false,
-                          zoomControlsEnabled: false,
-                        ),
+                else ...[
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height - 200,
+                    child: GoogleMap(
+                      mapType: MapType.normal,
+                      initialCameraPosition: CameraPosition(
+                        // メインエピソードと自分の位置の中間をカメラ位置に設定してる。
+                        target: model.getCameraPosition(),
+                        zoom: 15.0,
                       ),
-                      _buildBottomSheet(
-                        model: model,
-                        context: context,
-                      ),
-                    ],
+                      onMapCreated: (GoogleMapController controller) {
+                        model
+                          ..setReExperienceMapController(controller)
+                          ..changeMapMode(controller);
+                      },
+                      markers: {
+                        _mainEpisodeMarker(model),
+                        ..._subEpisodeMarkers(model),
+                      },
+                      myLocationEnabled: true,
+                      myLocationButtonEnabled: false,
+                      zoomControlsEnabled: false,
+                    ),
                   ),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: _buildBottomSheet(
+                      model: model,
+                      context: context,
+                    ),
+                  ),
+                ],
               ],
             ),
           );
