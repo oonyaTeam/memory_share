@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:memory_share/models/models.dart';
 import 'package:memory_share/pages/pages.dart';
 import 'package:memory_share/theme.dart';
 import 'package:memory_share/widgets/widgets.dart';
@@ -9,6 +10,52 @@ import 'home_view_model.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
+
+  Set<Marker> _mainEpisodeMarkers({
+    required BuildContext context,
+    required HomeViewModel model,
+  }) {
+    void _onTapMainEPisodeMarkers(Memory memory) {
+      model
+        ..setCurrentMemory(memory)
+        ..setDistance();
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CustomDialogBox(
+            wid: MediaQuery.of(context).size.width,
+            descriptions: "この場所を目的地に\n設定しますか？\n距離は${model.distance}mです。",
+            onSubmitted: () {
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ReExperiencePage(
+                    currentMemory: model.currentMemory!,
+                  ),
+                ),
+              );
+            },
+            onCanceled: () {
+              Navigator.pop(context);
+            },
+          );
+        },
+      );
+    }
+
+    return model.memories
+        .map(
+          (memory) => Marker(
+            markerId: MarkerId(memory.latLng.toString()),
+            icon: model.memoryMarker!,
+            anchor: const Offset(0.18, 0.72),
+            position: memory.latLng,
+            onTap: () => _onTapMainEPisodeMarkers(memory),
+          ),
+        )
+        .toSet();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,80 +83,26 @@ class HomePage extends StatelessWidget {
                           ..setHomeMapController(controller)
                           ..changeMapMode(controller);
                       },
-                      markers: homeViewModel.memories
-                          .map(
-                            (memory) => Marker(
-                              markerId: MarkerId(memory.latLng.toString()),
-                              icon: homeViewModel.memoryMarker!,
-                              anchor: const Offset(0.18, 0.72),
-                              position: memory.latLng,
-                              onTap: () {
-                                homeViewModel
-                                  ..setCurrentMemory(memory)
-                                  ..setDistance();
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return CustomDialogBox(
-                                      wid: MediaQuery.of(context).size.width,
-                                      descriptions:
-                                          "この場所を目的地に\n設定しますか？\n距離は${homeViewModel.distance}mです。",
-                                      onSubmitted: () {
-                                        Navigator.pop(context);
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                ReExperiencePage(
-                                              currentMemory:
-                                                  homeViewModel.currentMemory!,
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                      onCanceled: () {
-                                        Navigator.pop(context);
-                                      },
-                                    );
-                                  },
-                                );
-                              },
-                            ),
-                          )
-                          .toSet(),
+                      markers: _mainEpisodeMarkers(
+                        context: context,
+                        model: homeViewModel,
+                      ),
                       myLocationEnabled: true,
                       myLocationButtonEnabled: false,
                       zoomControlsEnabled: false,
                     ),
                     Align(
                       alignment: Alignment.topRight,
-                      child: Container(
-                        margin: const EdgeInsets.only(top: 16.0, right: 16.0),
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.circle,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color.fromRGBO(0, 0, 0, 0.25),
-                              blurRadius: 20,
-                              spreadRadius: 1,
-                            )
-                          ],
-                        ),
-                        child: IconButton(
-                          iconSize: 32.0,
-                          padding: const EdgeInsets.all(16),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const UserPage(),
-                              ),
-                            );
-                          },
-                          color: CustomColors.primary,
-                          icon: const Icon(Icons.person),
-                        ),
+                      child: FloatingIconButton(
+                        icon: Icons.person,
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const UserPage(),
+                            ),
+                          );
+                        },
                       ),
                     ),
                   ],

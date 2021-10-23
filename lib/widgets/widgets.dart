@@ -5,6 +5,7 @@ export 'custom_sliver_app_bar.dart';
 export 'editor_app_bar.dart';
 export 'email_password_box.dart';
 export 'episode_preview.dart';
+export 'floating_icon_button.dart';
 export 'google_twitter_button.dart';
 export 'long_button.dart';
 export 'long_button_border_primary.dart';
