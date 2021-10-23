@@ -2,15 +2,33 @@
 
 memory_share mobile app.
 
-## Getting Started
+### Commit Message
 
-This project is a starting point for a Flutter application.
+**日本語で**
 
-A few resources to get you started if this is your first Flutter project:
+```
+"Subject: description"
+```
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+- Add
+- Update
+- Fix
+- Remove
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## SetUp to Run
+
+### 環境変数の設定
+プロジェクトのルートに `.env` ファイルを作成。以下のように記述する
+
+```
+GOOGLE_MAPS_API_KEY=YOUR_GOOGLE_MAPS_API_KEY
+API_ENDPOINT=YOUR_API_ENDPOINT
+TWITTER_API_KEY=YOUR_TWITTER_API_KEY
+TWITTER_API_SECRET_KEY=YOUR_TWITTER_API_SECRET_KEY
+```
+
+※API_ENDPOINTには、`https://xxxxxx.xxx.com/` ←最後の`/`を忘れずに。
+
+### [firebase] google-services.json
+
+google-services.jsonを、`android/app/`内に配置する。
