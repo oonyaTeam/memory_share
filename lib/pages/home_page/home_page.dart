@@ -93,33 +93,16 @@ class HomePage extends StatelessWidget {
                     ),
                     Align(
                       alignment: Alignment.topRight,
-                      child: Container(
-                        margin: const EdgeInsets.only(top: 16.0, right: 16.0),
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.circle,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color.fromRGBO(0, 0, 0, 0.25),
-                              blurRadius: 20,
-                              spreadRadius: 1,
-                            )
-                          ],
-                        ),
-                        child: IconButton(
-                          iconSize: 32.0,
-                          padding: const EdgeInsets.only(top: 32, right: 16),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const UserPage(),
-                              ),
-                            );
-                          },
-                          color: CustomColors.primary,
-                          icon: const Icon(Icons.person),
-                        ),
+                      child: FloatingIconButton(
+                        icon: Icons.person,
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const UserPage(),
+                            ),
+                          );
+                        },
                       ),
                     ),
                   ],
