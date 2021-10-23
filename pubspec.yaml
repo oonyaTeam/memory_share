@@ -59,6 +59,7 @@ flutter:
 
   assets:
     - assets/
+    - assets/tutorial/
     - google_fonts/
 
 flutter_native_splash:
