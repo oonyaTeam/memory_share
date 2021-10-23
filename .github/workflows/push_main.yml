@@ -42,7 +42,7 @@ jobs:
       - name: copy .env
         env:
           ENV: ${{ secrets.ENV }}
-        run: echo $ENV | base64 --decode --ignore-garbage > .env
+        run: echo $ENV | base64 --decode > .env
 
       - name: build apk
         run: flutter build apk
