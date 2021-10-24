@@ -25,17 +25,17 @@ void main() {
       Episode(
         id: 1,
         episode: 'this is sub episode 0',
-        latLng: const LatLng(34.8510, 136.588),
+        location: const Location(latitude: 34.8510, longitude: 136.588),
       ),
       Episode(
         id: 2,
         episode: 'this is sub episode 1',
-        latLng: const LatLng(34.8529, 136.589),
+        location: const Location(latitude: 34.8529, longitude: 136.589),
       ),
       Episode(
         id: 3,
         episode: 'this is sub episode 2',
-        latLng: const LatLng(34.8520, 136.5801),
+        location: const Location(latitude: 34.8520, longitude: 136.5801),
       ),
     ],
     image: "https://pbs.twimg.com/media/E6CYtu1VcAIjMvY?format=jpg&name=large",

@@ -2,7 +2,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class Location {
-  Location({
+  const Location({
     required this.latitude,
     required this.longitude,
   });
@@ -20,5 +20,15 @@ class Location {
         longitude: position.longitude,
       );
 
+  factory Location.fromJson(Map<String, dynamic> json) => Location(
+        latitude: json['latitude'],
+        longitude: json['longitude'],
+      );
+
   LatLng toLatLng() => LatLng(latitude, longitude);
+
+  Map<String, dynamic> toJson() => {
+        'latitude': latitude,
+        'longitude': longitude,
+      };
 }

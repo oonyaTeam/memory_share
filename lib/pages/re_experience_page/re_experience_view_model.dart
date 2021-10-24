@@ -27,7 +27,7 @@ class ReExperienceViewModel with ChangeNotifier {
         .map((episode) => SubEpisode(
               id: episode.id,
               episode: episode.episode,
-              latLng: episode.latLng,
+              latLng: episode.location,
             ))
         .toList();
   }

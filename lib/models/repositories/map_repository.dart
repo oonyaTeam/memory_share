@@ -11,70 +11,19 @@ class MapRepository {
   final MapService _mapService = MapService();
   final MemoryService _memoryService = MemoryService();
 
-  /// 投稿を取得する処理。現状は、サンプルのデータとAPIから取得したデータを合わせて返している。
+  /// 投稿を取得する処理
+  ///
+  /// APIから投稿一覧を取得し、位置情報から住所を取得して返す。
   Future<List<Memory>> getMemories() async {
-    // サンプルデータ
-    List<Memory> sampleMemories = [
-      Memory(
-        id: 1,
-        memory: "this is sample memory1",
-        latLng: const LatLng(34.8532, 136.5822),
-        episodes: [
-          Episode(
-            id: 1,
-            episode: 'this is sub episode 0',
-            latLng: const LatLng(34.8510, 136.588),
-          ),
-          Episode(
-            id: 2,
-            episode: 'this is sub episode 1',
-            latLng: const LatLng(34.8529, 136.589),
-          ),
-          Episode(
-            id: 3,
-            episode: 'this is sub episode 2',
-            latLng: const LatLng(34.8520, 136.5801),
-          ),
-        ],
-        image:
-            "https://pbs.twimg.com/media/E6CYtu1VcAIjMvY?format=jpg&name=large",
-        authorId: 1,
-        angle: 30.0,
-        isSeen: false,
-      ),
-      Memory(
-        id: 2,
-        memory: "this is sample memory2",
-        latLng: const LatLng(34.8480, 136.5756),
-        episodes: [
-          Episode(
-            id: 1,
-            episode: 'this is sub episode 1',
-            latLng: const LatLng(34.8520, 136.580),
-          ),
-          Episode(
-            id: 2,
-            episode: 'this is sub episode 2',
-            latLng: const LatLng(34.8515, 136.581),
-          ),
-        ],
-        image:
-            "https://pbs.twimg.com/media/E6CYtu1VcAIjMvY?format=jpg&name=large",
-        authorId: 2,
-        angle: 120.0,
-        isSeen: true,
-      ),
-    ];
-    sampleMemories = await _memoryService.getMemoryAddresses(sampleMemories);
     List<Memory> memories = await _mapService.getMemories();
-    return [...sampleMemories, ...memories];
+    return await _memoryService.getMemoryAddresses(memories);
   }
 
   ///　現在の位置と目的地との距離を返す
-  int getDistance(LatLng startLatLng, LatLng endLatLng) {
+  int getDistance(Location start, Location end) {
     final int distance = _mapService.getDistance(
-      startLatLng,
-      endLatLng,
+      start,
+      end,
     );
     return distance;
   }

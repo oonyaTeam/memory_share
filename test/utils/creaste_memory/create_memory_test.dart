@@ -17,7 +17,10 @@ void main() {
       Episode(
         id: 0,
         episode: "This is sample sub episode",
-        latLng: const LatLng(34.8528, 136.5817),
+        location: const Location(
+          latitude: 34.8528,
+          longitude: 136.5817,
+        ),
       ),
     ],
     image: "https://pbs.twimg.com/media/E6CYtu1VcAIjMvY?format=jpg&name=large",

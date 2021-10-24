@@ -1,5 +1,4 @@
 import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:memory_share/models/entities/entities.dart';
 import 'package:memory_share/utils/utils.dart';
@@ -21,14 +20,15 @@ class MapService {
     return memories;
   }
 
-  Future<Position> getCurrentPosition() => Geolocator.getCurrentPosition();
+  Future<Location> getCurrentPosition() async =>
+      Location.fromPosition(await Geolocator.getCurrentPosition());
 
-  int getDistance(LatLng startLatLng, LatLng endLatLng) {
+  int getDistance(Location start, Location end) {
     return Geolocator.distanceBetween(
-      startLatLng.latitude,
-      startLatLng.longitude,
-      endLatLng.latitude,
-      endLatLng.longitude,
+      start.latitude,
+      start.longitude,
+      end.latitude,
+      end.longitude,
     ).toInt();
   }
 }

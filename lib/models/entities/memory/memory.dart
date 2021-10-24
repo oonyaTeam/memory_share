@@ -1,31 +1,31 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:memory_share/models/entities/entities.dart';
 
 /// サブエピソードの型です、APIで受け取ったサブエピソードなど、主に閲覧の方で使用します。
 /// 投稿のほうでは、一時的に[SubEpisode]を使います。（今後修正の余地あり）
 class Episode {
   final int id;
   final String episode;
-  final LatLng latLng;
+  final Location location;
 
   Episode({
     required this.id,
     required this.episode,
-    required this.latLng,
+    required this.location,
   });
 
   factory Episode.fromJson(Map<String, dynamic> json) {
     return Episode(
       id: json['id'],
       episode: json['episode'],
-      latLng: LatLng(json['latitude'], json['longitude']),
+      location: Location.fromJson(json),
     );
   }
 
   Map<String, dynamic> toJson() => {
         'id': id,
         'episode': episode,
-        'latitude': latLng.latitude,
-        'longitude': latLng.longitude,
+        ...location.toJson(),
       };
 }
 
@@ -33,7 +33,7 @@ class Episode {
 class Memory {
   int id;
   String memory;
-  LatLng latLng;
+  Location location;
   List<Episode> episodes;
   String image;
   int authorId;
@@ -44,7 +44,7 @@ class Memory {
   Memory({
     required this.id,
     required this.memory,
-    required this.latLng,
+    required this.location,
     required this.episodes,
     required this.image,
     required this.authorId,
@@ -56,7 +56,7 @@ class Memory {
     return Memory(
       id: json['id'],
       memory: json['memory'],
-      latLng: LatLng(json['latitude'], json['longitude']),
+      location: Location.fromJson(json),
       episodes: List<Episode>.from(
           json['episodes'].map((value) => Episode.fromJson(value))),
       image: json['image'],
@@ -71,8 +71,8 @@ class Memory {
     return {
       'id': id,
       'memory': memory,
-      'latitude': latLng.latitude,
-      'longitude': latLng.longitude,
+      'latitude': location.latitude,
+      'longitude': location.longitude,
       'episodes': episodesJson,
       'image': image,
       'author_id': authorId,
