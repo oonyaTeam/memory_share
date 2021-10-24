@@ -10,13 +10,16 @@ class PostViewModel with ChangeNotifier {
   /// 投稿に関するAPI処理などは[PostRepository]や[PostService]にあります。
   final PostRepository _postRepository = PostRepository();
 
-  // 撮影した写真
+  /// 撮影した写真
   File? _photo;
-  // サブエピソードのリスト
+
+  /// サブエピソードのリスト
   final List<SubEpisode> _subEpisodeList = [];
-  // メインのエピソード
+
+  /// メインのエピソード
   String _mainEpisode = "";
 
+  /// メインエピソードの写真を撮影した角度
   double _angle = 0;
 
   File? get photo => _photo;

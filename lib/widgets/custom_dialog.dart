@@ -5,6 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:memory_share/theme.dart';
 import 'package:memory_share/widgets/widgets.dart';
 
+/// カスタムダイアログのテンプレート
 class CustomDialogBox extends StatelessWidget {
   const CustomDialogBox({
     Key? key,
