@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:memory_share/theme.dart';
 
+import 'long_button.dart';
+
 class EpisodePreview extends StatelessWidget {
   const EpisodePreview(this.episodeText, {required this.visible, Key? key})
       : super(key: key);
@@ -21,6 +23,13 @@ class EpisodePreview extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(episodeText),
+              const SizedBox(height: 24.0),
+              LongButton(
+                label: 'この思い出から離れる',
+                onPressed: () =>
+                    Navigator.popUntil(context, (route) => route.isFirst),
+              ),
+              const SizedBox(height: 24.0),
             ],
           ),
         ),
