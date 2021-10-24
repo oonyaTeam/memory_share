@@ -79,10 +79,10 @@ class MapRepository {
     return distance;
   }
 
-  Future<BitmapDescriptor> getMainEpisodeMarkerBitmap() async {
+  Future<BitmapDescriptor> getMainEpisodeMarkerBitmap(String assetName) async {
     return BitmapDescriptor.fromAssetImage(
       const ImageConfiguration(devicePixelRatio: 2.5),
-      'assets/memory_spot_icon.png',
+      assetName,
     );
   }
 
