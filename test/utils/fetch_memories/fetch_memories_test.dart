@@ -1,8 +1,6 @@
 import 'package:flutter_config/flutter_config.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
-import 'package:memory_share/models/models.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
@@ -17,32 +15,32 @@ void main() {
   num lowerRight = 10;
   num upperLeft = 50;
   num upperRight = 50;
-  Memory sampleMemory = Memory(
-    id: 1,
-    memory: "this is sample memory1",
-    latLng: const LatLng(34.8532, 136.5822),
-    episodes: [
-      Episode(
-        id: 1,
-        episode: 'this is sub episode 0',
-        location: const Location(latitude: 34.8510, longitude: 136.588),
-      ),
-      Episode(
-        id: 2,
-        episode: 'this is sub episode 1',
-        location: const Location(latitude: 34.8529, longitude: 136.589),
-      ),
-      Episode(
-        id: 3,
-        episode: 'this is sub episode 2',
-        location: const Location(latitude: 34.8520, longitude: 136.5801),
-      ),
-    ],
-    image: "https://pbs.twimg.com/media/E6CYtu1VcAIjMvY?format=jpg&name=large",
-    authorId: 1,
-    angle: 30.0,
-    isSeen: false,
-  );
+  // Memory sampleMemory = Memory(
+  //   id: 1,
+  //   memory: "this is sample memory1",
+  //   location: const LatLng(34.8532, 136.5822),
+  //   episodes: [
+  //     Episode(
+  //       id: 1,
+  //       episode: 'this is sub episode 0',
+  //       location: const Location(latitude: 34.8510, longitude: 136.588),
+  //     ),
+  //     Episode(
+  //       id: 2,
+  //       episode: 'this is sub episode 1',
+  //       location: const Location(latitude: 34.8529, longitude: 136.589),
+  //     ),
+  //     Episode(
+  //       id: 3,
+  //       episode: 'this is sub episode 2',
+  //       location: const Location(latitude: 34.8520, longitude: 136.5801),
+  //     ),
+  //   ],
+  //   image: "https://pbs.twimg.com/media/E6CYtu1VcAIjMvY?format=jpg&name=large",
+  //   authorId: 1,
+  //   angle: 30.0,
+  //   isSeen: false,
+  // );
 
   setUp(() {});
 

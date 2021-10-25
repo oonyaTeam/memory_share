@@ -27,7 +27,7 @@ class PostRepository {
           subEpisodeList.asMap().entries.map((entry) => Episode(
                 id: entry.key,
                 episode: entry.value.episode,
-                latLng: entry.value.latLng,
+                location: entry.value.location,
               )),
         ),
         imageUrl: imageUrl,

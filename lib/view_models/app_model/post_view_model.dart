@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:memory_share/models/models.dart';
 
 /// 投稿関連をまとめたViewModelです。
@@ -46,7 +45,7 @@ class PostViewModel with ChangeNotifier {
   void addSubEpisode(String subEpisode) async {
     final position = await Geolocator.getCurrentPosition();
     _subEpisodeList.add(SubEpisode(
-      latLng: LatLng(position.latitude, position.longitude),
+      location: Location.fromPosition(position),
       episode: subEpisode,
     ));
     notifyListeners();

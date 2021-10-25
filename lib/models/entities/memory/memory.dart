@@ -1,4 +1,3 @@
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:memory_share/models/entities/entities.dart';
 
 /// サブエピソードの型です、APIで受け取ったサブエピソードなど、主に閲覧の方で使用します。
@@ -71,8 +70,7 @@ class Memory {
     return {
       'id': id,
       'memory': memory,
-      'latitude': location.latitude,
-      'longitude': location.longitude,
+      ...location.toJson(),
       'episodes': episodesJson,
       'image': image,
       'author_id': authorId,
@@ -84,22 +82,22 @@ class Memory {
 
 /// SubEpisode作成時にのみ使用。APIから取得したサブエピソードは[Episode]である。
 class SubEpisode {
-  LatLng latLng;
+  Location location;
   String episode;
 
-  SubEpisode({required this.latLng, required this.episode});
+  SubEpisode({required this.location, required this.episode});
 }
 
 class NewMemory {
   String memory;
-  LatLng latLng;
+  Location location;
   List<Episode> episodes;
   String image;
   double angle;
 
   NewMemory({
     required this.memory,
-    required this.latLng,
+    required this.location,
     required this.episodes,
     required this.image,
     required this.angle,
@@ -109,8 +107,7 @@ class NewMemory {
     final episodesJson = episodes.map((episode) => episode.toJson()).toList();
     return {
       'memory': memory,
-      'latitude': latLng.latitude,
-      'longitude': latLng.longitude,
+      ...location.toJson(),
       'episodes': episodesJson,
       'image': image,
       'angle': angle,

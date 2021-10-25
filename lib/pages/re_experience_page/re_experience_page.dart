@@ -126,8 +126,8 @@ class ReExperiencePage extends StatelessWidget {
                         // メインエピソードのマーカー
                         Marker(
                           markerId:
-                              MarkerId(model.currentMemory.latLng.toString()),
-                          position: model.currentMemory.latLng,
+                              MarkerId(model.currentMemory.location.toString()),
+                          position: model.currentMemory.location.toLatLng(),
                           icon: model.mainEpisodeMarker!,
                           anchor: const Offset(0.18, 0.72),
                           onTap: () {
@@ -142,7 +142,7 @@ class ReExperiencePage extends StatelessWidget {
                         ...model.subEpisodeList
                             .map((episode) => Marker(
                                   markerId: MarkerId(episode.id.toString()),
-                                  position: episode.latLng,
+                                  position: episode.location.toLatLng(),
                                   onTap: () {},
                                   icon: (episode.isViewed
                                           ? episode.iconImage

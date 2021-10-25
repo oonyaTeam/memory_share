@@ -1,13 +1,11 @@
 import 'package:geocoding/geocoding.dart';
+import 'package:memory_share/models/models.dart' as models;
 
-Future<String> getAddressFromLatLng({
-  required double latitude,
-  required double longitude,
-}) async {
+Future<String> getAddressFromLocation(models.Location location) async {
   try {
     final List<Placemark> placeMarkList = await placemarkFromCoordinates(
-      latitude,
-      longitude,
+      location.latitude,
+      location.longitude,
       localeIdentifier: 'ja',
     );
 

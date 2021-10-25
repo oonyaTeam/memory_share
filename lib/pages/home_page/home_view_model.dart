@@ -82,8 +82,8 @@ class HomeViewModel with ChangeNotifier {
     if (_currentPosition == null || _currentMemory == null) return;
 
     _distance = _mapRepository.getDistance(
-      _currentMemory!.latLng,
-      LatLng(_currentPosition!.latitude, _currentPosition!.longitude),
+      _currentMemory!.location,
+      Location.fromPosition(_currentPosition!),
     );
   }
 

@@ -27,7 +27,7 @@ class ReExperienceViewModel with ChangeNotifier {
         .map((episode) => SubEpisode(
               id: episode.id,
               episode: episode.episode,
-              latLng: episode.location,
+              location: episode.location,
             ))
         .toList();
   }
@@ -86,8 +86,8 @@ class ReExperienceViewModel with ChangeNotifier {
 
     // メインエピソードとの距離を変更
     _distance = _mapRepository.getDistance(
-      _currentMemory.latLng,
-      LatLng(currentPosition.latitude, currentPosition.longitude),
+      _currentMemory.location,
+      Location.fromPosition(currentPosition),
     );
 
     if (_distance / 100 >= 10) {
@@ -99,8 +99,8 @@ class ReExperienceViewModel with ChangeNotifier {
     // 各サブエピソードとの距離を変更
     for (int i = 0; i < _subEpisodeList.length; i++) {
       _subEpisodeList[i].distance = _mapRepository.getDistance(
-        _subEpisodeList[i].latLng,
-        LatLng(currentPosition.latitude, currentPosition.longitude),
+        _subEpisodeList[i].location,
+        Location.fromPosition(_currentPosition!),
       );
     }
     notifyListeners();
@@ -149,9 +149,9 @@ class ReExperienceViewModel with ChangeNotifier {
   /// メインエピソードと自分の位置の中間をカメラ位置に設定してる。
   LatLng getCameraPosition() {
     final latitude =
-        (_currentPosition!.latitude + _currentMemory.latLng.latitude) / 2;
+        (_currentPosition!.latitude + _currentMemory.location.latitude) / 2;
     final longitude =
-        (_currentPosition!.longitude + _currentMemory.latLng.longitude) / 2;
+        (_currentPosition!.longitude + _currentMemory.location.longitude) / 2;
     return LatLng(latitude, longitude);
   }
 
@@ -239,14 +239,14 @@ class SubEpisode {
   SubEpisode({
     required this.id,
     required this.episode,
-    required this.latLng,
+    required this.location,
     this.isViewed = false,
     this.distance = double.infinity,
   });
 
   final int id;
   final String episode;
-  final LatLng latLng;
+  final Location location;
   bool isViewed;
   num distance;
 
