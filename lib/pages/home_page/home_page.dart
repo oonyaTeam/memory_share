@@ -41,8 +41,9 @@ class HomePage extends StatelessWidget {
                           .map(
                             (memory) => Marker(
                               markerId: MarkerId(memory.latLng.toString()),
-                              icon: homeViewModel.memoryMarker!,
-                              // アンカーの位置を画像に合わせるためにOffsetを追加
+                              icon: memory.isSeen
+                                  ? homeViewModel.memoryViewedMarker!
+                                  : homeViewModel.memoryMarker!,
                               anchor: const Offset(0.18, 0.72),
                               position: memory.latLng,
                               onTap: () {

@@ -13,8 +13,15 @@ class HomeViewModel with ChangeNotifier {
     getPosition();
 
     // マーカーの画像の取得
-    _mapRepository.getMainEpisodeMarkerBitmap().then((value) {
+    _mapRepository
+        .getMainEpisodeMarkerBitmap('assets/memory_spot_icon.png')
+        .then((value) {
       _memoryMarker = value;
+    });
+    _mapRepository
+        .getMainEpisodeMarkerBitmap('assets/memory_spot_icon_viewed.png')
+        .then((value) {
+      _memoryViewedMarker = value;
     });
 
     // 位置情報を取得するStreamを定義
@@ -48,6 +55,7 @@ class HomeViewModel with ChangeNotifier {
 
   /// マップ上に表示するMemoryのマーカーのBitmapイメージ
   BitmapDescriptor? _memoryMarker;
+  BitmapDescriptor? _memoryViewedMarker;
 
   /// ユーザの位置情報が流れてくるStream
   StreamSubscription<Position>? _positionStream;
@@ -63,6 +71,7 @@ class HomeViewModel with ChangeNotifier {
   Memory? get currentMemory => _currentMemory;
 
   BitmapDescriptor? get memoryMarker => _memoryMarker;
+  BitmapDescriptor? get memoryViewedMarker => _memoryViewedMarker;
 
   set currentMemory(Memory? memory) {
     _currentMemory = memory;

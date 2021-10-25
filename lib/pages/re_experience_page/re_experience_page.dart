@@ -147,7 +147,9 @@ class ReExperiencePage extends StatelessWidget {
                             markerId:
                                 MarkerId(model.currentMemory.latLng.toString()),
                             position: model.currentMemory.latLng,
-                            icon: model.mainEpisodeMarker!,
+                            icon: model.currentMemory.isSeen
+                                ? model.mainEpisodeViewedMarker!
+                                : model.mainEpisodeMarker!,
                             anchor: const Offset(0.18, 0.72),
                             onTap: () {
                               // 既に一度目的地に到着していたら、

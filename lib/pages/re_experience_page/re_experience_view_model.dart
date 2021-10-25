@@ -49,6 +49,7 @@ class ReExperienceViewModel with ChangeNotifier {
   bool _isViewedMainEpisodeDialog = false;
   bool _shouldViewingDialog = false;
   BitmapDescriptor? _mainEpisodeMarker;
+  BitmapDescriptor? _mainEpisodeViewedMarker;
 
   StreamSubscription<Position>? _positionStream;
 
@@ -70,6 +71,7 @@ class ReExperienceViewModel with ChangeNotifier {
   bool get isViewedMainEpisodeDialog => _isViewedMainEpisodeDialog;
 
   BitmapDescriptor? get mainEpisodeMarker => _mainEpisodeMarker;
+  BitmapDescriptor? get mainEpisodeViewedMarker => _mainEpisodeViewedMarker;
 
   /// ユーザの現在地を取得
   void getPosition() async {
@@ -199,9 +201,12 @@ class ReExperienceViewModel with ChangeNotifier {
   void getMarkerBitmaps() async {
     // メインエピソードのマーカー画像を取得
     Future<void> _getMainEpisodeMarker() async {
-      final BitmapDescriptor marker =
-          await _mapRepository.getMainEpisodeMarkerBitmap();
+      final BitmapDescriptor marker = await _mapRepository
+          .getMainEpisodeMarkerBitmap('assets/memory_spot_icon.png');
       _mainEpisodeMarker = marker;
+      final BitmapDescriptor viewedMarker = await _mapRepository
+          .getMainEpisodeMarkerBitmap('assets/memory_spot_icon_viewed.png');
+      _mainEpisodeViewedMarker = viewedMarker;
     }
 
     // サブエピソードのマーカー画像（二種類）を取得
