@@ -31,6 +31,7 @@ class HomePage extends StatelessWidget {
                         ),
                         zoom: 15.0,
                       ),
+                      // マップが作成された時に、ControllerをVIewModelで保持、マップのスタイルを変更
                       onMapCreated: (GoogleMapController controller) {
                         homeViewModel
                           ..setHomeMapController(controller)
@@ -46,9 +47,8 @@ class HomePage extends StatelessWidget {
                               anchor: const Offset(0.18, 0.72),
                               position: memory.latLng,
                               onTap: () {
-                                homeViewModel
-                                  ..setCurrentMemory(memory)
-                                  ..setDistance();
+                                homeViewModel.currentMemory = memory;
+                                homeViewModel.setDistance();
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
@@ -79,10 +79,11 @@ class HomePage extends StatelessWidget {
                             ),
                           )
                           .toSet(),
-                      myLocationEnabled: true,
-                      myLocationButtonEnabled: false,
-                      zoomControlsEnabled: false,
+                      myLocationEnabled: true, // 現在地を表示
+                      myLocationButtonEnabled: false, // 現在地ボタンは非表示
+                      zoomControlsEnabled: false, // ズームボタンは非表示
                     ),
+                    // ユーザページに遷移するボタン
                     Align(
                       alignment: Alignment.topRight,
                       child: FloatingIconButton(
@@ -99,6 +100,7 @@ class HomePage extends StatelessWidget {
                     ),
                   ],
                 ),
+          // 投稿の作成を開始するFAB
           floatingActionButton: SizedBox(
             width: 64.0,
             height: 64.0,

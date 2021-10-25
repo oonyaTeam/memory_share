@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:memory_share/theme.dart';
 
+/// 右下以外に表示する FloatingActionButton
+///
+/// `icon`: ボタン上のアイコン
+/// `onPressed`: ボタンタップ時のイベント
 class FloatingIconButton extends StatelessWidget {
   const FloatingIconButton({
     required this.icon,
@@ -14,7 +18,7 @@ class FloatingIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 16.0, right: 16.0),
+      margin: const EdgeInsets.all(16.0),
       decoration: const BoxDecoration(
         color: Colors.white,
         shape: BoxShape.circle,

@@ -4,6 +4,9 @@ import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_share/widgets/widgets.dart';
 
+/// 画像を変更するダイアログ
+///
+/// 画面上部に画像、その下に2つのボタンを表示する
 class ChangeImageDialog extends StatelessWidget {
   const ChangeImageDialog({
     Key? key,
@@ -12,7 +15,10 @@ class ChangeImageDialog extends StatelessWidget {
     required this.onCanceled,
   }) : super(key: key);
 
+  /// 表示する画像のファイル
   final File imageFile;
+
+  /// それぞれ、Submit時とCancel時のイベントと
   final void Function() onSubmitted, onCanceled;
 
   @override

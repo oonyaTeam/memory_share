@@ -15,6 +15,7 @@ class CustomSliverAppBar extends StatelessWidget {
   final String title;
   final ScrollController controller;
 
+  /// AppBar の右側に表示する action(ボタン等)
   final List<Widget>? actions;
 
   @override

@@ -37,17 +37,19 @@ class UserModel with ChangeNotifier {
   }
 
   final UserRepository _userRepository = UserRepository();
-
   final MemoryRepository _memoryRepository = MemoryRepository();
 
+  /// ユーザ情報が流れてくるStream
   StreamSubscription<User?>? _userStream;
+
+  /// ログインしているユーザ
   User? _currentUser;
 
-  // チュートリアルを終えているかという値
+  // 各チュートリアルを終えているかというbool値
   bool? _reExperienceTutorialDone;
   bool? _postTutorialDone;
 
-  // 自分の投稿
+  // 自分の投稿一覧
   List<Memory> _myMemories = [];
 
   User? get currentUser => _currentUser;
@@ -58,13 +60,18 @@ class UserModel with ChangeNotifier {
 
   List<Memory> get myMemories => _myMemories;
 
-  /// チュートリアルが終了した際の処理。bool値を変更し、hive(永続化)の処理も呼び出す。
+  /// 閲覧のチュートリアルが終了した際の処理
+  ///
+  /// bool値を変更し、hive(永続化)の処理も呼び出す。
   Future<void> reExperienceTutorialIsFinished() async {
     await _userRepository.reExperienceTutorialIsFinished();
     _reExperienceTutorialDone = true;
     notifyListeners();
   }
 
+  /// 投稿のチュートリアルが終了した際の処理
+  ///
+  /// bool値を変更し、hive(永続化)の処理も呼び出す。
   void postTutorialIsFinished() async {
     await _userRepository.postTutorialIsFinished();
     _postTutorialDone = true;

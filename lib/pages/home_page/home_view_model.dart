@@ -38,15 +38,26 @@ class HomeViewModel with ChangeNotifier {
 
   final MapRepository _mapRepository = MapRepository();
 
+  /// ユーザの現在位置
   Position? _currentPosition;
+
+  /// ユーザの現在位置とフォーカスしているMemoryとの距離
   int _distance = 0;
+
+  /// マップを制御するControllerを管理するCompleter
   final Completer<GoogleMapController> _homeMapController = Completer();
+
+  /// Memory（投稿）の配列
   final List<Memory> _memories = [];
+
+  /// フォーカスしているMemory
   Memory? _currentMemory;
 
+  /// マップ上に表示するMemoryのマーカーのBitmapイメージ
   BitmapDescriptor? _memoryMarker;
   BitmapDescriptor? _memoryViewedMarker;
 
+  /// ユーザの位置情報が流れてくるStream
   StreamSubscription<Position>? _positionStream;
 
   Position? get currentPosition => _currentPosition;
@@ -62,7 +73,7 @@ class HomeViewModel with ChangeNotifier {
   BitmapDescriptor? get memoryMarker => _memoryMarker;
   BitmapDescriptor? get memoryViewedMarker => _memoryViewedMarker;
 
-  void setCurrentMemory(Memory memory) {
+  set currentMemory(Memory? memory) {
     _currentMemory = memory;
     setDistance();
   }
@@ -76,17 +87,14 @@ class HomeViewModel with ChangeNotifier {
     _memories.addAll(memories);
   }
 
-  void clearMemories() {
-    _memories.clear();
-    notifyListeners();
-  }
-
+  /// 現在地を取得する
   void getPosition() async {
     Position currentPosition = await Geolocator.getCurrentPosition();
     _currentPosition = currentPosition;
     notifyListeners();
   }
 
+  /// 現在地とフォーカスしているMemoryとの距離を設定する。
   void setDistance() {
     if (_currentPosition == null || _currentMemory == null) return;
 
@@ -96,22 +104,28 @@ class HomeViewModel with ChangeNotifier {
     );
   }
 
+  /// マップを制御するCOntrollerをセットする。
   void setHomeMapController(GoogleMapController controller) {
     _homeMapController.complete(controller);
     notifyListeners();
   }
 
+  /// 投稿を API から取得する
   void getMemories() async {
     final memories = await _mapRepository.getMemories();
     addMemories(memories);
     notifyListeners();
   }
 
+  /// GoogleMapのスタイルを変更（定義）する
+  ///
+  /// スタイルの設定が書かれているファイルを読み込み、その内容を反映させる。
   changeMapMode(GoogleMapController controller) {
     getMapStyleJsonFile("assets/Light.json")
         .then((res) => {controller.setMapStyle(res)});
   }
 
+  /// GoogleMapのスタイルが定義されているファイルを読み込む
   Future<String> getMapStyleJsonFile(String path) async {
     return await rootBundle.loadString(path);
   }
