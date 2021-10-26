@@ -1,6 +1,6 @@
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
-import 'package:memory_share/models/entities/entities.dart';
+import 'package:memory_share/models/models.dart';
 import 'package:memory_share/utils/utils.dart';
 
 import 'auth_service.dart';
@@ -19,9 +19,6 @@ class MapService {
     );
     return memories;
   }
-
-  Future<Location> getCurrentPosition() async =>
-      Location.fromPosition(await Geolocator.getCurrentPosition());
 
   int getDistance(Location start, Location end) {
     return Geolocator.distanceBetween(

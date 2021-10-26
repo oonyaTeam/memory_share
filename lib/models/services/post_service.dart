@@ -1,21 +1,22 @@
-import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:memory_share/models/models.dart';
 import 'package:memory_share/utils/utils.dart';
 
 /// 投稿に関する処理をまとめたService
 class PostService {
+  final LocationService _locationService = LocationService();
+
   Future<void> postMemory(
       {required String mainEpisode,
       required List<Episode> subEpisodes,
       required String imageUrl,
       required double angle}) async {
-    final currentPosition = await Geolocator.getCurrentPosition();
+    final currentLocation = await _locationService.getCurrentLocation();
 
     final NewMemory newMemory = NewMemory(
       memory: mainEpisode,
       image: imageUrl,
-      location: Location.fromPosition(currentPosition),
+      location: currentLocation,
       episodes: subEpisodes,
       angle: angle,
     );

@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:memory_share/models/services/auth_service.dart';
+import 'package:memory_share/models/models.dart';
 
 /// 認証に関する処理をまとめたRepository
 class AuthRepository {

@@ -37,6 +37,7 @@ class HomeViewModel with ChangeNotifier {
   }
 
   final MapRepository _mapRepository = MapRepository();
+  final LocationRepository _locationRepory = LocationRepository();
 
   /// ユーザの現在位置
   Position? _currentPosition;
