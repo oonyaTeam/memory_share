@@ -28,7 +28,7 @@ class HomeViewModel with ChangeNotifier {
     _positionStream = Geolocator.getPositionStream(
       intervalDuration: const Duration(seconds: 5),
     ).listen((Position position) {
-      _currentPosition = position;
+      _currentLocation = Location.fromPosition(position);
       if (_currentMemory != null) {
         setDistance();
       }
@@ -40,7 +40,7 @@ class HomeViewModel with ChangeNotifier {
   final LocationRepository _locationRepory = LocationRepository();
 
   /// ユーザの現在位置
-  Position? _currentPosition;
+  Location? _currentLocation;
 
   /// ユーザの現在位置とフォーカスしているMemoryとの距離
   int _distance = 0;
@@ -61,7 +61,7 @@ class HomeViewModel with ChangeNotifier {
   /// ユーザの位置情報が流れてくるStream
   StreamSubscription<Position>? _positionStream;
 
-  Position? get currentPosition => _currentPosition;
+  Location? get currentLocation => _currentLocation;
 
   int get distance => _distance;
 
@@ -90,18 +90,17 @@ class HomeViewModel with ChangeNotifier {
 
   /// 現在地を取得する
   void getPosition() async {
-    Position currentPosition = await Geolocator.getCurrentPosition();
-    _currentPosition = currentPosition;
+    _currentLocation = await _locationRepory.getCurrentLocation();
     notifyListeners();
   }
 
   /// 現在地とフォーカスしているMemoryとの距離を設定する。
   void setDistance() {
-    if (_currentPosition == null || _currentMemory == null) return;
+    if (_currentLocation == null || _currentMemory == null) return;
 
     _distance = _mapRepository.getDistance(
+      _currentLocation!,
       _currentMemory!.location,
-      Location.fromPosition(_currentPosition!),
     );
   }
 

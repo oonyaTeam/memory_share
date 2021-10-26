@@ -122,7 +122,7 @@ class ReExperiencePage extends StatelessWidget {
                       },
                     ),
                   ),
-                  if (model.currentPosition == null)
+                  if (model.currentLocation == null)
                     const Center(
                       child: CircularProgressIndicator(),
                     )

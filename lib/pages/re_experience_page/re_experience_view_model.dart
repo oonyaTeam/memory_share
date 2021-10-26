@@ -17,7 +17,7 @@ class ReExperienceViewModel with ChangeNotifier {
     ).listen((Position position) async {
       // currentPositionを変更、メインエピソード・サブエピソードとの距離も変更したのち、
       // 各サブエピソードを表示するかをチェックしている。
-      _currentPosition = position;
+      _currentLocation = Location.fromPosition(position);
       await setDistance();
       checkDistance();
     });
@@ -34,13 +34,14 @@ class ReExperienceViewModel with ChangeNotifier {
 
   final MapRepository _mapRepository = MapRepository();
   final UserRepository _userRepository = UserRepository();
+  final LocationRepository _locationRepository = LocationRepository();
   final BuildContext _context;
 
   // メイン・サブエピソードを見ることができる距離の定数値
   static const distancePossibleViewMainEpisodeDialog = 10;
   static const distancePossibleViewSubEpisodeDialog = 10;
 
-  Position? _currentPosition;
+  Location? _currentLocation;
   num _distance = double.infinity;
   num _sigma = double.infinity;
   final Completer<GoogleMapController> _reExperienceMapController = Completer();
@@ -53,7 +54,7 @@ class ReExperienceViewModel with ChangeNotifier {
 
   StreamSubscription<Position>? _positionStream;
 
-  Position? get currentPosition => _currentPosition;
+  Location? get currentLocation => _currentLocation;
 
   num get distance => _distance;
 
@@ -75,21 +76,18 @@ class ReExperienceViewModel with ChangeNotifier {
 
   /// ユーザの現在地を取得
   void getPosition() async {
-    final Position currentPosition = await Geolocator.getCurrentPosition();
-    _currentPosition = currentPosition;
+    _currentLocation = await _locationRepository.getCurrentLocation();
     notifyListeners();
   }
 
   /// メイン・サブエピソードとの距離を設定
   Future<void> setDistance() async {
-    if (_currentPosition == null) return;
-
-    final Position currentPosition = await Geolocator.getCurrentPosition();
+    if (_currentLocation == null) return;
 
     // メインエピソードとの距離を変更
     _distance = _mapRepository.getDistance(
       _currentMemory.location,
-      Location.fromPosition(currentPosition),
+      _currentLocation!,
     );
 
     if (_distance / 100 >= 10) {
@@ -102,7 +100,7 @@ class ReExperienceViewModel with ChangeNotifier {
     for (int i = 0; i < _subEpisodeList.length; i++) {
       _subEpisodeList[i].distance = _mapRepository.getDistance(
         _subEpisodeList[i].location,
-        Location.fromPosition(_currentPosition!),
+        _currentLocation!,
       );
     }
     notifyListeners();
@@ -151,9 +149,9 @@ class ReExperienceViewModel with ChangeNotifier {
   /// メインエピソードと自分の位置の中間をカメラ位置に設定してる。
   LatLng getCameraPosition() {
     final latitude =
-        (_currentPosition!.latitude + _currentMemory.location.latitude) / 2;
+        (_currentLocation!.latitude + _currentMemory.location.latitude) / 2;
     final longitude =
-        (_currentPosition!.longitude + _currentMemory.location.longitude) / 2;
+        (_currentLocation!.longitude + _currentMemory.location.longitude) / 2;
     return LatLng(latitude, longitude);
   }
 
