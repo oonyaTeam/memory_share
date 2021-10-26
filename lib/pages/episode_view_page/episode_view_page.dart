@@ -46,9 +46,34 @@ class EpisodeViewPage extends StatelessWidget {
                 ),
                 Align(
                   alignment: Alignment.topCenter,
-                  child: EpisodePreview(
-                    episodeViewModel.episodeText,
-                    visible: episodeViewModel.showDialogFlag,
+                  child: Container(
+                    margin: const EdgeInsets.fromLTRB(128, 0, 128, 0),
+                    child: EpisodePreview(
+                      episodeViewModel.episodeText,
+                      visible: episodeViewModel.showDialogFlag,
+                    ),
+                  ),
+                ),
+                AnimatedOpacity(
+                  opacity: episodeViewModel.showDialogFlag ? 1.0 : 0,
+                  duration: const Duration(milliseconds: 500),
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      margin: const EdgeInsets.only(bottom: 24),
+                      child: LongButton(
+                        label: 'この思い出から離れる',
+                        onPressed: () => Navigator.popUntil(
+                            context, (route) => route.isFirst),
+                      ),
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: FloatingIconButton(
+                    icon: Icons.arrow_back,
+                    onPressed: () => Navigator.pop(context),
                   ),
                 ),
               ],

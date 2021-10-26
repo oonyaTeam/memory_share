@@ -78,94 +78,123 @@ class ReExperiencePage extends StatelessWidget {
           WidgetsBinding.instance!.addPostFrameCallback((_) {
             model.getMarkerBitmaps();
           });
-          return Scaffold(
-            body: Stack(
-              children: [
-                /// 画面の外で、サブエピソードを描画している。
-                Transform.translate(
-                  offset: const Offset(-400, 0),
-                  child: ListView.builder(
-                    itemCount: model.subEpisodeList.length,
-                    itemBuilder: (_, index) {
-                      final subEpisode = model.subEpisodeList[index];
-                      return Column(
-                        children: [
-                          RepaintBoundary(
-                            key: subEpisode.iconKey,
-                            child: SubEpisodeMarker(index + 1),
-                          ),
-                          RepaintBoundary(
-                            key: subEpisode.invalidIconKey,
-                            child: SubEpisodeInvalidMarker(index + 1),
-                          ),
-                        ],
-                      );
+          return WillPopScope(
+            onWillPop: () async {
+              final willPop = await showDialog<bool>(
+                context: context,
+                builder: (BuildContext context) {
+                  return CustomDialogBox(
+                    wid: MediaQuery.of(context).size.width,
+                    descriptions: "エピソードの閲覧を\n終了しますか？",
+                    onSubmitted: () {
+                      Navigator.pop(context, true);
                     },
-                  ),
-                ),
-                if (model.currentPosition == null)
-                  const Center(
-                    child: CircularProgressIndicator(),
-                  )
-                else ...[
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height - 200,
-                    child: GoogleMap(
-                      mapType: MapType.normal,
-                      initialCameraPosition: CameraPosition(
-                        // メインエピソードと自分の位置の中間をカメラ位置に設定してる。
-                        target: model.getCameraPosition(),
-                        zoom: 15.0,
-                      ),
-                      onMapCreated: (GoogleMapController controller) {
-                        model
-                          ..setReExperienceMapController(controller)
-                          ..changeMapMode(controller);
+                    onCanceled: () {
+                      Navigator.pop(context, false);
+                    },
+                  );
+                },
+              );
+              return willPop ?? false;
+            },
+            child: Scaffold(
+              body: Stack(
+                children: [
+                  /// 画面の外で、サブエピソードを描画している。
+                  Transform.translate(
+                    offset: const Offset(-400, 0),
+                    child: ListView.builder(
+                      itemCount: model.subEpisodeList.length,
+                      itemBuilder: (_, index) {
+                        final subEpisode = model.subEpisodeList[index];
+                        return Column(
+                          children: [
+                            RepaintBoundary(
+                              key: subEpisode.iconKey,
+                              child: SubEpisodeMarker(index + 1),
+                            ),
+                            RepaintBoundary(
+                              key: subEpisode.invalidIconKey,
+                              child: SubEpisodeInvalidMarker(index + 1),
+                            ),
+                          ],
+                        );
                       },
-                      markers: {
-                        // メインエピソードのマーカー
-                        Marker(
-                          markerId:
-                              MarkerId(model.currentMemory.location.toString()),
-                          position: model.currentMemory.location.toLatLng(),
-                          icon: model.mainEpisodeMarker!,
-                          anchor: const Offset(0.18, 0.72),
-                          onTap: () {
-                            // 既に一度目的地に到着していたら、
-                            // マーカーをタップしたときにEpisodeViewに遷移するダイアログを表示する
-                            if (model.isViewedMainEpisodeDialog) {
-                              model.showMainEpisodeDialog();
-                            }
-                          },
+                    ),
+                  ),
+                  if (model.currentPosition == null)
+                    const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  else ...[
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height - 200,
+                      child: GoogleMap(
+                        mapType: MapType.normal,
+                        initialCameraPosition: CameraPosition(
+                          // メインエピソードと自分の位置の中間をカメラ位置に設定してる。
+                          target: model.getCameraPosition(),
+                          zoom: 15.0,
                         ),
-                        // サブエピソードのマーカー
-                        ...model.subEpisodeList
-                            .map((episode) => Marker(
-                                  markerId: MarkerId(episode.id.toString()),
-                                  position: episode.location.toLatLng(),
-                                  onTap: () {},
-                                  icon: (episode.isViewed
-                                          ? episode.iconImage
-                                          : episode.invalidIconImage) ??
-                                      BitmapDescriptor.defaultMarker,
-                                  anchor: const Offset(0.445, 0.7),
-                                ))
-                            .toSet(),
-                      },
-                      myLocationEnabled: true,
-                      myLocationButtonEnabled: false,
-                      zoomControlsEnabled: false,
+                        onMapCreated: (GoogleMapController controller) {
+                          model
+                            ..setReExperienceMapController(controller)
+                            ..changeMapMode(controller);
+                        },
+                        markers: {
+                          // メインエピソードのマーカー
+                          Marker(
+                            markerId: MarkerId(
+                                model.currentMemory.location.toString()),
+                            position: model.currentMemory.location.toLatLng(),
+                            icon: model.currentMemory.isSeen
+                                ? model.mainEpisodeViewedMarker!
+                                : model.mainEpisodeMarker!,
+                            anchor: const Offset(0.18, 0.72),
+                            onTap: () {
+                              // 既に一度目的地に到着していたら、
+                              // マーカーをタップしたときにEpisodeViewに遷移するダイアログを表示する
+                              if (model.isViewedMainEpisodeDialog) {
+                                model.showMainEpisodeDialog();
+                              }
+                            },
+                          ),
+                          // サブエピソードのマーカー
+                          ...model.subEpisodeList
+                              .map((episode) => Marker(
+                                    markerId: MarkerId(episode.id.toString()),
+                                    position: episode.location.toLatLng(),
+                                    onTap: () {},
+                                    icon: (episode.isViewed
+                                            ? episode.iconImage
+                                            : episode.invalidIconImage) ??
+                                        BitmapDescriptor.defaultMarker,
+                                    anchor: const Offset(0.445, 0.7),
+                                  ))
+                              .toSet(),
+                        },
+                        myLocationEnabled: true,
+                        myLocationButtonEnabled: false,
+                        zoomControlsEnabled: false,
+                      ),
                     ),
-                  ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: _buildBottomSheet(
-                      model: model,
-                      context: context,
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: _buildBottomSheet(
+                        model: model,
+                        context: context,
+                      ),
                     ),
-                  ),
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: FloatingIconButton(
+                        icon: Icons.arrow_back,
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                    ),
+                  ],
                 ],
-              ],
+              ),
             ),
           );
         },

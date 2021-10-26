@@ -9,7 +9,7 @@ Future<void> seenMemory(
     NewSeenMemory id, String idToken, http.Client client) async {
   final endpoint = FlutterConfig.get("API_ENDPOINT");
   final resp = await client.post(
-    Uri.parse(endpoint + 'seen-memory'),
+    Uri.parse(endpoint + 'memories/seen'),
     body: json.encode(id.toJson()),
     headers: {
       'Content-Type': 'application/json',

@@ -31,4 +31,7 @@ class Location {
         'latitude': latitude,
         'longitude': longitude,
       };
+
+  @override
+  String toString() => '$runtimeType($latitude, $longitude)';
 }
