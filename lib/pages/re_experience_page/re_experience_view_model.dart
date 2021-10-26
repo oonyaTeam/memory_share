@@ -92,8 +92,8 @@ class ReExperienceViewModel with ChangeNotifier {
       LatLng(currentPosition.latitude, currentPosition.longitude),
     );
 
-    if (_distance / 100 >= 10) {
-      _sigma = 10;
+    if (_distance / 100 >= 5) {
+      _sigma = 5;
     } else {
       _sigma = _distance / 100;
     }
