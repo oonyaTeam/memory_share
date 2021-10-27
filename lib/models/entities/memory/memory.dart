@@ -29,16 +29,19 @@ class Episode {
 }
 
 /// 投稿全体の型です。メインのエピソードやサブエピソードなどを持ちます。
+///
+/// addressはアプリ内で、データ取得後に再代入するので、finalを外しています。
 class Memory {
-  int id;
-  String memory;
-  Location location;
-  List<Episode> episodes;
-  String image;
-  int authorId;
-  num angle;
-  bool isSeen;
+  final int id;
+  final String memory;
+  final Location location;
+  final List<Episode> episodes;
+  final String image;
+  final int authorId;
+  final num angle;
+  final bool isSeen;
   String? address;
+  final DateTime createdAt;
 
   Memory({
     required this.id,
@@ -49,6 +52,8 @@ class Memory {
     required this.authorId,
     required this.angle,
     required this.isSeen,
+    this.address,
+    required this.createdAt,
   });
 
   factory Memory.fromJson(Map<String, dynamic> json) {
@@ -62,6 +67,7 @@ class Memory {
       authorId: json['author_id'],
       angle: json['angle'],
       isSeen: json['seen'],
+      createdAt: DateTime.parse(json['created_at']),
     );
   }
 
@@ -76,6 +82,7 @@ class Memory {
       'author_id': authorId,
       'angle': angle,
       'seen': isSeen,
+      'created_at': createdAt,
     };
   }
 }
