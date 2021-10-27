@@ -7,12 +7,16 @@ import 'package:provider/provider.dart';
 class CustomSliverAppBar extends StatelessWidget {
   const CustomSliverAppBar({
     required this.controller,
-    required this.title,
+    this.title,
+    this.titleWidget,
     this.actions,
     Key? key,
-  }) : super(key: key);
+  })  : assert(title != null || titleWidget != null),
+        assert(!(title != null && titleWidget != null)),
+        super(key: key);
 
-  final String title;
+  final String? title;
+  final Widget? titleWidget;
   final ScrollController controller;
 
   /// AppBar の右側に表示する action(ボタン等)
@@ -40,14 +44,16 @@ class CustomSliverAppBar extends StatelessWidget {
                 start: model.titleStartPadding,
                 bottom: 12,
               ),
-              title: Text(
-                title,
-                style: const TextStyle(
-                  color: CustomColors.primary,
-                  fontSize: 24.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              title: title == null
+                  ? titleWidget
+                  : Text(
+                      title!,
+                      style: const TextStyle(
+                        color: CustomColors.primary,
+                        fontSize: 24.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
             ),
           ),
           actions: actions,
