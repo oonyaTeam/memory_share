@@ -9,6 +9,7 @@ class CustomSliverAppBar extends StatelessWidget {
     required this.controller,
     this.title,
     this.titleWidget,
+    this.flexible = true,
     this.actions,
     Key? key,
   })  : assert(title != null || titleWidget != null),
@@ -17,6 +18,12 @@ class CustomSliverAppBar extends StatelessWidget {
 
   final String? title;
   final Widget? titleWidget;
+
+  /// flexible: titleのサイズを固定にするかどうか
+  ///
+  /// true -> 固定する
+  /// false -> 固定しない（サイズは動的に変更される。
+  final bool flexible;
   final ScrollController controller;
 
   /// AppBar の右側に表示する action(ボタン等)
@@ -37,25 +44,42 @@ class CustomSliverAppBar extends StatelessWidget {
           snap: false,
           // 途中で上にスクロールしたときに、AppBarを出現させるかどうか
           floating: false,
-          flexibleSpace: FlexibleSpaceBar.createSettings(
-            currentExtent: 0,
-            child: FlexibleSpaceBar(
-              titlePadding: EdgeInsetsDirectional.only(
-                start: model.titleStartPadding,
-                bottom: 12,
-              ),
-              title: title == null
-                  ? titleWidget
-                  : Text(
-                      title!,
-                      style: const TextStyle(
-                        color: CustomColors.primary,
-                        fontSize: 24.0,
-                        fontWeight: FontWeight.bold,
-                      ),
+          flexibleSpace: flexible
+              ? FlexibleSpaceBar.createSettings(
+                  currentExtent: controller.offset,
+                  child: FlexibleSpaceBar(
+                    titlePadding: EdgeInsetsDirectional.only(
+                      start: model.titleStartPadding,
+                      bottom: 12,
                     ),
-            ),
-          ),
+                    title: title == null
+                        ? titleWidget
+                        : Text(
+                            title!,
+                            style: const TextStyle(
+                              color: CustomColors.primary,
+                              fontSize: 24.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                  ),
+                )
+              : FlexibleSpaceBar(
+                  titlePadding: EdgeInsetsDirectional.only(
+                    start: model.titleStartPadding,
+                    bottom: 12,
+                  ),
+                  title: title == null
+                      ? titleWidget
+                      : Text(
+                          title!,
+                          style: const TextStyle(
+                            color: CustomColors.primary,
+                            fontSize: 24.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                ),
           actions: actions,
         );
       }),

@@ -29,6 +29,7 @@ class PostDetailPage extends StatelessWidget {
               slivers: [
                 CustomSliverAppBar(
                   controller: model.controller,
+                  flexible: false,
                   titleWidget: RichText(
                     text: TextSpan(
                       children: [
@@ -36,15 +37,16 @@ class PostDetailPage extends StatelessWidget {
                           text: formatDateWithSlashes(memory.createdAt) + '\n',
                           style: const TextStyle(
                             color: CustomColors.primary,
-                            fontSize: 24,
+                            fontSize: 16,
                             fontWeight: FontWeight.bold,
+                            height: 0,
                           ),
                         ),
                         TextSpan(
                           text: memory.address ?? "",
                           style: const TextStyle(
                             color: CustomColors.primary,
-                            fontSize: 18,
+                            fontSize: 12,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -115,9 +117,6 @@ class PostDetailPage extends StatelessWidget {
                               style: const TextStyle(fontSize: 18.0),
                             ),
                           ),
-                          SizedBox(
-                            height: 1000,
-                          )
                         ],
                       ),
                     ),
