@@ -1,14 +1,13 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:memory_share/models/models.dart';
 
 /// 投稿関連をまとめたViewModelです。
 class PostViewModel with ChangeNotifier {
   /// 投稿に関するAPI処理などは[PostRepository]や[PostService]にあります。
   final PostRepository _postRepository = PostRepository();
+  final LocationRepository _locationRepository = LocationRepository();
 
   /// 撮影した写真
   File? _photo;
@@ -47,9 +46,9 @@ class PostViewModel with ChangeNotifier {
 
   /// サブエピソードを追加する
   void addSubEpisode(String subEpisode) async {
-    final position = await Geolocator.getCurrentPosition();
+    final location = await _locationRepository.getCurrentLocation();
     _subEpisodeList.add(SubEpisode(
-      latLng: LatLng(position.latitude, position.longitude),
+      location: location,
       episode: subEpisode,
     ));
     notifyListeners();

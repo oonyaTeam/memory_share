@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
       create: (_) => HomeViewModel(),
       child: Consumer<HomeViewModel>(
         builder: (context, homeViewModel, _) => Scaffold(
-          body: homeViewModel.currentPosition == null
+          body: homeViewModel.currentLocation == null
               ? const Center(
                   child: CircularProgressIndicator(),
                 )
@@ -25,10 +25,7 @@ class HomePage extends StatelessWidget {
                     GoogleMap(
                       mapType: MapType.normal,
                       initialCameraPosition: CameraPosition(
-                        target: LatLng(
-                          homeViewModel.currentPosition!.latitude,
-                          homeViewModel.currentPosition!.longitude,
-                        ),
+                        target: homeViewModel.currentLocation!.toLatLng(),
                         zoom: 15.0,
                       ),
                       // マップが作成された時に、ControllerをVIewModelで保持、マップのスタイルを変更
@@ -40,12 +37,12 @@ class HomePage extends StatelessWidget {
                       markers: homeViewModel.memories
                           .map(
                             (memory) => Marker(
-                              markerId: MarkerId(memory.latLng.toString()),
+                              markerId: MarkerId(memory.location.toString()),
                               icon: memory.isSeen
                                   ? homeViewModel.memoryViewedMarker!
                                   : homeViewModel.memoryMarker!,
                               anchor: const Offset(0.18, 0.72),
-                              position: memory.latLng,
+                              position: memory.location.toLatLng(),
                               onTap: () {
                                 homeViewModel.currentMemory = memory;
                                 homeViewModel.setDistance();

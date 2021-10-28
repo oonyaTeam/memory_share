@@ -1,5 +1,4 @@
-import 'package:memory_share/models/services/core_service.dart';
-import 'package:memory_share/models/services/services.dart';
+import 'package:memory_share/models/models.dart';
 
 /// Userに関する処理をまとめたRepository
 class UserRepository {

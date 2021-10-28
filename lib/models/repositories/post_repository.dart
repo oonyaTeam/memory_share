@@ -1,10 +1,6 @@
 import 'dart:io';
 
 import 'package:memory_share/models/models.dart';
-import 'package:memory_share/models/services/core_service.dart';
-import 'package:memory_share/models/services/post_service.dart';
-import 'package:memory_share/models/services/seen_memory_service.dart';
-import 'package:memory_share/models/services/storage_service.dart';
 
 class PostRepository {
   final PostService _postService = PostService();
@@ -27,7 +23,7 @@ class PostRepository {
           subEpisodeList.asMap().entries.map((entry) => Episode(
                 id: entry.key,
                 episode: entry.value.episode,
-                latLng: entry.value.latLng,
+                location: entry.value.location,
               )),
         ),
         imageUrl: imageUrl,

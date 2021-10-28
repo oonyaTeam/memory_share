@@ -122,7 +122,7 @@ class ReExperiencePage extends StatelessWidget {
                       },
                     ),
                   ),
-                  if (model.currentPosition == null)
+                  if (model.currentLocation == null)
                     const Center(
                       child: CircularProgressIndicator(),
                     )
@@ -144,9 +144,9 @@ class ReExperiencePage extends StatelessWidget {
                         markers: {
                           // メインエピソードのマーカー
                           Marker(
-                            markerId:
-                                MarkerId(model.currentMemory.latLng.toString()),
-                            position: model.currentMemory.latLng,
+                            markerId: MarkerId(
+                                model.currentMemory.location.toString()),
+                            position: model.currentMemory.location.toLatLng(),
                             icon: model.currentMemory.isSeen
                                 ? model.mainEpisodeViewedMarker!
                                 : model.mainEpisodeMarker!,
@@ -163,7 +163,7 @@ class ReExperiencePage extends StatelessWidget {
                           ...model.subEpisodeList
                               .map((episode) => Marker(
                                     markerId: MarkerId(episode.id.toString()),
-                                    position: episode.latLng,
+                                    position: episode.location.toLatLng(),
                                     onTap: () {},
                                     icon: (episode.isViewed
                                             ? episode.iconImage

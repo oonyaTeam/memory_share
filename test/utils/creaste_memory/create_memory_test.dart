@@ -1,8 +1,6 @@
 import 'package:flutter_config/flutter_config.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
-import 'package:memory_share/models/models.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
@@ -10,19 +8,25 @@ import 'create_memory_test.mocks.dart';
 
 @GenerateMocks([http.Client])
 void main() {
-  final NewMemory sampleMemory = NewMemory(
-    memory: "this is sample main episode",
-    latLng: const LatLng(34.8532, 136.5822),
-    episodes: [
-      Episode(
-        id: 0,
-        episode: "This is sample sub episode",
-        latLng: const LatLng(34.8528, 136.5817),
-      ),
-    ],
-    image: "https://pbs.twimg.com/media/E6CYtu1VcAIjMvY?format=jpg&name=large",
-    angle: 30,
-  );
+  // final NewMemory sampleMemory = NewMemory(
+  //   memory: "this is sample main episode",
+  //   location: const Location(
+  //     latitude: 34.8532,
+  //     longitude: 136.5822,
+  //   ),
+  //   episodes: [
+  //     Episode(
+  //       id: 0,
+  //       episode: "This is sample sub episode",
+  //       location: const Location(
+  //         latitude: 34.8528,
+  //         longitude: 136.5817,
+  //       ),
+  //     ),
+  //   ],
+  //   image: "https://pbs.twimg.com/media/E6CYtu1VcAIjMvY?format=jpg&name=large",
+  //   angle: 30,
+  // );
 
   const apiEndpoint = 'http://example.com/'; // サンプルエンドポイント
   FlutterConfig.loadValueForTesting({'API_ENDPOINT': apiEndpoint});

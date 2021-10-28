@@ -15,10 +15,8 @@ class MemoryService {
     List<Future<void>> futures = [];
 
     Future<void> _getAddress(int index) async {
-      memories[index].address = await getAddressFromLatLng(
-        latitude: memories[index].latLng.latitude,
-        longitude: memories[index].latLng.longitude,
-      );
+      memories[index].address =
+          await getAddressFromLocation(memories[index].location);
     }
 
     for (int i = 0; i < memories.length; i++) {
