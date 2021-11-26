@@ -6,11 +6,12 @@ import 'package:memory_share/utils/utils.dart';
 class PostService {
   final LocationService _locationService = LocationService();
 
-  Future<void> postMemory(
-      {required String mainEpisode,
-      required List<Episode> subEpisodes,
-      required String imageUrl,
-      required double angle}) async {
+  Future<void> postMemory({
+    required String mainEpisode,
+    required List<Episode> subEpisodes,
+    required String imageUrl,
+    required double angle,
+  }) async {
     final currentLocation = await _locationService.getCurrentLocation();
 
     final NewMemory newMemory = NewMemory(

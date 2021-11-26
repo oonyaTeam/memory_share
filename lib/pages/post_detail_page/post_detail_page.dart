@@ -1,9 +1,11 @@
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:memory_share/models/entities/entities.dart';
 import 'package:memory_share/theme.dart';
+import 'package:memory_share/utils/utils.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -27,7 +29,30 @@ class PostDetailPage extends StatelessWidget {
               slivers: [
                 CustomSliverAppBar(
                   controller: model.controller,
-                  title: memory.address ?? "",
+                  flexible: false,
+                  titleWidget: RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: formatDateWithSlashes(memory.createdAt) + '\n',
+                          style: const TextStyle(
+                            color: CustomColors.primary,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            height: 0,
+                          ),
+                        ),
+                        TextSpan(
+                          text: memory.address ?? "",
+                          style: const TextStyle(
+                            color: CustomColors.primary,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
                 SliverPadding(
                   padding: const EdgeInsets.fromLTRB(24.0, 16.0, 24.0, 0),

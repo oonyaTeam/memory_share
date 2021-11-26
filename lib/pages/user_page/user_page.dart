@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:memory_share/pages/pages.dart';
 import 'package:memory_share/theme.dart';
+import 'package:memory_share/utils/utils.dart';
 import 'package:memory_share/view_models/view_models.dart';
 import 'package:memory_share/widgets/widgets.dart';
 import 'package:provider/provider.dart';
@@ -58,9 +59,9 @@ class UserPage extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                const Text(
-                                  "2021/08/16",
-                                  style: TextStyle(
+                                Text(
+                                  formatDateWithSlashes(item.createdAt),
+                                  style: const TextStyle(
                                     fontSize: 16.0,
                                     color: CustomColors.middle,
                                   ),
