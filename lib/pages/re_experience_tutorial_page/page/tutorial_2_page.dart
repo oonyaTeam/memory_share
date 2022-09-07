@@ -21,6 +21,7 @@ class Tutorial2Page extends StatelessWidget {
       child: TutorialTemplate(
         content: SvgPicture.asset(
           'assets/tutorial/tutorial_reexperience_2.svg',
+          package: 'memory_share',
           width: 329.0,
           height: 231.0,
         ),

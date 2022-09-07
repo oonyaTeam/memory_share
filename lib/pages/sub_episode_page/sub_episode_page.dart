@@ -49,8 +49,7 @@ class SubEpisodePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final postViewModel = context.watch<PostViewModel>();
-    WidgetsBinding.instance!
-        .addPostFrameCallback((_) => _showTutorial(context));
+    WidgetsBinding.instance.addPostFrameCallback((_) => _showTutorial(context));
 
     return WillPopScope(
       onWillPop: () async {

@@ -75,7 +75,7 @@ class ReExperiencePage extends StatelessWidget {
       create: (_) => ReExperienceViewModel(currentMemory, context),
       child: Consumer<ReExperienceViewModel>(
         builder: (context, model, _) {
-          WidgetsBinding.instance!.addPostFrameCallback((_) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
             model.getMarkerBitmaps();
           });
           return WillPopScope(

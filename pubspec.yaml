@@ -23,7 +23,7 @@ dependencies:
   google_maps_flutter: ^2.0.6
   flutter_compass: ^0.7.0
 
-  camera: ^0.8.1+4
+  camera: ^0.10.0+1
   image_picker: ^0.8.4
 
   firebase_core: ^1.7.0
